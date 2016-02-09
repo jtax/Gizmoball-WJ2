@@ -44,14 +44,10 @@ abstract public class Gizmo {
         this.color = color;
     }
 
-    abstract void rotate();
+    public abstract void rotate();
 
     public int getReflectionCoefficient(){
         return reflection;
     }
-
-
-
-
 
 }
