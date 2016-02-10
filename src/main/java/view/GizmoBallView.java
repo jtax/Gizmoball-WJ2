@@ -7,11 +7,13 @@ import view.ButtonGroups.RunGUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by baird on 06/02/2016.
  */
-public class GizmoBallView {
+public class GizmoBallView implements Observer {
 
     private boolean runMode;
     private JFrame frame;
@@ -23,12 +25,13 @@ public class GizmoBallView {
     private JPanel runBoard;
 
 
-    public GizmoBallView() {
+    public GizmoBallView(    ) {
         runMode = true;
         frame = new JFrame("Gizmo Baw");
         contentPane = frame.getContentPane();
         frame.setDefaultCloseOperation(3);
         runBoard = new RunBoard();
+        runBoard.setSize(500,500);
         makeFrame();
     }
 
@@ -44,7 +47,7 @@ public class GizmoBallView {
         contentPane.add(boardPanel, BorderLayout.CENTER);
         contentPane.add(bottomButtons, BorderLayout.SOUTH);
         frame.setJMenuBar(menu);
-        frame.setSize(500,800);
+        frame.setSize(475,550);
         frame.setLocation(550, 300);
         frame.setVisible(true);
     }
@@ -63,4 +66,8 @@ public class GizmoBallView {
     }
 
 
+    @Override
+    public void update(Observable o, Object arg) {
+        //repaint();
+    }
 }
