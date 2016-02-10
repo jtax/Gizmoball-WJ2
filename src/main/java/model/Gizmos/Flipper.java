@@ -14,11 +14,13 @@ import java.util.List;
 public class Flipper extends Gizmo {
 
 	public Flipper(Coordinate origin, String name) {
+
 		super(origin,name);
+		calculateComponents();
 	}
 
 	@Override
-	protected List<Component> calculateComponents() {
+	protected void calculateComponents() {
 		Coordinate origin = super.getOriginCoordinate();
 		double x = origin.getX();
 		double y = origin.getY();
@@ -26,7 +28,7 @@ public class Flipper extends Gizmo {
 		Component right = new Line(x+1,y, x+1,y-2);
 		Component bottom = new Line(x,y-2, x+1,y-2);
 		Component left = new Line(x,y, x,y-2);
-		return Arrays.asList(top,right,bottom,left);
+		super.setComponents( Arrays.asList(top,right,bottom,left));
 	}
 
 

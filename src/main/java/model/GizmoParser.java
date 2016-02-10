@@ -175,9 +175,7 @@ public class GizmoParser
         yAbsorberBotRight = Integer.valueOf(st.nextToken());
         System.out.println(gizmoType + gizmoName + xAbsorberTopLeft + yAbsorberTopLeft + xAbsorberBotRight + yAbsorberBotRight);
         origin = new Coordinate(xAbsorberTopLeft,yAbsorberTopLeft);
-        System.out.println(xAbsorberBotRight+ yAbsorberBotRight);
         Coordinate bound = new Coordinate(xAbsorberBotRight, yAbsorberBotRight);
-        System.out.println(bound.getX()+ bound.getY());
         Absorber a = new Absorber( origin ,bound, gizmoName);
 
     }

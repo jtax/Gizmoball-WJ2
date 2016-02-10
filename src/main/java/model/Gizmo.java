@@ -20,12 +20,10 @@ abstract public class Gizmo {
         this.origin = origin;
         colors = new Color[]{Color.red, Color.green, Color.blue};
         rotation = 0;
-        bound = calculateBound();
-        components = calculateComponents();
         this.name = name;
     }
 
-    protected abstract List<Component> calculateComponents();
+    protected abstract void calculateComponents();
 
     public Coordinate getOriginCoordinate(){
         return origin;

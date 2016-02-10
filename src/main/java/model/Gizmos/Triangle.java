@@ -13,17 +13,18 @@ public class Triangle extends Gizmo {
 
 	public Triangle(Coordinate origin, String name) {
 		super(origin, name);
+		calculateComponents();
 	}
 
 	@Override
-	protected List<Component> calculateComponents() {
+	protected void calculateComponents() {
 		Coordinate origin = super.getOriginCoordinate();
 		double x = origin.getX();
 		double y = origin.getY();
 		Component sideA = new Line(x,y, x,y-1);
 		Component sideB = new Line(x,y-1, x+1,y-1);
 		Component hypotenuse = new Line(x,y, x+1,y-1);
-		return Arrays.asList(sideA,sideB,hypotenuse);
+		super.setComponents(Arrays.asList(sideA,sideB,hypotenuse));
 
 
 	}
