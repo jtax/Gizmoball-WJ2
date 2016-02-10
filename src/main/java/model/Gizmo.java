@@ -14,16 +14,16 @@ abstract public class Gizmo {
     protected Color[] colors;
     protected List<Component> components;
     protected  int rotation, reflection;
+    protected String name;
 
-    public Gizmo(Coordinate origin){
+    public Gizmo(Coordinate origin, String name){
         this.origin = origin;
         colors = new Color[]{Color.red, Color.green, Color.blue};
         rotation = 0;
-        bound = calculateBound();
-        components = calculateComponents();
+        this.name = name;
     }
 
-    protected abstract List<Component> calculateComponents();
+    protected abstract void calculateComponents();
 
     public Coordinate getOriginCoordinate(){
         return origin;

@@ -13,17 +13,18 @@ import java.util.List;
  */
 public class Circle extends Gizmo {
 
-	public Circle(Coordinate origin) {
-		super(origin);
+	public Circle(Coordinate origin, String name) {
+		super(origin, name);
+		calculateComponents();
 	}
 
 	@Override
-	protected List<Component> calculateComponents() {
+	protected void calculateComponents() {
 		Coordinate origin = super.getOriginCoordinate();
 		double x = origin.getX()+0.5;
 		double y = origin.getY()-0.5;
 		Component component = new Point(x,y,1);
-		return Arrays.asList(component);
+		super.setComponents(Arrays.asList(component));
 	}
 
 	@Override
@@ -40,11 +41,4 @@ public class Circle extends Gizmo {
 		return new Coordinate(x,y);
 	}
 
-	@Override
-	public Coordinate calculateBound() {
-		Coordinate origin = super.getOriginCoordinate();
-		double x = origin.getX()+1;
-		double y = origin.getY()-1;
-		return new Coordinate(x,y);
-	}
 }

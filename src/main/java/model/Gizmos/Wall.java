@@ -11,13 +11,14 @@ import java.util.List;
  */
 public class Wall extends Gizmo {
 
-	public Wall(Coordinate origin) {
-		super(origin);
-	}
+	public Wall(Coordinate origin, String name) {
+		super(origin, name);
+		calculateComponents();
+		}
 
 	@Override
-	protected List<Component> calculateComponents() {
-		return null;
+	protected void calculateComponents() {
+
 	}
 
 	@Override
@@ -31,8 +32,4 @@ public class Wall extends Gizmo {
 		return null;
 	}
 
-	@Override
-	public Coordinate calculateBound() {
-		return null;
-	}
 }

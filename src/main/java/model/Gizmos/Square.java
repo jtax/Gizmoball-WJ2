@@ -15,12 +15,13 @@ public class Square extends Gizmo {
 
     private int reflectionCoefficient = 1;
 
-    public Square(Coordinate origin) {
-        super(origin);
+    public Square(Coordinate origin, String name) {
+        super(origin, name);
+        calculateComponents();
     }
 
     @Override
-    protected List<Component> calculateComponents() {
+    protected void calculateComponents() {
         Coordinate origin = super.getOriginCoordinate();
         double x = origin.getX();
         double y = origin.getY();
@@ -28,7 +29,7 @@ public class Square extends Gizmo {
         Component right = new Line(x+1,y, x+1,y-1);
         Component bottom = new Line(x,y-1, x+1,y-1);
         Component left = new Line(x,y, x,y-1);
-        return Arrays.asList(top,right,bottom,left);
+        super.setComponents(Arrays.asList(top,right,bottom,left));
     }
 
     public void rotate(){
