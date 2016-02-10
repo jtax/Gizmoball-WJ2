@@ -1,9 +1,11 @@
 package model.Gizmos;
 
 import model.Component;
+import model.Components.Line;
 import model.Coordinate;
 import model.Gizmo;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -11,13 +13,25 @@ import java.util.List;
  */
 public class Absorber  extends Gizmo {
 
-	public Absorber(Coordinate origin) {
-		super(origin);
+	private Coordinate bound;
+
+	public Absorber(Coordinate origin, Coordinate bound, String name) {
+		super(origin,name);
+		this.bound = bound;
 	}
 
 	@Override
 	protected List<Component> calculateComponents() {
-		return null;
+		Coordinate origin = super.getOriginCoordinate();
+		double originx = origin.getX();
+		double originy = origin.getY();
+		double boundx = bound.getX();
+		double boundy = bound.getY();
+		Component top = new Line(originx,originy, boundx,originy);
+		Component right = new Line(boundx,originy, boundx,boundy);
+		Component bottom = new Line(originx,boundy, boundx,boundy);
+		Component left = new Line(originx,originy, originx,boundy);
+		return Arrays.asList(top,right,bottom,left);
 	}
 
 	@Override
@@ -28,11 +42,6 @@ public class Absorber  extends Gizmo {
 
 	@Override
 	public Coordinate calculateBound() {
-		return null;
-	}
-
-	@Override
-	public Coordinate calculateBound() {
-		return null;
+		return bound;
 	}
 }
