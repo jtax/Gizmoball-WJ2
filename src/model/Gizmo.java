@@ -14,10 +14,15 @@ abstract public class Gizmo {
     protected List<Component> components;
     protected  int rotation, reflection;
 
-    public Gizmo(){
+    public Gizmo(Coordinate origin){
+        this.origin = origin;
         colors = new Color[]{Color.red, Color.green, Color.blue};
         rotation = 0;
+        bound = calculateBound();
+        components = calculateComponents();
     }
+
+    protected abstract List<Component> calculateComponents();
 
     public Coordinate getOriginCoordinate(){
         return origin;
@@ -48,5 +53,19 @@ abstract public class Gizmo {
     public int getReflectionCoefficient(){
         return reflection;
     }
+
+    public abstract Coordinate calculateBound();
+
+    public List<Component> getComponents(){
+        return components;
+    }
+
+    public void setComponents(List<Component> components){
+        this.components = components;
+    }
+
+
+
+
 
 }
