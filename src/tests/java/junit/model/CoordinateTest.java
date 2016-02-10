@@ -1,19 +1,16 @@
 package junit.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import model.Coordinate;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.Coordinate;
+import static org.junit.Assert.*;
 
+@SuppressWarnings("deprecation")
 public class CoordinateTest {
 
 	private Coordinate c;
-	private int expectedX = 1, expectedY = 1;
+	private double expectedX = 1, expectedY = 1;
 
 	@Before
 	public void setUp() throws Exception {
@@ -27,34 +24,34 @@ public class CoordinateTest {
 
 	@Test
 	public void testGetX() {
-		int expected = expectedX, actual = c.getX();
+		double expected = expectedX, actual = c.getX();
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testGetY() {
-		int expected = expectedY, actual = c.getY();
+		double expected = expectedY, actual = c.getY();
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testSetX() {
-		int expected = 5;
+		double expected = 5;
 		c.setX(expected);
 
-		int actual = c.getX();
+		double actual = c.getX();
 		
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testSetY() {
-		int expected = 5;
+		double expected = 5;
 		c.setY(expected);
 
-		int actual = c.getY();
+		double actual = c.getY();
 		
 		assertEquals(expected, actual);
 	}
@@ -69,6 +66,17 @@ public class CoordinateTest {
 		figure.setX(1);
 		
 		assertFalse(figure.equals(ground));
+	}
+
+
+	@Test
+	public void testRotateCoordinate() {
+		Coordinate original = new Coordinate(2,3);
+
+
+		//	original.rotate(90);
+		// TODO
+
 	}
 
 }
