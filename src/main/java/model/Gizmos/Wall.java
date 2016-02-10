@@ -13,7 +13,8 @@ public class Wall extends Gizmo {
 
 	public Wall(Coordinate origin, String name) {
 		super(origin, name);
-	}
+		calculateComponents();
+		}
 
 	@Override
 	protected List<Component> calculateComponents() {
