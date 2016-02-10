@@ -17,7 +17,7 @@ public class GizmoBallView {
     Container contentPane;
     private RunGUI runGUI;
     private BuildGUI buildGUI;
-    private JPanel bottomButtons, topButtons;
+    private JPanel bottomButtons, topButtons, boardPanel;
     private JMenuBar menu;
 
 
@@ -35,8 +35,9 @@ public class GizmoBallView {
         }
         else{
             makeBuildGUI();
+            contentPane.add(topButtons, BorderLayout.NORTH);
         }
-
+        contentPane.add(boardPanel, BorderLayout.CENTER);
         contentPane.add(bottomButtons, BorderLayout.SOUTH);
         frame.setJMenuBar(menu);
         frame.setSize(500,800);
@@ -52,7 +53,8 @@ public class GizmoBallView {
 
     private void makeBuildGUI(){
         buildGUI = new BuildGUI();
-        bottomButtons = buildGUI.createButton();
+        bottomButtons = buildGUI.createBottomButton();
+        topButtons = buildGUI.createTopButton();
         menu = buildGUI.createMenu();
     }
 

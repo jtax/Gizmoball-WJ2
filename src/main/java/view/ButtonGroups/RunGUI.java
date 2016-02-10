@@ -6,26 +6,18 @@ import java.awt.*;
 /**
  * Created by baird on 06/02/2016.
  */
-public class RunGUI implements ButtonGroup {
-    private JFrame frame;
-    Container contentPane;
+public class RunGUI {
+
 
     public RunGUI(){
-        frame = new JFrame("Run Mode");
-        contentPane = frame.getContentPane();
-        frame.setDefaultCloseOperation(3);
         makeFrame();
     }
 
     private void makeFrame() {
         createButton();
         createMenu();
-        frame.setSize(500,600);
-        frame.setLocation(550, 300);
-        frame.setVisible(true);
     }
 
-    @Override
     public JPanel createButton() {
         JButton start = new JButton("Start");
         JButton stop = new JButton("Stop");
@@ -37,10 +29,8 @@ public class RunGUI implements ButtonGroup {
         bottomButtons.add(stop);
         bottomButtons.add(build);
         return bottomButtons;
-        //contentPane.add(bottomButtons, BorderLayout.SOUTH);
     }
 
-    @Override
     public JMenuBar createMenu() {
         JMenuBar menus = new JMenuBar();
 
@@ -54,7 +44,6 @@ public class RunGUI implements ButtonGroup {
 
         menus.add(file);
 
-        frame.setJMenuBar(menus);
         return menus;
     }
 }

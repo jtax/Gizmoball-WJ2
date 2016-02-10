@@ -7,18 +7,13 @@ import java.awt.*;
  * Created by baird on 06/02/2016.
  */
 public class BuildGUI {
-    private JFrame frame;
     private JButton add, select, remove, switchToRun;
     private JComboBox<String> shape;
     private JButton absorber;
     private JButton ball;
     private JButton flipper;
-    private Container contentPane;
 
     public BuildGUI(){
-        frame = new JFrame("Build Mode");
-        contentPane = frame.getContentPane();
-        frame.setDefaultCloseOperation(3);
         makeFrame();
     }
 
@@ -26,12 +21,10 @@ public class BuildGUI {
         createTopButton();
         createBottomButton();
         createMenu();
-        frame.setSize(500,800);
-        frame.setLocation(550, 300);
-        frame.setVisible(true);
+
     }
 
-    private JPanel createBottomButton() {
+    public JPanel createBottomButton() {
         switchToRun = new JButton("Run Mode");
         shape = new JComboBox<String>();
         shape.addItem("Pick a gizmo");
