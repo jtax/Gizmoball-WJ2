@@ -1,7 +1,5 @@
 package view.ButtonGroups;
 
-import view.ButtonGroup;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -28,7 +26,7 @@ public class RunGUI implements ButtonGroup {
     }
 
     @Override
-    public void createButton() {
+    public JPanel createButton() {
         JButton start = new JButton("Start");
         JButton stop = new JButton("Stop");
         JButton build = new JButton("Build Mode");
@@ -38,11 +36,12 @@ public class RunGUI implements ButtonGroup {
         bottomButtons.add(start);
         bottomButtons.add(stop);
         bottomButtons.add(build);
-        contentPane.add(bottomButtons, BorderLayout.SOUTH);
+        return bottomButtons;
+        //contentPane.add(bottomButtons, BorderLayout.SOUTH);
     }
 
     @Override
-    public void createMenu() {
+    public JMenuBar createMenu() {
         JMenuBar menus = new JMenuBar();
 
         JMenu file = new JMenu("File");
@@ -56,5 +55,6 @@ public class RunGUI implements ButtonGroup {
         menus.add(file);
 
         frame.setJMenuBar(menus);
+        return menus;
     }
 }
