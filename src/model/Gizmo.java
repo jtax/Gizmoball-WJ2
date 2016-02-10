@@ -7,6 +7,7 @@ import java.util.List;
  * Created by baird on 06/02/2016.
  */
 abstract public class Gizmo {
+
     protected Coordinate origin, bound;
     protected Gizmo trigger;
     protected Color color;

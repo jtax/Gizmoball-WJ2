@@ -39,4 +39,12 @@ public class Circle extends Gizmo {
 		double y = origin.getY()-1;
 		return new Coordinate(x,y);
 	}
+
+	@Override
+	public Coordinate calculateBound() {
+		Coordinate origin = super.getOriginCoordinate();
+		double x = origin.getX()+1;
+		double y = origin.getY()-1;
+		return new Coordinate(x,y);
+	}
 }

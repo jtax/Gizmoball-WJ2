@@ -30,4 +30,9 @@ public class Wall extends Gizmo {
 	public Coordinate calculateBound() {
 		return null;
 	}
+
+	@Override
+	public Coordinate calculateBound() {
+		return null;
+	}
 }
