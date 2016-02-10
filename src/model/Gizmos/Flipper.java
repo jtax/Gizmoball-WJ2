@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Flipper extends Gizmo {
 	public Flipper() {
-		super();
+		super(null);
 
 		rotation = 90;
 	}

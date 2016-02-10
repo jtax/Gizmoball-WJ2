@@ -29,7 +29,7 @@ public class Circle extends Gizmo {
 	@Override
 	public void rotate() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
