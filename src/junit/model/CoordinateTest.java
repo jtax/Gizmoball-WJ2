@@ -1,14 +1,10 @@
 package junit.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import model.Coordinate;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.Coordinate;
+import static org.junit.Assert.*;
 
 public class CoordinateTest {
 
@@ -69,6 +65,17 @@ public class CoordinateTest {
 		figure.setX(1);
 		
 		assertFalse(figure.equals(ground));
+	}
+
+
+	@Test
+	public void testRotateCoordinate() {
+		Coordinate original = new Coordinate(2,3);
+
+
+		//	original.rotate(90);
+		// TODO
+
 	}
 
 }
