@@ -6,11 +6,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-@SuppressWarnings("deprecation")
 public class CoordinateTest {
 
 	private Coordinate c;
 	private double expectedX = 1, expectedY = 1;
+	private final double delta = 0;
 
 	@Before
 	public void setUp() throws Exception {
@@ -26,14 +26,14 @@ public class CoordinateTest {
 	public void testGetX() {
 		double expected = expectedX, actual = c.getX();
 
-		assertEquals(expected, actual);
+		assertEquals(expected, actual, delta);
 	}
 
 	@Test
 	public void testGetY() {
 		double expected = expectedY, actual = c.getY();
 
-		assertEquals(expected, actual);
+		assertEquals(expected, actual, delta);
 	}
 
 	@Test
@@ -43,7 +43,7 @@ public class CoordinateTest {
 
 		double actual = c.getX();
 		
-		assertEquals(expected, actual);
+		assertEquals(expected, actual, delta);
 	}
 
 	@Test
@@ -53,7 +53,7 @@ public class CoordinateTest {
 
 		double actual = c.getY();
 		
-		assertEquals(expected, actual);
+		assertEquals(expected, actual, delta);
 	}
 
 	@Test
