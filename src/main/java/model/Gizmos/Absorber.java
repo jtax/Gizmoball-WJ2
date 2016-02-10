@@ -1,9 +1,11 @@
 package model.Gizmos;
 
 import model.Component;
+import model.Components.Line;
 import model.Coordinate;
 import model.Gizmo;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
