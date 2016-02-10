@@ -3,6 +3,7 @@ package model.Gizmos;
 import model.Component;
 import model.Components.Line;
 import model.Coordinate;
+import model.Direction;
 import model.Gizmo;
 
 import java.util.Arrays;
@@ -13,8 +14,13 @@ import java.util.List;
  */
 public class Flipper extends Gizmo {
 
-	public Flipper(Coordinate origin, String name) {
+    private Direction direction;
+
+    public Flipper(Coordinate origin, String name) {
 		super(origin,name);
+
+		reflection = 0.95;
+        direction  = Direction.LEFT;
 	}
 
 	@Override
@@ -32,12 +38,15 @@ public class Flipper extends Gizmo {
 
 	@Override
 	public void rotate() {
-		//bound.rotate(rotation);
+        if (direction == Direction.LEFT) {
+            bound.rotate(this.calculateBound(), -rotation);
+
+        } else {
+            bound.rotate(this.calculateBound(), rotation);
+
+        }
 	}
 
-	public void rotateBack() {
-		//bound.rotate(rotation * -1);
-	}
 
 	@Override
 	public Coordinate calculateBound() {
@@ -45,5 +54,9 @@ public class Flipper extends Gizmo {
 		bound.setX(bound.getX()+2);
 		bound.setY(bound.getX()-2);
 		return bound;
+	}
+
+	public void setDirection(Direction dir) {
+		direction = dir;
 	}
 }

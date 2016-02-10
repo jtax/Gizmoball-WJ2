@@ -13,7 +13,8 @@ abstract public class Gizmo {
     protected Color color;
     protected Color[] colors;
     protected List<Component> components;
-    protected  int rotation, reflection;
+    protected  int rotation;
+    protected double reflection;
     protected String name;
 
     public Gizmo(Coordinate origin, String name){
@@ -53,7 +54,7 @@ abstract public class Gizmo {
 
     public abstract void rotate();
 
-    public int getReflectionCoefficient(){
+    public double getReflectionCoefficient(){
         return reflection;
     }
 
