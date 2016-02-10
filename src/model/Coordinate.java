@@ -4,26 +4,26 @@ package model;
  * Created by baird on 06/02/2016.
  */
 public class Coordinate {
-    int x, y;
+    double x, y;
 
-    public Coordinate(int x, int y){
+    public Coordinate(double x, double y){
         setX(x);
         setY(y);
     }
 
-    public int getX(){
+    public double getX(){
         return x;
     }
 
-    public int getY(){
+    public double getY(){
         return y;
     }
 
-    public void setX(int x){
+    public void setX(double x){
         this.x = x;
     }
 
-    public void setY(int y){
+    public void setY(double y){
         this.y = y;
     }
 

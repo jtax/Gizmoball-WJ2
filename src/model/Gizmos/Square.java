@@ -22,13 +22,13 @@ public class Square extends Gizmo {
     @Override
     protected List<Component> calculateComponents() {
         Coordinate origin = super.getOriginCoordinate();
-        int x = origin.getX();
-        int y = origin.getY();
+        double x = origin.getX();
+        double y = origin.getY();
         Component top = new Line(x,y, x+1,y);
         Component right = new Line(x+1,y, x+1,y-1);
         Component bottom = new Line(x,y-1, x+1,y-1);
         Component left = new Line(x,y, x,y-1);
-        return Arrays.asList(new Component[]{top,right,bottom,left});
+        return Arrays.asList(top,right,bottom,left);
     }
 
     public void rotate(){
