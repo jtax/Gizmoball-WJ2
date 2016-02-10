@@ -32,11 +32,11 @@ public class Flipper extends Gizmo {
 
 	@Override
 	public void rotate() {
-		bound.rotate(rotation);
+		//bound.rotate(rotation);
 	}
 
 	public void rotateBack() {
-		bound.rotate(rotation * -1);
+		//bound.rotate(rotation * -1);
 	}
 
 	@Override

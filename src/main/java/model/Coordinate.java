@@ -27,18 +27,19 @@ public class Coordinate {
         this.y = y;
     }
 
-    public void rotate(float angle) {
+    public void rotate(Coordinate centerCoord, float angle) {
 
         angle = (float) Math.toRadians((double) angle);
+
         double xPoint = x; //original point
         double yPoint = y; //original point
 
-        x = (int) (115 + Math.cos(angle) * (xPoint - 115) - Math.sin(angle) * (yPoint - 165));
-        y = (int) (165 + Math.sin(angle) * (xPoint - 115) + Math.cos(angle) * (yPoint - 165));
+        x = (int) (centerCoord.getX() + Math.cos(angle) * (xPoint - centerCoord.getX()) + Math.sin(angle) * (yPoint - centerCoord.getY()));
+        y = (int) (centerCoord.getX() + -Math.sin(angle) * (xPoint - centerCoord.getX()) + Math.cos(angle) * (yPoint - centerCoord.getY()));
 
     }
 
     public boolean equals(Coordinate coord){
-        return coord.getX() == this.getX() && coord.getY() == this.getY();
+        return Double.compare(coord.getX(), this.getX()) == 0 && Double.compare(coord.getY(), this.getY()) == 0;
     }
 }
