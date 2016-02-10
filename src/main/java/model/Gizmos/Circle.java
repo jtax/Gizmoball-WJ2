@@ -15,6 +15,7 @@ public class Circle extends Gizmo {
 
 	public Circle(Coordinate origin, String name) {
 		super(origin, name);
+		reflection = 1.0;
 	}
 
 	@Override
