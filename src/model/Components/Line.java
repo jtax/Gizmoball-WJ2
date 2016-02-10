@@ -13,4 +13,20 @@ public class Line implements Component {
         start = new Coordinate(startX, startY);
         end = new Coordinate(endX, endY);
     }
+
+    public Coordinate getStart() {
+        return start;
+    }
+
+    public void setStart(Coordinate start) {
+        this.start = start;
+    }
+
+    public Coordinate getEnd() {
+        return end;
+    }
+
+    public void setEnd(Coordinate end) {
+        this.end = end;
+    }
 }
