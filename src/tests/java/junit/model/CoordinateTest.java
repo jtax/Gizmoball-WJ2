@@ -61,11 +61,11 @@ public class CoordinateTest {
 		Coordinate figure = new Coordinate(2,3);
 		Coordinate ground = new Coordinate(2,3);
 
-		assertEquals(figure, ground);
+		assertTrue(figure.equals(ground));
 		
 		figure.setX(1);
 		
-		assertNotEquals(figure, ground);
+		assertFalse(figure.equals(ground));
 	}
 
 
