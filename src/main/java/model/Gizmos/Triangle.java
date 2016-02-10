@@ -40,8 +40,5 @@ public class Triangle extends Gizmo {
 		return null;
 	}
 
-	@Override
-	public Coordinate calculateBound() {
-		return null;
-	}
+
 }

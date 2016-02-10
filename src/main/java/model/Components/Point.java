@@ -10,7 +10,7 @@ public class Point  implements Component {
     Coordinate origin;
     int height,width;
 
-    public Point(double x, double y, int diameter){
+    public Point(double x, double y, double diameter){
         origin = new Coordinate(x,y);
         height = diameter;
         width = diameter;
