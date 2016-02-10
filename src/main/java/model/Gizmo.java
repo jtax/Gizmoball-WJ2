@@ -1,19 +1,19 @@
 package model;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
  */
 abstract public class Gizmo {
-    Coordinate origin, bound;
-    Gizmo trigger;
-    Color color;
-    Color[] colors;
-    List<Component> components;
-    int rotation, reflection;
+
+    protected Coordinate origin, bound;
+    protected Gizmo trigger;
+    protected Color color;
+    protected Color[] colors;
+    protected List<Component> components;
+    protected  int rotation, reflection;
 
     public Gizmo(Coordinate origin){
         this.origin = origin;

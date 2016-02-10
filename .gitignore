@@ -1,5 +1,11 @@
 bin/
+out/
+build/
 .classpath
 .idea
-.iml
+
+*.iml
 .project
+
+.DS_Store
+Thumbs.db

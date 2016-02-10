@@ -9,7 +9,7 @@ import model.Coordinate;
 public class Line implements Component {
     Coordinate start, end;
 
-    public Line(int startX, int startY, int endX, int endY){
+    public Line(double startX, double startY, double endX, double endY){
         start = new Coordinate(startX, startY);
         end = new Coordinate(endX, endY);
     }
