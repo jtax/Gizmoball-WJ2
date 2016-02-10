@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-@SuppressWarnings("deprecation")
 public class CoordinateTest {
 
 	private Coordinate c;
@@ -62,11 +61,11 @@ public class CoordinateTest {
 		Coordinate figure = new Coordinate(2,3);
 		Coordinate ground = new Coordinate(2,3);
 
-		assertTrue(figure.equals(ground));
+		assertEquals(figure, ground);
 		
 		figure.setX(1);
 		
-		assertFalse(figure.equals(ground));
+		assertNotEquals(figure, ground);
 	}
 
 
