@@ -1,6 +1,7 @@
 package view;
 
 
+import view.BoardViews.RunBoard;
 import view.ButtonGroups.BuildGUI;
 import view.ButtonGroups.RunGUI;
 
@@ -19,6 +20,7 @@ public class GizmoBallView {
     private BuildGUI buildGUI;
     private JPanel bottomButtons, topButtons, boardPanel;
     private JMenuBar menu;
+    private JPanel runBoard;
 
 
     public GizmoBallView() {
@@ -26,12 +28,14 @@ public class GizmoBallView {
         frame = new JFrame("Gizmo Baw");
         contentPane = frame.getContentPane();
         frame.setDefaultCloseOperation(3);
+        runBoard = new RunBoard();
         makeFrame();
     }
 
     public void makeFrame(){
         if(runMode == true){
             makeRunGUI();
+            boardPanel = runBoard;
         }
         else{
             makeBuildGUI();

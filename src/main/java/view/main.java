@@ -8,6 +8,6 @@ import view.ButtonGroups.RunGUI;
  */
 public class main {
     public static void main(String[] args) {
-        RunGUI bg = new RunGUI();
+        GizmoBallView bg = new GizmoBallView();
     }
 }

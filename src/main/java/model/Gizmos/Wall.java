@@ -17,8 +17,8 @@ public class Wall extends Gizmo {
 		}
 
 	@Override
-	protected List<Component> calculateComponents() {
-		return null;
+	protected void calculateComponents() {
+		//
 	}
 
 	@Override
