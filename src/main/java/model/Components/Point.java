@@ -8,7 +8,7 @@ import model.Coordinate;
  */
 public class Point  implements Component {
     Coordinate origin;
-    int height,width;
+    double height,width;
 
     public Point(double x, double y, double diameter){
         origin = new Coordinate(x,y);
@@ -24,7 +24,7 @@ public class Point  implements Component {
         this.origin = origin;
     }
 
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
@@ -32,7 +32,7 @@ public class Point  implements Component {
         this.height = height;
     }
 
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 

@@ -12,14 +12,9 @@ import java.util.List;
  * Created by baird on 06/02/2016.
  */
 public class Flipper extends Gizmo {
-	public Flipper() {
-		super(null);
 
-		rotation = 90;
-	}
-
-	public Flipper(Coordinate origin) {
-		super(origin);
+	public Flipper(Coordinate origin, String name) {
+		super(origin,name);
 	}
 
 	@Override
@@ -33,7 +28,6 @@ public class Flipper extends Gizmo {
 		Component left = new Line(x,y, x,y-2);
 		return Arrays.asList(top,right,bottom,left);
 	}
-
 
 
 	@Override
@@ -52,6 +46,4 @@ public class Flipper extends Gizmo {
 		bound.setY(bound.getX()-2);
 		return bound;
 	}
-
-
 }

@@ -11,8 +11,8 @@ import java.util.List;
 
 public class Triangle extends Gizmo {
 
-	public Triangle(Coordinate origin) {
-		super(origin);
+	public Triangle(Coordinate origin, String name) {
+		super(origin, name);
 	}
 
 	@Override
@@ -20,11 +20,10 @@ public class Triangle extends Gizmo {
 		Coordinate origin = super.getOriginCoordinate();
 		double x = origin.getX();
 		double y = origin.getY();
-		Component top = new Line(x,y, x+1,y);
-		Component right = new Line(x+1,y, x+1,y-1);
-		Component bottom = new Line(x,y-1, x+1,y-1);
-		Component left = new Line(x,y, x,y-1);
-		return Arrays.asList(top,right,bottom,left);
+		Component sideA = new Line(x,y, x,y-1);
+		Component sideB = new Line(x,y-1, x+1,y-1);
+		Component hypotenuse = new Line(x,y, x+1,y-1);
+		return Arrays.asList(sideA,sideB,hypotenuse);
 
 
 	}
@@ -37,8 +36,11 @@ public class Triangle extends Gizmo {
 
 	@Override
 	public Coordinate calculateBound() {
-		return null;
-	}
 
+		Coordinate bound = super.getOriginCoordinate();
+		bound.setX(bound.getX()+1);
+		bound.setY(bound.getX()-1);
+		return bound;
+	}
 
 }

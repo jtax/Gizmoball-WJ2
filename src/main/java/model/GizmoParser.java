@@ -96,7 +96,7 @@ public class GizmoParser
         String gizmoName = "";
         Integer xCoord = 0;
         Integer yCoord = 0;
-        Coordinate c;
+        Coordinate origin;
 
 
         gizmoName = st.nextToken();
@@ -114,28 +114,28 @@ public class GizmoParser
 
         yCoord = Integer.valueOf(st.nextToken());
         if(gizmoType.equals("Circle")){
-             c = new Coordinate(xCoord,yCoord);
-            Circle c = new Circle(c);
+             origin = new Coordinate(xCoord,yCoord);
+            Circle circle = new Circle(origin,gizmoName);
         }
 
         else if(gizmoType.equals("Square")){
-            c = new Coordinate(xCoord,yCoord);
-            Square s = new Square(c);
+            origin = new Coordinate(xCoord,yCoord);
+            Square s = new Square(origin,gizmoName);
         }
 
         else if(gizmoType.equals("Triangle")){
-            c = new Coordinate(xCoord,yCoord);
-            Triangle t = new Triangle(c);
+            origin = new Coordinate(xCoord,yCoord);
+            Triangle t = new Triangle(origin,gizmoName);
         }
 
         else if(gizmoType.equals("RightFlipper")){
-            c = new Coordinate(xCoord,yCoord);
-            Flipper t = new Flipper(c);
+            origin = new Coordinate(xCoord,yCoord);
+            Flipper t = new Flipper(origin,gizmoName);
         }
 
         else if(gizmoType.equals("LeftFlipper")){
-            c = new Coordinate(xCoord,yCoord);
-            Flipper t = new Flipper(c);
+            origin = new Coordinate(xCoord,yCoord);
+            Flipper t = new Flipper(origin,gizmoName);
         }
         System.out.println(gizmoType + gizmoName + xCoord + yCoord);
     }
@@ -145,9 +145,10 @@ public class GizmoParser
         String gizmoName = "";
         Integer xAbsorberTopLeft = 0;
         Integer yAbsorberTopLeft = 0;
-        Integer xAbsorberBotLeft = 0;
-        Integer yAbsorberBotLeft = 0;
+        Integer xAbsorberBotRight = 0;
+        Integer yAbsorberBotRight = 0;
         gizmoName = st.nextToken();
+        Coordinate origin;
         if(!st.hasMoreTokens())
         {
             throw new BadFileException("No key linked");
@@ -165,15 +166,19 @@ public class GizmoParser
             throw new BadFileException("No action");
         }
 
-        xAbsorberBotLeft = Integer.valueOf(st.nextToken());
+        xAbsorberBotRight = Integer.valueOf(st.nextToken());
         if(!st.hasMoreTokens())
         {
             throw new BadFileException("No action");
         }
 
-        yAbsorberBotLeft = Integer.valueOf(st.nextToken());
-        System.out.println(gizmoType + gizmoName + xAbsorberTopLeft + yAbsorberTopLeft + xAbsorberBotLeft + yAbsorberBotLeft);
-        Absorber a = new Absorber(gizmoName, xAbsorberTopLeft, yAbsorberTopLeft, xAbsorberBotLeft, yAbsorberBotLeft);
+        yAbsorberBotRight = Integer.valueOf(st.nextToken());
+        System.out.println(gizmoType + gizmoName + xAbsorberTopLeft + yAbsorberTopLeft + xAbsorberBotRight + yAbsorberBotRight);
+        origin = new Coordinate(xAbsorberTopLeft,yAbsorberTopLeft);
+        System.out.println(xAbsorberBotRight+ yAbsorberBotRight);
+        Coordinate bound = new Coordinate(xAbsorberBotRight, yAbsorberBotRight);
+        System.out.println(bound.getX()+ bound.getY());
+        Absorber a = new Absorber( origin ,bound, gizmoName);
 
     }
 

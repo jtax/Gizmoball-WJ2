@@ -13,8 +13,8 @@ import java.util.List;
  */
 public class Circle extends Gizmo {
 
-	public Circle(Coordinate origin) {
-		super(origin);
+	public Circle(Coordinate origin, String name) {
+		super(origin, name);
 	}
 
 	@Override
@@ -39,6 +39,5 @@ public class Circle extends Gizmo {
 		double y = origin.getY()-1;
 		return new Coordinate(x,y);
 	}
-
 
 }

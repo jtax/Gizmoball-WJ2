@@ -9,7 +9,7 @@ public class Ball {
     Component point;
     Coordinate velocity;
 
-    public Ball(double x, double y, double velocityX, double velocityY){
+    public Ball(String name,double x, double y, double velocityX, double velocityY){
         point = new Point(x,y,0.5);
         velocity = new Coordinate(velocityX,velocityY);
     }

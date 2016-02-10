@@ -15,8 +15,8 @@ public class Square extends Gizmo {
 
     private int reflectionCoefficient = 1;
 
-    public Square(Coordinate origin) {
-        super(origin);
+    public Square(Coordinate origin, String name) {
+        super(origin, name);
     }
 
     @Override
