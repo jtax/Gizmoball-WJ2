@@ -17,13 +17,13 @@ import view.Mode;
 /**
  * Created by baird on 06/02/2016.
  */
-public class RunBoard implements BoardView, Observer {
+public class BoardViewImpl implements BoardView, Observer {
 
 	private Board board;
 	private JPanel panel;
 	private Mode mode;
 
-	public RunBoard(Board board) {
+	public BoardViewImpl(Board board) {
 		setBoard(board);
 
 		panel = getDefaultLayout();

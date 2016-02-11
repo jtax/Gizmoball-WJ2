@@ -1,7 +1,7 @@
 package view;
 
 
-import view.BoardViews.RunBoard;
+import view.BoardViews.BoardViewImpl;
 import view.ButtonGroups.BuildGUI;
 import view.ButtonGroups.RunGUI;
 
@@ -33,7 +33,7 @@ public class GizmoBallView implements Observer {
         frame = new JFrame("Gizmo Baw");
         contentPane = frame.getContentPane();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        boardView = new RunBoard(board);
+        boardView = new BoardViewImpl(board);
         makeFrame();
     }
 
