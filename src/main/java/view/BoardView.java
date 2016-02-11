@@ -10,6 +10,4 @@ public interface BoardView {
 
     public JPanel getPanel();
 
-    public void paintElement(Shape shape);
-
 }
