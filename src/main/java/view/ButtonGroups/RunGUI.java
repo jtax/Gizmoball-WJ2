@@ -1,12 +1,16 @@
 package view.ButtonGroups;
 
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by baird on 06/02/2016.
  */
-public class RunGUI {
+public class RunGUI implements ActionListener {
 
 
     public RunGUI(){
@@ -20,6 +24,7 @@ public class RunGUI {
 
     public JPanel createButton() {
         JButton start = new JButton("Start");
+        start.addActionListener(this);
         JButton stop = new JButton("Stop");
         JButton build = new JButton("Build Mode");
 
@@ -45,5 +50,10 @@ public class RunGUI {
         menus.add(file);
 
         return menus;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.printf("I worked");
     }
 }
