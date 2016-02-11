@@ -6,7 +6,6 @@ import model.Coordinate;
 import model.Gizmo;
 
 import java.util.Arrays;
-import java.util.List;
 
 
 public class Triangle extends Gizmo {
