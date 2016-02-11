@@ -9,5 +9,7 @@ import java.awt.*;
 public interface BoardView {
 
     public JPanel getPanel();
+    public int getHorizontalScalingFactor();
+	public int getVerticalScalingFactor();
 
 }

@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Observable;
@@ -15,8 +14,11 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import model.Board;
+import model.IElement;
+import model.Gizmos.Circle;
 import view.BoardView;
 import view.Mode;
+import view.Shapifier;
 
 /**
  * Created by baird on 06/02/2016.
@@ -27,6 +29,7 @@ public class BoardViewImpl implements BoardView, Observer {
 	private JPanel panel;
 	private Mode mode;
 	private Collection<Shape> shapes;
+	private Shapifier shapifier;
 
 	public BoardViewImpl(Board board) {
 		setBoard(board);
@@ -36,11 +39,13 @@ public class BoardViewImpl implements BoardView, Observer {
 		panel.setBackground(Color.WHITE);
 
 		mode = Mode.BUILD;
-		
+
 		shapes = new HashSet<Shape>();
 
-		// TODO: remove this bit of test code.
-		shapes.add(new Ellipse2D.Double(0, 0, 25, 25));
+		shapifier = new Shapifier(this);
+
+		// TODO: remove this test code
+		shapes.add(shapifier.shapify(new Circle(1, 0, "Your Mother")));
 	}
 
 	private JPanel getDefaultLayout() {
@@ -66,6 +71,16 @@ public class BoardViewImpl implements BoardView, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		Board board = (Board) o;
+
+		// TODO: uncomment this
+		// shapes.clear();
+
+		for (IElement e : board.getElements()) {
+			Shape s = shapifier.shapify(e);
+			shapes.add(s);
+		}
+
 		panel.repaint();
 	}
 
@@ -84,6 +99,14 @@ public class BoardViewImpl implements BoardView, Observer {
 	 */
 	public Mode toggleMode() {
 		return mode = ((mode == Mode.BUILD) ? Mode.RUN : Mode.BUILD);
+	}
+
+	public int getHorizontalScalingFactor() {
+		return panel.getWidth() / board.getWidth();
+	}
+
+	public int getVerticalScalingFactor() {
+		return panel.getHeight() / board.getHeight();
 	}
 
 	private void setBoard(Board board) {
@@ -110,13 +133,5 @@ public class BoardViewImpl implements BoardView, Observer {
 
 		Rectangle square = new Rectangle(x * width, y * height, width, height);
 		g.draw(square);
-	}
-
-	private int getHorizontalScalingFactor() {
-		return panel.getWidth() / board.getWidth();
-	}
-
-	private int getVerticalScalingFactor() {
-		return panel.getHeight() / board.getHeight();
 	}
 }
