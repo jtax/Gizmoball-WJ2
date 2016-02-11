@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by baird on 06/02/2016.
  */
-abstract public class Gizmo {
+abstract public class Gizmo implements IElement{
 
     protected Coordinate origin, bound;
     protected Gizmo trigger;

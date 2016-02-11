@@ -1,6 +1,7 @@
 package view;
 
 
+import model.*;
 import view.BoardViews.RunBoard;
 import view.ButtonGroups.BuildGUI;
 import view.ButtonGroups.RunGUI;
@@ -22,7 +23,7 @@ public class GizmoBallView implements Observer {
     private BuildGUI buildGUI;
     private JPanel bottomButtons, topButtons, boardPanel;
     private JMenuBar menu;
-    private JPanel runBoard;
+    private RunBoard runBoard;
 
 
     public GizmoBallView(    ) {
@@ -65,9 +66,21 @@ public class GizmoBallView implements Observer {
         menu = buildGUI.createMenu();
     }
 
+    private void addGizmos(Board board){
+        for (IElement gizmo : board.getElements()) {
+            for (model.Component component: gizmo.getComponents()) {
+                runBoard.paintElement(component.getGraphic());
+
+            }
+
+        }
+
+    }
+
 
     @Override
     public void update(Observable o, Object arg) {
-        //repaint();
+        addGizmos((Board) o);
+
     }
 }

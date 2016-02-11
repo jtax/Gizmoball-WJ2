@@ -16,39 +16,47 @@ import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class RunBoard extends JPanel implements BoardView, Observer {
 
+    private List<Shape> shapes;
 
     public RunBoard(){
         this.setSize(500,500);
         this.setBackground(Color.WHITE);
        // drawSomething();
+        shapes = new ArrayList<Shape>();
+        int count = 20, size =22;
+        for( int i = 0; i < count; i ++){
+            for( int j = 0; j < count; j++){
+                Rectangle grid = new Rectangle( 20 + i * size, 20 + j * size, size, size);
+                shapes.add(grid);
+            }
+        }
     }
 
+    public void paintElement(Shape shape){
+        shapes.add((Line2D) shape);
+        repaint();
+    }
+
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
 
-        int count = 20;
-        int size = 22;
 
-        for( int i = 0; i < count; i ++){
-            for( int j = 0; j < count; j++){
-                Rectangle grid = new Rectangle( 20 + i * size, 20 + j * size, size, size);
-                g2.draw(grid);
-            }
-        }
         Coordinate cd = new Coordinate(23,4);
         Circle c = new Circle(cd, "pablo");
-        //g2.draw();
+        for (Shape shape: shapes){
+            g2.draw(shape);
+        }
     }
 
     /*private void drawSomething(){
