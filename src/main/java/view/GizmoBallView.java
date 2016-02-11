@@ -25,23 +25,22 @@ public class GizmoBallView implements Observer {
     private BuildGUI buildGUI;
     private JPanel bottomButtons, topButtons, boardPanel;
     private JMenuBar menu;
-    private JPanel runBoard;
+    private BoardView boardView;
 
 
     public GizmoBallView(Board board) {
         runMode = true;
         frame = new JFrame("Gizmo Baw");
         contentPane = frame.getContentPane();
-        frame.setDefaultCloseOperation(3);
-        runBoard = new RunBoard(board);
-        runBoard.setSize(500,500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        boardView = new RunBoard(board);
         makeFrame();
     }
 
     public void makeFrame(){
         if(runMode){
             makeRunGUI();
-            boardPanel = runBoard;
+            boardPanel = boardView.getPanel();
         }
         else{
             makeBuildGUI();
@@ -53,6 +52,8 @@ public class GizmoBallView implements Observer {
         frame.setSize(475,550);
         frame.setLocation(550, 300);
         frame.setVisible(true);
+        frame.pack();
+        frame.setResizable(false);
     }
 
     private void makeRunGUI(){
