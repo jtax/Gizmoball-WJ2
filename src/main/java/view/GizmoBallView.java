@@ -49,8 +49,7 @@ public class GizmoBallView implements Observer {
         contentPane.add(boardPanel, BorderLayout.CENTER);
         contentPane.add(bottomButtons, BorderLayout.SOUTH);
         frame.setJMenuBar(menu);
-        frame.setSize(475,550);
-        frame.setLocation(550, 300);
+        frame.setLocation(100,100);
         frame.setVisible(true);
         frame.pack();
         frame.setResizable(false);
