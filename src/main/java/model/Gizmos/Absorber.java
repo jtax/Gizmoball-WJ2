@@ -18,10 +18,11 @@ public class Absorber  extends Gizmo {
 	public Absorber(Coordinate origin, Coordinate bound, String name) {
 		super(origin,name);
 		this.bound = bound;
+		calculateComponents();
 	}
 
 	@Override
-	protected List<Component> calculateComponents() {
+	protected void calculateComponents() {
 		Coordinate origin = super.getOriginCoordinate();
 		double originx = origin.getX();
 		double originy = origin.getY();
@@ -31,7 +32,7 @@ public class Absorber  extends Gizmo {
 		Component right = new Line(boundx,originy, boundx,boundy);
 		Component bottom = new Line(originx,boundy, boundx,boundy);
 		Component left = new Line(originx,originy, originx,boundy);
-		return Arrays.asList(top,right,bottom,left);
+		super.setComponents(Arrays.asList(top,right,bottom,left));
 	}
 
 	@Override

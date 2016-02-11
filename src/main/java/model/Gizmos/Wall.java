@@ -12,15 +12,13 @@ import java.util.List;
 public class Wall extends Gizmo {
 
 	public Wall(Coordinate origin, String name) {
-
 		super(origin, name);
-
-		reflection = 1.0;
-	}
+		calculateComponents();
+		}
 
 	@Override
-	protected List<Component> calculateComponents() {
-		return null;
+	protected void calculateComponents() {
+
 	}
 
 	@Override

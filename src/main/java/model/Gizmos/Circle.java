@@ -15,16 +15,16 @@ public class Circle extends Gizmo {
 
 	public Circle(Coordinate origin, String name) {
 		super(origin, name);
-		reflection = 1.0;
+		calculateComponents();
 	}
 
 	@Override
-	protected List<Component> calculateComponents() {
+	protected void calculateComponents() {
 		Coordinate origin = super.getOriginCoordinate();
 		double x = origin.getX()+0.5;
 		double y = origin.getY()-0.5;
 		Component component = new Point(x,y,1);
-		return Arrays.asList(component);
+		super.setComponents(Arrays.asList(component));
 	}
 
 	@Override
