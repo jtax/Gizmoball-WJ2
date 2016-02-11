@@ -73,5 +73,5 @@ public class GizmoBallView implements Observer {
     public void update(Observable o, Object arg) {
         //MODEL CHANGED :-)
 
-    }
+
 }
