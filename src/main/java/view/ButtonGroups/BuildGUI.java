@@ -1,49 +1,30 @@
 package view.ButtonGroups;
 
-import view.ButtonGroup;
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * Created by baird on 06/02/2016.
  */
-public class BuildGUI  implements ButtonGroup {
-    private JFrame frame;
+public class BuildGUI {
     private JButton add, select, remove, switchToRun;
     private JComboBox<String> shape;
-    //private JComboBox<Integer> size;
-   // private JTextArea output;
     private JButton absorber;
     private JButton ball;
     private JButton flipper;
-    private Container contentPane;
 
     public BuildGUI(){
-        frame = new JFrame("Build Mode");
-        contentPane = frame.getContentPane();
-        frame.setDefaultCloseOperation(3);
         makeFrame();
     }
 
     public void makeFrame() {
-        createButton();
+        createTopButton();
+        createBottomButton();
         createMenu();
-        frame.setSize(500,800);
-        frame.setLocation(550, 300);
-        frame.setVisible(true);
+
     }
 
-    @Override
-    public void createButton() {
-        add = new JButton("Add");
-        select = new JButton("Select");
-        remove = new JButton("Remove");
-
-        JPanel topButtons = new JPanel(new GridLayout(1,3));
-        topButtons.add(add);
-        topButtons.add(select);
-        topButtons.add(remove);
-
+    public JPanel createBottomButton() {
         switchToRun = new JButton("Run Mode");
         shape = new JComboBox<String>();
         shape.addItem("Pick a gizmo");
@@ -72,14 +53,23 @@ public class BuildGUI  implements ButtonGroup {
         bottomButtons.add(keyConn);
         bottomButtons.add(connGizmo);
 
-        contentPane.add(topButtons, BorderLayout.NORTH);
-        //contentPane.add(p2, BorderLayout.CENTER);
-        contentPane.add(bottomButtons, BorderLayout.SOUTH);
-
+        return bottomButtons;
     }
 
-    @Override
-    public void createMenu() {
+    public JPanel createTopButton() {
+        add = new JButton("Add");
+        select = new JButton("Select");
+        remove = new JButton("Remove");
+
+        JPanel topButtons = new JPanel(new GridLayout(1,3));
+        topButtons.add(add);
+        topButtons.add(select);
+        topButtons.add(remove);
+
+        return topButtons;
+    }
+
+    public JMenuBar createMenu() {
         JMenuBar menus = new JMenuBar();
 
         JMenu file = new JMenu("File");
@@ -101,6 +91,6 @@ public class BuildGUI  implements ButtonGroup {
 
         menus.add(file);
 
-        frame.setJMenuBar(menus);
+        return menus;
     }
 }

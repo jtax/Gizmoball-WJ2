@@ -40,5 +40,4 @@ public class Circle extends Gizmo {
 		double y = origin.getY()-1;
 		return new Coordinate(x,y);
 	}
-
 }
