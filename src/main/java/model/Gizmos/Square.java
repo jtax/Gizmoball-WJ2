@@ -6,14 +6,12 @@ import model.Coordinate;
 import model.Gizmo;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class Square extends Gizmo {
 
-    private int reflectionCoefficient = 1;
 
     public Square(Coordinate origin, String name) {
         super(origin, name);

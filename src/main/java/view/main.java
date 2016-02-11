@@ -1,8 +1,6 @@
 package view;
 
 import model.Board;
-import view.ButtonGroups.BuildGUI;
-import view.ButtonGroups.RunGUI;
 
 /**
  * Created by Umar on 10/02/2016.

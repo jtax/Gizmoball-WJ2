@@ -6,7 +6,6 @@ import model.Coordinate;
 import model.Gizmo;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
@@ -18,6 +17,7 @@ public class Absorber  extends Gizmo {
 	public Absorber(Coordinate origin, Coordinate bound, String name) {
 		super(origin,name);
 		this.bound = bound;
+		this.reflection = 0.0;
 		calculateComponents();
 	}
 

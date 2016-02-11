@@ -6,17 +6,19 @@ import model.Coordinate;
 import model.Gizmo;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class Flipper extends Gizmo {
 
-	public Flipper(Coordinate origin, String name) {
+	protected boolean rotated = false;
 
+	public Flipper(Coordinate origin, String name) {
 		super(origin,name);
 		calculateComponents();
+
+		this.reflection = 0.95;
 	}
 
 	@Override
@@ -34,11 +36,18 @@ public class Flipper extends Gizmo {
 
 	@Override
 	public void rotate() {
-		bound.rotate(rotation);
+
+		if (rotated) {
+			origin.rotate(calculateBound(), rotation * -1);
+
+		} else {
+			origin.rotate(calculateBound(), rotation);
+		}
+		rotated = !rotated;
 	}
 
 	public void rotateBack() {
-		bound.rotate(rotation * -1);
+
 	}
 
 	@Override
