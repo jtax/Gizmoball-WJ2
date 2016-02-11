@@ -1,11 +1,12 @@
 package model;
 
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Created by baird on 06/02/2016.
  */
-public class Board {
+public class Board extends Observable {
     List<IElement> elements;
     int frictionConst, gravityConst;
     int width,height;
@@ -23,6 +24,8 @@ public class Board {
 
     public void setElements(List<IElement> elements) {
         this.elements = elements;
+        setChanged();
+        notifyObservers();
     }
 
     public int getFrictionConst() {

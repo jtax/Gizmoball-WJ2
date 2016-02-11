@@ -18,7 +18,7 @@ public class Wall extends Gizmo {
 
 	@Override
 	protected void calculateComponents() {
-
+		//
 	}
 
 	@Override

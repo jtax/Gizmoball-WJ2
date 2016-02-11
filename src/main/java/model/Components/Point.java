@@ -3,6 +3,9 @@ package model.Components;
 import model.Component;
 import model.Coordinate;
 
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+
 /**
  * Created by baird on 06/02/2016.
  */
@@ -38,5 +41,9 @@ public class Point  implements Component {
 
     public void setWidth(int width) {
         this.width = width;
+    }
+
+    public Shape getGraphic(){
+        return new Ellipse2D.Double(origin.getX(),origin.getY(),height,width);
     }
 }

@@ -3,6 +3,9 @@ package model.Components;
 import model.Component;
 import model.Coordinate;
 
+import java.awt.*;
+import java.awt.geom.Line2D;
+
 /**
  * Created by baird on 06/02/2016.
  */
@@ -28,5 +31,9 @@ public class Line implements Component {
 
     public void setEnd(Coordinate end) {
         this.end = end;
+    }
+
+    public Shape getGraphic(){
+        return new Line2D.Double(start.getX(), start.getY(), end.getX(), end.getY());
     }
 }
