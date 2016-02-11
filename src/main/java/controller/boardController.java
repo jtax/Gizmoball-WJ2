@@ -17,10 +17,10 @@ public class boardController {
 
     public boardController(){
         boardManager = new BoardManager();
-        view = new GizmoBallView();
+        view = new GizmoBallView(boardManager.getBoard());
         boardManager.getBoard().addObserver(view);
-        List<IElement> testShapes =  Arrays.asList(new Gizmo[]{new Square(new Coordinate(50.0,50.0), "Test")});
+        Gizmo testSquare = new Square(new Coordinate(50.0,50.0),"Test");
+        List<IElement> testShapes = Arrays.asList(new Gizmo[]{testSquare});
         boardManager.getBoard().setElements(testShapes);
-
     }
 }
