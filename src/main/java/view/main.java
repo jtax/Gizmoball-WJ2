@@ -1,6 +1,6 @@
 package view;
 
-import controller.boardController;
+import model.Board;
 import view.ButtonGroups.BuildGUI;
 import view.ButtonGroups.RunGUI;
 
@@ -9,7 +9,7 @@ import view.ButtonGroups.RunGUI;
  */
 public class main {
     public static void main(String[] args) {
-        boardController bc = new boardController();
-        //GizmoBallView bg = new GizmoBallView();
+    	Board b = new Board(0, 0, 20, 20);
+        GizmoBallView bg = new GizmoBallView(b);
     }
 }

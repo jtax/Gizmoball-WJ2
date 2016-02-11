@@ -7,6 +7,9 @@ import view.ButtonGroups.BuildGUI;
 import view.ButtonGroups.RunGUI;
 
 import javax.swing.*;
+
+import model.Board;
+
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
@@ -26,18 +29,18 @@ public class GizmoBallView implements Observer {
     private RunBoard runBoard;
 
 
-    public GizmoBallView(    ) {
+    public GizmoBallView(Board board) {
         runMode = true;
         frame = new JFrame("Gizmo Baw");
         contentPane = frame.getContentPane();
         frame.setDefaultCloseOperation(3);
-        runBoard = new RunBoard();
+        runBoard = new RunBoard(board);
         runBoard.setSize(500,500);
         makeFrame();
     }
 
     public void makeFrame(){
-        if(runMode == true){
+        if(runMode){
             makeRunGUI();
             boardPanel = runBoard;
         }
