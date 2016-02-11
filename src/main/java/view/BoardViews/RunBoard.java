@@ -1,5 +1,6 @@
 package view.BoardViews;
 
+import model.Board;
 import model.Coordinate;
 import model.Gizmos.Circle;
 import view.BoardView;
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
@@ -25,45 +27,61 @@ import java.util.Observer;
  */
 public class RunBoard extends JPanel implements BoardView, Observer {
 
+	private Board board;
 
-    public RunBoard(){
-        this.setSize(500,500);
-        this.setBackground(Color.WHITE);
-       // drawSomething();
-    }
+	public RunBoard(Board board) {
+		setBoard(board);
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+		this.setSize(500, 500);
+		this.setBackground(Color.WHITE);
+	}
 
-        Graphics2D g2 = (Graphics2D) g;
+	private void setBoard(Board board) {
+		this.board = board;
+	}
 
-        int count = 20;
-        int size = 22;
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 
-        for( int i = 0; i < count; i ++){
-            for( int j = 0; j < count; j++){
-                Rectangle grid = new Rectangle( 20 + i * size, 20 + j * size, size, size);
-                g2.draw(grid);
-            }
-        }
-        Coordinate cd = new Coordinate(23,4);
-        Circle c = new Circle(cd, "pablo");
-        //g2.draw();
-    }
+		int horizontalScalingFactor = this.getWidth() / board.getWidth(),
+				verticalScalingFactor = this.getHeight() / board.getHeight();
+		
+		drawGrid((Graphics2D) g, horizontalScalingFactor, verticalScalingFactor);
+		drawCircle((Graphics2D) g, 0, 0, horizontalScalingFactor, verticalScalingFactor);
+	}
 
-    /*private void drawSomething(){
-        Graphics2D g2 = (Graphics2D) new Line2D.Double(10, 10, 10, 10);
+	private void drawGrid(Graphics2D g, int gridWidth, int gridHeight) {
+		for (int x = 0; x < board.getWidth(); x++) {
+			drawColumn(g, x, gridWidth, gridHeight);
+		}
+	}
+	
+	private void drawColumn(Graphics2D g, int x, int gridWidth, int gridHeight) {
+		for (int y = 0; y < board.getHeight(); y++) {
+			Rectangle grid = new Rectangle(x * gridWidth, y * gridHeight, gridWidth, gridHeight);
+			g.draw(grid);
+		}
+	}
+	
+	private void drawCircle(Graphics2D g, int x, int y, int w, int h) {
+		Ellipse2D e = new Ellipse2D.Double(x, y, w, h);
 
-       // super.paint(g2);
-    }*/
-    @Override
-    public JPanel getPanel() {
-        return this;
-    }
+		g.draw(e);
+	}
 
+	/*
+	 * private void drawSomething(){ Graphics2D g2 = (Graphics2D) new
+	 * Line2D.Double(10, 10, 10, 10);
+	 * 
+	 * // super.paint(g2); }
+	 */
+	@Override
+	public JPanel getPanel() {
+		return this;
+	}
 
-    @Override
-    public void update(Observable o, Object arg) {
-        repaint();
-    }
+	@Override
+	public void update(Observable o, Object arg) {
+		repaint();
+	}
 }
