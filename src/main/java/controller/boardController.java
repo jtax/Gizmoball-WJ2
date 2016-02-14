@@ -19,8 +19,14 @@ public class boardController {
         boardManager = new BoardManager();
         view = new GizmoBallView(boardManager.getBoard());
         boardManager.getBoard().addObserver(view);
-        Gizmo testSquare = new Square(new Coordinate(50.0,50.0),"Test");
-        List<IElement> testShapes = Arrays.asList(new Gizmo[]{testSquare});
+        test();
+    }
+
+    //TODO Remove test method
+    private void test(){
+        Gizmo test1 = new Square(new Coordinate(0,0),"Test");
+        Gizmo test2 = new Circle(new Coordinate(3,3),"Test");
+        List<IElement> testShapes = Arrays.asList(new IElement[]{test1,test2});
         boardManager.getBoard().setElements(testShapes);
     }
 }

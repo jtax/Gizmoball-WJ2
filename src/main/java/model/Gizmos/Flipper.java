@@ -21,7 +21,7 @@ public class Flipper extends Gizmo {
 
 	@Override
 	protected void calculateComponents() {
-		Coordinate origin = super.getOriginCoordinate();
+		Coordinate origin = super.getOrigin();
 		double x = origin.getX();
 		double y = origin.getY();
 		Component top = new Line(x,y, x+1,y);
@@ -43,7 +43,7 @@ public class Flipper extends Gizmo {
 
 	@Override
 	public Coordinate calculateBound() {
-		Coordinate bound = super.getOriginCoordinate();
+		Coordinate bound = super.getOrigin();
 		bound.setX(bound.getX()+2);
 		bound.setY(bound.getX()-2);
 		return bound;
