@@ -1,6 +1,7 @@
 package view;
 
 
+import controller.RunModeButtonListener;
 import view.BoardViews.BoardViewImpl;
 import view.ButtonGroups.BuildGUI;
 import view.ButtonGroups.RunGUI;
@@ -10,6 +11,7 @@ import javax.swing.*;
 import model.Board;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -26,7 +28,6 @@ public class GizmoBallView implements Observer {
     private JPanel bottomButtons, topButtons, boardPanel;
     private JMenuBar menu;
     private BoardView boardView;
-
 
     public GizmoBallView(Board board) {
         runMode = true;
