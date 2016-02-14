@@ -28,20 +28,22 @@ public class Shapifier {
 
 	public Shape shapify(IElement e) {
 		ShapeMaker shapeMaker = shapeMakerMap.get(e.getClass());
-		
-		Coordinate originCoordinate = e.getOrigin();
-		double originX = originCoordinate.getX();
-		double originY = originCoordinate.getY();
-
-		Coordinate boundingCoordinate = e.getBound();
-		double boundX = boundingCoordinate.getX();
-		double boundY = boundingCoordinate.getY();
 
 		int horizontalScalingFactor = boardView.getHorizontalScalingFactor();
 		int verticalScalingFactor = boardView.getVerticalScalingFactor();
+		
+		Coordinate originCoordinate = e.getOrigin();
 
-		double width = (boundX - originX) * horizontalScalingFactor;
-		double height = (boundY - originY) * verticalScalingFactor;
+		double originX = originCoordinate.getX()* horizontalScalingFactor;
+		double originY = originCoordinate.getY()* verticalScalingFactor;
+
+		Coordinate boundingCoordinate = e.getBound();
+		double boundX = boundingCoordinate.getX()* horizontalScalingFactor;
+		double boundY = boundingCoordinate.getY()* verticalScalingFactor;
+
+
+		double width = (boundX - originX);
+		double height = (boundY - originY);
 
 		Shape shape = shapeMaker.make((int) originX, (int) originY, (int) width, (int) height);
 		
