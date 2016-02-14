@@ -2,6 +2,7 @@ package view.ButtonGroups;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * Created by baird on 06/02/2016.
@@ -9,8 +10,11 @@ import java.awt.*;
 public class RunGUI {
 
 
-    public RunGUI(){
+    private ActionListener listener;
+
+    public RunGUI(ActionListener listener) {
         makeFrame();
+        this.listener = listener;
     }
 
     private void makeFrame() {
@@ -20,14 +24,20 @@ public class RunGUI {
 
     public JPanel createButton() {
         JButton start = new JButton("Start");
+        start.addActionListener(listener);
         JButton stop = new JButton("Stop");
-        JButton build = new JButton("Build Mode");
+        start.addActionListener(listener);
+        JButton tick = new JButton("Tick");
+        tick.addActionListener(listener);
+        JButton exit = new JButton("Exit");
+        exit.addActionListener(listener);
 
-        JPanel bottomButtons = new JPanel(new GridLayout(1,3));
+        JPanel bottomButtons = new JPanel(new GridLayout(1, 4));
 
         bottomButtons.add(start);
         bottomButtons.add(stop);
-        bottomButtons.add(build);
+        bottomButtons.add(tick);
+        bottomButtons.add(exit);
         return bottomButtons;
     }
 

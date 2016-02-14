@@ -10,13 +10,22 @@ import java.util.List;
  */
 public class Ball implements IElement {
     Component point;
-    Coordinate origin;
-    Coordinate velocity;
+    Coordinate origin, velocity, center;
 
+    //TODO do balls need names?
     public Ball(String name,double x, double y, double velocityX, double velocityY){
+        center = new Coordinate(x, y);
         point = new Point(x,y,0.5);
         origin = new Coordinate(x - .25, y - .25);
         velocity = new Coordinate(velocityX,velocityY);
+    }
+
+    public Coordinate getCenter() {
+        return center;
+    }
+
+    public void setCenter(Coordinate center) {
+        this.center = center;
     }
 
     public Coordinate getVelocity() {

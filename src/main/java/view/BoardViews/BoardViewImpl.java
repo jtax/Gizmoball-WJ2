@@ -71,9 +71,8 @@ public class BoardViewImpl implements BoardView, Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		Board board = (Board) o;
-
-		// TODO: uncomment this
-		// shapes.clear();
+		shapes.clear();
+		balls.clear();
 
 		for (IElement e : board.getElements()) {
 			Shape s = shapifier.shapify(e);

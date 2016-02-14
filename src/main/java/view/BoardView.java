@@ -4,6 +4,7 @@ import model.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,5 +17,4 @@ public interface BoardView{
     public int getHorizontalScalingFactor();
 	public int getVerticalScalingFactor();
     public void update(Observable o, Object arg);
-
 }

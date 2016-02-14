@@ -4,7 +4,7 @@ package model;
  * Created by baird on 06/02/2016.
  */
 public class Coordinate {
-    double x, y;
+    private double x, y;
 
     public Coordinate(double x, double y){
         setX(x);

@@ -28,6 +28,12 @@ public class Board extends Observable {
         notifyObservers();
     }
 
+    public void setBalls(List<Ball> newBalls) {
+        balls = newBalls;
+        setChanged();
+        notifyObservers();
+    }
+
     public List<Ball> getBalls() {
         return balls;
     }

@@ -1,6 +1,8 @@
 package view;
 
 
+import controller.RunListener;
+import model.BoardManager;
 import view.BoardViews.BoardViewImpl;
 import view.ButtonGroups.BuildGUI;
 import view.ButtonGroups.RunGUI;
@@ -10,6 +12,7 @@ import javax.swing.*;
 import model.Board;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -26,20 +29,26 @@ public class GizmoBallView implements Observer {
     private JPanel bottomButtons, topButtons, boardPanel;
     private JMenuBar menu;
     private BoardView boardView;
+    private BoardManager boardManager;
+    private ActionListener listener;
 
 
-    public GizmoBallView(Board board) {
+    public GizmoBallView(BoardManager bm) {
+        Board board = bm.getBoard();
+        boardManager = bm;
         runMode = true;
         frame = new JFrame("Gizmo Baw");
         contentPane = frame.getContentPane();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         boardView = new BoardViewImpl(board);
+        listener = new RunListener(bm);
         makeFrame();
     }
 
     public void makeFrame(){
         if(runMode){
             makeRunGUI();
+
             boardPanel = boardView.getPanel();
         }
         else{
@@ -56,7 +65,7 @@ public class GizmoBallView implements Observer {
     }
 
     private void makeRunGUI(){
-        runGUI = new RunGUI();
+        runGUI = new RunGUI(listener);
         bottomButtons = runGUI.createButton();
         menu = runGUI.createMenu();
     }
