@@ -1,11 +1,6 @@
 package view.BoardViews;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
+import java.awt.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Observable;
@@ -14,6 +9,7 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import model.Board;
+import model.Gizmos.Square;
 import model.IElement;
 import model.Gizmos.Circle;
 import view.BoardView;
@@ -36,7 +32,7 @@ public class BoardViewImpl implements BoardView, Observer {
 
 		panel = getDefaultLayout();
 		panel.setPreferredSize(new Dimension(500, 500));
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(Color.white);
 
 		mode = Mode.BUILD;
 
@@ -44,8 +40,8 @@ public class BoardViewImpl implements BoardView, Observer {
 
 		shapifier = new Shapifier(this);
 
-		// TODO: remove this test code
-		shapes.add(shapifier.shapify(new Circle(1, 0, "Your Mother")));
+		// TODO: remove this test code can't test here. The panel scaling isnt ready yet
+		//shapes.add(shapifier.shapify(new Square(1, 0, "Your Mother")));
 	}
 
 	private JPanel getDefaultLayout() {
@@ -102,6 +98,8 @@ public class BoardViewImpl implements BoardView, Observer {
 	}
 
 	public int getHorizontalScalingFactor() {
+		int panelWidth = panel.getWidth();
+		int boardWidth = board.getWidth();
 		return panel.getWidth() / board.getWidth();
 	}
 
@@ -114,8 +112,10 @@ public class BoardViewImpl implements BoardView, Observer {
 	}
 
 	private void drawShapes(Graphics2D g) {
-		for (Shape s : shapes)
-			g.draw(s);
+		for (Shape s : shapes) {
+			g.setColor(Color.BLUE);
+			g.fill(s);
+		}
 	}
 
 	private void drawGrid(Graphics2D g) {

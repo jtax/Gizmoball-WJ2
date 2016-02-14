@@ -7,7 +7,7 @@ public class BoardManager {
     Board board;
 
     public BoardManager(){
-        board = new Board(10,10,500,500);
+        board = new Board(0,0,20,20);
     }
 
     public Board getBoard() {

@@ -71,7 +71,7 @@ public class GizmoBallView implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        //MODEL CHANGED :-)
+        boardView.update(o,arg);
     }
 
 }
