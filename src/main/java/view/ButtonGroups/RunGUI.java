@@ -1,34 +1,24 @@
 package view.ButtonGroups;
 
-import view.ButtonGroup;
-
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * Created by baird on 06/02/2016.
  */
-public class RunGUI implements ButtonGroup {
-    private JFrame frame;
-    Container contentPane;
+public class RunGUI {
+
 
     public RunGUI(){
-        frame = new JFrame("Run Mode");
-        contentPane = frame.getContentPane();
-        frame.setDefaultCloseOperation(3);
         makeFrame();
     }
 
     private void makeFrame() {
         createButton();
         createMenu();
-        frame.setSize(500,600);
-        frame.setLocation(550, 300);
-        frame.setVisible(true);
     }
 
-    @Override
-    public void createButton() {
+    public JPanel createButton() {
         JButton start = new JButton("Start");
         JButton stop = new JButton("Stop");
         JButton build = new JButton("Build Mode");
@@ -38,11 +28,10 @@ public class RunGUI implements ButtonGroup {
         bottomButtons.add(start);
         bottomButtons.add(stop);
         bottomButtons.add(build);
-        contentPane.add(bottomButtons, BorderLayout.SOUTH);
+        return bottomButtons;
     }
 
-    @Override
-    public void createMenu() {
+    public JMenuBar createMenu() {
         JMenuBar menus = new JMenuBar();
 
         JMenu file = new JMenu("File");
@@ -55,6 +44,6 @@ public class RunGUI implements ButtonGroup {
 
         menus.add(file);
 
-        frame.setJMenuBar(menus);
+        return menus;
     }
 }

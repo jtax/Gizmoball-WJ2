@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by baird on 06/02/2016.
  */
-abstract public class Gizmo {
+abstract public class Gizmo implements IElement{
 
     protected Coordinate origin, bound;
     protected Gizmo trigger;
@@ -21,11 +21,14 @@ abstract public class Gizmo {
         colors = new Color[]{Color.red, Color.green, Color.blue};
         rotation = 0;
         this.name = name;
+        
+        // TODO: set the bounds correctly according to which gizmo it is
+        bound = new Coordinate(origin.getX() + 1, origin.getY() + 1);
     }
 
     protected abstract void calculateComponents();
 
-    public Coordinate getOriginCoordinate(){
+    public Coordinate getOrigin(){
         return origin;
     }
 

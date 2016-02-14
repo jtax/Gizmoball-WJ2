@@ -17,10 +17,14 @@ public class Circle extends Gizmo {
 		super(origin, name);
 		calculateComponents();
 	}
+	
+	public Circle(int x, int y, String name) {
+		this(new Coordinate(x,y),name);
+	}
 
 	@Override
 	protected void calculateComponents() {
-		Coordinate origin = super.getOriginCoordinate();
+		Coordinate origin = super.getOrigin();
 		double x = origin.getX()+0.5;
 		double y = origin.getY()-0.5;
 		Component component = new Point(x,y,1);
@@ -35,10 +39,9 @@ public class Circle extends Gizmo {
 
 	@Override
 	public Coordinate calculateBound() {
-		Coordinate origin = super.getOriginCoordinate();
+		Coordinate origin = super.getOrigin();
 		double x = origin.getX()+1;
 		double y = origin.getY()-1;
 		return new Coordinate(x,y);
 	}
-
 }
