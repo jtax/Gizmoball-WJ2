@@ -5,6 +5,7 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.HashMap;
 
+import model.Ball;
 import model.Coordinate;
 import model.IElement;
 import model.Gizmos.Absorber;
@@ -31,7 +32,7 @@ public class Shapifier {
 
 		int horizontalScalingFactor = boardView.getHorizontalScalingFactor();
 		int verticalScalingFactor = boardView.getVerticalScalingFactor();
-		
+
 		Coordinate originCoordinate = e.getOrigin();
 
 		double originX = originCoordinate.getX()* horizontalScalingFactor;
@@ -77,6 +78,10 @@ public class Shapifier {
 
 		shapeMakerMap.put(Wall.class, (int x, int y, int w, int h) -> {
 			return new Rectangle(x, y, w, h);
+		});
+
+		shapeMakerMap.put(Ball.class, (int x, int y, int w, int h) -> {
+			return new Ellipse2D.Double(x, y, w, h);
 		});
 	}
 

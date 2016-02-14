@@ -8,6 +8,7 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import model.Ball;
 import model.Board;
 import model.Gizmos.Square;
 import model.IElement;
@@ -25,6 +26,7 @@ public class BoardViewImpl implements BoardView, Observer {
 	private JPanel panel;
 	private Mode mode;
 	private Collection<Shape> shapes;
+	private Collection<Shape> balls;
 	private Shapifier shapifier;
 
 	public BoardViewImpl(Board board) {
@@ -37,7 +39,7 @@ public class BoardViewImpl implements BoardView, Observer {
 		mode = Mode.BUILD;
 
 		shapes = new HashSet<Shape>();
-
+		balls = new HashSet<Shape>();
 		shapifier = new Shapifier(this);
 
 		// TODO: remove this test code can't test here. The panel scaling isnt ready yet
@@ -56,6 +58,7 @@ public class BoardViewImpl implements BoardView, Observer {
 					drawGrid((Graphics2D) g);
 
 				drawShapes((Graphics2D) g);
+				drawBalls((Graphics2D) g);
 			}
 		};
 	}
@@ -75,6 +78,12 @@ public class BoardViewImpl implements BoardView, Observer {
 		for (IElement e : board.getElements()) {
 			Shape s = shapifier.shapify(e);
 			shapes.add(s);
+		}
+		if (!board.getBalls().isEmpty()) {
+			for (IElement e : board.getBalls()) {
+				Shape s = shapifier.shapify(e);
+				balls.add(s);
+			}
 		}
 
 		panel.repaint();
@@ -114,6 +123,13 @@ public class BoardViewImpl implements BoardView, Observer {
 	private void drawShapes(Graphics2D g) {
 		for (Shape s : shapes) {
 			g.setColor(Color.BLUE);
+			g.fill(s);
+		}
+	}
+
+	private void drawBalls(Graphics2D g) {
+		for (Shape s : balls) {
+			g.setColor(Color.RED);
 			g.fill(s);
 		}
 	}
