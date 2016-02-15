@@ -26,8 +26,7 @@ public class Triangle extends Gizmo {
 		Component sideB = new Line(x+1,y, x+1,y+1);
 		Component sideA = new Line(x,y, x+1,y);
 
-		super.setComponents(Arrays.asList(sideA, sideB,hypotenuse));
-
+		super.setComponents(Arrays.asList(sideA, sideB, hypotenuse));
 
 	}
 
