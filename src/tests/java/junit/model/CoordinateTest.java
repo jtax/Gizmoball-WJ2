@@ -71,12 +71,15 @@ public class CoordinateTest {
 
 	@Test
 	public void testRotateCoordinate() {
-		Coordinate original = new Coordinate(2,3);
+		Coordinate original = new Coordinate(0,0);
+		Coordinate bound = new Coordinate(2,6);
 
+		original.rotate(bound, -90);
 
-		//	original.rotate(90);
-		// TODO
-
+		Coordinate shouldBe = new Coordinate(8, 0);
+		System.out.println(original.getX() + " " + original.getY());
+		System.out.println(shouldBe.getX() + " " + shouldBe.getY());
+		assertTrue(original.equals(shouldBe));
 	}
 
 }

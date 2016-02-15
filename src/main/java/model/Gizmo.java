@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 /**
@@ -10,16 +11,19 @@ abstract public class Gizmo implements IElement{
 
     protected Coordinate origin, bound;
     protected Gizmo trigger;
+    private KeyEvent keyPressTrigger;
     protected Color color;
     protected Color[] colors;
     protected List<Component> components;
-    protected  int rotation, reflection;
+    protected  int rotation;
+    protected  double reflection;
     protected String name;
 
     public Gizmo(Coordinate origin, String name){
         this.origin = origin;
         colors = new Color[]{Color.red, Color.green, Color.blue};
         rotation = 0;
+        reflection = 1.0; // default is 1
         this.name = name;
         
         // TODO: set the bounds correctly according to which gizmo it is
@@ -44,6 +48,14 @@ abstract public class Gizmo implements IElement{
         this.trigger = trigger;
     }
 
+    public void setKeyPressTrigger(KeyEvent keyPressTrigger){
+        this.keyPressTrigger = keyPressTrigger;
+    }
+
+    public KeyEvent getKeyPressTrigger(){
+        return keyPressTrigger;
+    }
+
     public Color getColor(){
         return color;
     }
@@ -54,7 +66,7 @@ abstract public class Gizmo implements IElement{
 
     public abstract void rotate();
 
-    public int getReflectionCoefficient(){
+    public double getReflectionCoefficient(){
         return reflection;
     }
 

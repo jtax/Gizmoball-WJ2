@@ -1,15 +1,15 @@
 package view;
 
 
+import model.Board;
+import controller.RunModeButtonListener;
 import view.BoardViews.BoardViewImpl;
 import view.ButtonGroups.BuildGUI;
 import view.ButtonGroups.RunGUI;
 
 import javax.swing.*;
-
-import model.Board;
-
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -27,7 +27,6 @@ public class GizmoBallView implements Observer {
     private JMenuBar menu;
     private BoardView boardView;
 
-
     public GizmoBallView(Board board) {
         runMode = true;
         frame = new JFrame("Gizmo Baw");
@@ -38,6 +37,13 @@ public class GizmoBallView implements Observer {
     }
 
     public void makeFrame(){
+        try {
+            // Use native theme
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
         if(runMode){
             makeRunGUI();
             boardPanel = boardView.getPanel();
@@ -46,12 +52,16 @@ public class GizmoBallView implements Observer {
             makeBuildGUI();
             contentPane.add(topButtons, BorderLayout.NORTH);
         }
+        addFrameFeatures();
+    }
+
+    private void addFrameFeatures() {
         contentPane.add(boardPanel, BorderLayout.CENTER);
         contentPane.add(bottomButtons, BorderLayout.SOUTH);
         frame.setJMenuBar(menu);
+        frame.pack();
         frame.setLocation(100,100);
         frame.setVisible(true);
-        frame.pack();
         frame.setResizable(false);
     }
 
