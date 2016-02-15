@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -8,6 +9,7 @@ import java.util.Observable;
  */
 public class Board extends Observable {
     List<IElement> elements;
+    List<Ball> balls;
     int frictionConst, gravityConst;
     int width,height;
 
@@ -16,14 +18,31 @@ public class Board extends Observable {
         this.gravityConst = gravityConst;
         this.width = width;
         this.height = height;
+        elements = new ArrayList<>();
+        balls = new ArrayList<>();
     }
 
+    public void addBall(Ball ball) {
+        balls.add(ball);
+        setChanged();
+        notifyObservers();
+    }
+
+    public List<Ball> getBalls() {
+        return balls;
+    }
     public List<IElement> getElements() {
         return elements;
     }
 
     public void setElements(List<IElement> elements) {
         this.elements = elements;
+        setChanged();
+        notifyObservers();
+    }
+
+    public void addElement(IElement element) {
+        elements.add(element);
         setChanged();
         notifyObservers();
     }
@@ -59,4 +78,5 @@ public class Board extends Observable {
     public void setHeight(int height) {
         this.height = height;
     }
+
 }

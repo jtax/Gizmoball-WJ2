@@ -8,4 +8,8 @@ import java.util.List;
 public interface IElement {
 
     public List<Component> getComponents();
+    
+    public Coordinate getOrigin();
+    
+    public Coordinate getBound();
 }

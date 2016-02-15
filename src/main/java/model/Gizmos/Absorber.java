@@ -23,7 +23,7 @@ public class Absorber  extends Gizmo {
 
 	@Override
 	protected void calculateComponents() {
-		Coordinate origin = super.getOriginCoordinate();
+		Coordinate origin = super.getOrigin();
 		double originx = origin.getX();
 		double originy = origin.getY();
 		double boundx = bound.getX();

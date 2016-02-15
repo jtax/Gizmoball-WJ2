@@ -17,7 +17,7 @@ public class Triangle extends Gizmo {
 
 	@Override
 	protected void calculateComponents() {
-		Coordinate origin = super.getOriginCoordinate();
+		Coordinate origin = super.getOrigin();
 		double x = origin.getX();
 		double y = origin.getY();
 		Component sideA = new Line(x,y, x,y-1);
@@ -37,7 +37,7 @@ public class Triangle extends Gizmo {
 	@Override
 	public Coordinate calculateBound() {
 
-		Coordinate bound = super.getOriginCoordinate();
+		Coordinate bound = super.getOrigin();
 		bound.setX(bound.getX()+1);
 		bound.setY(bound.getX()-1);
 		return bound;

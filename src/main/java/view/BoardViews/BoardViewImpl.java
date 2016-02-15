@@ -1,12 +1,6 @@
 package view.BoardViews;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
+import java.awt.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Observable;
@@ -14,9 +8,14 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import model.Ball;
 import model.Board;
+import model.Gizmos.Square;
+import model.IElement;
+import model.Gizmos.Circle;
 import view.BoardView;
 import view.Mode;
+import view.Shapifier;
 
 /**
  * Created by baird on 06/02/2016.
@@ -27,20 +26,24 @@ public class BoardViewImpl implements BoardView, Observer {
 	private JPanel panel;
 	private Mode mode;
 	private Collection<Shape> shapes;
+	private Collection<Shape> balls;
+	private Shapifier shapifier;
 
 	public BoardViewImpl(Board board) {
 		setBoard(board);
 
 		panel = getDefaultLayout();
 		panel.setPreferredSize(new Dimension(500, 500));
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(Color.white);
 
 		mode = Mode.BUILD;
-		
-		shapes = new HashSet<Shape>();
 
-		// TODO: remove this bit of test code.
-		shapes.add(new Ellipse2D.Double(0, 0, 25, 25));
+		shapes = new HashSet<Shape>();
+		balls = new HashSet<Shape>();
+		shapifier = new Shapifier(this);
+
+		// TODO: remove this test code can't test here. The panel scaling isnt ready yet
+		//shapes.add(shapifier.shapify(new Square(1, 0, "Your Mother")));
 	}
 
 	private JPanel getDefaultLayout() {
@@ -55,6 +58,7 @@ public class BoardViewImpl implements BoardView, Observer {
 					drawGrid((Graphics2D) g);
 
 				drawShapes((Graphics2D) g);
+				drawBalls((Graphics2D) g);
 			}
 		};
 	}
@@ -66,6 +70,22 @@ public class BoardViewImpl implements BoardView, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		Board board = (Board) o;
+
+		// TODO: uncomment this
+		// shapes.clear();
+
+		for (IElement e : board.getElements()) {
+			Shape s = shapifier.shapify(e);
+			shapes.add(s);
+		}
+		if (!board.getBalls().isEmpty()) {
+			for (IElement e : board.getBalls()) {
+				Shape s = shapifier.shapify(e);
+				balls.add(s);
+			}
+		}
+
 		panel.repaint();
 	}
 
@@ -86,13 +106,32 @@ public class BoardViewImpl implements BoardView, Observer {
 		return mode = ((mode == Mode.BUILD) ? Mode.RUN : Mode.BUILD);
 	}
 
+	public int getHorizontalScalingFactor() {
+		int panelWidth = panel.getWidth();
+		int boardWidth = board.getWidth();
+		return panel.getWidth() / board.getWidth();
+	}
+
+	public int getVerticalScalingFactor() {
+		return panel.getHeight() / board.getHeight();
+	}
+
 	private void setBoard(Board board) {
 		this.board = board;
 	}
 
 	private void drawShapes(Graphics2D g) {
-		for (Shape s : shapes)
-			g.draw(s);
+		for (Shape s : shapes) {
+			g.setColor(Color.BLUE);
+			g.fill(s);
+		}
+	}
+
+	private void drawBalls(Graphics2D g) {
+		for (Shape s : balls) {
+			g.setColor(Color.RED);
+			g.fill(s);
+		}
 	}
 
 	private void drawGrid(Graphics2D g) {
@@ -110,13 +149,5 @@ public class BoardViewImpl implements BoardView, Observer {
 
 		Rectangle square = new Rectangle(x * width, y * height, width, height);
 		g.draw(square);
-	}
-
-	private int getHorizontalScalingFactor() {
-		return panel.getWidth() / board.getWidth();
-	}
-
-	private int getVerticalScalingFactor() {
-		return panel.getHeight() / board.getHeight();
 	}
 }
