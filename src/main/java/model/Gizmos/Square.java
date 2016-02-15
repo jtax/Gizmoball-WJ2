@@ -20,9 +20,13 @@ public class Square extends Gizmo {
         calculateComponents();
     }
 
-    @Override
+    public Square(int x, int y, String name) {
+		this (new Coordinate(x,y), name);
+	}
+
+	@Override
     protected void calculateComponents() {
-        Coordinate origin = super.getOriginCoordinate();
+        Coordinate origin = super.getOrigin();
         double x = origin.getX();
         double y = origin.getY();
         Component top = new Line(x,y, x+1,y);
@@ -37,7 +41,7 @@ public class Square extends Gizmo {
     }
 
     public Coordinate calculateBound(){
-        Coordinate bound = super.getOriginCoordinate();
+        Coordinate bound = super.getOrigin();
         bound.setX(bound.getX()+1);
         bound.setY(bound.getX()-1);
         return bound;
