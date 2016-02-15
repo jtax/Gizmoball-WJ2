@@ -1,14 +1,12 @@
 package view;
 
 
+import model.Board;
 import view.BoardViews.BoardViewImpl;
 import view.ButtonGroups.BuildGUI;
 import view.ButtonGroups.RunGUI;
 
 import javax.swing.*;
-
-import model.Board;
-
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
@@ -49,9 +47,9 @@ public class GizmoBallView implements Observer {
         contentPane.add(boardPanel, BorderLayout.CENTER);
         contentPane.add(bottomButtons, BorderLayout.SOUTH);
         frame.setJMenuBar(menu);
+        frame.pack();
         frame.setLocation(100,100);
         frame.setVisible(true);
-        frame.pack();
         frame.setResizable(false);
     }
 
