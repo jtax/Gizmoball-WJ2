@@ -36,6 +36,13 @@ public class GizmoBallView implements Observer {
     }
 
     public void makeFrame(){
+        try {
+            // Use native theme
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
         if(runMode){
             makeRunGUI();
             boardPanel = boardView.getPanel();
