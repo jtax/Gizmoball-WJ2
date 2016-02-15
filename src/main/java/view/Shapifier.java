@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Rectangle;
+import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.HashMap;
@@ -72,7 +73,11 @@ public class Shapifier {
 
 		shapeMakerMap.put(Triangle.class, (int x, int y, int w, int h) -> {
 			// TODO: return a triangle
-			return new Rectangle(x, y, w, h);
+			Polygon p = new Polygon();
+			p.addPoint(x,y);
+			p.addPoint(x+w, y);
+			p.addPoint(x+w, y+h);
+			return p;
 		});
 
 		shapeMakerMap.put(Wall.class, (int x, int y, int w, int h) -> {
