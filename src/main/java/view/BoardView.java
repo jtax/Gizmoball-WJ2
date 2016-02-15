@@ -17,4 +17,6 @@ public interface BoardView{
 	public int getVerticalScalingFactor();
     public void update(Observable o, Object arg);
 
+    //public void paintElement(Shape shape);
+
 }
