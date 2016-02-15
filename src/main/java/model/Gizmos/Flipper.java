@@ -3,6 +3,7 @@ package model.Gizmos;
 import model.Component;
 import model.Components.Line;
 import model.Coordinate;
+import model.Direction;
 import model.Gizmo;
 
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import java.util.Arrays;
 public class Flipper extends Gizmo {
 
 	protected Boolean rotated = false;
+	private Direction direction = Direction.LEFT;
 
 	public Flipper(Coordinate origin, String name) {
 		super(origin,name);
@@ -20,6 +22,11 @@ public class Flipper extends Gizmo {
 
 		this.reflection = 0.95;
 		rotation = 90;
+	}
+
+	public void setDirection(Direction direction) {
+
+		this.direction = direction;
 	}
 
 	@Override
@@ -40,13 +47,26 @@ public class Flipper extends Gizmo {
 	}
 
 
+	/**
+	 * Flips a Flipper based on its direction and weather we need to rotate back
+	 */
 	public void flip() {
+		int rotateBackConst;
+		int rotateConst;
+
+		if (direction == Direction.LEFT) {
+			rotateBackConst = 1;
+			rotateConst = -1;
+		} else {
+			rotateBackConst = -1;
+			rotateConst = 1;
+		}
 
 		if (rotated) {
-			bound.rotate(origin, rotation * -1);
+			bound.rotate(origin, rotation * rotateBackConst);
 
 		} else {
-			bound.rotate(origin, rotation);
+			bound.rotate(origin, rotation * rotateConst);
 		}
 
 		rotated = !rotated;
