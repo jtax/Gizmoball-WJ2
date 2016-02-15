@@ -29,13 +29,13 @@ public class Coordinate {
 
     public void rotate(Coordinate centerCoord, float angle) {
 
-        angle = (float) Math.toRadians((double) angle);
+        angle = (float) (angle * Math.PI / 180);
 
         double xPoint = x; //original point
         double yPoint = y; //original point
 
-        x = (int) (centerCoord.getX() + Math.cos(angle) * (xPoint - centerCoord.getX()) + Math.sin(angle) * (yPoint - centerCoord.getY()));
-        y = (int) (centerCoord.getX() + -Math.sin(angle) * (xPoint - centerCoord.getX()) + Math.cos(angle) * (yPoint - centerCoord.getY()));
+        x = Math.round(centerCoord.getX() + Math.cos(angle) * (xPoint - centerCoord.getX()) + Math.sin(angle) * (yPoint - centerCoord.getY()));
+        y = Math.round(centerCoord.getX() + -Math.sin(angle) * (xPoint - centerCoord.getX()) + Math.cos(angle) * (yPoint - centerCoord.getY()));
 
     }
 

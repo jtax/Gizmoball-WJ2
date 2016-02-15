@@ -2,14 +2,12 @@ package view;
 
 
 import model.Board;
-import controller.RunModeButtonListener;
 import view.BoardViews.BoardViewImpl;
 import view.ButtonGroups.BuildGUI;
 import view.ButtonGroups.RunGUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -28,7 +26,7 @@ public class GizmoBallView implements Observer {
     private BoardView boardView;
 
     public GizmoBallView(Board board) {
-        runMode = true;
+        runMode = false;
         frame = new JFrame("Gizmo Baw");
         contentPane = frame.getContentPane();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,10 +41,10 @@ public class GizmoBallView implements Observer {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+        boardPanel = boardView.getPanel();
 
         if(runMode){
             makeRunGUI();
-            boardPanel = boardView.getPanel();
         }
         else{
             makeBuildGUI();

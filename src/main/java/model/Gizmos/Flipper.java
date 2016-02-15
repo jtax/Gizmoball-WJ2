@@ -12,13 +12,14 @@ import java.util.Arrays;
  */
 public class Flipper extends Gizmo {
 
-	protected boolean rotated = false;
+	protected Boolean rotated = false;
 
 	public Flipper(Coordinate origin, String name) {
 		super(origin,name);
 		calculateComponents();
 
 		this.reflection = 0.95;
+		rotation = 90;
 	}
 
 	@Override
@@ -33,28 +34,30 @@ public class Flipper extends Gizmo {
 		super.setComponents( Arrays.asList(top,right,bottom,left));
 	}
 
-
 	@Override
 	public void rotate() {
 
+	}
+
+
+	public void flip() {
+
 		if (rotated) {
-			origin.rotate(calculateBound(), rotation * -1);
+			bound.rotate(origin, rotation * -1);
 
 		} else {
-			origin.rotate(calculateBound(), rotation);
+			bound.rotate(origin, rotation);
 		}
+
 		rotated = !rotated;
 	}
 
-	public void rotateBack() {
-
-	}
 
 	@Override
 	public Coordinate calculateBound() {
 		Coordinate bound = super.getOrigin();
-		bound.setX(bound.getX()+2);
-		bound.setY(bound.getX()-2);
+		bound.setX(bound.getX() + 2);
+		bound.setY(bound.getX() - 2);
 		return bound;
 	}
 }
