@@ -3,7 +3,6 @@ package model.Gizmos;
 import model.Component;
 import model.Components.Line;
 import model.Coordinate;
-import model.Direction;
 import model.Gizmo;
 
 import java.util.Arrays;
@@ -13,20 +12,13 @@ import java.util.Arrays;
  */
 public class Flipper extends Gizmo {
 
-	protected Boolean rotated = false;
-	private Direction direction = Direction.LEFT;
+	protected boolean rotated = false;
 
 	public Flipper(Coordinate origin, String name) {
 		super(origin,name);
 		calculateComponents();
 
 		this.reflection = 0.95;
-		rotation = 90;
-	}
-
-	public void setDirection(Direction direction) {
-
-		this.direction = direction;
 	}
 
 	@Override
@@ -41,43 +33,28 @@ public class Flipper extends Gizmo {
 		super.setComponents( Arrays.asList(top,right,bottom,left));
 	}
 
+
 	@Override
 	public void rotate() {
 
-	}
-
-
-	/**
-	 * Flips a Flipper based on its direction and weather we need to rotate back
-	 */
-	public void flip() {
-		int rotateBackConst;
-		int rotateConst;
-
-		if (direction == Direction.LEFT) {
-			rotateBackConst = 1;
-			rotateConst = -1;
-		} else {
-			rotateBackConst = -1;
-			rotateConst = 1;
-		}
-
 		if (rotated) {
-			bound.rotate(origin, rotation * rotateBackConst);
+			origin.rotate(calculateBound(), rotation * -1);
 
 		} else {
-			bound.rotate(origin, rotation * rotateConst);
+			origin.rotate(calculateBound(), rotation);
 		}
-
 		rotated = !rotated;
 	}
 
+	public void rotateBack() {
+
+	}
 
 	@Override
 	public Coordinate calculateBound() {
 		Coordinate bound = super.getOrigin();
-		bound.setX(bound.getX() + 2);
-		bound.setY(bound.getX() - 2);
+		bound.setX(bound.getX()+2);
+		bound.setY(bound.getX()-2);
 		return bound;
 	}
 }

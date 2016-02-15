@@ -1,13 +1,20 @@
 package view;
 
-import model.Ball;
-import model.Coordinate;
-import model.Gizmos.*;
-import model.IElement;
-
-import java.awt.*;
+import java.awt.Rectangle;
+import java.awt.Polygon;
+import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.HashMap;
+
+import model.Ball;
+import model.Coordinate;
+import model.IElement;
+import model.Gizmos.Absorber;
+import model.Gizmos.Circle;
+import model.Gizmos.Flipper;
+import model.Gizmos.Square;
+import model.Gizmos.Triangle;
+import model.Gizmos.Wall;
 
 public class Shapifier {
 
