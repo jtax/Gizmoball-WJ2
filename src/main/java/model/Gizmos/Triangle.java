@@ -5,6 +5,7 @@ import model.Components.Line;
 import model.Coordinate;
 import model.Gizmo;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,10 +22,11 @@ public class Triangle extends Gizmo {
 		Coordinate origin = super.getOrigin();
 		double x = origin.getX();
 		double y = origin.getY();
-		Component sideA = new Line(x,y, x,y-1);
-		Component sideB = new Line(x,y-1, x+1,y-1);
-		Component hypotenuse = new Line(x,y, x+1,y-1);
-		super.setComponents(Arrays.asList(sideA,sideB,hypotenuse));
+		Component hypotenuse = new Line(x,y, x + 1,y+1);
+		Component sideB = new Line(x+1,y, x+1,y+1);
+		Component sideA = new Line(x,y, x+1,y);
+
+		super.setComponents(Arrays.asList(sideA, sideB,hypotenuse));
 
 
 	}
