@@ -26,7 +26,7 @@ public class RunGUI {
         JButton start = new JButton("Start");
         start.addActionListener(listener);
         JButton stop = new JButton("Stop");
-        start.addActionListener(listener);
+        stop.addActionListener(listener);
         JButton tick = new JButton("Tick");
         tick.addActionListener(listener);
         JButton exit = new JButton("Exit");
