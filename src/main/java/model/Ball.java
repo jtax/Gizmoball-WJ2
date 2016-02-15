@@ -2,6 +2,7 @@ package model;
 
 import model.Components.Point;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public class Ball implements IElement {
     Component point;
     Coordinate origin, velocity, center;
+    Color color = Color.GREEN;
 
     //TODO do balls need names?
     public Ball(String name,double x, double y, double velocityX, double velocityY){
@@ -59,5 +61,10 @@ public class Ball implements IElement {
         double x = origin.getX() + 0.5;
         double y = origin.getY() + 0.5;
         return new Coordinate(x, y);
+    }
+
+    @Override
+    public Color getColor() {
+        return color;
     }
 }

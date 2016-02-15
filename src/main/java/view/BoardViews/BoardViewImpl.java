@@ -25,7 +25,7 @@ public class BoardViewImpl implements BoardView, Observer {
 	private Board board;
 	private JPanel panel;
 	private Mode mode;
-	private Collection<Shape> shapes;
+	private Collection<IElement> shapes;
 	private Collection<Shape> balls;
 	private Shapifier shapifier;
 
@@ -38,7 +38,7 @@ public class BoardViewImpl implements BoardView, Observer {
 
 		mode = Mode.BUILD;
 
-		shapes = new HashSet<Shape>();
+		shapes = new HashSet<IElement>();
 		balls = new HashSet<Shape>();
 		shapifier = new Shapifier(this);
 
@@ -57,7 +57,8 @@ public class BoardViewImpl implements BoardView, Observer {
 				if (mode == Mode.BUILD)
 					drawGrid((Graphics2D) g);
 
-				drawShapes((Graphics2D) g);
+				//drawShapes((Graphics2D) g);
+				drawGizmos((Graphics2D) g);
 				drawBalls((Graphics2D) g);
 			}
 		};
@@ -75,8 +76,8 @@ public class BoardViewImpl implements BoardView, Observer {
 		balls.clear();
 
 		for (IElement e : board.getElements()) {
-			Shape s = shapifier.shapify(e);
-			shapes.add(s);
+			//Shape s = shapifier.shapify(e);
+			shapes.add(e);
 		}
 		if (!board.getBalls().isEmpty()) {
 			for (IElement e : board.getBalls()) {
@@ -119,13 +120,20 @@ public class BoardViewImpl implements BoardView, Observer {
 		this.board = board;
 	}
 
-	private void drawShapes(Graphics2D g) {
+	/*private void drawShapes(Graphics2D g) {
 		for (Shape s : shapes) {
 			g.setColor(Color.BLUE);
 			g.fill(s);
 		}
-	}
+	}*/
 
+	private void drawGizmos(Graphics2D g) {
+		for (IElement s : shapes) {
+			g.setColor(s.getColor());
+			Shape shape = shapifier.shapify(s);
+			g.fill(shape);
+		}
+	}
 	private void drawBalls(Graphics2D g) {
 		for (Shape s : balls) {
 			g.setColor(Color.RED);

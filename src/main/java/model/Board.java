@@ -1,5 +1,7 @@
 package model;
 
+import model.Gizmos.Wall;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -20,6 +22,7 @@ public class Board extends Observable {
         this.height = height;
         elements = new ArrayList<>();
         balls = new ArrayList<>();
+        addWalls();
     }
 
     public void addBall(Ball ball) {
@@ -28,6 +31,20 @@ public class Board extends Observable {
         notifyObservers();
     }
 
+    public void addWalls() {
+        Coordinate topLeft = new Coordinate(0, 0);
+        Coordinate topRight = new Coordinate(20, 0);
+        Coordinate bottomLeft = new Coordinate(0, 20);
+        Coordinate bottomRight = new Coordinate(20, 20);
+        IElement top = new Wall(topLeft, topRight, "WallTop");
+        IElement right = new Wall(topRight, bottomRight, "WallRight");
+        IElement bottom = new Wall(bottomLeft, bottomRight, "WallBottom");
+        IElement left = new Wall(topLeft, bottomLeft, "WallLeft");
+        addElement(top);
+        addElement(right);
+        addElement(bottom);
+        addElement(left);
+    }
     public void setBalls(List<Ball> newBalls) {
         balls = newBalls;
         setChanged();
@@ -42,7 +59,10 @@ public class Board extends Observable {
     }
 
     public void setElements(List<IElement> elements) {
-        this.elements = elements;
+        for (IElement element : elements) {
+            addElement(element);
+        }
+        addWalls();
         setChanged();
         notifyObservers();
     }

@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -12,4 +13,6 @@ public interface IElement {
     public Coordinate getOrigin();
     
     public Coordinate getBound();
+
+    public Color getColor();
 }

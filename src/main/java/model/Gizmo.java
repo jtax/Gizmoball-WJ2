@@ -21,6 +21,7 @@ abstract public class Gizmo implements IElement{
         colors = new Color[]{Color.red, Color.green, Color.blue};
         rotation = 0;
         this.name = name;
+        color = colors[0];
         
         // TODO: set the bounds correctly according to which gizmo it is
         bound = new Coordinate(origin.getX() + 1, origin.getY() + 1);
@@ -44,6 +45,7 @@ abstract public class Gizmo implements IElement{
         this.trigger = trigger;
     }
 
+    @Override
     public Color getColor(){
         return color;
     }

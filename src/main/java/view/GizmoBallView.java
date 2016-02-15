@@ -61,7 +61,7 @@ public class GizmoBallView implements Observer {
         frame.setLocation(100,100);
         frame.setVisible(true);
         frame.pack();
-        frame.setResizable(false);
+        //frame.setResizable(false);
     }
 
     private void makeRunGUI(){
