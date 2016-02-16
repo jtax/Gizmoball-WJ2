@@ -40,15 +40,10 @@ public class Board extends Observable {
         Vect topRight = new Vect(20, 0);
         Vect bottomLeft = new Vect(0, 20);
         Vect bottomRight = new Vect(20, 20);
-        IElement top = new Wall(topLeft, bottomRight, "WallTop");
-        //IElement right = new Wall(topRight, bottomRight, "WallRight");
-        //IElement bottom = new Wall(bottomLeft, bottomRight, "WallBottom");
-        //IElement left = new Wall(topLeft, bottomLeft, "WallLeft");
-        addElement(top);
-        //addElement(right);
-        //addElement(bottom);
-        //addElement(left);
+        IElement walls = new Wall(topLeft, bottomRight, "Wall");
+        addElement(walls);
     }
+
     public void setBalls(List<Ball> newBalls) {
         balls = newBalls;
         setChanged();

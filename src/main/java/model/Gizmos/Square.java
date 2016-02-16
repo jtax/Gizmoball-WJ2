@@ -29,10 +29,10 @@ public class Square extends Gizmo {
 
     private List<Vect> calculateCoordinates() {
         Vect topLeft = origin;
-        Vect topRight = origin.plus(new Vect(bound.x(), 0));
+        Vect topRight = new Vect(bound.x(), origin.y());
         Vect bottomRight = bound;
-        Vect bottomLeft = origin.plus(new Vect(0, bound.y()));
-        return Arrays.asList(topLeft, topRight, bottomLeft, bottomRight);
+        Vect bottomLeft = new Vect(origin.x(), bound.y());
+        return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
     }
 
     private List<physics.Circle> calculateCircles() {
@@ -61,7 +61,7 @@ public class Square extends Gizmo {
 
     public Vect calculateBound() {
         Vect origin = super.getOrigin();
-        Vect bound = new Vect(1, -1);
+        Vect bound = new Vect(1, 1);
         return origin.plus(bound);
     }
 }

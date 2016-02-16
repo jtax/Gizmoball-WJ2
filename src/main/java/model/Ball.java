@@ -58,7 +58,7 @@ public class Ball implements IElement {
 
     @Override
     public Vect getOrigin() {
-        return center;
+        return origin;
     }
 
     @Override
