@@ -48,7 +48,7 @@ public class BoardManager {
             ball.setVelocity(collision.getVelocity());
             System.out.println("New Veloctiy:" + collision.getVelocity());
         }
-
+        System.out.println("Ball Center: " + ball.getCenter().toString());
         return ball;
     }
 
@@ -82,7 +82,7 @@ public class BoardManager {
                     shortestTime = time;
                     collidingElement = element;
                     element.setColor(Color.BLUE);
-                    System.out.println("Colide Circle: " + circle.getCenter() + " time: " + time);
+                    //System.out.println("On course to colide with Circle: " + circle.getCenter() + " in time: " + time);
                     newV = Geometry.reflectCircle(circle.getCenter(), ballC.getCenter(), ballV);
                 }
             }
@@ -93,12 +93,13 @@ public class BoardManager {
                     collidingElement = element;
                     element.setColor(Color.GREEN);
 
-                    System.out.println("Colide Line: " + element + " time: " + time);
+                    //System.out.println("On course to colide with Line: " + line.toString() + " in time: " + time);
                     newV = Geometry.reflectWall(line, ballV);
                 }
 
             }
         }
+        System.out.println("Collision in " + shortestTime);
         return new Collision(newV, shortestTime);
     }
 }

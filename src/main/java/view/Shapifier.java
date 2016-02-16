@@ -73,6 +73,7 @@ public class Shapifier {
 
 		shapeMakerMap.put(Triangle.class, (int x, int y, int w, int h) -> {
 			// TODO: return a triangle
+
 			Polygon p = new Polygon();
 			p.addPoint(x, y);
 			p.addPoint(x, y + h);
