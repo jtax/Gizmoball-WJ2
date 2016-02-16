@@ -26,9 +26,9 @@ public class boardController {
 
     //TODO Remove test method
     private void test(){
-        Gizmo test1 = new Square(1, 6, "Test");
-        Gizmo test2 = new Square(2, 6, "Test");
-        Gizmo test3 = new Square(3, 6, "Test");
+        Gizmo test1 = new Square(1, 15, "Test");
+        Gizmo test2 = new Square(2, 15, "Test");
+        Gizmo test3 = new Square(3, 15, "Test");
         Gizmo test4 = new Square(1, 2, "Test");
         Gizmo test5 = new Square(2, 1, "Test");
         Gizmo test6 = new Square(3, 2, "Test");

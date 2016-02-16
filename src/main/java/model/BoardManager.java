@@ -88,6 +88,19 @@ public class BoardManager {
                 }
 
             }
+            for (LineSegment line : element.getLines()) {
+                time = Geometry.timeUntilWallCollision(line, ballC, ballV);
+                if (time < shortestTime) {
+                    shortestTime = time;
+                    collidingElement = element;
+                    element.setColor(Color.GREEN);
+
+                    System.out.println("Colide Line: " + element + " time: " + time);
+                    newV = Geometry.reflectWall(line, ballV);
+                }
+
+            }
+
             for (Circle circle : element.getCircles()) {
                 time = Geometry.timeUntilCircleCollision(circle, ballC, ballV);
                 if (time < shortestTime) {
