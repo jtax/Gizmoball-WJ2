@@ -1,5 +1,7 @@
 package model;
 
+import physics.Circle;
+import physics.LineSegment;
 import physics.Vect;
 
 import java.awt.*;
@@ -10,7 +12,7 @@ import java.util.List;
  * Created by baird on 06/02/2016.
  */
 public class Ball implements IElement {
-    private Component point;
+    private Circle point;
     private Vect origin;
     private Vect velocity;
     private Vect center;
@@ -19,7 +21,7 @@ public class Ball implements IElement {
     //TODO do balls need names?
     public Ball(String name,double x, double y, double velocityX, double velocityY){
         center = new Vect(x, y);
-        point = new Point(x,y,0.5);
+        point = new Circle(center, 0.5);
         origin = new Vect(x - .25, y - .25);
         velocity = new Vect(velocityX, velocityY);
     }
@@ -40,16 +42,17 @@ public class Ball implements IElement {
         this.velocity = velocity;
     }
 
-    public Component getPoint() {
+    public Circle getCircle() {
         return point;
     }
 
-    public void setPoint(Component point) {
-        this.point = point;
+    @Override
+    public List<LineSegment> getLines() {
+        return null;
     }
 
     @Override
-    public List<Component> getComponents() {
+    public List<Circle> getCircles() {
         return Arrays.asList(point);
     }
 

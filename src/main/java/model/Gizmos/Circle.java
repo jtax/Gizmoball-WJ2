@@ -12,21 +12,17 @@ public class Circle extends Gizmo {
 
 	public Circle(Vect origin, String name) {
 		super(origin, name);
-		calculateComponents();
+		super.setCircles(Arrays.asList(calculateCircle()));
 	}
 	
 	public Circle(int x, int y, String name) {
 		this(new Vect(x, y), name);
 	}
 
-	@Override
-	protected void calculateComponents() {
-		Vect origin = super.getOrigin();
-		double x = origin.x() + 0.5;
-		double y = origin.y() - 0.5;
-		Component component = new Point(x,y,1);
-		super.setComponents(Arrays.asList(component));
+	private physics.Circle calculateCircle() {
+		return new physics.Circle(super.getOrigin(), 0.5);
 	}
+
 
 	@Override
 	public void rotate() {
@@ -37,8 +33,7 @@ public class Circle extends Gizmo {
 	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();
-		double x = origin.x() + 1;
-		double y = origin.y() - 1;
-		return new Vect(x, y);
+		Vect bound = new Vect(1, -1);
+		return origin.plus(bound);
 	}
 }

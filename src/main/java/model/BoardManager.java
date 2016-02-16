@@ -1,6 +1,7 @@
 package model;
 
 import physics.Circle;
+import physics.Vect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,6 @@ public class BoardManager {
     }
 
     private Collision getTimeTillCollision(Ball ball) {
-        //Circle ballC = new Circle();
-        return null;
+        return new Collision(new Vect(5, 5), 5);
     }
 }

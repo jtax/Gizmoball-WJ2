@@ -8,6 +8,7 @@ import model.Gizmos.Square;
 import model.IElement;
 import org.junit.Before;
 import org.junit.Test;
+import physics.Vect;
 import view.BoardView;
 import view.BoardViews.BoardViewImpl;
 import view.Shapifier;
@@ -35,7 +36,7 @@ public class ShapifierTest {
     @Test
     public void AbsorberTest(){
         Rectangle answer = new Rectangle(5,5,1,1);
-        IElement absorber = new Absorber(new Coordinate(5,5), new Coordinate(6,6), "");
+        IElement absorber = new Absorber(new Vect(5, 5), new Vect(6, 6), "");
         assertEquals(shapifier.shapify(absorber),answer);
     }
     @Test
@@ -47,7 +48,7 @@ public class ShapifierTest {
     @Test
     public void flipperTest(){
         Rectangle answer = new Rectangle(5,5,1,1);
-        IElement flipper = new Flipper(new Coordinate(5.0,5.0),"");
+        IElement flipper = new Flipper(new Vect(5.0, 5.0), "");
         assertEquals(shapifier.shapify(flipper),answer);
     }
     @Test

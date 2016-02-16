@@ -1,29 +1,53 @@
 package model.Gizmos;
 
 import model.Gizmo;
+import physics.LineSegment;
 import physics.Vect;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class Triangle extends Gizmo {
 
+	private List<Vect> coordinates;
 	public Triangle(Vect origin, String name) {
 		super(origin, name);
-		calculateComponents();
+		coordinates = calculateCoordinates();
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
 	}
 
-	@Override
-	protected void calculateComponents() {
-		Vect origin = super.getOrigin();
-		double x = origin.x();
-		double y = origin.y();
-		Component sideA = new Line(x,y, x,y-1);
-		Component sideB = new Line(x,y-1, x+1,y-1);
-		Component hypotenuse = new Line(x,y, x+1,y-1);
-		super.setComponents(Arrays.asList(sideA,sideB,hypotenuse));
+	public Triangle(double x, double y, String name) {
+		this(new Vect(x, y), name);
+	}
 
+	private List<Vect> calculateCoordinates() {
+		Vect a = origin;
+		Vect b = bound;
+		Vect c = origin.plus(new Vect(0, bound.y()));
+		return Arrays.asList(a, b, c);
+	}
 
+	private List<physics.Circle> calculateCircles() {
+		List<physics.Circle> calcCircles = new ArrayList<>();
+		for (Vect coord : coordinates) {
+			physics.Circle circle = new physics.Circle(coord, 0);
+			calcCircles.add(circle);
+		}
+		return calcCircles;
+	}
+
+	private List<LineSegment> calculateLines() {
+		List<LineSegment> calcLines = new ArrayList<>();
+		for (int i = 0; i < coordinates.size() - 1; i++) {
+			Vect a = coordinates.get(i);
+			Vect b = coordinates.get(i + 1 % coordinates.size() - 1);
+			LineSegment line = new LineSegment(a, b);
+			calcLines.add(line);
+		}
+		return calcLines;
 	}
 
 	@Override
