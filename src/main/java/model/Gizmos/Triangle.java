@@ -1,26 +1,23 @@
 package model.Gizmos;
 
-import model.Component;
-import model.Components.Line;
-import model.Coordinate;
 import model.Gizmo;
+import physics.Vect;
 
 import java.util.Arrays;
-import java.util.List;
 
 
 public class Triangle extends Gizmo {
 
-	public Triangle(Coordinate origin, String name) {
+	public Triangle(Vect origin, String name) {
 		super(origin, name);
 		calculateComponents();
 	}
 
 	@Override
 	protected void calculateComponents() {
-		Coordinate origin = super.getOrigin();
-		double x = origin.getX();
-		double y = origin.getY();
+		Vect origin = super.getOrigin();
+		double x = origin.x();
+		double y = origin.y();
 		Component sideA = new Line(x,y, x,y-1);
 		Component sideB = new Line(x,y-1, x+1,y-1);
 		Component hypotenuse = new Line(x,y, x+1,y-1);
@@ -36,12 +33,10 @@ public class Triangle extends Gizmo {
 	}
 
 	@Override
-	public Coordinate calculateBound() {
-
-		Coordinate bound = super.getOrigin();
-		bound.setX(bound.getX()+1);
-		bound.setY(bound.getX()-1);
-		return bound;
+	public Vect calculateBound() {
+		Vect origin = super.getOrigin();
+		Vect bound = new Vect(1, -1);
+		return origin.plus(bound);
 	}
 
 }

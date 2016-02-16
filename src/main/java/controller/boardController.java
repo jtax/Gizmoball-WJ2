@@ -14,8 +14,8 @@ import java.util.List;
  * Created by bairdjb on 11/02/2016.
  */
 public class boardController {
-    BoardManager boardManager;
-    GizmoBallView view;
+    private BoardManager boardManager;
+    private GizmoBallView view;
 
     public boardController(){
         boardManager = new BoardManager();

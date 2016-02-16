@@ -1,5 +1,7 @@
 package model;
 
+import physics.Circle;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,7 @@ import java.util.List;
  * Created by baird on 06/02/2016.
  */
 public class BoardManager {
-    Board board;
+    private Board board;
 
     public BoardManager(){
         board = new Board(0,0,20,20);
@@ -48,16 +50,17 @@ public class BoardManager {
         double newX, newY;
         double velX, velY;
 
-        velX = ball.getVelocity().getX();
-        velY = ball.getVelocity().getY();
+        velX = ball.getVelocity().x();
+        velY = ball.getVelocity().y();
 
-        newX = ball.getCenter().getX() + (velX * time);
-        newY = ball.getCenter().getY() + (velY * time);
+        newX = ball.getCenter().x() + (velX * time);
+        newY = ball.getCenter().y() + (velY * time);
 
         return new Ball("Ball", newX, newY, velX, velY);
     }
 
     private Collision getTimeTillCollision(Ball ball) {
-        return new Collision(new Coordinate(1, 1), 50.0);
+        //Circle ballC = new Circle();
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 package model;
 
 import model.Gizmos.*;
+import physics.Vect;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -92,11 +93,11 @@ public class GizmoParser
 
     private void shapeParser(String gizmo, StringTokenizer st) throws BadFileException{
 
-        String gizmoType = gizmo;;
+        String gizmoType = gizmo;
         String gizmoName = "";
         Integer xCoord = 0;
         Integer yCoord = 0;
-        Coordinate origin;
+        Vect origin;
 
 
         gizmoName = st.nextToken();
@@ -114,27 +115,27 @@ public class GizmoParser
 
         yCoord = Integer.valueOf(st.nextToken());
         if(gizmoType.equals("Circle")){
-             origin = new Coordinate(xCoord,yCoord);
+            origin = new Vect(xCoord, yCoord);
             Circle circle = new Circle(origin,gizmoName);
         }
 
         else if(gizmoType.equals("Square")){
-            origin = new Coordinate(xCoord,yCoord);
+            origin = new Vect(xCoord, yCoord);
             Square s = new Square(origin,gizmoName);
         }
 
         else if(gizmoType.equals("Triangle")){
-            origin = new Coordinate(xCoord,yCoord);
+            origin = new Vect(xCoord, yCoord);
             Triangle t = new Triangle(origin,gizmoName);
         }
 
         else if(gizmoType.equals("RightFlipper")){
-            origin = new Coordinate(xCoord,yCoord);
+            origin = new Vect(xCoord, yCoord);
             Flipper t = new Flipper(origin,gizmoName);
         }
 
         else if(gizmoType.equals("LeftFlipper")){
-            origin = new Coordinate(xCoord,yCoord);
+            origin = new Vect(xCoord, yCoord);
             Flipper t = new Flipper(origin,gizmoName);
         }
         System.out.println(gizmoType + gizmoName + xCoord + yCoord);
@@ -148,7 +149,7 @@ public class GizmoParser
         Integer xAbsorberBotRight = 0;
         Integer yAbsorberBotRight = 0;
         gizmoName = st.nextToken();
-        Coordinate origin;
+        Vect origin;
         if(!st.hasMoreTokens())
         {
             throw new BadFileException("No key linked");
@@ -174,8 +175,8 @@ public class GizmoParser
 
         yAbsorberBotRight = Integer.valueOf(st.nextToken());
         System.out.println(gizmoType + gizmoName + xAbsorberTopLeft + yAbsorberTopLeft + xAbsorberBotRight + yAbsorberBotRight);
-        origin = new Coordinate(xAbsorberTopLeft,yAbsorberTopLeft);
-        Coordinate bound = new Coordinate(xAbsorberBotRight, yAbsorberBotRight);
+        origin = new Vect(xAbsorberTopLeft, yAbsorberTopLeft);
+        Vect bound = new Vect(xAbsorberBotRight, yAbsorberBotRight);
         Absorber a = new Absorber( origin ,bound, gizmoName);
 
     }

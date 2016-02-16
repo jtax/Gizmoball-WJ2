@@ -1,19 +1,17 @@
 package model.Gizmos;
 
-import model.Component;
-import model.Components.Line;
-import model.Coordinate;
 import model.Gizmo;
+import physics.Angle;
+import physics.Vect;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class Flipper extends Gizmo {
 
-	public Flipper(Coordinate origin, String name) {
+	public Flipper(Vect origin, String name) {
 
 		super(origin,name);
 		calculateComponents();
@@ -21,9 +19,9 @@ public class Flipper extends Gizmo {
 
 	@Override
 	protected void calculateComponents() {
-		Coordinate origin = super.getOrigin();
-		double x = origin.getX();
-		double y = origin.getY();
+		Vect origin = super.getOrigin();
+		double x = origin.x();
+		double y = origin.y();
 		Component top = new Line(x,y, x+1,y);
 		Component right = new Line(x+1,y, x+1,y-2);
 		Component bottom = new Line(x,y-2, x+1,y-2);
@@ -34,18 +32,17 @@ public class Flipper extends Gizmo {
 
 	@Override
 	public void rotate() {
-		bound.rotate(rotation);
+		bound.rotateBy(new Angle(90));
 	}
 
 	public void rotateBack() {
-		bound.rotate(rotation * -1);
+		bound.rotateBy(new Angle(-90));
 	}
 
 	@Override
-	public Coordinate calculateBound() {
-		Coordinate bound = super.getOrigin();
-		bound.setX(bound.getX()+2);
-		bound.setY(bound.getX()-2);
-		return bound;
+	public Vect calculateBound() {
+		Vect origin = super.getOrigin();
+		Vect bound = new Vect(2, -2);
+		return origin.plus(bound);
 	}
 }

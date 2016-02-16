@@ -1,27 +1,29 @@
 package model;
 
+import physics.Vect;
+
 /**
  * Created by baird on 14/02/2016.
  */
 public class Collision {
     private double time;
-    private Coordinate velocity;
+    private Vect velocity;
 
-    public Collision(Coordinate velocity, double time) {
+    public Collision(Vect velocity, double time) {
         this.velocity = velocity;
         this.time = time;
     }
 
     public Collision(double x, double y, double time) {
-        this.velocity = new Coordinate(x, y);
+        this.velocity = new Vect(x, y);
         this.time = time;
     }
 
-    public Coordinate getVelocity() {
+    public Vect getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(Coordinate velocity) {
+    public void setVelocity(Vect velocity) {
         this.velocity = velocity;
     }
 

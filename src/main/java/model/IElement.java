@@ -1,5 +1,9 @@
 package model;
 
+import physics.Circle;
+import physics.LineSegment;
+import physics.Vect;
+
 import java.awt.*;
 import java.util.List;
 
@@ -8,11 +12,13 @@ import java.util.List;
  */
 public interface IElement {
 
-    public List<Component> getComponents();
-    
-    public Coordinate getOrigin();
-    
-    public Coordinate getBound();
+    List<LineSegment> getLines();
 
-    public Color getColor();
+    List<Circle> getCircles();
+
+    Vect getOrigin();
+
+    Vect getBound();
+
+    Color getColor();
 }

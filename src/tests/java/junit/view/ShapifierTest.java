@@ -1,7 +1,6 @@
 package junit.view;
 
 import model.Board;
-import model.Coordinate;
 import model.Gizmos.Absorber;
 import model.Gizmos.Circle;
 import model.Gizmos.Flipper;
@@ -15,8 +14,6 @@ import view.Shapifier;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
-import java.util.Arrays;
 
 import static org.junit.Assert.*;
 

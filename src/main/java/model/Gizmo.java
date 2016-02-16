@@ -1,5 +1,9 @@
 package model;
 
+import physics.Circle;
+import physics.LineSegment;
+import physics.Vect;
+
 import java.awt.*;
 import java.util.List;
 
@@ -8,32 +12,34 @@ import java.util.List;
  */
 abstract public class Gizmo implements IElement{
 
-    protected Coordinate origin, bound;
-    protected Gizmo trigger;
-    protected Color color;
-    protected Color[] colors;
-    protected List<Component> components;
-    protected  int rotation, reflection;
-    protected String name;
+    protected Vect origin, bound;
+    private Gizmo trigger;
+    private Color color;
+    private Color[] colors;
+    private List<LineSegment> lines;
+    private List<Circle> circles;
+    protected int rotation;
+    private int reflection;
+    private String name;
 
-    public Gizmo(Coordinate origin, String name){
+    protected Gizmo(Vect origin, String name) {
         this.origin = origin;
         colors = new Color[]{Color.red, Color.green, Color.blue};
         rotation = 0;
         this.name = name;
         color = colors[0];
-        
+
         // TODO: set the bounds correctly according to which gizmo it is
-        bound = new Coordinate(origin.getX() + 1, origin.getY() + 1);
+        bound = new Vect(origin.x() + 1, origin.y() + 1);
     }
 
-    protected abstract void calculateComponents();
-
-    public Coordinate getOrigin(){
+    @Override
+    public Vect getOrigin() {
         return origin;
     }
 
-    public Coordinate getBound(){
+    @Override
+    public Vect getBound() {
         return bound;
     }
 
@@ -60,14 +66,24 @@ abstract public class Gizmo implements IElement{
         return reflection;
     }
 
-    public abstract Coordinate calculateBound();
+    public abstract Vect calculateBound();
 
-    public List<Component> getComponents(){
-        return components;
+    @Override
+    public List<LineSegment> getLines() {
+        return lines;
     }
 
-    public void setComponents(List<Component> components){
-        this.components = components;
+    @Override
+    public List<Circle> getCircles() {
+        return circles;
+    }
+
+    protected void setLines(List<LineSegment> lines) {
+        this.lines = lines;
+    }
+
+    protected void setCircles(List<Circle> circles) {
+        this.circles = circles;
     }
 
 

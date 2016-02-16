@@ -1,6 +1,6 @@
 package model;
 
-import model.Components.Point;
+import physics.Vect;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -10,31 +10,33 @@ import java.util.List;
  * Created by baird on 06/02/2016.
  */
 public class Ball implements IElement {
-    Component point;
-    Coordinate origin, velocity, center;
-    Color color = Color.GREEN;
+    private Component point;
+    private Vect origin;
+    private Vect velocity;
+    private Vect center;
+    private Color color = Color.GREEN;
 
     //TODO do balls need names?
     public Ball(String name,double x, double y, double velocityX, double velocityY){
-        center = new Coordinate(x, y);
+        center = new Vect(x, y);
         point = new Point(x,y,0.5);
-        origin = new Coordinate(x - .25, y - .25);
-        velocity = new Coordinate(velocityX,velocityY);
+        origin = new Vect(x - .25, y - .25);
+        velocity = new Vect(velocityX, velocityY);
     }
 
-    public Coordinate getCenter() {
+    public Vect getCenter() {
         return center;
     }
 
-    public void setCenter(Coordinate center) {
+    public void setCenter(Vect center) {
         this.center = center;
     }
 
-    public Coordinate getVelocity() {
+    public Vect getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(Coordinate velocity) {
+    public void setVelocity(Vect velocity) {
         this.velocity = velocity;
     }
 
@@ -52,15 +54,15 @@ public class Ball implements IElement {
     }
 
     @Override
-    public Coordinate getOrigin() {
+    public Vect getOrigin() {
         return origin;
     }
 
     @Override
-    public Coordinate getBound() {
-        double x = origin.getX() + 0.5;
-        double y = origin.getY() + 0.5;
-        return new Coordinate(x, y);
+    public Vect getBound() {
+        double x = origin.x() + 0.5;
+        double y = origin.y() + 0.5;
+        return new Vect(x, y);
     }
 
     @Override

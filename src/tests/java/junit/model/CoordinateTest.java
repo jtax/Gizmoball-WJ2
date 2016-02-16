@@ -1,6 +1,5 @@
 package junit.model;
 
-import model.Coordinate;
 import org.junit.Before;
 import org.junit.Test;
 
