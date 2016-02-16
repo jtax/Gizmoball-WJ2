@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import model.Ball;
 import model.Board;
 import model.Gizmos.Square;
+import model.Gizmos.Wall;
 import model.IElement;
 import model.Gizmos.Circle;
 import view.BoardView;
@@ -131,7 +132,11 @@ public class BoardViewImpl implements BoardView, Observer {
 		for (IElement s : shapes) {
 			g.setColor(s.getColor());
 			Shape shape = shapifier.shapify(s);
-			g.fill(shape);
+			if (s.getClass() == Wall.class) {
+				g.draw(shape);
+			} else {
+				g.draw(shape);
+			}
 		}
 	}
 	private void drawBalls(Graphics2D g) {

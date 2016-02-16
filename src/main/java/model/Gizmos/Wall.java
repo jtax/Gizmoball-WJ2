@@ -13,15 +13,17 @@ import java.util.List;
  */
 public class Wall extends Gizmo {
 
-	Vect bound;
+	private Vect bound;
 	private java.util.List<Vect> coordinates;
 
-	public Wall(Vect origin, Vect bound, String name) {
+	public Wall(Vect origin, Vect bnd, String name) {
 		super(origin, name);
-		this.bound = bound;
+		this.bound = bnd;
+		super.setBound(bnd);
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
+		super.setColor(Color.MAGENTA);
 		}
 
 	private List<Vect> calculateCoordinates() {

@@ -46,9 +46,9 @@ public class Square extends Gizmo {
 
     private List<LineSegment> calculateLines() {
         List<LineSegment> calcLines = new ArrayList<>();
-        for (int i = 0; i < coordinates.size() - 1; i++) {
+        for (int i = 0; i < coordinates.size(); i++) {
             Vect a = coordinates.get(i);
-            Vect b = coordinates.get(i + 1 % coordinates.size() - 1);
+            Vect b = coordinates.get((i + 1) % coordinates.size());
             LineSegment line = new LineSegment(a, b);
             calcLines.add(line);
         }

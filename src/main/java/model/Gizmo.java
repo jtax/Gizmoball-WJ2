@@ -31,6 +31,7 @@ abstract public class Gizmo implements IElement{
 
         // TODO: set the bounds correctly according to which gizmo it is
         bound = new Vect(origin.x() + 1, origin.y() + 1);
+        //bound = calculateBound();
     }
 
     @Override
@@ -84,6 +85,10 @@ abstract public class Gizmo implements IElement{
 
     protected void setCircles(List<Circle> circles) {
         this.circles = circles;
+    }
+
+    protected void setBound(Vect bound) {
+        this.bound = bound;
     }
 
 

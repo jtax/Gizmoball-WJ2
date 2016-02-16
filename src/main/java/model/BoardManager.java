@@ -1,10 +1,14 @@
 package model;
 
 import physics.Circle;
+import physics.Geometry;
+import physics.LineSegment;
 import physics.Vect;
 
+import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Created by baird on 06/02/2016.
@@ -42,6 +46,7 @@ public class BoardManager {
         } else { //Collision
             newBall = moveBallForTime(ball, collision.getTime());
             newBall.setVelocity(collision.getVelocity());
+            System.out.println("New Veloctiy:" + collision.getVelocity());
         }
 
         return newBall;
@@ -56,11 +61,41 @@ public class BoardManager {
 
         newX = ball.getCenter().x() + (velX * time);
         newY = ball.getCenter().y() + (velY * time);
+        ball.setCenter(new Vect(newX, newY));
+        ball.setVelocity(new Vect(velX, velY));
 
         return new Ball("Ball", newX, newY, velX, velY);
     }
 
-    private Collision getTimeTillCollision(Ball ball) {
-        return new Collision(new Vect(5, 5), 5);
+    private Collision getTimeTillCollision(Ball bll) {
+        Circle ballC = bll.getCircle();
+        Vect ballV = bll.getVelocity();
+        Vect newV = new Vect(0, 0);
+        IElement collidingElement;
+        double shortestTime = Double.MAX_VALUE;
+        double time = 0.0;
+        for (IElement element : board.getElements()) {
+            for (LineSegment line : element.getLines()) {
+                time = Geometry.timeUntilWallCollision(line, ballC, ballV);
+                if (time < shortestTime) {
+                    shortestTime = time;
+                    collidingElement = element;
+
+                    System.out.println("Colide Line: " + element + " time: " + time);
+                    newV = Geometry.reflectWall(line, ballV);
+                }
+
+            }
+            for (Circle circle : element.getCircles()) {
+                time = Geometry.timeUntilCircleCollision(circle, ballC, ballV);
+                if (time < shortestTime) {
+                    shortestTime = time;
+                    collidingElement = element;
+                    System.out.println("Colide Circle: " + element + " time: " + time);
+                    newV = Geometry.reflectCircle(circle.getCenter(), ballC.getCenter(), ballV);
+                }
+            }
+        }
+        return new Collision(newV, shortestTime);
     }
 }

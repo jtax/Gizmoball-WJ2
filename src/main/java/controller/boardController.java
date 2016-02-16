@@ -26,16 +26,17 @@ public class boardController {
 
     //TODO Remove test method
     private void test(){
-        Gizmo test1 = new Square(0, 0, "Test");
-        Gizmo test2 = new Circle(3, 3, "Test");
-        Gizmo test3 = new Triangle(4, 3, "Test");
-        test3.setColor(Color.GREEN);
-        List<IElement> testShapes = Arrays.asList(new IElement[]{test1, test2, test3});
+        //Gizmo test1 = new Square(1, 5, "Test");
+        //Gizmo test2 = new Square(2, 5, "Test");
+        //Gizmo test3 = new Square(3, 5, "Test");
+        //Gizmo test4 = new Square(1, 1, "Test");
+        //Gizmo test5 = new Square(2, 1, "Test");
+        Gizmo test6 = new Square(1, 5, "Test");
+        //test3.setColor(Color.GREEN);
+        List<IElement> testShapes = Arrays.asList(new IElement[]{test6});
         boardManager.getBoard().setElements(testShapes);
-        Ball ball = new Ball("Ball", 6.6, 9.9, 5.0, 5.0);
-        Ball ball2 = new Ball("Ball", 5.4, 3.9, -2.0, 3.0);
+        Ball ball = new Ball("Ball", 2, 3, .0, 5.0);
         boardManager.getBoard().addBall(ball);
-        boardManager.getBoard().addBall(ball2);
     }
 
 
