@@ -38,19 +38,18 @@ public class BoardManager {
     }
 
     private Ball moveBall(Ball ball) {
-        Ball newBall;
         double moveTime = 0.05; //20 FPS
         Collision collision = getTimeTillCollision(ball);
 
         if (collision.getTime() >= moveTime) { //No Collision
-            newBall = moveBallForTime(ball, moveTime);
+            ball = moveBallForTime(ball, moveTime);
         } else { //Collision
-            newBall = moveBallForTime(ball, collision.getTime());
-            newBall.setVelocity(collision.getVelocity());
+            ball = moveBallForTime(ball, collision.getTime());
+            ball.setVelocity(collision.getVelocity());
             System.out.println("New Veloctiy:" + collision.getVelocity());
         }
 
-        return newBall;
+        return ball;
     }
 
     private Ball moveBallForTime(Ball ball, double time) {
@@ -76,39 +75,28 @@ public class BoardManager {
         double shortestTime = Double.MAX_VALUE;
         double time = 0.0;
         for (IElement element : board.getElements()) {
-            for (LineSegment line : element.getLines()) {
-                time = Geometry.timeUntilWallCollision(line, ballC, ballV);
-                if (time < shortestTime) {
-                    shortestTime = time;
-                    collidingElement = element;
-                    element.setColor(Color.GREEN);
-
-                    System.out.println("Colide Line: " + element + " time: " + time);
-                    newV = Geometry.reflectWall(line, ballV);
-                }
-
-            }
-            for (LineSegment line : element.getLines()) {
-                time = Geometry.timeUntilWallCollision(line, ballC, ballV);
-                if (time < shortestTime) {
-                    shortestTime = time;
-                    collidingElement = element;
-                    element.setColor(Color.GREEN);
-
-                    System.out.println("Colide Line: " + element + " time: " + time);
-                    newV = Geometry.reflectWall(line, ballV);
-                }
-
-            }
 
             for (Circle circle : element.getCircles()) {
                 time = Geometry.timeUntilCircleCollision(circle, ballC, ballV);
                 if (time < shortestTime) {
                     shortestTime = time;
                     collidingElement = element;
-                    System.out.println("Colide Circle: " + element + " time: " + time);
+                    element.setColor(Color.BLUE);
+                    System.out.println("Colide Circle: " + circle.getCenter() + " time: " + time);
                     newV = Geometry.reflectCircle(circle.getCenter(), ballC.getCenter(), ballV);
                 }
+            }
+            for (LineSegment line : element.getLines()) {
+                time = Geometry.timeUntilWallCollision(line, ballC, ballV);
+                if (time < shortestTime) {
+                    shortestTime = time;
+                    collidingElement = element;
+                    element.setColor(Color.GREEN);
+
+                    System.out.println("Colide Line: " + element + " time: " + time);
+                    newV = Geometry.reflectWall(line, ballV);
+                }
+
             }
         }
         return new Collision(newV, shortestTime);

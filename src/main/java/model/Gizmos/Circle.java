@@ -20,7 +20,7 @@ public class Circle extends Gizmo {
 	}
 
 	private physics.Circle calculateCircle() {
-		return new physics.Circle(super.getOrigin(), 0.5);
+		return new physics.Circle(super.getOrigin().plus(new Vect(0.5, 0.5)), 0.5);
 	}
 
 
@@ -33,7 +33,7 @@ public class Circle extends Gizmo {
 	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();
-		Vect bound = new Vect(1, -1);
+		Vect bound = new Vect(1, 1);
 		return origin.plus(bound);
 	}
 }

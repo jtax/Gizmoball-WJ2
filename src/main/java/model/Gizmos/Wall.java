@@ -28,10 +28,10 @@ public class Wall extends Gizmo {
 
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
-		Vect topRight = origin.plus(new Vect(bound.x(), 0));
+		Vect topRight = new Vect(bound.x(), origin.y());
 		Vect bottomRight = bound;
-		Vect bottomLeft = origin.plus(new Vect(0, bound.y()));
-		return Arrays.asList(topLeft, topRight, bottomLeft, bottomRight);
+		Vect bottomLeft = new Vect(origin.x(), bound.y());
+		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
 	}
 
 	private List<physics.Circle> calculateCircles() {
@@ -45,14 +45,15 @@ public class Wall extends Gizmo {
 
 	private List<LineSegment> calculateLines() {
 		List<LineSegment> calcLines = new ArrayList<>();
-		for (int i = 0; i < coordinates.size() - 1; i++) {
+		for (int i = 0; i < coordinates.size(); i++) {
 			Vect a = coordinates.get(i);
-			Vect b = coordinates.get(i + 1 % coordinates.size() - 1);
+			Vect b = coordinates.get((i + 1) % coordinates.size());
 			LineSegment line = new LineSegment(a, b);
 			calcLines.add(line);
 		}
 		return calcLines;
 	}
+
 
 	@Override
 	public void rotate() {
