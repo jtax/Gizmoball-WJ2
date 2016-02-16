@@ -21,7 +21,7 @@ public class Ball implements IElement {
     //TODO do balls need names?
     public Ball(String name,double x, double y, double velocityX, double velocityY){
         center = new Vect(x, y);
-        point = new Circle(center, 0.5);
+        point = new Circle(center, 0.25);
         origin = new Vect(x - .25, y - .25);
         velocity = new Vect(velocityX, velocityY);
     }

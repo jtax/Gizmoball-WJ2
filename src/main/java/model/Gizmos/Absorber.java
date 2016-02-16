@@ -30,7 +30,7 @@ public class Absorber  extends Gizmo {
 		Vect topRight = origin.plus(new Vect(bound.x(), 0));
 		Vect bottomRight = bound;
 		Vect bottomLeft = origin.plus(new Vect(0, bound.y()));
-		return Arrays.asList(topLeft, topRight, bottomLeft, bottomRight);
+		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
 	}
 
 	private List<Circle> calculateCircles() {
