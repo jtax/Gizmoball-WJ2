@@ -58,7 +58,7 @@ public class Ball implements IElement {
 
     @Override
     public Vect getOrigin() {
-        return origin;
+        return center;
     }
 
     @Override
@@ -71,5 +71,10 @@ public class Ball implements IElement {
     @Override
     public Color getColor() {
         return color;
+    }
+
+    @Override
+    public void setColor(Color color) {
+        return;
     }
 }

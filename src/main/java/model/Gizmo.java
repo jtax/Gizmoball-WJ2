@@ -5,6 +5,7 @@ import physics.LineSegment;
 import physics.Vect;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,8 @@ abstract public class Gizmo implements IElement{
     private String name;
 
     protected Gizmo(Vect origin, String name) {
+        lines = new ArrayList<>();
+        circles = new ArrayList<>();
         this.origin = origin;
         colors = new Color[]{Color.red, Color.green, Color.blue};
         rotation = 0;

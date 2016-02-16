@@ -135,7 +135,7 @@ public class BoardViewImpl implements BoardView, Observer {
 			if (s.getClass() == Wall.class) {
 				g.draw(shape);
 			} else {
-				g.draw(shape);
+				g.fill(shape);
 			}
 		}
 	}

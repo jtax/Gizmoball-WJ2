@@ -6,6 +6,7 @@ import physics.LineSegment;
 import physics.Vect;
 
 import javax.sound.sampled.Line;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -41,7 +42,7 @@ public class BoardManager {
         double moveTime = 0.05; //20 FPS
         Collision collision = getTimeTillCollision(ball);
 
-        if (collision.getTime() > moveTime) { //No Collision
+        if (collision.getTime() >= moveTime) { //No Collision
             newBall = moveBallForTime(ball, moveTime);
         } else { //Collision
             newBall = moveBallForTime(ball, collision.getTime());
@@ -80,6 +81,7 @@ public class BoardManager {
                 if (time < shortestTime) {
                     shortestTime = time;
                     collidingElement = element;
+                    element.setColor(Color.GREEN);
 
                     System.out.println("Colide Line: " + element + " time: " + time);
                     newV = Geometry.reflectWall(line, ballV);

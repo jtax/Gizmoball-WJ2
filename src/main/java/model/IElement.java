@@ -21,4 +21,6 @@ public interface IElement {
     Vect getBound();
 
     Color getColor();
+
+    void setColor(Color color);
 }
