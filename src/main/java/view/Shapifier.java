@@ -1,13 +1,19 @@
 package view;
 
-import model.Ball;
-import model.Coordinate;
-import model.Gizmos.*;
-import model.IElement;
-
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
 import java.util.HashMap;
+
+import model.Ball;
+import model.IElement;
+import model.Gizmos.Absorber;
+import model.Gizmos.Circle;
+import model.Gizmos.Flipper;
+import model.Gizmos.Square;
+import model.Gizmos.Triangle;
+import model.Gizmos.Wall;
+import physics.Vect;
 
 public class Shapifier {
 
@@ -27,14 +33,14 @@ public class Shapifier {
 		int horizontalScalingFactor = boardView.getHorizontalScalingFactor();
 		int verticalScalingFactor = boardView.getVerticalScalingFactor();
 
-		Coordinate originCoordinate = e.getOrigin();
+		Vect originCoordinate = e.getOrigin();
 
-		double originX = originCoordinate.getX()* horizontalScalingFactor;
-		double originY = originCoordinate.getY()* verticalScalingFactor;
+		double originX = originCoordinate.x() * horizontalScalingFactor;
+		double originY = originCoordinate.y() * verticalScalingFactor;
 
-		Coordinate boundingCoordinate = e.getBound();
-		double boundX = boundingCoordinate.getX()* horizontalScalingFactor;
-		double boundY = boundingCoordinate.getY()* verticalScalingFactor;
+		Vect boundingCoordinate = e.getBound();
+		double boundX = boundingCoordinate.x() * horizontalScalingFactor;
+		double boundY = boundingCoordinate.y() * verticalScalingFactor;
 
 
 		double width = (boundX - originX);
@@ -67,10 +73,11 @@ public class Shapifier {
 
 		shapeMakerMap.put(Triangle.class, (int x, int y, int w, int h) -> {
 			// TODO: return a triangle
+
 			Polygon p = new Polygon();
-			p.addPoint(x,y);
-			p.addPoint(x+w, y);
-			p.addPoint(x+w, y+h);
+			p.addPoint(x, y);
+			p.addPoint(x, y + h);
+			p.addPoint(x + w, y + h);
 			return p;
 		});
 
@@ -88,6 +95,6 @@ public class Shapifier {
 	}
 
 	private interface ShapeMaker {
-		public Shape make(int x, int y, int w, int h);
+		Shape make(int x, int y, int w, int h);
 	}
 }

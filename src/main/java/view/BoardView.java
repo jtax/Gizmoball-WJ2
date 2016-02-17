@@ -4,6 +4,7 @@ import model.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,11 +13,11 @@ import java.util.Observer;
  */
 public interface BoardView{
 
-    public JPanel getPanel();
-    public int getHorizontalScalingFactor();
-	public int getVerticalScalingFactor();
-    public void update(Observable o, Object arg);
+    JPanel getPanel();
 
-    //public void paintElement(Shape shape);
+    int getHorizontalScalingFactor();
 
+    int getVerticalScalingFactor();
+
+    void update(Observable o, Object arg);
 }

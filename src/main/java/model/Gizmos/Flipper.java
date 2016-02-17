@@ -5,45 +5,62 @@ import model.Components.Line;
 import model.Coordinate;
 import model.Direction;
 import model.Gizmo;
+import physics.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class Flipper extends Gizmo {
+	private List<Vect> coordinates;
 
 	protected Boolean rotated = false;
 	private Direction direction = Direction.LEFT;
 
-	public Flipper(Coordinate origin, String name) {
+	public Flipper(Vect origin, String name) {
+
 		super(origin,name);
-		calculateComponents();
 
 		this.reflection = 0.95;
 		rotation = 90;
+		coordinates = calculateCoordinates();
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
 	}
 
-	public void setDirection(Direction direction) {
-
-		this.direction = direction;
+	private List<Vect> calculateCoordinates() {
+		Vect topLeft = origin;
+		Vect topRight = origin.plus(new Vect(bound.x(), 0));
+		Vect bottomRight = bound;
+		Vect bottomLeft = origin.plus(new Vect(0, bound.y()));
+		return Arrays.asList(topLeft, topRight, bottomLeft, bottomRight);
 	}
 
-	@Override
-	protected void calculateComponents() {
-		Coordinate origin = super.getOrigin();
-		double x = origin.getX();
-		double y = origin.getY();
-		Component top = new Line(x,y, x+1,y);
-		Component right = new Line(x+1,y, x+1,y-2);
-		Component bottom = new Line(x,y-2, x+1,y-2);
-		Component left = new Line(x,y, x,y-2);
-		super.setComponents( Arrays.asList(top,right,bottom,left));
+	private List<physics.Circle> calculateCircles() {
+		List<physics.Circle> calcCircles = new ArrayList<>();
+		for (Vect coord : coordinates) {
+			physics.Circle circle = new physics.Circle(coord, 0);
+			calcCircles.add(circle);
+		}
+		return calcCircles;
+	}
+
+	private List<LineSegment> calculateLines() {
+		List<LineSegment> calcLines = new ArrayList<>();
+		for (int i = 0; i < coordinates.size() - 1; i++) {
+			Vect a = coordinates.get(i);
+			Vect b = coordinates.get(i + 1 % coordinates.size() - 1);
+			LineSegment line = new LineSegment(a, b);
+			calcLines.add(line);
+		}
+		return calcLines;
 	}
 
 	@Override
 	public void rotate() {
-
+		bound.rotateBy(new Angle(90));
 	}
 
 
@@ -72,12 +89,10 @@ public class Flipper extends Gizmo {
 		rotated = !rotated;
 	}
 
-
 	@Override
-	public Coordinate calculateBound() {
-		Coordinate bound = super.getOrigin();
-		bound.setX(bound.getX() + 2);
-		bound.setY(bound.getX() - 2);
-		return bound;
+	public Vect calculateBound() {
+		Vect origin = super.getOrigin();
+		Vect bound = new Vect(2, -2);
+		return origin.plus(bound);
 	}
 }

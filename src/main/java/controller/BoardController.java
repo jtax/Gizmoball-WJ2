@@ -2,37 +2,45 @@ package controller;
 
 import model.*;
 import model.Gizmos.Circle;
-import model.Gizmos.Flipper;
 import model.Gizmos.Square;
 import model.Gizmos.Triangle;
 import view.GizmoBallView;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by bairdjb on 11/02/2016.
  */
-public class BoardController {
-    BoardManager boardManager;
-    GizmoBallView view;
+public class boardController {
+    private BoardManager boardManager;
+    private GizmoBallView view;
 
-    public BoardController(){
+    public boardController(){
         boardManager = new BoardManager();
-        view = new GizmoBallView(boardManager.getBoard());
+        view = new GizmoBallView(boardManager);
         boardManager.getBoard().addObserver(view);
         test();
     }
 
     //TODO Remove test method
     private void test(){
-        Gizmo test1 = new Square(new Coordinate(0,0),"Test");
-        Gizmo test2 = new Circle(new Coordinate(3,3),"Test");
-        Gizmo test3 = new Triangle(new Coordinate(8,7), "Test");
-        Gizmo test4 = new Flipper(new Coordinate(5,5), "Test");
-        List<IElement> testShapes = Arrays.asList(new IElement[]{test1,test2, test3, test4});
+        Gizmo test1 = new Square(3, 0, "Test");
+        Gizmo test2 = new Triangle(2, 6, "Test");
+        Gizmo test3 = new Square(1, 6, "Test");
+        Gizmo test4 = new Square(1, 2, "Test");
+        Gizmo test5 = new Circle(2, 1, "Test");
+        Gizmo test6 = new Triangle(3, 2, "Test");
+        //test3.setColor(Color.GREEN);
+        List<IElement> testShapes = Arrays.asList(new IElement[]{test1, test2, test3, test4, test5, test6});
         boardManager.getBoard().setElements(testShapes);
-        Ball ball = new Ball("Ball", 10, 10, 5.0, 5.0);
+        Ball ball = new Ball("Ball", 3.5, 7, -5.0, -5.0);
+
+        Ball ball2 = new Ball("Ball", 2.5, 3, -5.0, -5.0);
         boardManager.getBoard().addBall(ball);
+        boardManager.getBoard().addBall(ball2);
     }
+
+
 }

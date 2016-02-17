@@ -1,47 +1,67 @@
 package model.Gizmos;
 
-import model.Component;
-import model.Components.Line;
-import model.Coordinate;
 import model.Gizmo;
+import physics.LineSegment;
+import physics.Vect;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class Square extends Gizmo {
 
+    private int reflectionCoefficient = 1;
+    private List<Vect> coordinates;
 
-    public Square(Coordinate origin, String name) {
+    public Square(Vect origin, String name) {
         super(origin, name);
-        calculateComponents();
+        coordinates = calculateCoordinates();
+        super.setCircles(calculateCircles());
+        super.setLines(calculateLines());
     }
 
     public Square(int x, int y, String name) {
-		this (new Coordinate(x,y), name);
-	}
+        this(new Vect(x, y), name);
+    }
 
-	@Override
-    protected void calculateComponents() {
-        Coordinate origin = super.getOrigin();
-        double x = origin.getX();
-        double y = origin.getY();
-        Component top = new Line(x,y, x+1,y);
-        Component right = new Line(x+1,y, x+1,y-1);
-        Component bottom = new Line(x,y-1, x+1,y-1);
-        Component left = new Line(x,y, x,y-1);
-        super.setComponents(Arrays.asList(top,right,bottom,left));
+    private List<Vect> calculateCoordinates() {
+        Vect topLeft = origin;
+        Vect topRight = new Vect(bound.x(), origin.y());
+        Vect bottomRight = bound;
+        Vect bottomLeft = new Vect(origin.x(), bound.y());
+        return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
+    }
+
+    private List<physics.Circle> calculateCircles() {
+        List<physics.Circle> calcCircles = new ArrayList<>();
+        for (Vect coord : coordinates) {
+            physics.Circle circle = new physics.Circle(coord, 0);
+            calcCircles.add(circle);
+        }
+        return calcCircles;
+    }
+
+    private List<LineSegment> calculateLines() {
+        List<LineSegment> calcLines = new ArrayList<>();
+        for (int i = 0; i < coordinates.size(); i++) {
+            Vect a = coordinates.get(i);
+            Vect b = coordinates.get((i + 1) % coordinates.size());
+            LineSegment line = new LineSegment(a, b);
+            calcLines.add(line);
+        }
+        return calcLines;
     }
 
     public void rotate(){
         //Pointless for Square: do nothing
     }
 
-    public Coordinate calculateBound(){
-        Coordinate bound = super.getOrigin();
-        bound.setX(bound.getX()+1);
-        bound.setY(bound.getX()-1);
-        return bound;
+    public Vect calculateBound() {
+        Vect origin = super.getOrigin();
+        Vect bound = new Vect(1, 1);
+        return origin.plus(bound);
     }
 }

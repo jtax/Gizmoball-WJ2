@@ -1,7 +1,10 @@
 package model;
 
-import model.Components.Point;
+import physics.Circle;
+import physics.LineSegment;
+import physics.Vect;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,46 +12,69 @@ import java.util.List;
  * Created by baird on 06/02/2016.
  */
 public class Ball implements IElement {
-    Component point;
-    Coordinate origin;
-    Coordinate velocity;
+    private Circle point;
+    private Vect origin;
+    private Vect velocity;
+    private Vect center;
+    private Color color = Color.GREEN;
 
+    //TODO do balls need names?
     public Ball(String name,double x, double y, double velocityX, double velocityY){
-        point = new Point(x,y,0.5);
-        origin = new Coordinate(x - .25, y - .25);
-        velocity = new Coordinate(velocityX,velocityY);
+        center = new Vect(x, y);
+        point = new Circle(center, 0.25);
+        origin = new Vect(x - .25, y - .25);
+        velocity = new Vect(velocityX, velocityY);
     }
 
-    public Coordinate getVelocity() {
+    public Vect getCenter() {
+        return center;
+    }
+
+    public void setCenter(Vect center) {
+        this.center = center;
+    }
+
+    public Vect getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(Coordinate velocity) {
+    public void setVelocity(Vect velocity) {
         this.velocity = velocity;
     }
 
-    public Component getPoint() {
+    public Circle getCircle() {
         return point;
     }
 
-    public void setPoint(Component point) {
-        this.point = point;
+    @Override
+    public List<LineSegment> getLines() {
+        return null;
     }
 
     @Override
-    public List<Component> getComponents() {
+    public List<Circle> getCircles() {
         return Arrays.asList(point);
     }
 
     @Override
-    public Coordinate getOrigin() {
+    public Vect getOrigin() {
         return origin;
     }
 
     @Override
-    public Coordinate getBound() {
-        double x = origin.getX() + 0.5;
-        double y = origin.getY() + 0.5;
-        return new Coordinate(x, y);
+    public Vect getBound() {
+        double x = origin.x() + 0.5;
+        double y = origin.y() + 0.5;
+        return new Vect(x, y);
+    }
+
+    @Override
+    public Color getColor() {
+        return color;
+    }
+
+    @Override
+    public void setColor(Color color) {
+        return;
     }
 }

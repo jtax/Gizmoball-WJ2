@@ -1,35 +1,28 @@
 package model.Gizmos;
 
-import model.Component;
-import model.Components.Point;
-import model.Coordinate;
 import model.Gizmo;
+import physics.Vect;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class Circle extends Gizmo {
 
-	public Circle(Coordinate origin, String name) {
+	public Circle(Vect origin, String name) {
 		super(origin, name);
-		calculateComponents();
+		super.setCircles(Arrays.asList(calculateCircle()));
 	}
 	
 	public Circle(int x, int y, String name) {
-		this(new Coordinate(x,y),name);
+		this(new Vect(x, y), name);
 	}
 
-	@Override
-	protected void calculateComponents() {
-		Coordinate origin = super.getOrigin();
-		double x = origin.getX()+0.5;
-		double y = origin.getY()-0.5;
-		Component component = new Point(x,y,1);
-		super.setComponents(Arrays.asList(component));
+	private physics.Circle calculateCircle() {
+		return new physics.Circle(super.getOrigin().plus(new Vect(0.5, 0.5)), 0.5);
 	}
+
 
 	@Override
 	public void rotate() {
@@ -38,10 +31,9 @@ public class Circle extends Gizmo {
 	}
 
 	@Override
-	public Coordinate calculateBound() {
-		Coordinate origin = super.getOrigin();
-		double x = origin.getX()+1;
-		double y = origin.getY()-1;
-		return new Coordinate(x,y);
+	public Vect calculateBound() {
+		Vect origin = super.getOrigin();
+		Vect bound = new Vect(1, 1);
+		return origin.plus(bound);
 	}
 }

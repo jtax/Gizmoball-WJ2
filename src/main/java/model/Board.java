@@ -1,5 +1,9 @@
 package model;
 
+import model.Gizmos.Square;
+import model.Gizmos.Wall;
+import physics.Vect;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -8,10 +12,12 @@ import java.util.Observable;
  * Created by baird on 06/02/2016.
  */
 public class Board extends Observable {
-    List<IElement> elements;
-    List<Ball> balls;
-    int frictionConst, gravityConst;
-    int width,height;
+    private List<IElement> elements;
+    private List<Ball> balls;
+    private int frictionConst;
+    private int gravityConst;
+    private int width;
+    private int height;
 
     public Board(int frictionConst, int gravityConst, int width, int height) {
         this.frictionConst = frictionConst;
@@ -20,10 +26,26 @@ public class Board extends Observable {
         this.height = height;
         elements = new ArrayList<>();
         balls = new ArrayList<>();
+        addWalls();
     }
 
     public void addBall(Ball ball) {
         balls.add(ball);
+        setChanged();
+        notifyObservers();
+    }
+
+    private void addWalls() {
+        Vect topLeft = new Vect(0, 0);
+        Vect topRight = new Vect(20, 0);
+        Vect bottomLeft = new Vect(0, 20);
+        Vect bottomRight = new Vect(20, 20);
+        IElement walls = new Wall(topLeft, bottomRight, "Wall");
+        addElement(walls);
+    }
+
+    public void setBalls(List<Ball> newBalls) {
+        balls = newBalls;
         setChanged();
         notifyObservers();
     }
@@ -36,12 +58,15 @@ public class Board extends Observable {
     }
 
     public void setElements(List<IElement> elements) {
-        this.elements = elements;
+        for (IElement element : elements) {
+            addElement(element);
+        }
+        addWalls();
         setChanged();
         notifyObservers();
     }
 
-    public void addElement(IElement element) {
+    private void addElement(IElement element) {
         elements.add(element);
         setChanged();
         notifyObservers();

@@ -1,38 +1,56 @@
 package model.Gizmos;
 
-import model.Component;
-import model.Components.Line;
-import model.Coordinate;
 import model.Gizmo;
+import physics.Vect;
+import physics.Circle;
+import physics.LineSegment;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class Absorber  extends Gizmo {
 
-	private Coordinate bound;
+	private Vect bound;
+	private List<Vect> coordinates;
 
-	public Absorber(Coordinate origin, Coordinate bound, String name) {
+	public Absorber(Vect origin, Vect bound, String name) {
 		super(origin,name);
 		this.bound = bound;
-		this.reflection = 0.0;
-		calculateComponents();
+		coordinates = calculateCoordinates();
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
 	}
 
-	@Override
-	protected void calculateComponents() {
-		Coordinate origin = super.getOrigin();
-		double originx = origin.getX();
-		double originy = origin.getY();
-		double boundx = bound.getX();
-		double boundy = bound.getY();
-		Component top = new Line(originx,originy, boundx,originy);
-		Component right = new Line(boundx,originy, boundx,boundy);
-		Component bottom = new Line(originx,boundy, boundx,boundy);
-		Component left = new Line(originx,originy, originx,boundy);
-		super.setComponents(Arrays.asList(top,right,bottom,left));
+	private List<Vect> calculateCoordinates() {
+		Vect topLeft = origin;
+		Vect topRight = origin.plus(new Vect(bound.x(), 0));
+		Vect bottomRight = bound;
+		Vect bottomLeft = origin.plus(new Vect(0, bound.y()));
+		return Arrays.asList(topLeft, topRight, bottomLeft, bottomRight);
+	}
+
+	private List<Circle> calculateCircles() {
+		List<Circle> calcCircles = new ArrayList<>();
+		for (Vect coord : coordinates) {
+			Circle circle = new Circle(coord, 0);
+			calcCircles.add(circle);
+		}
+		return calcCircles;
+	}
+
+	private List<LineSegment> calculateLines() {
+		List<LineSegment> calcLines = new ArrayList<>();
+		for (int i = 0; i < coordinates.size() - 1; i++) {
+			Vect a = coordinates.get(i);
+			Vect b = coordinates.get(i + 1 % coordinates.size() - 1);
+			LineSegment line = new LineSegment(a, b);
+			calcLines.add(line);
+		}
+		return calcLines;
 	}
 
 	@Override
@@ -42,7 +60,7 @@ public class Absorber  extends Gizmo {
 	}
 
 	@Override
-	public Coordinate calculateBound() {
+	public Vect calculateBound() {
 		return bound;
 	}
 }

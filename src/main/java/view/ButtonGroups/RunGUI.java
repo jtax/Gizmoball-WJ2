@@ -2,17 +2,19 @@ package view.ButtonGroups;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * Created by baird on 06/02/2016.
  */
-public class RunGUI implements ActionListener {
+public class RunGUI {
 
 
-    public RunGUI(){
+    private ActionListener listener;
+
+    public RunGUI(ActionListener listener) {
         makeFrame();
+        this.listener = listener;
     }
 
     private void makeFrame() {
@@ -22,15 +24,20 @@ public class RunGUI implements ActionListener {
 
     public JPanel createButton() {
         JButton start = new JButton("Start");
-        start.addActionListener(this);
+        start.addActionListener(listener);
         JButton stop = new JButton("Stop");
-        JButton build = new JButton("Build Mode");
+        stop.addActionListener(listener);
+        JButton tick = new JButton("Tick");
+        tick.addActionListener(listener);
+        JButton exit = new JButton("Exit");
+        exit.addActionListener(listener);
 
-        JPanel bottomButtons = new JPanel(new GridLayout(1,3));
+        JPanel bottomButtons = new JPanel(new GridLayout(1, 4));
 
         bottomButtons.add(start);
         bottomButtons.add(stop);
-        bottomButtons.add(build);
+        bottomButtons.add(tick);
+        bottomButtons.add(exit);
         return bottomButtons;
     }
 
@@ -48,10 +55,5 @@ public class RunGUI implements ActionListener {
         menus.add(file);
 
         return menus;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.printf("I worked");
     }
 }
