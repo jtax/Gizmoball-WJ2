@@ -91,6 +91,10 @@ public class GizmoParser
                 gravity = Double.valueOf(st.nextToken());
                 System.out.println(gizmoType + gravity );
             }
+
+            if(gizmoType.equals("Friction")){
+               parseFriction(gizmoType,st);
+            }
             line = fileInput.readLine();
         }
 
@@ -145,6 +149,23 @@ public class GizmoParser
             Flipper t = new Flipper(origin,gizmoName);
         }
         System.out.println(gizmoType + gizmoName + xCoord + yCoord);
+    }
+
+    private void parseFriction(String gizmo,StringTokenizer st) throws BadFileException{
+        String gizmoType = gizmo;
+        Double MU1 = 0.0;
+        Double MU2 = 0.0;
+
+        MU1 = Double.valueOf(st.nextToken());
+        if(!st.hasMoreTokens())
+        {
+            throw new BadFileException("No action");
+        }
+
+        MU2 = Double.valueOf(st.nextToken());
+
+        System.out.println(gizmoType + MU1 + MU2);
+
     }
 
     private void parseAbsorber(String gizmo,StringTokenizer st) throws BadFileException{
