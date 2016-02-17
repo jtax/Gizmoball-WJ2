@@ -32,8 +32,7 @@ public class LoadBoard {
         int returnVal = openFile.showOpenDialog(openFile);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = openFile.getSelectedFile();
-            return file;
+            return openFile.getSelectedFile();
         } else {
             return null;
         }

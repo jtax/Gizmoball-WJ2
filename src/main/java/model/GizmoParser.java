@@ -85,6 +85,12 @@ public class GizmoParser
                 parseBall(gizmoType,st);
 
             }
+
+            if(gizmoType.equals("Gravity")){
+                Double gravity = 0.0;
+                gravity = Double.valueOf(st.nextToken());
+                System.out.println(gizmoType + gravity );
+            }
             line = fileInput.readLine();
         }
 
