@@ -18,7 +18,7 @@ public class BoardManager {
     private Board board;
 
     public BoardManager(){
-        board = new Board(0,0,20,20);
+        board = new Board(new double[]{0.025, 0.025}, 25, 20, 20);
     }
 
     public Board getBoard() {
@@ -46,7 +46,6 @@ public class BoardManager {
         } else { //Collision
             ball = moveBallForTime(ball, collision.getTime());
             ball.setVelocity(collision.getVelocity());
-            System.out.println("New Veloctiy:" + collision.getVelocity());
         }
 
         return ball;
@@ -62,8 +61,12 @@ public class BoardManager {
         newX = ball.getCenter().x() + (velX * time);
         newY = ball.getCenter().y() + (velY * time);
         ball.setCenter(new Vect(newX, newY));
-        ball.setVelocity(new Vect(velX, velY));
-
+        Vect rawVel = new Vect(velX, velY);
+        Vect frictionVel = applyFriction(rawVel, time);
+        Vect gravityVel = applyGravity(frictionVel, time);
+        velX = gravityVel.x();
+        velY = gravityVel.y();
+        System.out.println("Raw:" + rawVel.y() + " Fric " + frictionVel.y() + " GravFric " + gravityVel.y());
         return new Ball("Ball", newX, newY, velX, velY);
     }
 
@@ -82,7 +85,6 @@ public class BoardManager {
                     shortestTime = time;
                     collidingElement = element;
                     element.setColor(Color.BLUE);
-                    System.out.println("Colide Circle: " + circle.getCenter() + " time: " + time);
                     newV = Geometry.reflectCircle(circle.getCenter(), ballC.getCenter(), ballV);
                 }
             }
@@ -92,13 +94,24 @@ public class BoardManager {
                     shortestTime = time;
                     collidingElement = element;
                     element.setColor(Color.GREEN);
-
-                    System.out.println("Colide Line: " + element + " time: " + time);
                     newV = Geometry.reflectWall(line, ballV);
                 }
 
             }
         }
         return new Collision(newV, shortestTime);
+    }
+
+    public Vect applyFriction(Vect velocity, double time) {
+        double mu = board.getFrictionConst()[0];
+        double mu2 = board.getFrictionConst()[1];
+        double partA = 1 - mu * time;
+        double partB = mu2 * velocity.length() * time;
+        return velocity.times(partA - partB);
+    }
+
+    public Vect applyGravity(Vect velocity, double time) {
+        Vect change = new Vect(0, board.getGravityConst() * time);
+        return velocity.plus(change);
     }
 }

@@ -28,7 +28,7 @@ public class ShapifierTest {
 
     @Before
     public void createTestShapifier(){
-        board = new Board(10,10,20,20);
+        board = new Board(new double[]{0.025, 0.025}, 25, 20, 20);
         boardView = new BoardViewImpl(board);
         shapifier = new Shapifier(boardView);
     }

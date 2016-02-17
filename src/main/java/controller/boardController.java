@@ -35,7 +35,7 @@ public class boardController {
         //test3.setColor(Color.GREEN);
         List<IElement> testShapes = Arrays.asList(new IElement[]{test1, test2, test3, test4, test5, test6});
         boardManager.getBoard().setElements(testShapes);
-        Ball ball = new Ball("Ball", 2.75, 4.5, .0, 5.0);
+        Ball ball = new Ball("Ball", 1, 17, 0.5, 1);
         boardManager.getBoard().addBall(ball);
     }
 
