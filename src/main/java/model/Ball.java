@@ -26,6 +26,10 @@ public class Ball implements IElement {
         velocity = new Vect(velocityX, velocityY);
     }
 
+    public Ball(String name, Vect center, Vect velocity) {
+        this(name, center.x(), center.y(), velocity.x(), velocity.y());
+    }
+
     public Vect getCenter() {
         return center;
     }

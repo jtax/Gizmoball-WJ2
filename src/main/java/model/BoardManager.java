@@ -42,9 +42,12 @@ public class BoardManager {
         Collision collision = getTimeTillCollision(ball);
 
         if (collision.getTime() >= moveTime) { //No Collision
+            ball = applyForces(ball, moveTime);
             ball = moveBallForTime(ball, moveTime);
+
         } else { //Collision
             ball = moveBallForTime(ball, collision.getTime());
+            ball = applyForces(ball, collision.getTime());
             ball.setVelocity(collision.getVelocity());
         }
 
@@ -60,13 +63,7 @@ public class BoardManager {
 
         newX = ball.getCenter().x() + (velX * time);
         newY = ball.getCenter().y() + (velY * time);
-        ball.setCenter(new Vect(newX, newY));
-        Vect rawVel = new Vect(velX, velY);
-        Vect frictionVel = applyFriction(rawVel, time);
-        Vect gravityVel = applyGravity(frictionVel, time);
-        velX = gravityVel.x();
-        velY = gravityVel.y();
-        System.out.println("Raw:" + rawVel.y() + " Fric " + frictionVel.y() + " GravFric " + gravityVel.y());
+
         return new Ball("Ball", newX, newY, velX, velY);
     }
 
@@ -102,6 +99,15 @@ public class BoardManager {
         return new Collision(newV, shortestTime);
     }
 
+    public Ball applyForces(Ball oldBall, double time) {
+        Vect oldVelocity = oldBall.getVelocity();
+        Vect newVelocityG = applyGravity(oldVelocity, time);
+        Vect newVelocityF = applyFriction(newVelocityG, time);
+        Ball out = new Ball("Ball", oldBall.getCenter(), newVelocityF);
+
+        return out;
+    }
+
     public Vect applyFriction(Vect velocity, double time) {
         double mu = board.getFrictionConst()[0];
         double mu2 = board.getFrictionConst()[1];
@@ -111,7 +117,9 @@ public class BoardManager {
     }
 
     public Vect applyGravity(Vect velocity, double time) {
-        Vect change = new Vect(0, board.getGravityConst() * time);
-        return velocity.plus(change);
+        double changeAmount = board.getGravityConst() * time;
+        Vect change = new Vect(0, changeAmount);
+        Vect out = velocity.plus(change);
+        return out;
     }
 }
