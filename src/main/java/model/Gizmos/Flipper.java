@@ -1,14 +1,14 @@
 package model.Gizmos;
 
-import model.Component;
-import model.Components.Line;
-import model.Coordinate;
 import model.Direction;
 import model.Gizmo;
-import physics.*;
+import physics.Angle;
+import physics.LineSegment;
+import physics.Vect;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
@@ -23,11 +23,20 @@ public class Flipper extends Gizmo {
 
 		super(origin,name);
 
-		this.reflection = 0.95;
 		rotation = 90;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
+	}
+
+	public Flipper(int x, int y, String name) {
+		this(new Vect(x, y), name);
+	}
+
+	public void setDirection(Direction direction) {
+
+		this.direction = direction;
+
 	}
 
 	private List<Vect> calculateCoordinates() {
@@ -80,10 +89,10 @@ public class Flipper extends Gizmo {
 		}
 
 		if (rotated) {
-			bound.rotate(origin, rotation * rotateBackConst);
+			bound = bound.rotateBy(new Angle(rotation * rotateBackConst));
 
 		} else {
-			bound.rotate(origin, rotation * rotateConst);
+			bound = bound.rotateBy(new Angle(rotation * rotateConst));
 		}
 
 		rotated = !rotated;
@@ -92,7 +101,8 @@ public class Flipper extends Gizmo {
 	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();
-		Vect bound = new Vect(2, -2);
+		Vect bound = new Vect(2, 0.5);
 		return origin.plus(bound);
 	}
+
 }

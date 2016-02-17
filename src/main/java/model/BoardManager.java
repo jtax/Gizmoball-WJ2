@@ -5,11 +5,9 @@ import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 
-import javax.sound.sampled.Line;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 /**
  * Created by baird on 06/02/2016.
