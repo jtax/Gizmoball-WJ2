@@ -14,7 +14,12 @@ public class Circle extends Gizmo {
 		super(origin, name);
 		super.setCircles(Arrays.asList(calculateCircle()));
 	}
-	
+
+	@Override
+	public void trigger() {
+
+	}
+
 	public Circle(int x, int y, String name) {
 		this(new Vect(x, y), name);
 	}

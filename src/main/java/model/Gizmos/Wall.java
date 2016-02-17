@@ -56,6 +56,11 @@ public class Wall extends Gizmo {
 
 
 	@Override
+	public void trigger() {
+
+	}
+
+	@Override
 	public void rotate() {
 		// TODO Auto-generated method stub
 

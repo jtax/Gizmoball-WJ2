@@ -1,16 +1,16 @@
 package view;
 
 
+import controller.KeyPressListener;
 import controller.RunListener;
+import model.Board;
 import model.BoardManager;
+import util.MagicKeyListener;
 import view.BoardViews.BoardViewImpl;
 import view.ButtonGroups.BuildGUI;
 import view.ButtonGroups.RunGUI;
 
 import javax.swing.*;
-
-import model.Board;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -21,6 +21,7 @@ import java.util.Observer;
  */
 public class GizmoBallView implements Observer {
 
+    private final MagicKeyListener keyPressListener;
     private boolean runMode;
     private JFrame frame;
     Container contentPane;
@@ -42,6 +43,7 @@ public class GizmoBallView implements Observer {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         boardView = new BoardViewImpl(board);
         listener = new RunListener(bm);
+        keyPressListener = new MagicKeyListener(new KeyPressListener(bm.getBoard().getElements()));
         makeFrame();
     }
 
@@ -50,6 +52,10 @@ public class GizmoBallView implements Observer {
             makeRunGUI();
 
             boardPanel = boardView.getPanel();
+
+
+            // Listen for key events
+            frame.addKeyListener(keyPressListener);
         }
         else{
             makeBuildGUI();
@@ -60,7 +66,10 @@ public class GizmoBallView implements Observer {
         frame.setJMenuBar(menu);
         frame.setLocation(100,100);
         frame.setVisible(true);
+        frame.setFocusable(true);
+        frame.requestFocus();
         frame.pack();
+
         //frame.setResizable(false);
     }
 
@@ -80,7 +89,10 @@ public class GizmoBallView implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+
         boardView.update(o,arg);
+        frame.requestFocus();
+
     }
 
 }

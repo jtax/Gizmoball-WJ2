@@ -11,6 +11,7 @@ import model.IElement;
 import view.GizmoBallView;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,8 +37,7 @@ public class BoardController {
         Gizmo test4 = new Square(1, 2, "Test");
         Gizmo test5 = new Circle(2, 1, "Test");
         Flipper test6 = new Flipper(5, 3, "Test");
-        test6.flip();
-        test6.flip();
+        test6.addKeyPressTrigger(KeyEvent.VK_SPACE);
         test6.setColor(Color.GREEN);
         List<IElement> testShapes = Arrays.asList(new IElement[]{test1, test2, test3, test4, test5, test6});
         boardManager.getBoard().setElements(testShapes);

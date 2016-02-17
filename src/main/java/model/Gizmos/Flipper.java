@@ -2,10 +2,12 @@ package model.Gizmos;
 
 import model.Direction;
 import model.Gizmo;
+import model.Triggerable;
 import physics.Angle;
 import physics.LineSegment;
 import physics.Vect;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,11 +15,12 @@ import java.util.List;
 /**
  * Created by baird on 06/02/2016.
  */
-public class Flipper extends Gizmo {
+public class Flipper extends Gizmo implements Triggerable {
 	private List<Vect> coordinates;
 
 	protected Boolean rotated = false;
 	private Direction direction = Direction.LEFT;
+	private KeyEvent keyPressTrigger;
 
 	public Flipper(Vect origin, String name) {
 
@@ -27,6 +30,12 @@ public class Flipper extends Gizmo {
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
+	}
+
+	@Override
+	public void trigger() {
+
+		flip();
 	}
 
 	public Flipper(int x, int y, String name) {

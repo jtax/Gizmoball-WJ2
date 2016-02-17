@@ -19,6 +19,11 @@ public class Triangle extends Gizmo {
 		super.setLines(calculateLines());
 	}
 
+	@Override
+	public void trigger() {
+
+	}
+
 	public Triangle(double x, double y, String name) {
 		this(new Vect(x, y), name);
 	}
