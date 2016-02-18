@@ -10,16 +10,9 @@ import java.io.IOException;
 
 public class LoadBoard {
 
-    public static void main(String[] args){
+    public Board loadFile() {
         File filen = getFileToOpen();
-        if(filen != null){
-            boolean result = openGizmoFromFile(filen);
-            if(result == false){
-                System.out.println("File not loaded successfully");
-            }else{
-                System.out.println("File loaded successfully");
-            }
-        }
+        return openGizmoFromFile(filen);
     }
 
     public static File getFileToOpen() {
@@ -39,23 +32,25 @@ public class LoadBoard {
 
     }
 
-    public static boolean openGizmoFromFile(File filen) {
+    public static Board openGizmoFromFile(File filen) {
 
-
-
+        double[] temp = new double[2];
+        temp[0] = 0;
+        temp[0] = 0;
+        Board board = new Board(temp, 0, 0, 0);
         try{
             GizmoParser g = new GizmoParser(filen);
-            g.getGizmosFromFile();
+            board = g.getGizmosFromFile();
 
 
         }catch(IOException e){
             //
             System.out.println("IOException");
-            return false;
+            return null;
         } catch (model.BadFileException e) {
             e.printStackTrace();
         }
 
-        return true;
+        return board;
     }
 }

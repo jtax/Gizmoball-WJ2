@@ -22,6 +22,7 @@ abstract public class Gizmo implements IElement{
     protected int rotation;
     private int reflection;
     private String name;
+    private int keyPressTrigger;
 
     protected Gizmo(Vect origin, String name) {
         lines = new ArrayList<>();

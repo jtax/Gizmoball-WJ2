@@ -1,6 +1,6 @@
 package view;
 
-import controller.BoardController;
+import controller.boardController;
 
 import javax.swing.*;
 
@@ -12,7 +12,7 @@ public class main {
 
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run() {
-				new BoardController();
+				new boardController();
 			}
 		});
 

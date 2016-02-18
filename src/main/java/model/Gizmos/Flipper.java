@@ -135,4 +135,8 @@ public class Flipper extends Gizmo implements Triggerable {
 		return origin.plus(bound);
 	}
 
+	@Override
+	public List<Vect> getCoordinates() {
+		return coordinates;
+	}
 }
