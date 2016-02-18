@@ -29,6 +29,9 @@ public class BoardManager {
         this.board = board;
     }
 
+
+    /*   -----     Physics Loop    ----    */
+
     public void tick() {
         List<Ball> newBalls = new ArrayList<>();
         for (Ball ball : board.getBalls()) {
@@ -39,15 +42,14 @@ public class BoardManager {
 
     private Ball moveBall(Ball ball) {
         double moveTime = 0.05; //20 FPS
+        ball = applyForces(ball, moveTime);
         Collision collision = getTimeTillCollision(ball);
 
         if (collision.getTime() >= moveTime) { //No Collision
-            ball = applyForces(ball, moveTime);
             ball = moveBallForTime(ball, moveTime);
 
         } else { //Collision
             ball = moveBallForTime(ball, collision.getTime());
-            ball = applyForces(ball, collision.getTime());
             ball.setVelocity(collision.getVelocity());
         }
 
