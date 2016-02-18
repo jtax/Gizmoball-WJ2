@@ -1,68 +1,57 @@
 package controller;
 
 import model.*;
-import model.Gizmos.Circle;
-import model.Gizmos.Flipper;
-import model.Gizmos.Square;
-import model.Gizmos.Triangle;
+import model.Gizmos.*;
 import view.GizmoBallView;
+import view.LoadBoard;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by bairdjb on 11/02/2016.
  */
-public class boardController {
+public class BoardController {
     private BoardManager boardManager;
     private GizmoBallView view;
 
-    public boardController(){
+    public BoardController() {
+        LoadBoard l = new LoadBoard();
+        Board board = l.loadFile();
+        System.out.println(board.getElements().toString());
+
         boardManager = new BoardManager();
+        boardManager.setBoard(board);
+
         view = new GizmoBallView(boardManager);
         boardManager.getBoard().addObserver(view);
-        test();
+        //test();
+        //test();
+        boardManager.tick();
     }
 
-    //TODO Remove test method
+
     private void test(){
-        Gizmo test1 = new Triangle(1, 19, "Test");
-        boardManager.getBoard().addElement(test1);
+        Gizmo test1 = new Square(3, 0, "Test");
+        Gizmo test2 = new Triangle(2, 6, "Test");
+        Gizmo test3 = new Square(1, 6, "Test");
+        Gizmo test4 = new Square(1, 2, "Test");
+        Gizmo test5 = new Circle(2, 1, "Test");
+        Flipper test6 = new Flipper(5, 3, "Test");
+        Flipper test7 = new Flipper(8, 3, "Test");
+        test7.setDirection(Direction.RIGHT);
+        test6.addKeyPressTrigger(KeyEvent.VK_LEFT);
+        test7.addKeyPressTrigger(KeyEvent.VK_RIGHT);
+        test7.trigger();
+        List<IElement> testShapes = Arrays.asList(new IElement[]{test1, test2, test3, test4, test5, test6, test7});
+        boardManager.getBoard().setElements(testShapes);
+        Ball ball = new Ball("Ball", 3.5, 7, -5.0, -5.0);
 
-        Gizmo test2 = new Triangle(2, 19, "Test");
-        test2.rotate();
-        boardManager.getBoard().addElement(test2);
-
-        Gizmo test3 = new Triangle(3, 19, "Test");
-        test3.rotate();
-        test3.rotate();
-        boardManager.getBoard().addElement(test3);
-
-        Gizmo test4 = new Triangle(4, 19, "Test");
-        test4.rotate();
-        test4.rotate();
-        test4.rotate();
-        boardManager.getBoard().addElement(test4);
-
-        Gizmo test5 = new Triangle(5, 19, "Test");
-        test5.rotate();
-        test5.rotate();
-        test5.rotate();
-        test5.rotate();
-        boardManager.getBoard().addElement(test5);
-
-        Gizmo test6 = new Square(6, 19, "Test");
-        boardManager.getBoard().addElement(test6);
-
-        Gizmo test7 = new Flipper(new physics.Vect(7, 19), "Test");
-        boardManager.getBoard().addElement(test6);
-
-        Ball ball = new Ball("Ball", 2.5, 18, 0, 0);
-        Ball ball1 = new Ball("Ball", 7, 18, 0, 0);
+        Ball ball2 = new Ball("Ball", 2.5, 3, -5.0, -5.0);
         boardManager.getBoard().addBall(ball);
-        boardManager.getBoard().addBall(ball1);
+        boardManager.getBoard().addBall(ball2);
     }
-
 
 }
