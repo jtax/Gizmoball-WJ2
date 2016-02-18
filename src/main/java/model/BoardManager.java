@@ -105,7 +105,7 @@ public class BoardManager {
         double time = Geometry.timeUntilBallBallCollision(ballC, ballV, oBallC, oBallV);
         if (time < closestCollision.getTime()) {
             Vect newV = Geometry.reflectCircle(otherBall.getCenter(), ball.getCenter(), ballV);
-            closestCollision = new Collision(newV, time);
+            closestCollision = new Collision(newV, time, otherBall);
         }
     }
 
