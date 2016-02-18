@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.Gizmos.Absorber;
 import model.Gizmos.Circle;
 import model.Gizmos.Square;
 import model.Gizmos.Triangle;
@@ -26,18 +27,12 @@ public class boardController {
 
     //TODO Remove test method
     private void test(){
-        Gizmo test1 = new Square(1, 19, "Test");
-        Gizmo test2 = new Square(2, 19, "Test");
-        Gizmo test3 = new Square(3, 19, "Test");
-        Gizmo test4 = new Square(0, 19, "Test");
-        Gizmo test5 = new Circle(2, 1, "Test");
-        Gizmo test6 = new Circle(3, 2, "Test");
-        List<IElement> testShapes = Arrays.asList(new IElement[]{test1, test2, test3, test4, test5, test6});
+        IElement absorber = new Absorber(0,18,20,20,"fab abs");
+        List<IElement> testShapes = Arrays.asList(new IElement[]{absorber});
         boardManager.getBoard().setElements(testShapes);
         Ball ball = new Ball("Ball", 5, 10, 0, 0);
         Ball ball1 = new Ball("Ball", 5, 5, 0, 0);
         boardManager.getBoard().addBall(ball);
-        boardManager.getBoard().addBall(ball1);
     }
 
 
