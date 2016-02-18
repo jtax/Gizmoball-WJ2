@@ -6,6 +6,7 @@ import model.Triggerable;
 import physics.LineSegment;
 import physics.Vect;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +30,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
+		super.setColor(Color.yellow);
 	}
 
 	@Override

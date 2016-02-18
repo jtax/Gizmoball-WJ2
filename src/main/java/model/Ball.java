@@ -16,7 +16,7 @@ public class Ball implements IElement {
     private Vect origin;
     private Vect velocity;
     private Vect center;
-    private Color color = Color.GREEN;
+    private Color color = Color.BLUE;
     private String name;
 
     //TODO do balls need names?
@@ -26,6 +26,7 @@ public class Ball implements IElement {
         origin = new Vect(x - .25, y - .25);
         velocity = new Vect(velocityX, velocityY);
         this.name = name;
+
     }
 
     public Ball(String name, Vect center, Vect velocity) {

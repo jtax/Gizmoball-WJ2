@@ -23,7 +23,7 @@ public class Wall extends Gizmo {
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		super.setColor(Color.MAGENTA);
+		super.setColor(Color.BLACK);
 		}
 
 	private List<Vect> calculateCoordinates() {

@@ -3,6 +3,7 @@ package model.Gizmos;
 import model.Gizmo;
 import physics.Vect;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Circle extends Gizmo {
 	public Circle(Vect origin, String name) {
 		super(origin, name);
 		super.setCircles(Arrays.asList(calculateCircle()));
+		super.setColor(Color.GREEN);
 	}
 
 	@Override

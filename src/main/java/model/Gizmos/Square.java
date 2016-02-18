@@ -4,6 +4,7 @@ import model.Gizmo;
 import physics.LineSegment;
 import physics.Vect;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +22,7 @@ public class Square extends Gizmo {
         coordinates = calculateCoordinates();
         super.setCircles(calculateCircles());
         super.setLines(calculateLines());
+        super.setColor(Color.red);
     }
 
     @Override

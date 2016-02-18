@@ -5,6 +5,7 @@ import physics.Vect;
 import physics.Circle;
 import physics.LineSegment;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Absorber  extends Gizmo {
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
+		super.setColor(Color.MAGENTA);
 	}
 
 	private List<Vect> calculateCoordinates() {

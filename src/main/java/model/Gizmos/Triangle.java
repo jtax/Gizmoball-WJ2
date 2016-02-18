@@ -5,6 +5,7 @@ import physics.Angle;
 import physics.LineSegment;
 import physics.Vect;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,10 +18,11 @@ public class Triangle extends Gizmo {
 
 	public Triangle(Vect origin, String name) {
 		super(origin, name);
-		rotation = 0;
+		rotation = 3;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
+		super.setColor(Color.blue);
 	}
 
 	@Override
@@ -33,10 +35,11 @@ public class Triangle extends Gizmo {
 	}
 
 	private List<Vect> calculateCoordinates() {
+		Vect topLeft = origin;
 		Vect topRight = new Vect(bound.x(), origin.y());
 		Vect bottomRight = bound;
 		Vect bottomLeft = new Vect(origin.x(), bound.y());
-		return Arrays.asList(topRight, bottomRight, bottomLeft);
+		return Arrays.asList(topLeft, topRight, bottomLeft);
 	}
 
 
