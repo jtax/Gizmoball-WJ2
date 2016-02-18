@@ -3,6 +3,7 @@ package model.Gizmos;
 import java.awt.Color;
 
 import model.Ball;
+import model.IElement;
 import physics.Vect;
 
 /**
@@ -23,15 +24,21 @@ public class Absorber extends AbstractRectangularGizmo {
 
 	public void absorb(Ball ball) {
 		ourBall = ball;
-		positionOurBall();
+		positionBall();
 		// TODO: release on trigger, not automatically
 		release();
 	}
-	
+
 	public void release() {
-		releaseOurBall();
+		if (weHaveABall()) {
+			double xVelocity = 0, yVelocity = -50;
+			Vect velocity = new Vect(xVelocity, yVelocity);
+			ourBall.setVelocity(velocity);
+
+			ourBall = null;
+		}
 	}
-	
+
 	/**
 	 * Does the absorber have your ball?
 	 * 
@@ -48,7 +55,7 @@ public class Absorber extends AbstractRectangularGizmo {
 		// TODO Auto-generated method stub
 	}
 
-	private void positionOurBall() {
+	private void positionBall() {
 		if (weHaveABall()) {
 			Vect bound = getBound();
 			double ballX = bound.x() - .25, ballY = bound.y() - .25;
@@ -56,16 +63,6 @@ public class Absorber extends AbstractRectangularGizmo {
 		}
 	}
 
-	private void releaseOurBall() {
-		if (weHaveABall()) {
-			double xVelocity = 0, yVelocity = -50;
-			Vect velocity = new Vect(xVelocity, yVelocity);
-			ourBall.setVelocity(velocity);
-			
-			ourBall = null;
-		}
-	}
-	
 	private boolean weHaveABall() {
 		return ourBall != null;
 	}

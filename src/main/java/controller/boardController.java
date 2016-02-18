@@ -36,9 +36,11 @@ public class boardController {
         Gizmo absorber = new Absorber(0, 18, 20, 20, "Your Mother");
         List<IElement> testShapes = Arrays.asList(new IElement[]{test1,test2, test3, absorber});
         boardManager.getBoard().setElements(testShapes);
-        
-        Ball ball = new Ball("Ball", 1, 17, 0, -100);
+
+        Ball ball = new Ball("Ball", 1, 10, 1, 5);
+        Ball ball1 = new Ball("Ball", 5, 17, 0, -5);
         boardManager.getBoard().addBall(ball);
+        //boardManager.getBoard().addBall(ball1);
     }
 
 
