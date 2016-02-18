@@ -52,10 +52,6 @@ public class Flipper extends Gizmo implements Triggerable {
 		bound = calculateBound();
 	}
 
-	public Direction getDirection() {
-
-		return direction;
-	}
 
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
@@ -88,8 +84,6 @@ public class Flipper extends Gizmo implements Triggerable {
 	@Override
 	public void rotate() {
 		//
-		//
-		//
 	}
 
 
@@ -97,8 +91,6 @@ public class Flipper extends Gizmo implements Triggerable {
 	 * Flips a Flipper based on its direction and weather we need to rotate back
 	 */
 	public void flip() {
-		int rotateBackConst;
-		int rotateConst;
 
 		if (direction == Direction.RIGHT) {
 			if (rotated) {
@@ -119,9 +111,21 @@ public class Flipper extends Gizmo implements Triggerable {
 		rotated = !rotated;
 	}
 
+	/**
+	 * For tests
+	 */
 	public Boolean isFlipped()
 	{
 		return  rotated;
+	}
+
+
+	/**
+	 * For tests
+	 */
+	public Direction getDirection() {
+
+		return direction;
 	}
 
 	@Override
