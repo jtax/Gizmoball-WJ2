@@ -37,6 +37,10 @@ public class Ball implements IElement {
     public void setCenter(Vect center) {
         this.center = center;
     }
+    
+	public void setCenter(double x, double y) {
+		setCenter(new Vect(x,y));
+    }
 
     public Vect getVelocity() {
         return velocity;

@@ -1,66 +1,33 @@
 package model.Gizmos;
 
-import model.Gizmo;
-import physics.LineSegment;
-import physics.Vect;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import physics.Vect;
 
-public class Triangle extends Gizmo {
+public class Triangle extends AbstractPolygonalGizmo {
 
-	private List<Vect> coordinates;
+	private final static Vect size = new Vect(1, -1);
+
 	public Triangle(Vect origin, String name) {
-		super(origin, name);
-		coordinates = calculateCoordinates();
-		super.setCircles(calculateCircles());
-		super.setLines(calculateLines());
+		super(origin, size, name);
 	}
 
 	public Triangle(double x, double y, String name) {
 		this(new Vect(x, y), name);
 	}
 
-	private List<Vect> calculateCoordinates() {
-		Vect a = origin;
-		Vect b = bound;
-		Vect c = origin.plus(new Vect(0, bound.y()));
+	protected List<Vect> calculateCoordinates() {
+		Vect a = getOrigin();
+		Vect b = getBound();
+		Vect c = a.plus(new Vect(0, b.y()));
 		return Arrays.asList(a, b, c);
-	}
-
-	private List<physics.Circle> calculateCircles() {
-		List<physics.Circle> calcCircles = new ArrayList<>();
-		for (Vect coord : coordinates) {
-			physics.Circle circle = new physics.Circle(coord, 0);
-			calcCircles.add(circle);
-		}
-		return calcCircles;
-	}
-
-	private List<LineSegment> calculateLines() {
-		List<LineSegment> calcLines = new ArrayList<>();
-		for (int i = 0; i < coordinates.size() - 1; i++) {
-			Vect a = coordinates.get(i);
-			Vect b = coordinates.get(i + 1 % coordinates.size() - 1);
-			LineSegment line = new LineSegment(a, b);
-			calcLines.add(line);
-		}
-		return calcLines;
 	}
 
 	@Override
 	public void rotate() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public Vect calculateBound() {
-		Vect origin = super.getOrigin();
-		Vect bound = new Vect(1, -1);
-		return origin.plus(bound);
 	}
 
 }
