@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.DoubleAccumulator;
 public class BoardManager {
     private Board board;
     private Collision closestCollision;
+    private final static double moveTime = 0.05;
 
     public BoardManager() {
         board = new Board(new double[]{0.025, 0.025}, 25, 20, 20);
@@ -44,7 +45,6 @@ public class BoardManager {
     }
 
     private Ball moveBall(Ball ball) {
-        double moveTime = 0.05; //20 FPS
         ball = applyForces(ball, moveTime);
         Collision collision = getTimeTillCollision(ball);
 
@@ -54,6 +54,7 @@ public class BoardManager {
         } else { //Collision
             ball = moveBallForTime(ball, collision.getTime());
             ball.setVelocity(collision.getVelocity());
+            collision.getElement().setColor(Color.GREEN);
         }
 
         return ball;
@@ -70,10 +71,10 @@ public class BoardManager {
         closestCollision = new Collision(0, 0, Double.MAX_VALUE);
         for (IElement element : board.getElements()) {
             for (Circle circle : element.getCircles()) {
-                detectCircleCollision(circle, ball);
+                detectCircleCollision(circle, ball, element);
             }
             for (LineSegment line : element.getLines()) {
-                detectLineCollision(line, ball);
+                detectLineCollision(line, ball, element);
             }
         }
         for (Ball otherBall : board.getBalls()) {
@@ -82,19 +83,19 @@ public class BoardManager {
         return closestCollision;
     }
 
-    public void detectCircleCollision(Circle circle, Ball ball) {
+    public void detectCircleCollision(Circle circle, Ball ball, IElement element) {
         double time = Geometry.timeUntilCircleCollision(circle, ball.getCircle(), ball.getVelocity());
         if (time < closestCollision.getTime()) {
             Vect newV = Geometry.reflectCircle(circle.getCenter(), ball.getCenter(), ball.getVelocity());
-            closestCollision = new Collision(newV, time);
+            closestCollision = new Collision(newV, time, element);
         }
     }
 
-    public void detectLineCollision(LineSegment line, Ball ball) {
+    public void detectLineCollision(LineSegment line, Ball ball, IElement element) {
         double time = Geometry.timeUntilWallCollision(line, ball.getCircle(), ball.getVelocity());
         if (time < closestCollision.getTime()) {
             Vect newV = Geometry.reflectWall(line, ball.getVelocity());
-            closestCollision = new Collision(newV, time);
+            closestCollision = new Collision(newV, time, element);
         }
     }
 
