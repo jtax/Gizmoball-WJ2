@@ -1,8 +1,9 @@
 package view;
 
-import java.awt.*;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
 import java.util.HashMap;
 
 import model.Ball;
@@ -72,7 +73,6 @@ public class Shapifier {
 		});
 
 		shapeMakerMap.put(Triangle.class, (int x, int y, int w, int h) -> {
-			// TODO: return a triangle
 			Polygon p = new Polygon();
 			p.addPoint(x, y);
 			p.addPoint(x, y + h);

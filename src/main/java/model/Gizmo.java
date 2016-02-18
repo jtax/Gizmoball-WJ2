@@ -11,9 +11,9 @@ import java.util.List;
 /**
  * Created by baird on 06/02/2016.
  */
-abstract public class Gizmo implements IElement{
+abstract public class Gizmo implements IElement {
 
-    protected Vect origin, bound;
+    private Vect origin, size;
     private Gizmo trigger;
     private Color color;
     private Color[] colors;
@@ -23,18 +23,15 @@ abstract public class Gizmo implements IElement{
     private int reflection;
     private String name;
 
-    protected Gizmo(Vect origin, String name) {
+    protected Gizmo(Vect origin, Vect size, String name) {
         lines = new ArrayList<>();
         circles = new ArrayList<>();
         this.origin = origin;
+        this.size = size;
         colors = new Color[]{Color.red, Color.green, Color.blue};
         rotation = 0;
         this.name = name;
         color = colors[0];
-
-        // TODO: set the bounds correctly according to which gizmo it is
-        //bound = new Vect(origin.x() + 1, origin.y() + 1);
-        bound = calculateBound();
     }
 
     @Override
@@ -44,7 +41,7 @@ abstract public class Gizmo implements IElement{
 
     @Override
     public Vect getBound() {
-        return bound;
+        return origin.plus(size);
     }
 
     public Gizmo getTrigger(){
@@ -70,8 +67,6 @@ abstract public class Gizmo implements IElement{
         return reflection;
     }
 
-    public abstract Vect calculateBound();
-
     @Override
     public List<LineSegment> getLines() {
         return lines;
@@ -89,13 +84,4 @@ abstract public class Gizmo implements IElement{
     protected void setCircles(List<Circle> circles) {
         this.circles = circles;
     }
-
-    protected void setBound(Vect bound) {
-        this.bound = bound;
-    }
-
-
-
-
-
 }

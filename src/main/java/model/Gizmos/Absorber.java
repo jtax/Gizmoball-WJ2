@@ -1,66 +1,76 @@
 package model.Gizmos;
 
-import model.Gizmo;
-import physics.Vect;
-import physics.Circle;
-import physics.LineSegment;
+import java.awt.Color;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import model.Ball;
+import physics.Vect;
 
 /**
  * Created by baird on 06/02/2016.
  */
-public class Absorber  extends Gizmo {
+public class Absorber extends AbstractRectangularGizmo {
 
-	private Vect bound;
-	private List<Vect> coordinates;
+	private Ball ourBall;
 
 	public Absorber(Vect origin, Vect bound, String name) {
-		super(origin,name);
-		this.bound = bound;
-		coordinates = calculateCoordinates();
-		super.setCircles(calculateCircles());
-		super.setLines(calculateLines());
+		super(origin, calculateSize(origin, bound), name);
+		super.setColor(Color.MAGENTA);
 	}
 
-	private List<Vect> calculateCoordinates() {
-		Vect topLeft = origin;
-		Vect topRight = origin.plus(new Vect(bound.x(), 0));
-		Vect bottomRight = bound;
-		Vect bottomLeft = origin.plus(new Vect(0, bound.y()));
-		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
+	public Absorber(int originX, int originY, int boundX, int boundY, String name) {
+		this(new Vect(originX, originY), new Vect(boundX, boundY), name);
 	}
 
-	private List<Circle> calculateCircles() {
-		List<Circle> calcCircles = new ArrayList<>();
-		for (Vect coord : coordinates) {
-			Circle circle = new Circle(coord, 0);
-			calcCircles.add(circle);
-		}
-		return calcCircles;
+	public void absorb(Ball ball) {
+		ourBall = ball;
+		positionOurBall();
+		// TODO: release on trigger, not automatically
+		release();
 	}
-
-	private List<LineSegment> calculateLines() {
-		List<LineSegment> calcLines = new ArrayList<>();
-		for (int i = 0; i < coordinates.size() - 1; i++) {
-			Vect a = coordinates.get(i);
-			Vect b = coordinates.get(i + 1 % coordinates.size() - 1);
-			LineSegment line = new LineSegment(a, b);
-			calcLines.add(line);
-		}
-		return calcLines;
+	
+	public void release() {
+		releaseOurBall();
+	}
+	
+	/**
+	 * Does the absorber have your ball?
+	 * 
+	 * @param yourBall
+	 *            your ball
+	 * @return true if the absorber has your ball, otherwise false
+	 */
+	public boolean hasBall(Ball yourBall) {
+		return yourBall == ourBall;
 	}
 
 	@Override
 	public void rotate() {
 		// TODO Auto-generated method stub
-
 	}
 
-	@Override
-	public Vect calculateBound() {
-		return bound;
+	private void positionOurBall() {
+		if (weHaveABall()) {
+			Vect bound = getBound();
+			double ballX = bound.x() - .25, ballY = bound.y() - .25;
+			ourBall.setCenter(ballX, ballY);
+		}
+	}
+
+	private void releaseOurBall() {
+		if (weHaveABall()) {
+			double xVelocity = 0, yVelocity = -50;
+			Vect velocity = new Vect(xVelocity, yVelocity);
+			ourBall.setVelocity(velocity);
+			
+			ourBall = null;
+		}
+	}
+	
+	private boolean weHaveABall() {
+		return ourBall != null;
+	}
+
+	private static Vect calculateSize(Vect origin, Vect bound) {
+		return bound.minus(origin);
 	}
 }

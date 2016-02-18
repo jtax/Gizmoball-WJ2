@@ -1,15 +1,15 @@
 package model;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import model.Gizmos.Absorber;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
-
-import javax.sound.sampled.Line;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
 
 /**
  * Created by baird on 06/02/2016.
@@ -37,24 +37,57 @@ public class BoardManager {
         board.setBalls(newBalls);
     }
 
-    private Ball moveBall(Ball ball) {
-        double moveTime = 0.05; //20 FPS
-        Collision collision = getTimeTillCollision(ball);
+	private Ball moveBall(Ball ball) {
+		double moveTime = 0.05; // 20 FPS
+		Collision collision = getTimeTillCollision(ball);
 
-        if (collision.getTime() >= moveTime) { //No Collision
-            ball = applyForces(ball, moveTime);
-            ball = moveBallForTime(ball, moveTime);
+		if (!ballIsAbsorbed(ball)) {
 
-        } else { //Collision
-            ball = moveBallForTime(ball, collision.getTime());
-            ball = applyForces(ball, collision.getTime());
-            ball.setVelocity(collision.getVelocity());
-        }
+			if (collision.getTime() >= moveTime) { // No Collision
+				ball = applyForces(ball, moveTime);
+				ball = moveBallForTime(ball, moveTime);
 
-        return ball;
+			} else { // Collision
+				if (collision.getCollidingElement() instanceof Absorber) {
+					Absorber absorber = (Absorber) collision.getCollidingElement();
+					absorber.absorb(ball);
+				} else {
+					ball = moveBallForTime(ball, collision.getTime());
+					ball = applyForces(ball, collision.getTime());
+					ball.setVelocity(collision.getVelocity());
+				}
+			}
+		}
+
+		return ball;
+	}
+
+    private boolean ballIsAbsorbed(Ball ball) {
+		Collection<Absorber> absorbers = getAbsorbers();
+		
+		for (Absorber absorber : absorbers) {
+			if (absorber.hasBall(ball)) {
+				return true;
+			}
+		}
+		
+		return false;
+		
+	}
+    
+    private Collection<Absorber> getAbsorbers() {
+    	Collection<Absorber> absorbers = new ArrayList<>();
+    	
+    	for (IElement element : board.getElements()) {
+    		if (element instanceof Absorber) {
+    			absorbers.add((Absorber) element);
+    		}
+    	}
+    	
+    	return absorbers;
     }
 
-    private Ball moveBallForTime(Ball ball, double time) {
+	private Ball moveBallForTime(Ball ball, double time) {
         double newX, newY;
         double velX, velY;
 
@@ -70,8 +103,10 @@ public class BoardManager {
     private Collision getTimeTillCollision(Ball bll) {
         Circle ballC = bll.getCircle();
         Vect ballV = bll.getVelocity();
-        Vect newV = new Vect(0, 0);
-        IElement collidingElement;
+        Vect newV = new Vect(0, 0);        
+		// TODO: don't initialise this to null. All kinds of things will go
+		// wrong if the board is empty and there aren't any walls.
+        IElement collidingElement = null;
         double shortestTime = Double.MAX_VALUE;
         double time = 0.0;
         for (IElement element : board.getElements()) {
@@ -85,6 +120,7 @@ public class BoardManager {
                     newV = Geometry.reflectCircle(circle.getCenter(), ballC.getCenter(), ballV);
                 }
             }
+            
             for (LineSegment line : element.getLines()) {
                 time = Geometry.timeUntilWallCollision(line, ballC, ballV);
                 if (time < shortestTime) {
@@ -96,7 +132,8 @@ public class BoardManager {
 
             }
         }
-        return new Collision(newV, shortestTime);
+        
+        return new Collision(newV, shortestTime, collidingElement);
     }
 
     public Ball applyForces(Ball oldBall, double time) {

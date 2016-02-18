@@ -8,10 +8,12 @@ import physics.Vect;
 public class Collision {
     private double time;
     private Vect velocity;
+    private IElement collidingElement;
 
-    public Collision(Vect velocity, double time) {
+    public Collision(Vect velocity, double time, IElement collidingElement) {
         this.velocity = velocity;
         this.time = time;
+        this.collidingElement = collidingElement;
     }
 
     public Collision(double x, double y, double time) {
@@ -33,5 +35,9 @@ public class Collision {
 
     public void setTime(double time) {
         this.time = time;
+    }
+    
+    public IElement getCollidingElement() {
+    	return collidingElement;
     }
 }

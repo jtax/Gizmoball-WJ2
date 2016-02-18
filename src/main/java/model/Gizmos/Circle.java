@@ -10,8 +10,10 @@ import java.util.Arrays;
  */
 public class Circle extends Gizmo {
 
+	private final static Vect size = new Vect (1, 1);
+	
 	public Circle(Vect origin, String name) {
-		super(origin, name);
+		super(origin, size, name);
 		super.setCircles(Arrays.asList(calculateCircle()));
 	}
 	
@@ -23,17 +25,9 @@ public class Circle extends Gizmo {
 		return new physics.Circle(super.getOrigin().plus(new Vect(0.5, 0.5)), 0.5);
 	}
 
-
 	@Override
 	public void rotate() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public Vect calculateBound() {
-		Vect origin = super.getOrigin();
-		Vect bound = new Vect(1, 1);
-		return origin.plus(bound);
 	}
 }
