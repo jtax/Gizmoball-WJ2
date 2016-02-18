@@ -34,8 +34,8 @@ public class boardController {
         Gizmo test6 = new Circle(3, 2, "Test");
         List<IElement> testShapes = Arrays.asList(new IElement[]{test1, test2, test3, test4, test5, test6});
         boardManager.getBoard().setElements(testShapes);
-        Ball ball = new Ball("Ball", 1, 10, 1, 5);
-        Ball ball1 = new Ball("Ball", 5, 17, 0, -5);
+        Ball ball = new Ball("Ball", 5, 10, 0, 0);
+        Ball ball1 = new Ball("Ball", 5, 5, 0, 0);
         boardManager.getBoard().addBall(ball);
         boardManager.getBoard().addBall(ball1);
     }
