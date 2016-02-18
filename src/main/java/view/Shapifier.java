@@ -1,19 +1,14 @@
 package view;
 
+import model.Ball;
+import model.Gizmos.*;
+import model.IElement;
+import physics.Vect;
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
+import java.awt.geom.RoundRectangle2D;
 import java.util.HashMap;
-
-import model.Ball;
-import model.IElement;
-import model.Gizmos.Absorber;
-import model.Gizmos.Circle;
-import model.Gizmos.Flipper;
-import model.Gizmos.Square;
-import model.Gizmos.Triangle;
-import model.Gizmos.Wall;
-import physics.Vect;
 
 public class Shapifier {
 
@@ -64,7 +59,7 @@ public class Shapifier {
 
 		// TODO: does this one actually work?
 		shapeMakerMap.put(Flipper.class, (int x, int y, int w, int h) -> {
-			return new Rectangle(x, y, w, h);
+ 			return new RoundRectangle2D.Double(x, y, w, h, 15, 10);
 		});
 
 		shapeMakerMap.put(Square.class, (int x, int y, int w, int h) -> {

@@ -3,7 +3,6 @@ package model.Gizmos;
 import model.Direction;
 import model.Gizmo;
 import model.Triggerable;
-import physics.Angle;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -36,6 +35,9 @@ public class Flipper extends Gizmo implements Triggerable {
 	public void trigger() {
 
 		flip();
+		coordinates = calculateCoordinates();
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
 	}
 
 	public Flipper(int x, int y, String name) {
@@ -46,14 +48,21 @@ public class Flipper extends Gizmo implements Triggerable {
 
 		this.direction = direction;
 
+		origin = origin.plus(new Vect(0.5, 0));
+		bound = calculateBound();
+	}
+
+	public Direction getDirection() {
+
+		return direction;
 	}
 
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
-		Vect topRight = origin.plus(new Vect(bound.x(), 0));
+		Vect topRight = new Vect(bound.x(),origin.y());
 		Vect bottomRight = bound;
-		Vect bottomLeft = origin.plus(new Vect(0, bound.y()));
-		return Arrays.asList(topLeft, topRight, bottomLeft, bottomRight);
+		Vect bottomLeft = new Vect(origin.x(),bound.y());
+		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
 	}
 
 	private List<physics.Circle> calculateCircles() {
@@ -67,9 +76,9 @@ public class Flipper extends Gizmo implements Triggerable {
 
 	private List<LineSegment> calculateLines() {
 		List<LineSegment> calcLines = new ArrayList<>();
-		for (int i = 0; i < coordinates.size() - 1; i++) {
+		for (int i = 0; i < coordinates.size(); i++) {
 			Vect a = coordinates.get(i);
-			Vect b = coordinates.get(i + 1 % coordinates.size() - 1);
+			Vect b = coordinates.get((i + 1) % coordinates.size());
 			LineSegment line = new LineSegment(a, b);
 			calcLines.add(line);
 		}
@@ -78,7 +87,9 @@ public class Flipper extends Gizmo implements Triggerable {
 
 	@Override
 	public void rotate() {
-		bound.rotateBy(new Angle(90));
+		//
+		//
+		//
 	}
 
 
@@ -89,28 +100,34 @@ public class Flipper extends Gizmo implements Triggerable {
 		int rotateBackConst;
 		int rotateConst;
 
-		if (direction == Direction.LEFT) {
-			rotateBackConst = 1;
-			rotateConst = -1;
+		if (direction == Direction.RIGHT) {
+			if (rotated) {
+				this.origin = new Vect(bound.x(), bound.y()).minus(new Vect(0.5,0.5));
+				bound = calculateBound();
+			} else {
+				this.bound  = origin.plus(new Vect(0.5,0.5));
+				this.origin = origin.minus(new Vect(1.5, 0));
+			}
 		} else {
-			rotateBackConst = -1;
-			rotateConst = 1;
-		}
-
-		if (rotated) {
-			bound = bound.rotateBy(new Angle(rotation * rotateBackConst));
-
-		} else {
-			bound = bound.rotateBy(new Angle(rotation * rotateConst));
+			if (rotated) {
+				this.bound = origin.plus(new Vect(0.5, 2));
+			} else {
+				this.bound = origin.plus(new Vect(2, 0.5));
+			}
 		}
 
 		rotated = !rotated;
 	}
 
+	public Boolean isFlipped()
+	{
+		return  rotated;
+	}
+
 	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();
-		Vect bound = new Vect(2, 0.5);
+		Vect bound = new Vect(0.5, 2);
 		return origin.plus(bound);
 	}
 
