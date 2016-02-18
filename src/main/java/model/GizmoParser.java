@@ -1,13 +1,17 @@
 package model;
 
-import model.Gizmos.*;
-import physics.Vect;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
+
+import model.Gizmos.Absorber;
+import model.Gizmos.Circle;
+import model.Gizmos.Flipper;
+import model.Gizmos.Square;
+import model.Gizmos.Triangle;
+import physics.Vect;
 
 public class GizmoParser
 {

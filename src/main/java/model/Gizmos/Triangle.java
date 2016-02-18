@@ -19,6 +19,11 @@ public class Triangle extends Gizmo {
 		super.setLines(calculateLines());
 	}
 
+	@Override
+	public void trigger() {
+
+	}
+
 	public Triangle(double x, double y, String name) {
 		this(new Vect(x, y), name);
 	}
@@ -26,7 +31,7 @@ public class Triangle extends Gizmo {
 	private List<Vect> calculateCoordinates() {
 		Vect a = origin;
 		Vect b = bound;
-		Vect c = origin.plus(new Vect(0, bound.y()));
+		Vect c = new Vect(origin.x(), bound.y());
 		return Arrays.asList(a, b, c);
 	}
 
@@ -41,14 +46,15 @@ public class Triangle extends Gizmo {
 
 	private List<LineSegment> calculateLines() {
 		List<LineSegment> calcLines = new ArrayList<>();
-		for (int i = 0; i < coordinates.size() - 1; i++) {
+		for (int i = 0; i < coordinates.size(); i++) {
 			Vect a = coordinates.get(i);
-			Vect b = coordinates.get(i + 1 % coordinates.size() - 1);
+			Vect b = coordinates.get((i + 1) % coordinates.size());
 			LineSegment line = new LineSegment(a, b);
 			calcLines.add(line);
 		}
 		return calcLines;
 	}
+
 
 	@Override
 	public void rotate() {
@@ -59,7 +65,7 @@ public class Triangle extends Gizmo {
 	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();
-		Vect bound = new Vect(1, -1);
+		Vect bound = new Vect(1, 1);
 		return origin.plus(bound);
 	}
 

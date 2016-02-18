@@ -1,12 +1,11 @@
 package model;
 
-import model.Gizmos.Square;
-import model.Gizmos.Wall;
-import physics.Vect;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+
+import model.Gizmos.Wall;
+import physics.Vect;
 
 /**
  * Created by baird on 06/02/2016.

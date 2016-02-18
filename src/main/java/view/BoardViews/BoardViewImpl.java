@@ -141,7 +141,7 @@ public class BoardViewImpl implements BoardView, Observer {
 	}
 	private void drawBalls(Graphics2D g) {
 		for (Shape s : balls) {
-			g.setColor(Color.RED);
+			g.setColor(Color.ORANGE);
 			g.fill(s);
 		}
 	}

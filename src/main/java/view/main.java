@@ -1,14 +1,20 @@
 package view;
 
-import controller.boardController;
-import model.Board;
-import model.Gizmos.Absorber;
+import javax.swing.SwingUtilities;
+
+import controller.BoardController;
 
 /**
  * Created by Umar on 10/02/2016.
  */
 public class main {
 	public static void main(String[] args) {
-		new boardController();
+
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run() {
+				new BoardController();
+			}
+		});
+
 	}
 }

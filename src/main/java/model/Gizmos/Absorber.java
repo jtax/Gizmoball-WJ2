@@ -7,14 +7,14 @@ import java.util.List;
 
 import model.Ball;
 import model.Gizmo;
-import physics.Circle;
+import model.Triggerable;
 import physics.LineSegment;
 import physics.Vect;
 
 /**
  * Created by baird on 06/02/2016.
  */
-public class Absorber  extends Gizmo {
+public class Absorber extends Gizmo implements Triggerable {
 
 	private Vect bound;
 	private List<Vect> coordinates;
@@ -63,6 +63,11 @@ public class Absorber  extends Gizmo {
     }
 	
 	@Override
+	public void trigger() {
+		releaseOurBall();
+	}
+
+	@Override
 	public void rotate() {
 		// TODO Auto-generated method stub
 	}
@@ -75,11 +80,9 @@ public class Absorber  extends Gizmo {
 	public void absorb(Ball ball) {
 		ourBall = ball;
 		positionBall();
-		// TODO: release on trigger, not automatically
-		release();
 	}
 
-	public void release() {
+	private void releaseOurBall() {
 		if (weHaveABall()) {
 			double xVelocity = 0, yVelocity = -50;
 			Vect velocity = new Vect(xVelocity, yVelocity);
