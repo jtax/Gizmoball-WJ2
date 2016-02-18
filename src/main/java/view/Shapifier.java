@@ -82,7 +82,7 @@ public class Shapifier {
 		});
 
 		shapeMakerMap.put(Wall.class, (int x, int y, int w, int h) -> {
-			return new Rectangle(x, y, w, h);
+			return new Rectangle(x,y,w,h);//Rectangle(x, y, w, h);
 		});
 
 		shapeMakerMap.put(Ball.class, (int x, int y, int w, int h) -> {

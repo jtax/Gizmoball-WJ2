@@ -17,6 +17,7 @@ public class Ball implements IElement {
     private Vect velocity;
     private Vect center;
     private Color color = Color.GREEN;
+    private String name;
 
     //TODO do balls need names?
     public Ball(String name,double x, double y, double velocityX, double velocityY){
@@ -24,6 +25,11 @@ public class Ball implements IElement {
         point = new Circle(center, 0.25);
         origin = new Vect(x - .25, y - .25);
         velocity = new Vect(velocityX, velocityY);
+        this.name = name;
+    }
+
+    public Ball(String name, Vect center, Vect velocity) {
+        this(name, center.x(), center.y(), velocity.x(), velocity.y());
     }
 
     public Vect getCenter() {
@@ -32,6 +38,7 @@ public class Ball implements IElement {
 
     public void setCenter(Vect center) {
         this.center = center;
+        update();
     }
 
     public Vect getVelocity() {
@@ -77,4 +84,10 @@ public class Ball implements IElement {
     public void setColor(Color color) {
         return;
     }
+
+    public void update() {
+        point = new Circle(center, 0.25);
+        origin = new Vect(center.x() - .25, center.y() - .25);
+    }
+
 }
