@@ -7,7 +7,7 @@ import physics.Vect;
 
 public class Triangle extends AbstractPolygonalGizmo {
 
-	private final static Vect size = new Vect(1, -1);
+	private final static Vect size = new Vect(1, 1);
 
 	public Triangle(Vect origin, String name) {
 		super(origin, size, name);
