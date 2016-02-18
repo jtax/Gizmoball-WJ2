@@ -32,11 +32,12 @@ public class boardController {
         Gizmo test4 = new Square(0, 19, "Test");
         Gizmo test5 = new Circle(2, 1, "Test");
         Gizmo test6 = new Circle(3, 2, "Test");
-        //test3.setColor(Color.GREEN);
         List<IElement> testShapes = Arrays.asList(new IElement[]{test1, test2, test3, test4, test5, test6});
         boardManager.getBoard().setElements(testShapes);
-        Ball ball = new Ball("Ball", 1, 17, 0, 5);
+        Ball ball = new Ball("Ball", 5.1, 10, 0, 5);
+        Ball ball1 = new Ball("Ball", 5, 17, 0, -5);
         boardManager.getBoard().addBall(ball);
+        boardManager.getBoard().addBall(ball1);
     }
 
 
