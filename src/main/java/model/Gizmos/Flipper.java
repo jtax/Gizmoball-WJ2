@@ -11,9 +11,9 @@ import java.util.List;
  * Created by baird on 06/02/2016.
  */
 public class Flipper extends Gizmo {
+	private List<Vect> coordinates;
 
-	protected Boolean rotated = false;
-	private Direction direction = Direction.LEFT;
+	public Flipper(Vect origin, String name) {
 
 		super(origin,name);
 		coordinates = calculateCoordinates();
