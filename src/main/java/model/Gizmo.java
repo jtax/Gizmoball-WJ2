@@ -19,9 +19,9 @@ abstract public class Gizmo implements IElement{
     private Color[] colors;
     private List<LineSegment> lines;
     private List<Circle> circles;
+    protected int rotation;
     private int reflection;
     private String name;
-    protected int rotation;
 
     protected Gizmo(Vect origin, String name) {
         lines = new ArrayList<>();
@@ -55,6 +55,17 @@ abstract public class Gizmo implements IElement{
     public void setTrigger(Gizmo trigger){
         this.trigger = trigger;
     }
+
+    public void addKeyPressTrigger(int keyCode) {
+
+        keyPressTrigger = keyCode;
+    }
+
+    public int getKeyPressTrigger() {
+        return keyPressTrigger;
+    }
+
+    public abstract void trigger();
 
     @Override
     public Color getColor(){

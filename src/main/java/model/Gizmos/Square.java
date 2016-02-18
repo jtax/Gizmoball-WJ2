@@ -23,6 +23,11 @@ public class Square extends Gizmo {
         super.setLines(calculateLines());
     }
 
+    @Override
+    public void trigger() {
+
+    }
+
     public Square(int x, int y, String name) {
         this(new Vect(x, y), name);
     }

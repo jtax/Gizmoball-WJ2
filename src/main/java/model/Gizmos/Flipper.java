@@ -1,8 +1,12 @@
 package model.Gizmos;
 
+import model.Direction;
 import model.Gizmo;
-import physics.*;
+import model.Triggerable;
+import physics.LineSegment;
+import physics.Vect;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,23 +14,51 @@ import java.util.List;
 /**
  * Created by baird on 06/02/2016.
  */
-public class Flipper extends Gizmo {
+public class Flipper extends Gizmo implements Triggerable {
 	private List<Vect> coordinates;
+
+	protected Boolean rotated = false;
+	private Direction direction = Direction.LEFT;
+	private KeyEvent keyPressTrigger;
 
 	public Flipper(Vect origin, String name) {
 
 		super(origin,name);
+
+		rotation = 90;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 	}
 
+	@Override
+	public void trigger() {
+
+		flip();
+		coordinates = calculateCoordinates();
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
+	}
+
+	public Flipper(int x, int y, String name) {
+		this(new Vect(x, y), name);
+	}
+
+	public void setDirection(Direction direction) {
+
+		this.direction = direction;
+
+		origin = origin.plus(new Vect(0.5, 0));
+		bound = calculateBound();
+	}
+
+
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
-		Vect topRight = origin.plus(new Vect(bound.x(), 0));
+		Vect topRight = new Vect(bound.x(),origin.y());
 		Vect bottomRight = bound;
-		Vect bottomLeft = origin.plus(new Vect(0, bound.y()));
-		return Arrays.asList(topLeft, topRight, bottomLeft, bottomRight);
+		Vect bottomLeft = new Vect(origin.x(),bound.y());
+		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
 	}
 
 	private List<physics.Circle> calculateCircles() {
@@ -40,9 +72,9 @@ public class Flipper extends Gizmo {
 
 	private List<LineSegment> calculateLines() {
 		List<LineSegment> calcLines = new ArrayList<>();
-		for (int i = 0; i < coordinates.size() - 1; i++) {
+		for (int i = 0; i < coordinates.size(); i++) {
 			Vect a = coordinates.get(i);
-			Vect b = coordinates.get(i + 1 % coordinates.size() - 1);
+			Vect b = coordinates.get((i + 1) % coordinates.size());
 			LineSegment line = new LineSegment(a, b);
 			calcLines.add(line);
 		}
@@ -51,22 +83,56 @@ public class Flipper extends Gizmo {
 
 	@Override
 	public void rotate() {
-		bound.rotateBy(new Angle(90));
+		//
 	}
 
-	public void rotateBack() {
-		bound.rotateBy(new Angle(-90));
+
+	/**
+	 * Flips a Flipper based on its direction and weather we need to rotate back
+	 */
+	public void flip() {
+
+		if (direction == Direction.RIGHT) {
+			if (rotated) {
+				this.origin = new Vect(bound.x(), bound.y()).minus(new Vect(0.5,0.5));
+				bound = calculateBound();
+			} else {
+				this.bound  = origin.plus(new Vect(0.5,0.5));
+				this.origin = origin.minus(new Vect(1.5, 0));
+			}
+		} else {
+			if (rotated) {
+				this.bound = origin.plus(new Vect(0.5, 2));
+			} else {
+				this.bound = origin.plus(new Vect(2, 0.5));
+			}
+		}
+
+		rotated = !rotated;
+	}
+
+	/**
+	 * For tests
+	 */
+	public Boolean isFlipped()
+	{
+		return  rotated;
+	}
+
+
+	/**
+	 * For tests
+	 */
+	public Direction getDirection() {
+
+		return direction;
 	}
 
 	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();
-		Vect bound = new Vect(2, -2);
+		Vect bound = new Vect(0.5, 2);
 		return origin.plus(bound);
 	}
 
-	@Override
-	public List<Vect> getCoordinates() {
-		return coordinates;
-	}
 }
