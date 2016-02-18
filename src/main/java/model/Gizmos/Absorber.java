@@ -63,4 +63,9 @@ public class Absorber  extends Gizmo {
 	public Vect calculateBound() {
 		return bound;
 	}
+
+	@Override
+	public List<Vect> getCoordinates() {
+		return coordinates;
+	}
 }

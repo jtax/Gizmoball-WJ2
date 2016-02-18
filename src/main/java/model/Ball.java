@@ -64,6 +64,11 @@ public class Ball implements IElement {
     }
 
     @Override
+    public List<Vect> getCoordinates() {
+        return Arrays.asList(center);
+    }
+
+    @Override
     public Vect getOrigin() {
         return origin;
     }
@@ -89,5 +94,6 @@ public class Ball implements IElement {
         point = new Circle(center, 0.25);
         origin = new Vect(center.x() - .25, center.y() - .25);
     }
+
 
 }

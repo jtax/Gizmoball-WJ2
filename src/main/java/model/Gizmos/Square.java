@@ -64,4 +64,9 @@ public class Square extends Gizmo {
         Vect bound = new Vect(1, 1);
         return origin.plus(bound);
     }
+
+    @Override
+    public List<Vect> getCoordinates() {
+        return coordinates;
+    }
 }

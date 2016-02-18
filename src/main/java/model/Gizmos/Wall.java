@@ -66,4 +66,8 @@ public class Wall extends Gizmo {
 		return bound;
 	}
 
+	@Override
+	public List<Vect> getCoordinates() {
+		return coordinates;
+	}
 }

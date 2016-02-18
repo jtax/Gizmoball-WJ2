@@ -16,6 +16,8 @@ public interface IElement {
 
     List<Circle> getCircles();
 
+    List<Vect> getCoordinates();
+
     Vect getOrigin();
 
     Vect getBound();

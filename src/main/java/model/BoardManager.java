@@ -54,7 +54,6 @@ public class BoardManager {
         } else { //Collision
             ball = moveBallForTime(ball, collision.getTime());
             ball.setVelocity(collision.getVelocity());
-            collision.getElement().setColor(Color.GREEN);
         }
 
         return ball;

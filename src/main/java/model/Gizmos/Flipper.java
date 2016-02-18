@@ -11,9 +11,9 @@ import java.util.List;
  * Created by baird on 06/02/2016.
  */
 public class Flipper extends Gizmo {
-	private List<Vect> coordinates;
 
-	public Flipper(Vect origin, String name) {
+	protected Boolean rotated = false;
+	private Direction direction = Direction.LEFT;
 
 		super(origin,name);
 		coordinates = calculateCoordinates();
@@ -63,5 +63,10 @@ public class Flipper extends Gizmo {
 		Vect origin = super.getOrigin();
 		Vect bound = new Vect(2, -2);
 		return origin.plus(bound);
+	}
+
+	@Override
+	public List<Vect> getCoordinates() {
+		return coordinates;
 	}
 }

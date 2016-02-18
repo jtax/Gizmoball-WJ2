@@ -4,12 +4,14 @@ import model.Gizmo;
 import physics.Vect;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class Circle extends Gizmo {
 
+	Vect center;
 	public Circle(Vect origin, String name) {
 		super(origin, name);
 		super.setCircles(Arrays.asList(calculateCircle()));
@@ -23,6 +25,9 @@ public class Circle extends Gizmo {
 		return new physics.Circle(super.getOrigin().plus(new Vect(0.5, 0.5)), 0.5);
 	}
 
+	private void setCenter() {
+		center = super.getOrigin().plus(new Vect(0.5, 0.5));
+	}
 
 	@Override
 	public void rotate() {
@@ -35,5 +40,10 @@ public class Circle extends Gizmo {
 		Vect origin = super.getOrigin();
 		Vect bound = new Vect(1, 1);
 		return origin.plus(bound);
+	}
+
+	@Override
+	public List<Vect> getCoordinates() {
+		return Arrays.asList(center);
 	}
 }

@@ -66,7 +66,7 @@ public class Board extends Observable {
         notifyObservers();
     }
 
-    private void addElement(IElement element) {
+    public void addElement(IElement element) {
         elements.add(element);
         setChanged();
         notifyObservers();

@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 import model.Gizmos.Circle;
+import model.Gizmos.Flipper;
 import model.Gizmos.Square;
 import model.Gizmos.Triangle;
 import view.GizmoBallView;
@@ -26,16 +27,39 @@ public class boardController {
 
     //TODO Remove test method
     private void test(){
-        Gizmo test1 = new Square(1, 19, "Test");
-        Gizmo test2 = new Square(2, 19, "Test");
-        Gizmo test3 = new Square(3, 19, "Test");
-        Gizmo test4 = new Square(0, 19, "Test");
-        Gizmo test5 = new Circle(2, 1, "Test");
-        Gizmo test6 = new Circle(3, 2, "Test");
-        List<IElement> testShapes = Arrays.asList(new IElement[]{test1, test2, test3, test4, test5, test6});
-        boardManager.getBoard().setElements(testShapes);
-        Ball ball = new Ball("Ball", 1, 10, 1, 5);
-        Ball ball1 = new Ball("Ball", 5, 17, 0, -5);
+        Gizmo test1 = new Triangle(1, 19, "Test");
+        boardManager.getBoard().addElement(test1);
+
+        Gizmo test2 = new Triangle(2, 19, "Test");
+        test2.rotate();
+        boardManager.getBoard().addElement(test2);
+
+        Gizmo test3 = new Triangle(3, 19, "Test");
+        test3.rotate();
+        test3.rotate();
+        boardManager.getBoard().addElement(test3);
+
+        Gizmo test4 = new Triangle(4, 19, "Test");
+        test4.rotate();
+        test4.rotate();
+        test4.rotate();
+        boardManager.getBoard().addElement(test4);
+
+        Gizmo test5 = new Triangle(5, 19, "Test");
+        test5.rotate();
+        test5.rotate();
+        test5.rotate();
+        test5.rotate();
+        boardManager.getBoard().addElement(test5);
+
+        Gizmo test6 = new Square(6, 19, "Test");
+        boardManager.getBoard().addElement(test6);
+
+        Gizmo test7 = new Flipper(new physics.Vect(7, 19), "Test");
+        boardManager.getBoard().addElement(test6);
+
+        Ball ball = new Ball("Ball", 2.5, 18, 0, 0);
+        Ball ball1 = new Ball("Ball", 7, 18, 0, 0);
         boardManager.getBoard().addBall(ball);
         boardManager.getBoard().addBall(ball1);
     }

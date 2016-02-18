@@ -19,9 +19,9 @@ abstract public class Gizmo implements IElement{
     private Color[] colors;
     private List<LineSegment> lines;
     private List<Circle> circles;
-    protected int rotation;
     private int reflection;
     private String name;
+    protected int rotation;
 
     protected Gizmo(Vect origin, String name) {
         lines = new ArrayList<>();
@@ -31,6 +31,7 @@ abstract public class Gizmo implements IElement{
         rotation = 0;
         this.name = name;
         color = colors[0];
+        rotation = 0;
 
         // TODO: set the bounds correctly according to which gizmo it is
         //bound = new Vect(origin.x() + 1, origin.y() + 1);
@@ -94,6 +95,15 @@ abstract public class Gizmo implements IElement{
         this.bound = bound;
     }
 
+    protected Vect calculateMidPoint() {
+        double bx = bound.x();
+        double by = bound.y();
+        double ox = origin.x();
+        double oy = origin.y();
+        double x = (bx + ox) / 2;
+        double y = (by + oy) / 2;
+        return new Vect(x, y);
+    }
 
 
 

@@ -1,6 +1,7 @@
 package model.Gizmos;
 
 import model.Gizmo;
+import physics.Angle;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -12,8 +13,11 @@ import java.util.List;
 public class Triangle extends Gizmo {
 
 	private List<Vect> coordinates;
+	private int rotation;
+
 	public Triangle(Vect origin, String name) {
 		super(origin, name);
+		rotation = 0;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
@@ -24,11 +28,12 @@ public class Triangle extends Gizmo {
 	}
 
 	private List<Vect> calculateCoordinates() {
-		Vect a = origin;
-		Vect b = bound;
-		Vect c = new Vect(origin.x(), bound.y());
-		return Arrays.asList(a, b, c);
+		Vect topRight = new Vect(bound.x(), origin.y());
+		Vect bottomRight = bound;
+		Vect bottomLeft = new Vect(origin.x(), bound.y());
+		return Arrays.asList(topRight, bottomRight, bottomLeft);
 	}
+
 
 	private List<physics.Circle> calculateCircles() {
 		List<physics.Circle> calcCircles = new ArrayList<>();
@@ -51,10 +56,17 @@ public class Triangle extends Gizmo {
 	}
 
 
-	@Override
 	public void rotate() {
-		// TODO Auto-generated method stub
-
+		rotation = (rotation + 1) % 4;
+		Vect topLeft = origin;
+		Vect topRight = new Vect(bound.x(), origin.y());
+		Vect bottomRight = bound;
+		Vect bottomLeft = new Vect(origin.x(), bound.y());
+		List<Vect> vects = new ArrayList<Vect>(Arrays.asList(topLeft, topRight, bottomRight, bottomLeft));
+		vects.remove(rotation);
+		coordinates = vects;
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
 	}
 
 	@Override
@@ -64,4 +76,8 @@ public class Triangle extends Gizmo {
 		return origin.plus(bound);
 	}
 
+	@Override
+	public List<Vect> getCoordinates() {
+		return coordinates;
+	}
 }
