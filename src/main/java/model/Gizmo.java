@@ -1,12 +1,12 @@
 package model;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
 import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
@@ -48,11 +48,11 @@ abstract public class Gizmo implements IElement{
         return bound;
     }
 
-    public Gizmo getTrigger(){
+    public Gizmo getGizmoTrigger(){
         return trigger;
     }
 
-    public void setTrigger(Gizmo trigger){
+    public void addGizmoTrigger(Gizmo trigger){
         this.trigger = trigger;
     }
     
@@ -64,8 +64,16 @@ abstract public class Gizmo implements IElement{
     public int getKeyPressTrigger() {
         return keyPressTrigger;
     }
-    
-    public abstract void trigger();
+
+    public void trigger() {
+
+        color = Color.red;
+    }
+
+    public void onCollision() {
+        if (trigger instanceof Gizmo)
+            trigger.trigger();
+    }
 
     @Override
     public Color getColor(){

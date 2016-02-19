@@ -1,15 +1,15 @@
 package model.Gizmos;
 
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import model.Direction;
 import model.Gizmo;
 import model.Triggerable;
 import physics.LineSegment;
 import physics.Vect;
+
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
@@ -38,6 +38,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
+		super.trigger();
 	}
 
 	public Flipper(int x, int y, String name) {

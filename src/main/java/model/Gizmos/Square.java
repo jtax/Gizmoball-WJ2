@@ -1,12 +1,12 @@
 package model.Gizmos;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import model.Gizmo;
 import physics.LineSegment;
 import physics.Vect;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
@@ -23,10 +23,6 @@ public class Square extends Gizmo {
         super.setLines(calculateLines());
     }
 
-    @Override
-    public void trigger() {
-
-    }
 
     public Square(int x, int y, String name) {
         this(new Vect(x, y), name);

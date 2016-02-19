@@ -1,15 +1,15 @@
 package model;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import model.Gizmos.Absorber;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
@@ -55,7 +55,15 @@ public class BoardManager {
 					Absorber absorber = (Absorber) collision.getElement();
 					absorber.absorb(ball);
 
+                    // trigger the attached gizmo
+                    absorber.onCollision();
+
 				} else {
+                    Gizmo g = (Gizmo) collision.getElement();
+
+                    // trigger the attached gizmo
+                    g.onCollision();
+
 					ball = moveBallForTime(ball, collision.getTime());
 					ball.setVelocity(collision.getVelocity());
 					collision.getElement().setColor(Color.GREEN);
