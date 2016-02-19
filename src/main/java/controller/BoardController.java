@@ -1,15 +1,15 @@
 package controller;
 
-import model.*;
-import model.Gizmos.Circle;
-import model.Gizmos.Flipper;
-import model.Gizmos.Square;
-import model.Gizmos.Triangle;
-import view.GizmoBallView;
-
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
+
+import model.Ball;
+import model.BoardManager;
+import model.IElement;
+import model.Gizmos.Absorber;
+import model.Gizmos.Flipper;
+import view.GizmoBallView;
 
 /**
  * Created by bairdjb on 11/02/2016.
@@ -27,24 +27,19 @@ public class BoardController {
 
     //TODO Remove test method
     private void test(){
-        Gizmo test1 = new Square(3, 0, "Test");
-        Gizmo test2 = new Triangle(2, 6, "Test");
-        Gizmo test3 = new Square(1, 6, "Test");
-        Gizmo test4 = new Square(1, 2, "Test");
-        Gizmo test5 = new Circle(2, 1, "Test");
-        Flipper test6 = new Flipper(5, 3, "Test");
-        Flipper test7 = new Flipper(8, 3, "Test");
-        test7.setDirection(Direction.RIGHT);
-        test6.addKeyPressTrigger(KeyEvent.VK_LEFT);
-        test7.addKeyPressTrigger(KeyEvent.VK_RIGHT);
+        Absorber absorber = new Absorber(0,18,20,20,"fab abs");
+        Flipper flipper1 = new Flipper(5, 3, "Test");
+        Flipper flipper2 = new Flipper(8, 3, "Test");
 
-        List<IElement> testShapes = Arrays.asList(new IElement[]{test1, test2, test3, test4, test5, test6, test7});
-        boardManager.getBoard().setElements(testShapes);
-        Ball ball = new Ball("Ball", 3.5, 7, -5.0, -5.0);
+        absorber.addKeyPressTrigger(KeyEvent.VK_SPACE);
+        flipper1.addKeyPressTrigger(KeyEvent.VK_LEFT);
+        flipper2.addKeyPressTrigger(KeyEvent.VK_RIGHT);
 
-        Ball ball2 = new Ball("Ball", 2.5, 3, -5.0, -5.0);
+        List<IElement> testElements = Arrays.asList(new IElement[]{absorber, flipper1, flipper2});
+        boardManager.getBoard().setElements(testElements);
+
+        Ball ball = new Ball("Ball", 5, 10, 0, 0);
         boardManager.getBoard().addBall(ball);
-        boardManager.getBoard().addBall(ball2);
     }
 
 

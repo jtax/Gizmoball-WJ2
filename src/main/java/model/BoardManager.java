@@ -1,22 +1,26 @@
 package model;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import model.Gizmos.Absorber;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class BoardManager {
     private Board board;
+    private Collision closestCollision;
+    private final static double moveTime = 0.05;
 
-    public BoardManager(){
-        board = new Board(0,0,20,20);
+    public BoardManager() {
+        board = new Board(new double[]{0.025, 0.025}, 25, 20, 20);
     }
 
     public Board getBoard() {
@@ -27,6 +31,9 @@ public class BoardManager {
         this.board = board;
     }
 
+
+    /*   -----     Physics Loop    ----    */
+
     public void tick() {
         List<Ball> newBalls = new ArrayList<>();
         for (Ball ball : board.getBalls()) {
@@ -35,69 +42,123 @@ public class BoardManager {
         board.setBalls(newBalls);
     }
 
-    private Ball moveBall(Ball ball) {
-        double moveTime = 0.05; //20 FPS
-        Collision collision = getTimeTillCollision(ball);
+	private Ball moveBall(Ball ball) {
+		if (!ballIsAbsorbed(ball)) {
+			ball = applyForces(ball, moveTime);
+			Collision collision = getTimeTillCollision(ball);
 
-        if (collision.getTime() >= moveTime) { //No Collision
-            ball = moveBallForTime(ball, moveTime);
-        } else { //Collision
-            ball = moveBallForTime(ball, collision.getTime());
-            ball.setVelocity(collision.getVelocity());
-            System.out.println("New Veloctiy:" + collision.getVelocity());
-        }
-        System.out.println("Ball Center: " + ball.getCenter().toString());
+			if (collision.getTime() >= moveTime) { // No Collision
+				ball = moveBallForTime(ball, moveTime);
+
+			} else { // Collision
+				if (collision.getElement() instanceof Absorber) {
+					Absorber absorber = (Absorber) collision.getElement();
+					absorber.absorb(ball);
+
+				} else {
+					ball = moveBallForTime(ball, collision.getTime());
+					ball.setVelocity(collision.getVelocity());
+					collision.getElement().setColor(Color.GREEN);
+				}
+			}
+		}
+
+		return ball;
+	}
+	
+	private boolean ballIsAbsorbed(Ball ball) {
+		Collection<Absorber> absorbers = getAbsorbers();
+
+		for (Absorber absorber : absorbers) {
+			if (absorber.hasBall(ball)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private Collection<Absorber> getAbsorbers() {
+		Collection<Absorber> absorbers = new ArrayList<>();
+
+		for (IElement element : board.getElements()) {
+			if (element instanceof Absorber) {
+				absorbers.add((Absorber) element);
+			}
+		}
+
+		return absorbers;
+	}
+
+    private Ball moveBallForTime(Ball ball, double time) {
+        Vect changeAmount = ball.getVelocity().times(time);
+        Vect newCenter = ball.getCenter().plus(changeAmount);
+        ball.setCenter(newCenter);
         return ball;
     }
 
-    private Ball moveBallForTime(Ball ball, double time) {
-        double newX, newY;
-        double velX, velY;
-
-        velX = ball.getVelocity().x();
-        velY = ball.getVelocity().y();
-
-        newX = ball.getCenter().x() + (velX * time);
-        newY = ball.getCenter().y() + (velY * time);
-        ball.setCenter(new Vect(newX, newY));
-        ball.setVelocity(new Vect(velX, velY));
-
-        return new Ball("Ball", newX, newY, velX, velY);
-    }
-
-    private Collision getTimeTillCollision(Ball bll) {
-        Circle ballC = bll.getCircle();
-        Vect ballV = bll.getVelocity();
-        Vect newV = new Vect(0, 0);
-        IElement collidingElement;
-        double shortestTime = Double.MAX_VALUE;
-        double time = 0.0;
+    private Collision getTimeTillCollision(Ball ball) {
+        closestCollision = new Collision(0, 0, Double.MAX_VALUE);
         for (IElement element : board.getElements()) {
-
+        	if (element instanceof Absorber && ball.inside(element))
+				continue;
+        	
             for (Circle circle : element.getCircles()) {
-                time = Geometry.timeUntilCircleCollision(circle, ballC, ballV);
-                if (time < shortestTime) {
-                    shortestTime = time;
-                    collidingElement = element;
-                    element.setColor(Color.BLUE);
-                    //System.out.println("On course to colide with Circle: " + circle.getCenter() + " in time: " + time);
-                    newV = Geometry.reflectCircle(circle.getCenter(), ballC.getCenter(), ballV);
-                }
+                detectCircleCollision(circle, ball, element);
             }
             for (LineSegment line : element.getLines()) {
-                time = Geometry.timeUntilWallCollision(line, ballC, ballV);
-                if (time < shortestTime) {
-                    shortestTime = time;
-                    collidingElement = element;
-                    element.setColor(Color.GREEN);
-
-                    //System.out.println("On course to colide with Line: " + line.toString() + " in time: " + time);
-                    newV = Geometry.reflectWall(line, ballV);
-                }
-
+                detectLineCollision(line, ball, element);
             }
         }
-        System.out.println("Collision in " + shortestTime);
-        return new Collision(newV, shortestTime);
+        for (Ball otherBall : board.getBalls()) {
+            detectBallCollision(otherBall, ball);
+        }
+        return closestCollision;
+    }
+
+    public void detectCircleCollision(Circle circle, Ball ball, IElement element) {
+        double time = Geometry.timeUntilCircleCollision(circle, ball.getCircle(), ball.getVelocity());
+        if (time < closestCollision.getTime()) {
+            Vect newV = Geometry.reflectCircle(circle.getCenter(), ball.getCenter(), ball.getVelocity());
+            closestCollision = new Collision(newV, time, element);
+        }
+    }
+
+    public void detectLineCollision(LineSegment line, Ball ball, IElement element) {
+        double time = Geometry.timeUntilWallCollision(line, ball.getCircle(), ball.getVelocity());
+        if (time < closestCollision.getTime()) {
+            Vect newV = Geometry.reflectWall(line, ball.getVelocity());
+            closestCollision = new Collision(newV, time, element);
+        }
+    }
+
+    public void detectBallCollision(Ball otherBall, Ball ball) {
+        Circle ballC = ball.getCircle(), oBallC = otherBall.getCircle();
+        Vect ballV = ball.getVelocity(), oBallV = otherBall.getVelocity();
+        double time = Geometry.timeUntilBallBallCollision(ballC, ballV, oBallC, oBallV);
+        if (time < closestCollision.getTime()) {
+            Vect newV = Geometry.reflectCircle(otherBall.getCenter(), ball.getCenter(), ballV);
+            closestCollision = new Collision(newV, time, otherBall);
+        }
+    }
+
+    public Ball applyForces(Ball ball, double time) {
+        Vect newVelocityG = applyGravity(ball.getVelocity(), time);
+        Vect newVelocityF = applyFriction(newVelocityG, time);
+        ball.setVelocity(newVelocityF);
+        return ball;
+    }
+
+    public Vect applyFriction(Vect velocity, double time) {
+        double mu = board.getFrictionConst()[0];
+        double mu2 = board.getFrictionConst()[1];
+        double changeAmount = 1 - mu * time - mu2 * velocity.length() * time;
+        return velocity.times(changeAmount);
+    }
+
+    public Vect applyGravity(Vect velocity, double time) {
+        double changeAmount = board.getGravityConst() * time;
+        Vect change = new Vect(0, changeAmount);
+        return velocity.plus(change);
     }
 }

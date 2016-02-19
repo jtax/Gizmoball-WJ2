@@ -1,12 +1,11 @@
 package model;
 
-import model.Gizmos.Square;
-import model.Gizmos.Wall;
-import physics.Vect;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+
+import model.Gizmos.Wall;
+import physics.Vect;
 
 /**
  * Created by baird on 06/02/2016.
@@ -14,12 +13,12 @@ import java.util.Observable;
 public class Board extends Observable {
     private List<IElement> elements;
     private List<Ball> balls;
-    private int frictionConst;
-    private int gravityConst;
+    private double[] frictionConst;
+    private double gravityConst;
     private int width;
     private int height;
 
-    public Board(int frictionConst, int gravityConst, int width, int height) {
+    public Board(double[] frictionConst, double gravityConst, int width, int height) {
         this.frictionConst = frictionConst;
         this.gravityConst = gravityConst;
         this.width = width;
@@ -72,19 +71,19 @@ public class Board extends Observable {
         notifyObservers();
     }
 
-    public int getFrictionConst() {
+    public double[] getFrictionConst() {
         return frictionConst;
     }
 
-    public void setFrictionConst(int frictionConst) {
+    public void setFrictionConst(double[] frictionConst) {
         this.frictionConst = frictionConst;
     }
 
-    public int getGravityConst() {
+    public double getGravityConst() {
         return gravityConst;
     }
 
-    public void setGravityConst(int gravityConst) {
+    public void setGravityConst(double gravityConst) {
         this.gravityConst = gravityConst;
     }
 

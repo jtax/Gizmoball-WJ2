@@ -1,13 +1,12 @@
 package controller;
 
-import model.Gizmo;
-import model.Gizmos.Flipper;
-import model.IElement;
-import model.Triggerable;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+
+import model.Gizmo;
+import model.IElement;
+import model.Triggerable;
 
 /**
  * Package: controller
@@ -56,7 +55,7 @@ public class KeyPressListener implements KeyListener {
                 System.out.println("Key Pressed:"  + e.getKeyChar());
                 if (element instanceof Triggerable) {
 
-                    ((Flipper) element).trigger();
+                    ((Triggerable) element).trigger();
 
                 }
             }
@@ -80,7 +79,7 @@ public class KeyPressListener implements KeyListener {
                 if (element instanceof Triggerable) {
                     System.out.println("Key Released:"  + e.getKeyChar());
 
-                    ((Flipper) element).trigger();
+                    ((Triggerable) element).trigger();
 
                 }
             }
