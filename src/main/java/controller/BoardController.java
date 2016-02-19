@@ -37,7 +37,7 @@ public class BoardController {
         test7.setDirection(Direction.RIGHT);
         test6.addKeyPressTrigger(KeyEvent.VK_LEFT);
         test7.addKeyPressTrigger(KeyEvent.VK_RIGHT);
-        test7.trigger();
+
         List<IElement> testShapes = Arrays.asList(new IElement[]{test1, test2, test3, test4, test5, test6, test7});
         boardManager.getBoard().setElements(testShapes);
         Ball ball = new Ball("Ball", 3.5, 7, -5.0, -5.0);
