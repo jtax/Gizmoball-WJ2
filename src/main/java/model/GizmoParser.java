@@ -29,8 +29,9 @@ public class GizmoParser
 
         String line = fileInput.readLine();
         StringTokenizer st;
-        String gizmoType = "";
-        List<IElement> loadedElements = new ArrayList<IElement>();
+        String gizmoType;
+        List<String> rotates = new ArrayList<String>();
+        List<Gizmo> loadedElements = new ArrayList<Gizmo>();
         List<Ball> balls = new ArrayList<Ball>();
         Double gravity = 0.0;
         double[] friction = new double[2];
@@ -61,9 +62,8 @@ public class GizmoParser
 
 
             if(gizmoType.equals("Rotate")){
-                String gizmoName = "";
-                gizmoName = st.nextToken();
-                System.out.println(gizmoType + gizmoName );
+                String gizmoName = st.nextToken();
+                rotates.add(gizmoName);
             }
 
             if(gizmoType.equals("Absorber")){
@@ -109,13 +109,23 @@ public class GizmoParser
                 board.addBall(balls.get(i));
             }
         }
+        if(!rotates.isEmpty()) {
+            for (int i = 0; i < board.getElements().size(); i++) {
+                if (rotates.contains(board.getElements().get(i).getName())) {
+                    board.getElements().get(i).rotate();
+                    board.getElements().get(i).rotate();
+                    board.getElements().get(i).rotate();
+                    board.getElements().get(i).rotate();
+                }
+            }
+       }
 
-        // boardManager.getBoard().setElements(loadedElements);
+
         return board;
     }
 
 
-    private IElement shapeParser(String gizmo, StringTokenizer st) throws BadFileException {
+    private Gizmo shapeParser(String gizmo, StringTokenizer st) throws BadFileException {
         String gizmoName = "";
         Integer xCoord = 0;
         Integer yCoord = 0;
@@ -136,6 +146,7 @@ public class GizmoParser
 
         yCoord = Integer.valueOf(st.nextToken());
         origin = new Vect(xCoord, yCoord);
+
         switch (gizmo) {
             case ("Circle"):
                 return new Circle(origin, gizmoName);
@@ -144,7 +155,9 @@ public class GizmoParser
             case ("Triangle"):
                 return new Triangle(origin, gizmoName);
             case ("RightFlipper"):
-                return new Flipper(origin, gizmoName);
+                Flipper r = new Flipper(origin, gizmoName);
+                r.setDirection(Direction.RIGHT);
+                return r;
             case ("LeftFlipper"):
                 return new Flipper(origin, gizmoName);
             default:
@@ -154,7 +167,6 @@ public class GizmoParser
     }
 
     private double[] parseFriction(String gizmo, StringTokenizer st) throws BadFileException {
-        String gizmoType = gizmo;
         double[] friction = new double[2];
 
         friction[0] = Double.valueOf(st.nextToken());
@@ -165,7 +177,7 @@ public class GizmoParser
 
         friction[1] = Double.valueOf(st.nextToken());
 
-        System.out.println(gizmoType + friction[0] + friction[1]);
+        System.out.println(gizmo + friction[0] + friction[1]);
         return friction;
     }
 

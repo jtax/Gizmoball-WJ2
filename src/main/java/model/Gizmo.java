@@ -53,6 +53,8 @@ abstract public class Gizmo implements IElement{
         return trigger;
     }
 
+    public String getName(){return name;}
+
     public void setTrigger(Gizmo trigger){
         this.trigger = trigger;
     }

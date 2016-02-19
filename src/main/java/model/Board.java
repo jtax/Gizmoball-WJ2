@@ -12,7 +12,7 @@ import java.util.Observable;
  * Created by baird on 06/02/2016.
  */
 public class Board extends Observable {
-    private List<IElement> elements;
+    private List<Gizmo> elements;
     private List<Ball> balls;
     private double[] frictionConst;
     private double gravityConst;
@@ -40,7 +40,7 @@ public class Board extends Observable {
         Vect topRight = new Vect(20, 0);
         Vect bottomLeft = new Vect(0, 20);
         Vect bottomRight = new Vect(20, 20);
-        IElement walls = new Wall(topLeft, bottomRight, "Wall");
+        Gizmo walls = new Wall(topLeft, bottomRight, "Wall");
         addElement(walls);
     }
 
@@ -53,12 +53,12 @@ public class Board extends Observable {
     public List<Ball> getBalls() {
         return balls;
     }
-    public List<IElement> getElements() {
+    public List<Gizmo> getElements() {
         return elements;
     }
 
-    public void setElements(List<IElement> elements) {
-        for (IElement element : elements) {
+    public void setElements(List<Gizmo> elements) {
+        for (Gizmo element : elements) {
             addElement(element);
         }
         addWalls();
@@ -66,7 +66,7 @@ public class Board extends Observable {
         notifyObservers();
     }
 
-    public void addElement(IElement element) {
+    public void addElement(Gizmo element) {
         elements.add(element);
         setChanged();
         notifyObservers();
