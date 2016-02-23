@@ -7,6 +7,7 @@ import java.awt.*;
  * Created by baird on 06/02/2016.
  */
 public class BuildGUI {
+
     private JButton add, select, remove, switchToRun;
     private JComboBox<String> shape;
     private JButton absorber;

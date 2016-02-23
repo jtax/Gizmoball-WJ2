@@ -26,6 +26,7 @@ public class Wall extends Gizmo {
 		super.setColor(Color.BLACK);
 		}
 
+
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
 		Vect topRight = new Vect(bound.x(), origin.y());

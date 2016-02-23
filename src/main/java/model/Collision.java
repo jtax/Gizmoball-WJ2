@@ -10,6 +10,7 @@ public class Collision {
     private Vect velocity;
     private IElement collisionElement;
 
+
     public Collision(Vect velocity, double time, IElement element) {
         this.velocity = velocity;
         this.time = time;

@@ -17,6 +17,7 @@ public class LoadBoard {
 
     public static File getFileToOpen() {
 
+
         JFileChooser openFile = new JFileChooser();
         openFile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         openFile.setAcceptAllFileFilterUsed(false);

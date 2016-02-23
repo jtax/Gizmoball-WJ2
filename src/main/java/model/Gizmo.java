@@ -34,6 +34,7 @@ abstract public class Gizmo implements IElement{
         color = colors[0];
         rotation = 0;
 
+
         // TODO: set the bounds correctly according to which gizmo it is
         //bound = new Vect(origin.x() + 1, origin.y() + 1);
         bound = calculateBound();

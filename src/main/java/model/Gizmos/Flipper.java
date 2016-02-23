@@ -33,6 +33,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		super.setColor(Color.yellow);
 	}
 
+
 	@Override
 	public void trigger() {
 

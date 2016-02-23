@@ -93,6 +93,7 @@ public class Board extends Observable {
         return width;
     }
 
+
     public void setWidth(int width) {
         this.width = width;
     }

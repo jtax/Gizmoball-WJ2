@@ -30,6 +30,7 @@ public class Square extends Gizmo {
 
     }
 
+
     public Square(int x, int y, String name) {
         this(new Vect(x, y), name);
     }

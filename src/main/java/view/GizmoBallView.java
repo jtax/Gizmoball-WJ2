@@ -23,6 +23,7 @@ import java.util.Observer;
  */
 public class GizmoBallView implements Observer {
 
+
     private final MagicKeyListener keyPressListener;
     private boolean runMode;
     private JFrame frame;

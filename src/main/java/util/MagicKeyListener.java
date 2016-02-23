@@ -50,6 +50,7 @@ import java.util.Set;
  * generate a release event for only one of them.
  */
 public class MagicKeyListener
+
         implements KeyListener
 {
 

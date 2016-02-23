@@ -3,6 +3,7 @@ package model;
 import model.Gizmos.*;
 import physics.Vect;
 
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -157,9 +158,12 @@ public class GizmoParser
             case ("RightFlipper"):
                 Flipper r = new Flipper(origin, gizmoName);
                 r.setDirection(Direction.RIGHT);
+                r.addKeyPressTrigger(KeyEvent.VK_RIGHT);
                 return r;
             case ("LeftFlipper"):
-                return new Flipper(origin, gizmoName);
+                Flipper l = new Flipper(origin, gizmoName);
+                l.addKeyPressTrigger(KeyEvent.VK_LEFT);
+                return l;
             default:
                 return null;
         }
@@ -218,6 +222,7 @@ public class GizmoParser
         origin = new Vect(xAbsorberTopLeft, yAbsorberTopLeft);
         Vect bound = new Vect(xAbsorberBotRight, yAbsorberBotRight);
         Absorber a = new Absorber( origin ,bound, gizmoName);
+        a.addKeyPressTrigger(KeyEvent.VK_SPACE);
         return a;
 
     }
