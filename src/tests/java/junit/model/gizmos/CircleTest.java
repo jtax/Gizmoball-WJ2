@@ -1,7 +1,8 @@
 package junit.model.gizmos;
 
-import model.Gizmos.Circle;
 import model.IElement;
+import model.gizmos.Circle;
+
 import org.junit.Before;
 import org.junit.Test;
 import physics.LineSegment;

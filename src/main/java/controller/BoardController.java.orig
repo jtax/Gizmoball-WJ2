@@ -25,6 +25,7 @@ public class BoardController {
     public BoardController() {
         LoadBoard l = new LoadBoard();
         Board board = l.loadFile();
+<<<<<<< HEAD
 
         if(board != null) {
             boardManager = new BoardManager();
@@ -43,6 +44,18 @@ public class BoardController {
             view = new GizmoBallView(boardManager);
 
         }
+=======
+        boardManager = new BoardManager();
+        boardManager.setBoard(board);
+
+        view = new GizmoBallView(boardManager);
+        boardManager.getBoard().addObserver(view);
+        //test();
+        //test();
+        //Ball ball = new Ball("Ball", 2.5, 15, -5.0, -5.0);
+        //boardManager.getBoard().addBall(ball);
+        boardManager.tick();
+>>>>>>> naming_conventions
     }
 
     //TODO Remove test method

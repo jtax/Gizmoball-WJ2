@@ -1,6 +1,12 @@
 package model;
 
+<<<<<<< HEAD
+import model.Gizmos.*;
+import physics.Vect;
+
 import java.awt.event.KeyEvent;
+=======
+>>>>>>> naming_conventions
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

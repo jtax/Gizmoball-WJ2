@@ -1,6 +1,8 @@
 package model.Gizmos;
 
 import model.Direction;
+import model.gizmos.Flipper;
+
 import org.junit.Test;
 import physics.Vect;
 
