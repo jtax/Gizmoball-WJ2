@@ -1,15 +1,16 @@
 package junit.model.gizmos;
 
-import model.Gizmos.Square;
-import org.junit.Before;
-import org.junit.Test;
-import physics.LineSegment;
-import physics.Vect;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import model.gizmos.Square;
+import physics.LineSegment;
+import physics.Vect;
 
 /**
  * Created by baird on 16/02/2016.

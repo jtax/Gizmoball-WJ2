@@ -4,9 +4,16 @@ import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
 
-import model.*;
-import model.Gizmos.*;
-import view.*;
+import model.Ball;
+import model.Board;
+import model.BoardManager;
+import model.Direction;
+import model.Gizmo;
+import model.gizmos.Absorber;
+import model.gizmos.Flipper;
+import model.gizmos.Square;
+import view.GizmoBallView;
+import view.LoadBoard;
 
 /**
  * Created by bairdjb on 11/02/2016.

@@ -1,11 +1,11 @@
 package controller;
 
-import model.Board;
-import model.BoardManager;
-
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
+
+import model.BoardManager;
 
 /**
  * Created by baird on 14/02/2016.
