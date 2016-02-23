@@ -29,6 +29,8 @@ public class BoardController {
         boardManager.getBoard().addObserver(view);
         //test();
         //test();
+        Ball ball = new Ball("Ball", 2.5, 15, -5.0, -5.0);
+        boardManager.getBoard().addBall(ball);
         boardManager.tick();
     }
 
