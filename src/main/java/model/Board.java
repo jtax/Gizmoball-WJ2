@@ -4,22 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import model.gizmos.Wall;
+import physics.Vect;
+
 /**
  * Created by baird on 06/02/2016.
  */
 public class Board extends Observable {
-    List<IElement> elements;
-    List<Ball> balls;
-    int frictionConst, gravityConst;
-    int width,height;
+    private List<IElement> elements;
+    private List<Ball> balls;
+    private double[] frictionConst;
+    private double gravityConst;
+    private int width;
+    private int height;
 
-    public Board(int frictionConst, int gravityConst, int width, int height) {
+    public Board(double[] frictionConst, double gravityConst, int width, int height) {
         this.frictionConst = frictionConst;
         this.gravityConst = gravityConst;
         this.width = width;
         this.height = height;
         elements = new ArrayList<>();
         balls = new ArrayList<>();
+        addWalls();
     }
 
     public void addBall(Ball ball) {
@@ -28,44 +34,64 @@ public class Board extends Observable {
         notifyObservers();
     }
 
-    public List<Ball> getBalls() {
-        return balls;
-    }
-    public List<IElement> getElements() {
-        return elements;
+    private void addWalls() {
+        Vect topLeft = new Vect(0, 0);
+        Vect topRight = new Vect(20, 0);
+        Vect bottomLeft = new Vect(0, 20);
+        Vect bottomRight = new Vect(20, 20);
+        Gizmo walls = new Wall(topLeft, bottomRight, "Wall");
+        addElement(walls);
     }
 
-    public void setElements(List<IElement> elements) {
-        this.elements = elements;
+    public void setBalls(List<Ball> newBalls) {
+        balls = newBalls;
         setChanged();
         notifyObservers();
     }
 
-    public void addElement(IElement element) {
+    public List<Ball> getBalls() {
+        return balls;
+    }
+
+    public List<IElement> getElements() {
+        return elements;
+    }
+
+    public void setElements(List<Gizmo> elements) {
+        for (Gizmo element : elements) {
+            addElement(element);
+        }
+        addWalls();
+        setChanged();
+        notifyObservers();
+    }
+
+    public void addElement(Gizmo element) {
         elements.add(element);
         setChanged();
         notifyObservers();
     }
 
-    public int getFrictionConst() {
+    public double[] getFrictionConst() {
         return frictionConst;
     }
 
-    public void setFrictionConst(int frictionConst) {
+    public void setFrictionConst(double[] frictionConst) {
         this.frictionConst = frictionConst;
     }
 
-    public int getGravityConst() {
+    public double getGravityConst() {
         return gravityConst;
     }
 
-    public void setGravityConst(int gravityConst) {
+    public void setGravityConst(double gravityConst) {
         this.gravityConst = gravityConst;
     }
 
     public int getWidth() {
         return width;
     }
+
 
     public void setWidth(int width) {
         this.width = width;

@@ -1,54 +1,132 @@
 package model;
 
-import model.Components.Point;
-
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
+
+import physics.Circle;
+import physics.LineSegment;
+import physics.Vect;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class Ball implements IElement {
-    Component point;
-    Coordinate origin;
-    Coordinate velocity;
+    private Circle point;
+    private Vect origin;
+    private Vect velocity;
+    private Vect center;
+    private Color color = Color.BLUE;
+    private String name;
 
+
+    //TODO do balls need names?
     public Ball(String name,double x, double y, double velocityX, double velocityY){
-        point = new Point(x,y,0.5);
-        origin = new Coordinate(x - .25, y - .25);
-        velocity = new Coordinate(velocityX,velocityY);
+        center = new Vect(x, y);
+        point = new Circle(center, 0.25);
+        origin = new Vect(x - .25, y - .25);
+        velocity = new Vect(velocityX, velocityY);
+        this.name = name;
+
     }
 
-    public Coordinate getVelocity() {
+    public Ball(String name, Vect center, Vect velocity) {
+        this(name, center.x(), center.y(), velocity.x(), velocity.y());
+    }
+
+    public Vect getCenter() {
+        return center;
+    }
+
+    public void setCenter(Vect center) {
+        this.center = center;
+        update();
+    }
+
+    public Vect getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(Coordinate velocity) {
+    public void setVelocity(Vect velocity) {
         this.velocity = velocity;
     }
 
-    public Component getPoint() {
+    public Circle getCircle() {
         return point;
     }
 
-    public void setPoint(Component point) {
-        this.point = point;
+    @Override
+    public List<LineSegment> getLines() {
+        return null;
     }
 
     @Override
-    public List<Component> getComponents() {
+    public List<Circle> getCircles() {
         return Arrays.asList(point);
     }
 
     @Override
-    public Coordinate getOrigin() {
+    public List<Vect> getCoordinates() {
+        return Arrays.asList(center);
+    }
+
+    @Override
+    public Vect getOrigin() {
         return origin;
     }
 
     @Override
-    public Coordinate getBound() {
-        double x = origin.getX() + 0.5;
-        double y = origin.getY() + 0.5;
-        return new Coordinate(x, y);
+    public Vect getBound() {
+        double x = origin.x() + 0.5;
+        double y = origin.y() + 0.5;
+        return new Vect(x, y);
+    }
+
+    @Override
+    public Color getColor() {
+        return color;
+    }
+
+    @Override
+    public void setColor(Color color) {
+        return;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void update() {
+        point = new Circle(center, 0.25);
+        origin = new Vect(center.x() - .25, center.y() - .25);
+    }
+
+    /**
+     * Is the ball inside the other element?
+     *
+     * @param otherElement
+     * @return true if the other element is within the absorber's bounds,
+     * otherwise false
+     */
+    public boolean inside(IElement otherElement) {
+        Vect ourOrigin = origin, ourBound = getBound(), theirOrigin = otherElement.getOrigin(),
+                theirBound = otherElement.getBound();
+
+        boolean topIn = ourOrigin.y() <= theirBound.y() && ourOrigin.y() >= theirOrigin.y();
+        boolean bottomIn = ourBound.y() >= theirOrigin.y() && ourBound.y() <= theirBound.y();
+        boolean leftIn = ourOrigin.x() <= theirBound.x() && ourOrigin.x() >= theirOrigin.x();
+        boolean rightIn = ourBound.x() >= theirOrigin.x() && ourBound.x() <= theirBound.x();
+
+        // still with me?
+
+        boolean verticallyIn = leftIn && rightIn;
+        boolean horizontallyIn = topIn && bottomIn;
+
+        return (verticallyIn && (topIn || bottomIn)) || (horizontallyIn && (leftIn || rightIn));
+    }
+
+    public void rotate(){
+
     }
 }

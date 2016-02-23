@@ -1,18 +1,19 @@
 package view;
 
-import controller.boardController;
+import javax.swing.SwingUtilities;
 
-import javax.swing.*;
+import controller.BoardController;
 
 /**
  * Created by Umar on 10/02/2016.
  */
-public class main {
+public class Main {
 	public static void main(String[] args) {
 
 		SwingUtilities.invokeLater(new Runnable(){
+
 			public void run() {
-				new boardController();
+				new BoardController();
 			}
 		});
 

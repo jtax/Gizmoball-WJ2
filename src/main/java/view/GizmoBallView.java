@@ -1,23 +1,31 @@
 package view;
 
 
-import model.Board;
-import controller.RunModeButtonListener;
-import view.BoardViews.BoardViewImpl;
-import view.ButtonGroups.BuildGUI;
-import view.ButtonGroups.RunGUI;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+
+import controller.KeyPressListener;
+import controller.RunListener;
+import model.Board;
+import model.BoardManager;
+import util.MagicKeyListener;
+import view.buttongroups.BuildGUI;
+import view.buttongroups.RunGUI;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class GizmoBallView implements Observer {
 
+
+    private final MagicKeyListener keyPressListener;
     private boolean runMode;
     private JFrame frame;
     Container contentPane;
@@ -26,47 +34,52 @@ public class GizmoBallView implements Observer {
     private JPanel bottomButtons, topButtons, boardPanel;
     private JMenuBar menu;
     private BoardView boardView;
+    private BoardManager boardManager;
+    private ActionListener listener;
 
-    public GizmoBallView(Board board) {
+
+    public GizmoBallView(BoardManager bm) {
+        Board board = bm.getBoard();
+        boardManager = bm;
         runMode = true;
         frame = new JFrame("Gizmo Baw");
         contentPane = frame.getContentPane();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         boardView = new BoardViewImpl(board);
+        listener = new RunListener(bm);
+
+        keyPressListener = new MagicKeyListener(new KeyPressListener(bm.getBoard().getElements()));
         makeFrame();
     }
 
     public void makeFrame(){
-        try {
-            // Use native theme
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-
         if(runMode){
             makeRunGUI();
+
             boardPanel = boardView.getPanel();
+
+
+            // Listen for key events
+            frame.addKeyListener(keyPressListener);
         }
         else{
             makeBuildGUI();
             contentPane.add(topButtons, BorderLayout.NORTH);
         }
-        addFrameFeatures();
-    }
-
-    private void addFrameFeatures() {
         contentPane.add(boardPanel, BorderLayout.CENTER);
         contentPane.add(bottomButtons, BorderLayout.SOUTH);
         frame.setJMenuBar(menu);
-        frame.pack();
         frame.setLocation(100,100);
         frame.setVisible(true);
-        frame.setResizable(false);
+        frame.setFocusable(true);
+        frame.requestFocus();
+        frame.pack();
+
+        //frame.setResizable(false);
     }
 
     private void makeRunGUI(){
-        runGUI = new RunGUI();
+        runGUI = new RunGUI(listener);
         bottomButtons = runGUI.createButton();
         menu = runGUI.createMenu();
     }
@@ -81,7 +94,9 @@ public class GizmoBallView implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+
         boardView.update(o,arg);
+
     }
 
 }

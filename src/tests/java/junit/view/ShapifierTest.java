@@ -1,22 +1,21 @@
 package junit.view;
 
 import model.Board;
-import model.Coordinate;
-import model.Gizmos.Absorber;
-import model.Gizmos.Circle;
-import model.Gizmos.Flipper;
-import model.Gizmos.Square;
 import model.IElement;
+import model.gizmos.Absorber;
+import model.gizmos.Circle;
+import model.gizmos.Flipper;
+import model.gizmos.Square;
+
 import org.junit.Before;
 import org.junit.Test;
+import physics.Vect;
 import view.BoardView;
-import view.BoardViews.BoardViewImpl;
+import view.BoardViewImpl;
 import view.Shapifier;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
-import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
@@ -30,7 +29,7 @@ public class ShapifierTest {
 
     @Before
     public void createTestShapifier(){
-        board = new Board(10,10,20,20);
+        board = new Board(new double[]{0.025, 0.025}, 25, 20, 20);
         boardView = new BoardViewImpl(board);
         shapifier = new Shapifier(boardView);
     }
@@ -38,7 +37,7 @@ public class ShapifierTest {
     @Test
     public void AbsorberTest(){
         Rectangle answer = new Rectangle(5,5,1,1);
-        IElement absorber = new Absorber(new Coordinate(5,5), new Coordinate(6,6), "");
+        IElement absorber = new Absorber(new Vect(5, 5), new Vect(6, 6), "");
         assertEquals(shapifier.shapify(absorber),answer);
     }
     @Test
@@ -50,7 +49,7 @@ public class ShapifierTest {
     @Test
     public void flipperTest(){
         Rectangle answer = new Rectangle(5,5,1,1);
-        IElement flipper = new Flipper(new Coordinate(5.0,5.0),"");
+        IElement flipper = new Flipper(new Vect(5.0, 5.0), "");
         assertEquals(shapifier.shapify(flipper),answer);
     }
     @Test
