@@ -1,6 +1,11 @@
-package view.BoardViews;
+package view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Observable;
@@ -8,15 +13,9 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
-import model.Ball;
 import model.Board;
-import model.Gizmos.Square;
-import model.Gizmos.Wall;
 import model.IElement;
-import model.Gizmos.Circle;
-import view.BoardView;
-import view.Mode;
-import view.Shapifier;
+import model.gizmos.Wall;
 
 /**
  * Created by baird on 06/02/2016.
@@ -44,7 +43,7 @@ public class BoardViewImpl implements BoardView, Observer {
 		shapifier = new Shapifier(this);
 
 		// TODO: remove this test code can't test here. The panel scaling isnt ready yet
-		//shapes.add(shapifier.shapify(new Square(1, 0, "Your Mother")));
+		//shapes.add(shapifier.shapify(new Square(1, 0, "Your Mothe")));
 	}
 
 	private JPanel getDefaultLayout() {

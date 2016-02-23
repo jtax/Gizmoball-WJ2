@@ -1,6 +1,6 @@
-package model.Gizmos;
+package model.gizmos;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,6 +55,9 @@ public class Flipper extends Gizmo implements Triggerable {
 			this.origin = origin.plus(new Vect(1.5, 0));
 			this.bound = calculateBound();
 			this.coordinates = calculateCoordinates();
+			
+			super.setCircles(calculateCircles());
+			super.setLines(calculateLines());
 		}
 
 	}

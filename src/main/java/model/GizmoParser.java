@@ -1,8 +1,5 @@
 package model;
 
-import model.Gizmos.*;
-import physics.Vect;
-
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,6 +8,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import model.gizmos.Absorber;
+import model.gizmos.Circle;
+import model.gizmos.Flipper;
+import model.gizmos.Square;
+import model.gizmos.Triangle;
+import physics.Vect;
 
 public class GizmoParser
 {
