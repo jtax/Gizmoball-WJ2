@@ -1,13 +1,12 @@
 package controller;
 
-import model.Gizmo;
-import model.Gizmos.Flipper;
-import model.IElement;
-import model.Triggerable;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+
+import model.Gizmo;
+import model.IElement;
+import model.Triggerable;
 
 /**
  * Package: controller

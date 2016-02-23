@@ -1,16 +1,17 @@
 package junit.view;
 
 import model.Board;
-import model.Gizmos.Absorber;
-import model.Gizmos.Circle;
-import model.Gizmos.Flipper;
-import model.Gizmos.Square;
 import model.IElement;
+import model.gizmos.Absorber;
+import model.gizmos.Circle;
+import model.gizmos.Flipper;
+import model.gizmos.Square;
+
 import org.junit.Before;
 import org.junit.Test;
 import physics.Vect;
 import view.BoardView;
-import view.BoardViews.BoardViewImpl;
+import view.BoardViewImpl;
 import view.Shapifier;
 
 import java.awt.*;

@@ -1,42 +1,39 @@
-package model.Gizmos;
+package model.gizmos;
 
-import model.Gizmo;
-import physics.Angle;
-import physics.LineSegment;
-import physics.Vect;
-
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import model.Gizmo;
+import physics.LineSegment;
+import physics.Vect;
 
-public class Triangle extends Gizmo {
+/**
+ * Created by baird on 06/02/2016.
+ */
+public class Wall extends Gizmo {
 
-	private List<Vect> coordinates;
-	private int rotation;
+	private Vect bound;
+	private java.util.List<Vect> coordinates;
 
-	public Triangle(Vect origin, String name) {
+	public Wall(Vect origin, Vect bnd, String name) {
 		super(origin, name);
-		rotation = 3;
+		this.bound = bnd;
+		super.setBound(bnd);
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		super.setColor(Color.blue);
-	}
-
-	public Triangle(double x, double y, String name) {
-		this(new Vect(x, y), name);
-	}
+		super.setColor(Color.BLACK);
+		}
 
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
 		Vect topRight = new Vect(bound.x(), origin.y());
 		Vect bottomRight = bound;
 		Vect bottomLeft = new Vect(origin.x(), bound.y());
-		return Arrays.asList(topLeft, topRight, bottomLeft);
+		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
 	}
-
 
 	private List<physics.Circle> calculateCircles() {
 		List<physics.Circle> calcCircles = new ArrayList<>();
@@ -58,25 +55,15 @@ public class Triangle extends Gizmo {
 		return calcLines;
 	}
 
-
+	@Override
 	public void rotate() {
-		rotation = (rotation + 1) % 4;
-		Vect topLeft = origin;
-		Vect topRight = new Vect(bound.x(), origin.y());
-		Vect bottomRight = bound;
-		Vect bottomLeft = new Vect(origin.x(), bound.y());
-		List<Vect> vects = new ArrayList<Vect>(Arrays.asList(topLeft, topRight, bottomRight, bottomLeft));
-		vects.remove(rotation);
-		coordinates = vects;
-		super.setCircles(calculateCircles());
-		super.setLines(calculateLines());
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public Vect calculateBound() {
-		Vect origin = super.getOrigin();
-		Vect bound = new Vect(1, 1);
-		return origin.plus(bound);
+		return bound;
 	}
 
 	@Override

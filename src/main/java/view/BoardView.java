@@ -1,12 +1,8 @@
 package view;
 
-import model.Board;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.Observable;
-import java.util.Observer;
+
+import javax.swing.JPanel;
 
 /**
  * Created by baird on 06/02/2016.
