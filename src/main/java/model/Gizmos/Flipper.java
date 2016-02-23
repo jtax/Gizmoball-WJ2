@@ -33,6 +33,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		super.setColor(Color.yellow);
 	}
 
+
 	@Override
 	public void trigger() {
 
@@ -50,9 +51,12 @@ public class Flipper extends Gizmo implements Triggerable {
 	public void setDirection(Direction direction) {
 
 		this.direction = direction;
+		if(direction == Direction.RIGHT) {
+			this.origin = origin.plus(new Vect(1.5, 0));
+			this.bound = calculateBound();
+			this.coordinates = calculateCoordinates();
+		}
 
-		origin = origin.plus(new Vect(0.5, 0));
-		bound = calculateBound();
 	}
 
 

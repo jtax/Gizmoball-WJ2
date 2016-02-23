@@ -19,6 +19,7 @@ public class Ball implements IElement {
     private Color color = Color.BLUE;
     private String name;
 
+
     //TODO do balls need names?
     public Ball(String name,double x, double y, double velocityX, double velocityY){
         center = new Vect(x, y);

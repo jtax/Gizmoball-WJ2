@@ -23,6 +23,7 @@ public class RunListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == timer) {
+
             boardManager.tick();
         } else {
             switch (e.getActionCommand()) {

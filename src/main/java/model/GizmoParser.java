@@ -3,6 +3,7 @@ package model;
 import model.Gizmos.*;
 import physics.Vect;
 
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -30,10 +31,10 @@ public class GizmoParser
         String line = fileInput.readLine();
         StringTokenizer st;
         String gizmoType;
-        List<String> rotates = new ArrayList<String>();
-        List<Gizmo> loadedElements = new ArrayList<Gizmo>();
-        List<Ball> balls = new ArrayList<Ball>();
-        Double gravity = 0.0;
+        List<String> rotates = new ArrayList<>();
+        List<Gizmo> loadedElements = new ArrayList<>();
+        List<Ball> balls = new ArrayList<>();
+        double gravity = 0.0;
         double[] friction = new double[2];
 
         while(line != null)
@@ -126,9 +127,9 @@ public class GizmoParser
 
 
     private Gizmo shapeParser(String gizmo, StringTokenizer st) throws BadFileException {
-        String gizmoName = "";
-        Integer xCoord = 0;
-        Integer yCoord = 0;
+        String gizmoName;
+        int xCoord;
+        int yCoord;
         Vect origin;
 
         gizmoName = st.nextToken();
@@ -157,9 +158,12 @@ public class GizmoParser
             case ("RightFlipper"):
                 Flipper r = new Flipper(origin, gizmoName);
                 r.setDirection(Direction.RIGHT);
+                r.addKeyPressTrigger(KeyEvent.VK_RIGHT);
                 return r;
             case ("LeftFlipper"):
-                return new Flipper(origin, gizmoName);
+                Flipper l = new Flipper(origin, gizmoName);
+                l.addKeyPressTrigger(KeyEvent.VK_LEFT);
+                return l;
             default:
                 return null;
         }
@@ -182,12 +186,11 @@ public class GizmoParser
     }
 
     private Absorber parseAbsorber(String gizmo, StringTokenizer st) throws BadFileException {
-        String gizmoType = gizmo;
         String gizmoName;
-        Integer xAbsorberTopLeft;
-        Integer yAbsorberTopLeft;
-        Integer xAbsorberBotRight;
-        Integer yAbsorberBotRight;
+        int xAbsorberTopLeft;
+        int yAbsorberTopLeft;
+        int xAbsorberBotRight;
+        int yAbsorberBotRight;
         gizmoName = st.nextToken();
         Vect origin;
         if(!st.hasMoreTokens())
@@ -214,21 +217,21 @@ public class GizmoParser
         }
 
         yAbsorberBotRight = Integer.valueOf(st.nextToken());
-        System.out.println(gizmoType + gizmoName + xAbsorberTopLeft + yAbsorberTopLeft + xAbsorberBotRight + yAbsorberBotRight);
+        System.out.println(gizmo + gizmoName + xAbsorberTopLeft + yAbsorberTopLeft + xAbsorberBotRight + yAbsorberBotRight);
         origin = new Vect(xAbsorberTopLeft, yAbsorberTopLeft);
         Vect bound = new Vect(xAbsorberBotRight, yAbsorberBotRight);
         Absorber a = new Absorber( origin ,bound, gizmoName);
+        a.addKeyPressTrigger(KeyEvent.VK_SPACE);
         return a;
 
     }
 
     private Ball parseBall(String gizmo, StringTokenizer st) throws BadFileException {
-        String gizmoType = gizmo;
         String gizmoName;
-        Double ballXCoord;
-        Double ballYCoord;
-        Double ballXVelocity;
-        Double ballYVelocity;
+        double ballXCoord;
+        double ballYCoord;
+        double ballXVelocity;
+        double ballYVelocity;
 
         gizmoName = st.nextToken();
         if(!st.hasMoreTokens())
@@ -256,24 +259,25 @@ public class GizmoParser
 
         ballYVelocity = Double.valueOf(st.nextToken());
         Ball b = new Ball( gizmoName , ballXCoord , ballYCoord , ballXVelocity , ballYVelocity);
-        System.out.println(gizmoType + gizmoName + ballXCoord + ballYCoord + ballXVelocity + ballYVelocity);
+        System.out.println(gizmo + gizmoName + ballXCoord + ballYCoord + ballXVelocity + ballYVelocity);
         return b;
     }
 
     private void parseKey(String gizmo, StringTokenizer st) throws BadFileException{
-
-        String gizmoType = gizmo;
         String action;
         String linkedGizmo;
         String gizmoName;
-        Integer key;
+        int keycode;
+        String key = "VK_";
         gizmoName = st.nextToken();
         if(!st.hasMoreTokens())
         {
             throw new BadFileException("No key linked");
         }
 
-        key = Integer.valueOf(st.nextToken());
+        keycode = Integer.valueOf(st.nextToken());
+        System.out.println(getKey(keycode));
+        key = key+getKey(keycode).toUpperCase();
         if(!st.hasMoreTokens())
         {
             throw new BadFileException("No action");
@@ -286,17 +290,15 @@ public class GizmoParser
         }
 
         linkedGizmo = st.nextToken();
-        System.out.println(gizmoType + gizmoName + key +action + linkedGizmo );
+        System.out.println(gizmo + gizmoName + key +action + linkedGizmo );
 
     }
 
     private void parseConnect(String gizmo, StringTokenizer st) throws BadFileException{
-
-        String gizmoType = gizmo;
         String gizmoName;
         String linkedGizmo;
         String action = "";
-        Integer key = 0;
+        int key = 0;
         gizmoName = st.nextToken();
         if(!st.hasMoreTokens())
         {
@@ -304,7 +306,24 @@ public class GizmoParser
         }
 
         linkedGizmo = st.nextToken();
-        System.out.println(gizmoType + gizmoName + key +action + linkedGizmo );
+        System.out.println(gizmo + gizmoName + key +action + linkedGizmo );
+    }
+
+    private String getKey(int keycode){
+        switch(keycode){
+            case(8):
+                return "BACK_SPACE";
+            case(17):
+                return "CONTROL";
+            case(33):
+                return "PAGE_UP";
+            case(34):
+                return "PAGE_DOWN";
+            default:
+                return java.awt.event.KeyEvent.getKeyText(32);
+        }
+
+
     }
 
 

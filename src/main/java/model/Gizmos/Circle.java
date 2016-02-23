@@ -39,6 +39,7 @@ public class Circle extends Gizmo {
 
 	}
 
+
 	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();

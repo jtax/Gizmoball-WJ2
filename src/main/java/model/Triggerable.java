@@ -7,6 +7,7 @@ package model;
  */
 public interface Triggerable {
 
+
     void trigger();
 
 }
