@@ -25,12 +25,19 @@ public class RunGUI {
     public JPanel createButton() {
         JButton start = new JButton("Start");
         start.addActionListener(listener);
+        start.setFocusable(false);
+
         JButton stop = new JButton("Stop");
         stop.addActionListener(listener);
+        stop.setFocusable(false);
+
         JButton tick = new JButton("Tick");
         tick.addActionListener(listener);
+        tick.setFocusable(false);
+
         JButton exit = new JButton("Exit");
         exit.addActionListener(listener);
+        exit.setFocusable(false);
 
         JPanel bottomButtons = new JPanel(new GridLayout(1, 4));
 

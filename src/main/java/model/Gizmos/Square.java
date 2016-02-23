@@ -1,13 +1,12 @@
 package model.Gizmos;
 
-import model.Gizmo;
-import physics.LineSegment;
-import physics.Vect;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import model.Gizmo;
+import physics.LineSegment;
+import physics.Vect;
 
 /**
  * Created by baird on 06/02/2016.

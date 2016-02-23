@@ -19,10 +19,7 @@ public class Circle extends Gizmo {
 		super.setColor(Color.GREEN);
 	}
 
-	@Override
-	public void trigger() {
 
-	}
 
 	public Circle(int x, int y, String name) {
 		this(new Vect(x, y), name);

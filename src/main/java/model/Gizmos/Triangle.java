@@ -25,11 +25,6 @@ public class Triangle extends Gizmo {
 		super.setColor(Color.blue);
 	}
 
-	@Override
-	public void trigger() {
-
-	}
-
 	public Triangle(double x, double y, String name) {
 		this(new Vect(x, y), name);
 	}

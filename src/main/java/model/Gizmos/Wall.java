@@ -54,12 +54,6 @@ public class Wall extends Gizmo {
 		return calcLines;
 	}
 
-
-	@Override
-	public void trigger() {
-
-	}
-
 	@Override
 	public void rotate() {
 		// TODO Auto-generated method stub

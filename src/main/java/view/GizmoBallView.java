@@ -43,6 +43,7 @@ public class GizmoBallView implements Observer {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         boardView = new BoardViewImpl(board);
         listener = new RunListener(bm);
+        
         keyPressListener = new MagicKeyListener(new KeyPressListener(bm.getBoard().getElements()));
         makeFrame();
     }
@@ -91,7 +92,6 @@ public class GizmoBallView implements Observer {
     public void update(Observable o, Object arg) {
 
         boardView.update(o,arg);
-        frame.requestFocus();
 
     }
 
