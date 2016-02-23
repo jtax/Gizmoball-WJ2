@@ -44,7 +44,7 @@ public class BoardViewImpl implements BoardView, Observer {
 		shapifier = new Shapifier(this);
 
 		// TODO: remove this test code can't test here. The panel scaling isnt ready yet
-		//shapes.add(shapifier.shapify(new Square(1, 0, "Your Mother")));
+		//shapes.add(shapifier.shapify(new Square(1, 0, "Your Mothe")));
 	}
 
 	private JPanel getDefaultLayout() {
