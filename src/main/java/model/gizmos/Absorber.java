@@ -1,4 +1,4 @@
-package model.Gizmos;
+package model.gizmos;
 
 import java.awt.Color;
 import java.util.ArrayList;

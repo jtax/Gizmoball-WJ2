@@ -1,11 +1,13 @@
 package view;
 
-import model.*;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import model.Board;
+import model.GizmoParser;
 
 
 public class LoadBoard {
