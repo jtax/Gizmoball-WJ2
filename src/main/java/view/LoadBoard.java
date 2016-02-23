@@ -12,7 +12,12 @@ public class LoadBoard {
 
     public Board loadFile() {
         File filen = getFileToOpen();
-        return openGizmoFromFile(filen);
+        if(openGizmoFromFile(filen) != null) {
+            return openGizmoFromFile(filen);
+        }
+        else{
+            return null;
+        }
     }
 
     public static File getFileToOpen() {
@@ -48,8 +53,9 @@ public class LoadBoard {
             //
             System.out.println("IOException");
             return null;
-        } catch (model.BadFileException e) {
-            e.printStackTrace();
+        } catch (model.BadFileException  | NullPointerException e) {
+            System.out.println("IOException");
+            return null;
         }
 
         return board;

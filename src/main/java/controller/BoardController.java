@@ -18,16 +18,24 @@ public class BoardController {
     public BoardController() {
         LoadBoard l = new LoadBoard();
         Board board = l.loadFile();
-        boardManager = new BoardManager();
-        boardManager.setBoard(board);
 
-        view = new GizmoBallView(boardManager);
-        boardManager.getBoard().addObserver(view);
-        //test();
-        //test();
-       // Ball ball = new Ball("Ball", 2.5, 15, -5.0, -5.0);
-        //boardManager.getBoard().addBall(ball);
-        boardManager.tick();
+        if(board != null) {
+            boardManager = new BoardManager();
+            boardManager.setBoard(board);
+            view = new GizmoBallView(boardManager);
+            boardManager.getBoard().addObserver(view);
+            //test();
+            //test();
+            // Ball ball = new Ball("Ball", 2.5, 15, -5.0, -5.0);
+            //boardManager.getBoard().addBall(ball);
+            boardManager.tick();
+        }
+        else{
+            System.out.println("File reader closed");
+            boardManager = new BoardManager();
+            view = new GizmoBallView(boardManager);
+
+        }
     }
 
     //TODO Remove test method

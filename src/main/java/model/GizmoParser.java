@@ -271,14 +271,17 @@ public class GizmoParser
         String action;
         String linkedGizmo;
         String gizmoName;
-        Integer key;
+        Integer keycode;
+        String key = "VK_";
         gizmoName = st.nextToken();
         if(!st.hasMoreTokens())
         {
             throw new BadFileException("No key linked");
         }
 
-        key = Integer.valueOf(st.nextToken());
+        keycode = Integer.valueOf(st.nextToken());
+        System.out.println(getKey(keycode));
+        key = key+getKey(keycode).toUpperCase();
         if(!st.hasMoreTokens())
         {
             throw new BadFileException("No action");
@@ -310,6 +313,23 @@ public class GizmoParser
 
         linkedGizmo = st.nextToken();
         System.out.println(gizmoType + gizmoName + key +action + linkedGizmo );
+    }
+
+    private String getKey(int keycode){
+        switch(keycode){
+            case(8):
+                return "BACK_SPACE";
+            case(17):
+                return "CONTROL";
+            case(33):
+                return "PAGE_UP";
+            case(34):
+                return "PAGE_DOWN";
+            default:
+                return java.awt.event.KeyEvent.getKeyText(32);
+        }
+
+
     }
 
 
