@@ -55,6 +55,9 @@ public class Flipper extends Gizmo implements Triggerable {
 			this.origin = origin.plus(new Vect(1.5, 0));
 			this.bound = calculateBound();
 			this.coordinates = calculateCoordinates();
+			
+			super.setCircles(calculateCircles());
+			super.setLines(calculateLines());
 		}
 
 	}
