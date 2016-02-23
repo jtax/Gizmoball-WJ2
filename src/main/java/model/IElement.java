@@ -25,4 +25,8 @@ public interface IElement {
     Color getColor();
 
     void setColor(Color color);
+
+    String getName();
+
+    void rotate();
 }

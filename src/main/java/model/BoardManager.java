@@ -106,10 +106,11 @@ public class BoardManager {
     }
 
     private Collision getTimeTillCollision(Ball ball) {
+        Ball thisBall = (Ball) ball;
         closestCollision = new Collision(0, 0, Double.MAX_VALUE);
         for (IElement element : board.getElements()) {
-        	if (element instanceof Absorber && ball.inside(element))
-				continue;
+            if (element instanceof Absorber && thisBall.inside(element))
+                continue;
         	
             for (Circle circle : element.getCircles()) {
                 detectCircleCollision(circle, ball, element);
@@ -119,7 +120,7 @@ public class BoardManager {
             }
         }
         for (Ball otherBall : board.getBalls()) {
-            detectBallCollision(otherBall, ball);
+            //detectBallCollision(otherBall, ball);
         }
         return closestCollision;
     }

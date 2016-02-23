@@ -4,12 +4,9 @@ import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
 
-import model.Ball;
-import model.BoardManager;
-import model.IElement;
-import model.Gizmos.Absorber;
-import model.Gizmos.Flipper;
-import view.GizmoBallView;
+import model.*;
+import model.Gizmos.*;
+import view.*;
 
 /**
  * Created by bairdjb on 11/02/2016.
@@ -22,11 +19,11 @@ public class BoardController {
         LoadBoard l = new LoadBoard();
         Board board = l.loadFile();
         boardManager = new BoardManager();
-        boardManager.setBoard(board);
+        //boardManager.setBoard(board);
 
         view = new GizmoBallView(boardManager);
         boardManager.getBoard().addObserver(view);
-        //test();
+        test();
         //test();
         Ball ball = new Ball("Ball", 2.5, 15, -5.0, -5.0);
         boardManager.getBoard().addBall(ball);
@@ -38,6 +35,7 @@ public class BoardController {
         Absorber absorber = new Absorber(0,18,20,20,"fab abs");
         Flipper flipper1 = new Flipper(5, 3, "Test");
         Flipper flipper2 = new Flipper(8, 3, "Test");
+        flipper2.setDirection(Direction.RIGHT);
 
         Square square = new Square(5,7, "Test");
         square.addGizmoTrigger(flipper1);
@@ -46,7 +44,7 @@ public class BoardController {
         flipper1.addKeyPressTrigger(KeyEvent.VK_LEFT);
         flipper2.addKeyPressTrigger(KeyEvent.VK_RIGHT);
 
-        List<IElement> testElements = Arrays.asList(new IElement[]{absorber, flipper1, flipper2});
+        List<Gizmo> testElements = Arrays.asList(new Gizmo[]{absorber, flipper1, flipper2});
         boardManager.getBoard().setElements(testElements);
 
         Ball ball = new Ball("Ball", 5, 5, 0, 0);

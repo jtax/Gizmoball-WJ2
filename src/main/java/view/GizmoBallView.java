@@ -5,6 +5,7 @@ import controller.KeyPressListener;
 import controller.RunListener;
 import model.Board;
 import model.BoardManager;
+import model.IElement;
 import util.MagicKeyListener;
 import view.BoardViews.BoardViewImpl;
 import view.ButtonGroups.BuildGUI;
@@ -13,6 +14,7 @@ import view.ButtonGroups.RunGUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -43,7 +45,7 @@ public class GizmoBallView implements Observer {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         boardView = new BoardViewImpl(board);
         listener = new RunListener(bm);
-        
+
         keyPressListener = new MagicKeyListener(new KeyPressListener(bm.getBoard().getElements()));
         makeFrame();
     }

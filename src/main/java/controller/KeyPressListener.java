@@ -16,9 +16,9 @@ import java.util.List;
  */
 public class KeyPressListener implements KeyListener {
 
-    private final List<Gizmo> elements;
+    private final List<IElement> elements;
 
-    public KeyPressListener(List<Gizmo> elements) {
+    public KeyPressListener(List<IElement> elements) {
 
         this.elements = elements;
     }
@@ -49,14 +49,14 @@ public class KeyPressListener implements KeyListener {
 
         System.out.println("Key Pressed:"  + e.getKeyChar());
 
-        for (Gizmo element : elements) {
+        for (IElement element : elements) {
 
             if (e.getKeyCode() == ((Gizmo) element).getKeyPressTrigger()) {
 
                 System.out.println("Key Pressed:"  + e.getKeyChar());
                 if (element instanceof Triggerable) {
-
-                    ((Flipper) element).trigger();
+                    ((Triggerable) element).trigger();
+                    //((Flipper) element).trigger();
 
                 }
             }
@@ -80,7 +80,7 @@ public class KeyPressListener implements KeyListener {
                 if (element instanceof Triggerable) {
                     System.out.println("Key Released:"  + e.getKeyChar());
 
-                    ((Flipper) element).trigger();
+                    ((Triggerable) element).trigger();
 
                 }
             }

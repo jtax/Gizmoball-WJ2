@@ -12,7 +12,7 @@ import java.util.Observable;
  * Created by baird on 06/02/2016.
  */
 public class Board extends Observable {
-    private List<Gizmo> elements;
+    private List<IElement> elements;
     private List<Ball> balls;
     private double[] frictionConst;
     private double gravityConst;
@@ -53,7 +53,8 @@ public class Board extends Observable {
     public List<Ball> getBalls() {
         return balls;
     }
-    public List<Gizmo> getElements() {
+
+    public List<IElement> getElements() {
         return elements;
     }
 

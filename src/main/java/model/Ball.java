@@ -91,10 +91,41 @@ public class Ball implements IElement {
         return;
     }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
     public void update() {
         point = new Circle(center, 0.25);
         origin = new Vect(center.x() - .25, center.y() - .25);
     }
 
+    /**
+     * Is the ball inside the other element?
+     *
+     * @param otherElement
+     * @return true if the other element is within the absorber's bounds,
+     * otherwise false
+     */
+    public boolean inside(IElement otherElement) {
+        Vect ourOrigin = origin, ourBound = getBound(), theirOrigin = otherElement.getOrigin(),
+                theirBound = otherElement.getBound();
 
+        boolean topIn = ourOrigin.y() <= theirBound.y() && ourOrigin.y() >= theirOrigin.y();
+        boolean bottomIn = ourBound.y() >= theirOrigin.y() && ourBound.y() <= theirBound.y();
+        boolean leftIn = ourOrigin.x() <= theirBound.x() && ourOrigin.x() >= theirOrigin.x();
+        boolean rightIn = ourBound.x() >= theirOrigin.x() && ourBound.x() <= theirBound.x();
+
+        // still with me?
+
+        boolean verticallyIn = leftIn && rightIn;
+        boolean horizontallyIn = topIn && bottomIn;
+
+        return (verticallyIn && (topIn || bottomIn)) || (horizontallyIn && (leftIn || rightIn));
+    }
+
+    public void rotate(){
+
+    }
 }
