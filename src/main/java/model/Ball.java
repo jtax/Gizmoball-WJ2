@@ -19,6 +19,7 @@ public class Ball implements IElement, Absorbable {
 	private Color color = Color.BLUE;
 	private String name;
 	private boolean absorbed;
+	private final float diameter = 0.5f;
 
 	// TODO do balls need names?
 	public Ball(String name, double x, double y, double velocityX, double velocityY) {
@@ -77,8 +78,8 @@ public class Ball implements IElement, Absorbable {
 
 	@Override
 	public Vect getBound() {
-		double x = origin.x() + 0.5;
-		double y = origin.y() + 0.5;
+		double x = origin.x() + diameter;
+		double y = origin.y() + diameter;
 		return new Vect(x, y);
 	}
 
@@ -154,14 +155,14 @@ public class Ball implements IElement, Absorbable {
 	private void applyGravity(double moveTime, double gravity) {
 		double changeAmount = gravity * moveTime;
 		Vect change = new Vect(0, changeAmount);
-		velocity = velocity.plus(change);
+		setVelocity(velocity.plus(change));
 	}
 
 	private void applyFriction(double moveTime, double[] friction) {
 		double mu = friction[0];
 		double mu2 = friction[1];
 		double changeAmount = 1 - mu * moveTime - mu2 * velocity.length() * moveTime;
-		velocity = velocity.times(changeAmount);
+		setVelocity(velocity.times(changeAmount));
 	}
 
 	@Override
@@ -184,6 +185,10 @@ public class Ball implements IElement, Absorbable {
 		Vect escapeVelocity = new Vect(0, -50);
 		setVelocity(escapeVelocity);
 		clearAbsorbed();
+	}
+	
+	public double getRadius() {
+		return diameter / 2;
 	}
 
 }
