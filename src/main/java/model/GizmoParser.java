@@ -36,7 +36,7 @@ public class GizmoParser
         StringTokenizer st;
         String gizmoType;
         List<String> rotates = new ArrayList<>();
-        List<Gizmo> loadedElements = new ArrayList<>();
+        List<IElement> loadedElements = new ArrayList<>();
         List<Ball> balls = new ArrayList<>();
         double gravity = 0.0;
         double[] friction = new double[2];
@@ -114,17 +114,11 @@ public class GizmoParser
                 board.addBall(balls.get(i));
             }
         }
-        if(!rotates.isEmpty()) {
-            for (int i = 0; i < board.getElements().size(); i++) {
-                if (rotates.contains(board.getElements().get(i).getName())) {
-                    board.getElements().get(i).rotate();
-                    board.getElements().get(i).rotate();
-                    board.getElements().get(i).rotate();
-                    board.getElements().get(i).rotate();
-                }
-            }
-       }
-
+        if(!rotates.isEmpty())
+            for (IElement e : board.getElements())
+                if (rotates.contains(e.getName()))
+                	for (int i = 0; i < 4; i++)
+                		e.rotate();
 
         return board;
     }

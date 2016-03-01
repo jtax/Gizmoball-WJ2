@@ -119,7 +119,16 @@ abstract public class Gizmo implements IElement{
         this.bound = bound;
     }
 
-
+    public void handle(Collision collision) {
+    	// trigger the attached gizmo
+        onCollision();
+        
+        Ball ball = collision.getBall();
+		ball.moveForTime(collision.getTime());
+		ball.setVelocity(collision.getVelocity());
+		
+		setColor(Color.GREEN);
+    }
 
 
 

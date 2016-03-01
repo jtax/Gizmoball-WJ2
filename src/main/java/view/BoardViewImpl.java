@@ -13,6 +13,7 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import model.Ball;
 import model.Board;
 import model.IElement;
 import model.gizmos.Wall;
@@ -26,7 +27,6 @@ public class BoardViewImpl implements BoardView, Observer {
 	private JPanel panel;
 	private Mode mode;
 	private Collection<IElement> shapes;
-	private Collection<Shape> balls;
 	private Shapifier shapifier;
 
 	public BoardViewImpl(Board board) {
@@ -39,11 +39,7 @@ public class BoardViewImpl implements BoardView, Observer {
 		mode = Mode.BUILD;
 
 		shapes = new HashSet<IElement>();
-		balls = new HashSet<Shape>();
 		shapifier = new Shapifier(this);
-
-		// TODO: remove this test code can't test here. The panel scaling isnt ready yet
-		//shapes.add(shapifier.shapify(new Square(1, 0, "Your Mothe")));
 	}
 
 	private JPanel getDefaultLayout() {
@@ -57,9 +53,7 @@ public class BoardViewImpl implements BoardView, Observer {
 				if (mode == Mode.BUILD)
 					drawGrid((Graphics2D) g);
 
-				//drawShapes((Graphics2D) g);
-				drawGizmos((Graphics2D) g);
-				drawBalls((Graphics2D) g);
+				drawElements((Graphics2D) g);
 			}
 		};
 	}
@@ -73,19 +67,15 @@ public class BoardViewImpl implements BoardView, Observer {
 	public void update(Observable o, Object arg) {
 		Board board = (Board) o;
 		shapes.clear();
-		balls.clear();
 
-		for (IElement e : board.getElements()) {
-			//Shape s = shapifier.shapify(e);
+		for (IElement e : board.getAllElements()) {
 			shapes.add(e);
 		}
-		if (!board.getBalls().isEmpty()) {
-			for (IElement e : board.getBalls()) {
-				Shape s = shapifier.shapify(e);
-				balls.add(s);
-			}
+		
+		for (Ball b : board.getBalls()) {
+			System.out.println("view:" + b.getOrigin());
 		}
-
+		
 		panel.repaint();
 	}
 
@@ -107,8 +97,6 @@ public class BoardViewImpl implements BoardView, Observer {
 	}
 
 	public int getHorizontalScalingFactor() {
-		int panelWidth = panel.getWidth();
-		int boardWidth = board.getWidth();
 		return panel.getWidth() / board.getWidth();
 	}
 
@@ -120,28 +108,15 @@ public class BoardViewImpl implements BoardView, Observer {
 		this.board = board;
 	}
 
-	/*private void drawShapes(Graphics2D g) {
-		for (Shape s : shapes) {
-			g.setColor(Color.BLUE);
-			g.fill(s);
-		}
-	}*/
-
-	private void drawGizmos(Graphics2D g) {
+	private void drawElements(Graphics2D g) {
 		for (IElement s : shapes) {
 			g.setColor(s.getColor());
 			Shape shape = shapifier.shapify(s);
-			if (s.getClass() == Wall.class) {
+			if (s instanceof Wall) {
 				g.draw(shape);
 			} else {
 				g.fill(shape);
 			}
-		}
-	}
-	private void drawBalls(Graphics2D g) {
-		for (Shape s : balls) {
-			g.setColor(Color.ORANGE);
-			g.fill(s);
 		}
 	}
 

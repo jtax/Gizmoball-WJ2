@@ -1,7 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import java.util.Observable;
 
 import model.gizmos.Wall;
@@ -11,14 +11,22 @@ import physics.Vect;
  * Created by baird on 06/02/2016.
  */
 public class Board extends Observable {
-    private List<IElement> elements;
-    private List<Ball> balls;
+    private Collection<IElement> elements;
+    private Collection<Ball> balls;
     private double[] frictionConst;
     private double gravityConst;
     private int width;
     private int height;
+    
+    private static Board soleInstance;
 
     public Board(double[] frictionConst, double gravityConst, int width, int height) {
+    	if (soleInstance != null) {
+    		System.err.println("Multiple boards instantiated!");
+    	} else {
+    		System.out.println("First board instantiated.");
+    	}
+    	
         this.frictionConst = frictionConst;
         this.gravityConst = gravityConst;
         this.width = width;
@@ -26,6 +34,8 @@ public class Board extends Observable {
         elements = new ArrayList<>();
         balls = new ArrayList<>();
         addWalls();
+        
+        soleInstance = this;
     }
 
     public void addBall(Ball ball) {
@@ -43,22 +53,29 @@ public class Board extends Observable {
         addElement(walls);
     }
 
-    public void setBalls(List<Ball> newBalls) {
+    public void setBalls(Collection<Ball> newBalls) {
         balls = newBalls;
         setChanged();
         notifyObservers();
     }
 
-    public List<Ball> getBalls() {
+    public Collection<Ball> getBalls() {
         return balls;
     }
 
-    public List<IElement> getElements() {
+    public Collection<IElement> getElements() {
         return elements;
     }
+    
+    public Collection<IElement> getAllElements() {
+    	Collection<IElement> allElements = new ArrayList<>();
+    	allElements.addAll(elements);
+    	allElements.addAll(balls);
+    	return allElements;
+    }
 
-    public void setElements(List<Gizmo> elements) {
-        for (Gizmo element : elements) {
+    public void setElements(Collection<IElement> elements) {
+        for (IElement element : elements) {
             addElement(element);
         }
         addWalls();
@@ -66,7 +83,7 @@ public class Board extends Observable {
         notifyObservers();
     }
 
-    public void addElement(Gizmo element) {
+    public void addElement(IElement element) {
         elements.add(element);
         setChanged();
         notifyObservers();
@@ -103,6 +120,11 @@ public class Board extends Observable {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+    
+    public void changed() {
+    	setChanged();
+    	notifyObservers();
     }
 
 }
