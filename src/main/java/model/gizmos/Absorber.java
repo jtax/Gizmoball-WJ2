@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.Ball;
+import model.Collision;
 import model.Gizmo;
 import model.Triggerable;
 import physics.LineSegment;
@@ -79,6 +80,7 @@ public class Absorber extends Gizmo implements Triggerable {
 
 	public void absorb(Ball ball) {
 		ourBall = ball;
+		ourBall.setAbsorbed();
 		positionBall();
 	}
 
@@ -87,19 +89,10 @@ public class Absorber extends Gizmo implements Triggerable {
 			double xVelocity = 0, yVelocity = -50;
 			Vect velocity = new Vect(xVelocity, yVelocity);
 			ourBall.setVelocity(velocity);
-
+			ourBall.clearAbsorbed();
+			
 			ourBall = null;
 		}
-	}
-
-	/**
-	 * Does the absorber have your ball?
-	 *
-	 * @param yourBall your ball
-	 * @return true if the absorber has your ball, otherwise false
-	 */
-	public boolean hasBall(Ball yourBall) {
-		return yourBall == ourBall;
 	}
 
 	private void positionBall() {
@@ -117,5 +110,11 @@ public class Absorber extends Gizmo implements Triggerable {
 	@Override
 	public List<Vect> getCoordinates() {
 		return coordinates;
+	}
+	
+	@Override
+	public void handle(Collision c) {
+		Ball ball = c.getBall();
+		absorb(ball);
 	}
 }

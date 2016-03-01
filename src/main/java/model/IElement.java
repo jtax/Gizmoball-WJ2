@@ -10,7 +10,7 @@ import physics.Vect;
 /**
  * Created by baird on 06/02/2016.
  */
-public interface IElement {
+public interface IElement extends CollisionHandler {
 
     List<LineSegment> getLines();
 

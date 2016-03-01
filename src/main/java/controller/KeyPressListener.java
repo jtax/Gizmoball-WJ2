@@ -2,7 +2,7 @@ package controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.List;
+import java.util.Collection;
 
 import model.Gizmo;
 import model.IElement;
@@ -15,9 +15,9 @@ import model.Triggerable;
  */
 public class KeyPressListener implements KeyListener {
 
-    private final List<IElement> elements;
+    private final Collection<IElement> elements;
 
-    public KeyPressListener(List<IElement> elements) {
+    public KeyPressListener(Collection<IElement> elements) {
 
         this.elements = elements;
     }

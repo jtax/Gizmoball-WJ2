@@ -8,13 +8,14 @@ import physics.Vect;
 public class Collision {
     private double time;
     private Vect velocity;
-    private IElement collisionElement;
+    private CollisionHandler handler;
+    private Ball ball;
 
-
-    public Collision(Vect velocity, double time, IElement element) {
+    public Collision(Vect velocity, double time, CollisionHandler handler,  Ball ball) {
         this.velocity = velocity;
         this.time = time;
-        this.collisionElement = element;
+        this.handler = handler;
+        this.ball = ball;
     }
 
     public Collision(Vect velocity, double time) {
@@ -22,8 +23,8 @@ public class Collision {
         this.time = time;
     }
 
-    public Collision(double x, double y, double time, IElement element) {
-        this(new Vect(x, y), time, element);
+    public Collision(double x, double y, double time, CollisionHandler handler, Ball ball) {
+        this(new Vect(x, y), time, handler, ball);
     }
 
 
@@ -39,8 +40,12 @@ public class Collision {
         return time;
     }
 
-    public IElement getElement() {
-        return collisionElement;
+    public CollisionHandler getHandler() {
+        return handler;
     }
+
+	public Ball getBall() {
+		return ball;
+	}
 
 }

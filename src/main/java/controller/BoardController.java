@@ -9,6 +9,7 @@ import model.Board;
 import model.BoardManager;
 import model.Direction;
 import model.Gizmo;
+import model.IElement;
 import model.gizmos.Absorber;
 import model.gizmos.Flipper;
 import model.gizmos.Square;
@@ -27,8 +28,7 @@ public class BoardController {
         Board board = l.loadFile();
 
         if(board != null) {
-            boardManager = new BoardManager();
-            boardManager.setBoard(board);
+            boardManager = new BoardManager(board);
             view = new GizmoBallView(boardManager);
             boardManager.getBoard().addObserver(view);
             //test();
@@ -59,7 +59,7 @@ public class BoardController {
         flipper1.addKeyPressTrigger(KeyEvent.VK_LEFT);
         flipper2.addKeyPressTrigger(KeyEvent.VK_RIGHT);
 
-        List<Gizmo> testElements = Arrays.asList(new Gizmo[]{absorber, flipper1, flipper2});
+        List<IElement> testElements = Arrays.asList(new Gizmo[]{absorber, flipper1, flipper2});
         boardManager.getBoard().setElements(testElements);
 
         Ball ball = new Ball("Ball", 5, 5, 0, 0);
