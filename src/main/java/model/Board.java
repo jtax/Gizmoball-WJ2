@@ -17,16 +17,8 @@ public class Board extends Observable {
     private double gravityConst;
     private int width;
     private int height;
-    
-    private static Board soleInstance;
 
     public Board(double[] frictionConst, double gravityConst, int width, int height) {
-    	if (soleInstance != null) {
-    		System.err.println("Multiple boards instantiated!");
-    	} else {
-    		System.out.println("First board instantiated.");
-    	}
-    	
         this.frictionConst = frictionConst;
         this.gravityConst = gravityConst;
         this.width = width;
@@ -34,8 +26,6 @@ public class Board extends Observable {
         elements = new ArrayList<>();
         balls = new ArrayList<>();
         addWalls();
-        
-        soleInstance = this;
     }
 
     public void addBall(Ball ball) {

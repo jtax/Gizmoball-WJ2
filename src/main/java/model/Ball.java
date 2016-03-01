@@ -132,10 +132,8 @@ public class Ball implements IElement, Absorbable {
 
 	public void moveForTime(double time) {
 		if (!absorbed) {
-			System.out.print(center + " -> ");
 			Vect changeAmount = velocity.times(time);
 			setCenter(center.plus(changeAmount));
-			System.out.println(center);
 		}
 	}
 
