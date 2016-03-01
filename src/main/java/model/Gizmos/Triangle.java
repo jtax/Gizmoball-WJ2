@@ -24,7 +24,7 @@ public class Triangle extends Gizmo {
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 		super.setColor(Color.blue);
-		saveInfo = "Triangle" +" " +name + " " + origin.getXCoord() + " " + origin.getyCoord()  +  "/n";
+		saveInfo = "Triangle" +" " +name + " " + (int)origin.getXCoord() + " " + (int)origin.getyCoord();
 	}
 
 	public Triangle(double x, double y, String name) {
@@ -79,6 +79,10 @@ public class Triangle extends Gizmo {
 		Vect origin = super.getOrigin();
 		Vect bound = new Vect(1, 1);
 		return origin.plus(bound);
+	}
+
+	public String getSaveInfo(){
+		return saveInfo;
 	}
 
 

@@ -24,7 +24,7 @@ public class Square extends Gizmo {
         super.setCircles(calculateCircles());
         super.setLines(calculateLines());
         super.setColor(Color.red);
-        saveInfo = "Square" +" " +name + " " + origin.getXCoord() + " " + origin.getyCoord() +  "/n" ;
+        saveInfo = "Square" +" " +name + " " + (int)origin.getXCoord() + " " + (int)origin.getyCoord() ;
     }
 
     @Override
@@ -75,9 +75,9 @@ public class Square extends Gizmo {
         return origin.plus(bound);
     }
 
-   // public String getSaveInfo(){
-  //      return saveInfo;
-  //  }
+    public String getSaveInfo(){
+        return saveInfo;
+    }
 
     @Override
     public List<Vect> getCoordinates() {

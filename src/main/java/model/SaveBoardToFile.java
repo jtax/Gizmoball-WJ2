@@ -12,9 +12,9 @@ public class SaveBoardToFile {
 
     public boolean saveBoard(Board board) {
 
-        if (board.getElements() != null) {
+        if (board != null) {
 
-            List<IElement> data = board.getElements();
+            List<IElement> elements = board.getElements();
 
             String fileName = "test" + ".txt";
 
@@ -22,18 +22,20 @@ public class SaveBoardToFile {
                 FileWriter fileWriter = new FileWriter(fileName);
 
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-                for (IElement temp : data) {
-
-                    bufferedWriter.write(temp.getSaveInfo());
-                    bufferedWriter.newLine();
+                System.out.println("here");
+                for (IElement element : elements) {
+                    if(!element.getSaveInfo().equals("Wall")) {
+                        bufferedWriter.write(element.getSaveInfo());
+                        bufferedWriter.newLine();
+                    }
                 }
-                for(int i = 0; i < board.getBalls().size()-1; i++) {
+                for(int i = 0; i < board.getBalls().size(); i++) {
                     bufferedWriter.write(board.getBalls().get(i).getSaveInfo());
                 }
-                bufferedWriter.write(String.format("%.0f",board.getGravityConst()));
                 bufferedWriter.newLine();
-                bufferedWriter.write(String.format("%.3f",board.getFrictionConst()[0]) + String.format("%.3f",board.getFrictionConst()[1]));
+                bufferedWriter.write("Gravity"+" "+ String.format("%.0f",board.getGravityConst()));
+                bufferedWriter.newLine();
+                bufferedWriter.write("Friction" + " " + String.format("%.3f",board.getFrictionConst()[0]) +" " + String.format("%.3f",board.getFrictionConst()[1]));
 
                 // Always close files.
                 bufferedWriter.close();

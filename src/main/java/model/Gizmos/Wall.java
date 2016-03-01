@@ -66,6 +66,10 @@ public class Wall extends Gizmo {
 		return bound;
 	}
 
+	public String getSaveInfo(){
+		return "Wall";
+	}
+
 	@Override
 	public List<Vect> getCoordinates() {
 		return coordinates;

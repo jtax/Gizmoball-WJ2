@@ -22,7 +22,6 @@ abstract public class Gizmo implements IElement{
     protected int rotation;
     private int reflection;
     private String name;
-    private String saveInfo;
     private int keyPressTrigger;
 
     protected Gizmo(Vect origin, String name) {
@@ -34,7 +33,6 @@ abstract public class Gizmo implements IElement{
         this.name = name;
         color = colors[0];
         rotation = 0;
-
 
 
         // TODO: set the bounds correctly according to which gizmo it is
@@ -62,12 +60,12 @@ abstract public class Gizmo implements IElement{
     public void addGizmoTrigger(Gizmo trigger){
         this.trigger = trigger;
     }
-    
+
     public void addKeyPressTrigger(int keyCode) {
 
         keyPressTrigger = keyCode;
     }
-    
+
     public int getKeyPressTrigger() {
         return keyPressTrigger;
     }
@@ -98,8 +96,6 @@ abstract public class Gizmo implements IElement{
     }
 
     public abstract Vect calculateBound();
-
-    public String getSaveInfo(){return saveInfo;}
 
     @Override
     public List<LineSegment> getLines() {

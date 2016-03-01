@@ -28,7 +28,7 @@ public class Ball implements IElement {
         origin = new Vect(x - .25, y - .25);
         velocity = new Vect(velocityX, velocityY);
         this.name = name;
-        saveInfo = "Ball" +" " +name + " " + x + " " + y  + " " + velocityX + " " + velocityY +  "/n";
+        saveInfo = "Ball" +" " +name + " " + x + " " + y  + " " + velocityX + " " + velocityY;
     }
 
     public Ball(String name, Vect center, Vect velocity) {

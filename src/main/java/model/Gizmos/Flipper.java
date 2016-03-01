@@ -57,11 +57,12 @@ public class Flipper extends Gizmo implements Triggerable {
 		this.direction = direction;
 		if(direction == Direction.RIGHT) {
 			saveDirection = "Right";
+			setSaveInfo();
 			this.origin = origin.plus(new Vect(1.5, 0));
 			this.bound = calculateBound();
 			this.coordinates = calculateCoordinates();
 		}
-		setSaveInfo();
+
 	}
 
 
@@ -148,7 +149,11 @@ public class Flipper extends Gizmo implements Triggerable {
 	}
 
 	public void setSaveInfo(){
-		saveInfo = "Flipper" + saveDirection+" " +super.getName() + " " + origin.getXCoord() + " " + origin.getyCoord()  +  "/n";
+		saveInfo =  saveDirection+ "Flipper" + " " +super.getName() + " " + (int)origin.getXCoord() + " " + (int)origin.getyCoord();
+	}
+
+	public String getSaveInfo(){
+		return saveInfo;
 	}
 
 	@Override
