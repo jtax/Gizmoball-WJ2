@@ -114,9 +114,6 @@ public class GizmoParser
             for (int i = 0; i < board.getElements().size(); i++) {
                 if (rotates.contains(board.getElements().get(i).getName())) {
                     board.getElements().get(i).rotate();
-                    board.getElements().get(i).rotate();
-                    board.getElements().get(i).rotate();
-                    board.getElements().get(i).rotate();
                 }
             }
        }
@@ -325,6 +322,8 @@ public class GizmoParser
 
 
     }
+
+
 
 
 

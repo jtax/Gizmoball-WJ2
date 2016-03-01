@@ -71,6 +71,11 @@ public class Wall extends Gizmo {
 	}
 
 	@Override
+	public int getRotation() {
+		return 0;
+	}
+
+	@Override
 	public List<Vect> getCoordinates() {
 		return coordinates;
 	}

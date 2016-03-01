@@ -18,7 +18,7 @@ public class Circle extends Gizmo {
 		super(origin, name);
 		super.setCircles(Arrays.asList(calculateCircle()));
 		super.setColor(Color.GREEN);
-		saveInfo = "Square" +" " +name + " " + (int)origin.getXCoord() + " " + (int)origin.getyCoord();
+		saveInfo = "Circle" +" " +name + " " + (int)origin.getXCoord() + " " + (int)origin.getyCoord();
 	}
 
 
@@ -51,6 +51,11 @@ public class Circle extends Gizmo {
 
 	public String getSaveInfo(){
 		return saveInfo;
+	}
+
+	@Override
+	public int getRotation() {
+		return 0;
 	}
 
 	@Override

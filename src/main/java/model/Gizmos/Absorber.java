@@ -116,6 +116,11 @@ public class Absorber extends Gizmo implements Triggerable {
 		return saveInfo;
 	}
 
+	@Override
+	public int getRotation() {
+		return 0;
+	}
+
 	private boolean weHaveABall() {
 		return ourBall != null;
 	}

@@ -131,6 +131,11 @@ public class Ball implements IElement {
         return saveInfo;
     }
 
+    @Override
+    public int getRotation() {
+        return 0;
+    }
+
     public void rotate(){
 
     }

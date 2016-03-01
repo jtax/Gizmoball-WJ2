@@ -157,6 +157,11 @@ public class Flipper extends Gizmo implements Triggerable {
 	}
 
 	@Override
+	public int getRotation() {
+		return 0;
+	}
+
+	@Override
 	public List<Vect> getCoordinates() {
 		return coordinates;
 	}

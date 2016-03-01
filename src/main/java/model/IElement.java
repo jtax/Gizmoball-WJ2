@@ -30,5 +30,7 @@ public interface IElement {
 
     String getSaveInfo();
 
+    int getRotation();
+
     void rotate();
 }
