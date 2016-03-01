@@ -28,5 +28,7 @@ public interface IElement {
 
     String getName();
 
+    String getSaveInfo();
+
     void rotate();
 }

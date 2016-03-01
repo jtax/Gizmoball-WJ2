@@ -1,6 +1,7 @@
 package view;
 
 import controller.BoardController;
+import model.SaveBoardToFile;
 
 import javax.swing.*;
 
@@ -16,6 +17,8 @@ public class main {
 				new BoardController();
 			}
 		});
+
+
 
 	}
 }

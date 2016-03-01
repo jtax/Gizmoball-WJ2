@@ -21,16 +21,20 @@ public class Flipper extends Gizmo implements Triggerable {
 	protected Boolean rotated = false;
 	private Direction direction = Direction.LEFT;
 	private KeyEvent keyPressTrigger;
+	private String saveInfo;
+	private String name;
+	private String saveDirection;
 
 	public Flipper(Vect origin, String name) {
 
 		super(origin,name);
-
+		saveDirection = "Left";
 		rotation = 90;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 		super.setColor(Color.yellow);
+		setSaveInfo();
 	}
 
 
@@ -52,11 +56,12 @@ public class Flipper extends Gizmo implements Triggerable {
 
 		this.direction = direction;
 		if(direction == Direction.RIGHT) {
+			saveDirection = "Right";
 			this.origin = origin.plus(new Vect(1.5, 0));
 			this.bound = calculateBound();
 			this.coordinates = calculateCoordinates();
 		}
-
+		setSaveInfo();
 	}
 
 
@@ -140,6 +145,10 @@ public class Flipper extends Gizmo implements Triggerable {
 		Vect origin = super.getOrigin();
 		Vect bound = new Vect(0.5, 2);
 		return origin.plus(bound);
+	}
+
+	public void setSaveInfo(){
+		saveInfo = "Flipper" + saveDirection+" " +super.getName() + " " + origin.getXCoord() + " " + origin.getyCoord()  +  "/n";
 	}
 
 	@Override

@@ -13,10 +13,12 @@ import java.util.List;
 public class Circle extends Gizmo {
 
 	Vect center;
+	private String saveInfo;
 	public Circle(Vect origin, String name) {
 		super(origin, name);
 		super.setCircles(Arrays.asList(calculateCircle()));
 		super.setColor(Color.GREEN);
+		saveInfo = "Square" +" " +name + " " + origin.getXCoord() + " " + origin.getyCoord() +  "/n";
 	}
 
 

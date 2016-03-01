@@ -18,6 +18,7 @@ public class Ball implements IElement {
     private Vect center;
     private Color color = Color.BLUE;
     private String name;
+    private String saveInfo;
 
 
     //TODO do balls need names?
@@ -27,7 +28,7 @@ public class Ball implements IElement {
         origin = new Vect(x - .25, y - .25);
         velocity = new Vect(velocityX, velocityY);
         this.name = name;
-
+        saveInfo = "Ball" +" " +name + " " + x + " " + y  + " " + velocityX + " " + velocityY +  "/n";
     }
 
     public Ball(String name, Vect center, Vect velocity) {
@@ -124,6 +125,10 @@ public class Ball implements IElement {
         boolean horizontallyIn = topIn && bottomIn;
 
         return (verticallyIn && (topIn || bottomIn)) || (horizontallyIn && (leftIn || rightIn));
+    }
+
+    public String getSaveInfo(){
+        return saveInfo;
     }
 
     public void rotate(){

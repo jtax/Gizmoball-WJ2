@@ -16,6 +16,7 @@ public class Square extends Gizmo {
 
     private int reflectionCoefficient = 1;
     private List<Vect> coordinates;
+    private String saveInfo;
 
     public Square(Vect origin, String name) {
         super(origin, name);
@@ -23,6 +24,7 @@ public class Square extends Gizmo {
         super.setCircles(calculateCircles());
         super.setLines(calculateLines());
         super.setColor(Color.red);
+        saveInfo = "Square" +" " +name + " " + origin.getXCoord() + " " + origin.getyCoord() +  "/n" ;
     }
 
     @Override
@@ -72,6 +74,10 @@ public class Square extends Gizmo {
         Vect bound = new Vect(1, 1);
         return origin.plus(bound);
     }
+
+   // public String getSaveInfo(){
+  //      return saveInfo;
+  //  }
 
     @Override
     public List<Vect> getCoordinates() {

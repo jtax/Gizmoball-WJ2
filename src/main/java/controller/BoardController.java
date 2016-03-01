@@ -36,6 +36,8 @@ public class BoardController {
             view = new GizmoBallView(boardManager);
 
         }
+        SaveBoardToFile save = new SaveBoardToFile();
+        System.out.println(save.saveBoard(board));
     }
 
     //TODO Remove test method
