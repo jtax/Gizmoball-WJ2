@@ -10,7 +10,7 @@ import physics.Vect;
 /**
  * Created by baird on 06/02/2016.
  */
-public class Board extends Observable {
+public class Board extends Observable implements IBoard {
     private Collection<IElement> elements;
     private Collection<Ball> balls;
     private double[] frictionConst;
@@ -28,6 +28,7 @@ public class Board extends Observable {
         addWalls();
     }
 
+    @Override
     public void addBall(Ball ball) {
         balls.add(ball);
         setChanged();
@@ -43,20 +44,24 @@ public class Board extends Observable {
         addElement(walls);
     }
 
+    @Override
     public void setBalls(Collection<Ball> newBalls) {
         balls = newBalls;
         setChanged();
         notifyObservers();
     }
 
+    @Override
     public Collection<Ball> getBalls() {
         return balls;
     }
 
+    @Override
     public Collection<IElement> getElements() {
         return elements;
     }
     
+    @Override
     public Collection<IElement> getAllElements() {
     	Collection<IElement> allElements = new ArrayList<>();
     	allElements.addAll(elements);
@@ -64,6 +69,7 @@ public class Board extends Observable {
     	return allElements;
     }
 
+    @Override
     public void setElements(Collection<IElement> elements) {
         for (IElement element : elements) {
             addElement(element);
@@ -73,45 +79,55 @@ public class Board extends Observable {
         notifyObservers();
     }
 
+    @Override
     public void addElement(IElement element) {
         elements.add(element);
         setChanged();
         notifyObservers();
     }
 
+    @Override
     public double[] getFrictionConst() {
         return frictionConst;
     }
 
+    @Override
     public void setFrictionConst(double[] frictionConst) {
         this.frictionConst = frictionConst;
     }
 
+    @Override
     public double getGravityConst() {
         return gravityConst;
     }
 
+    @Override
     public void setGravityConst(double gravityConst) {
         this.gravityConst = gravityConst;
     }
 
+    @Override
     public int getWidth() {
         return width;
     }
 
 
+    @Override
     public void setWidth(int width) {
         this.width = width;
     }
 
+    @Override
     public int getHeight() {
         return height;
     }
 
+    @Override
     public void setHeight(int height) {
         this.height = height;
     }
     
+    @Override
     public void changed() {
     	setChanged();
     	notifyObservers();
