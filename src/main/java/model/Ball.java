@@ -20,6 +20,7 @@ public class Ball implements IElement, Absorbable {
 	private String name;
 	private boolean absorbed;
 	private final float diameter = 0.5f;
+	private String saveInfo;
 
 	// TODO do balls need names?
 	public Ball(String name, double x, double y, double velocityX, double velocityY) {
@@ -29,6 +30,7 @@ public class Ball implements IElement, Absorbable {
 		velocity = new Vect(velocityX, velocityY);
 		this.name = name;
 		absorbed = false;
+		saveInfo = "Ball" + " " + name + " " + x + " " + y + " " + velocityX + " " + velocityY;
 	}
 
 	public Ball(String name, Vect center, Vect velocity) {
@@ -127,8 +129,8 @@ public class Ball implements IElement, Absorbable {
 		return (verticallyIn && (topIn || bottomIn)) || (horizontallyIn && (leftIn || rightIn));
 	}
 
-	public void rotate() {
-
+	public String getSaveInfo() {
+		return saveInfo;
 	}
 
 	public void moveForTime(double time) {
@@ -136,6 +138,15 @@ public class Ball implements IElement, Absorbable {
 			Vect changeAmount = velocity.times(time);
 			setCenter(center.plus(changeAmount));
 		}
+	}
+
+	@Override
+	public int getRotation() {
+		return 0;
+	}
+
+	public void rotate() {
+
 	}
 
 	@Override

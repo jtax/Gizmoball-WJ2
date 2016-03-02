@@ -101,11 +101,13 @@ public class GizmoParser {
 				board.addBall(balls.get(i));
 			}
 		}
-		if (!rotates.isEmpty())
-			for (IElement e : board.getElements())
-				if (rotates.contains(e.getName()))
-					for (int i = 0; i < 4; i++)
-						e.rotate();
+		if (!rotates.isEmpty()) {
+			for (IElement e : board.getElements()) {
+				if (rotates.contains(e.getName())) {
+					e.rotate();
+				}
+			}
+		}
 
 		return board;
 	}

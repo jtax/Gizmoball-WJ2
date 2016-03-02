@@ -20,6 +20,7 @@ public class Absorber extends Gizmo implements Triggerable {
 	private Vect bound;
 	private List<Vect> coordinates;
 	private Ball ourBall;
+	private String saveInfo;
 
 	public Absorber(Vect origin, Vect bound, String name) {
 		super(origin, name);
@@ -29,6 +30,8 @@ public class Absorber extends Gizmo implements Triggerable {
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 		super.setColor(Color.MAGENTA);
+		saveInfo = "Absorber" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord() + " "
+				+ (int) bound.getXCoord() + " " + (int) bound.getyCoord();
 	}
 
 	public Absorber(int originX, int originY, int boundX, int boundY, String name) {
@@ -105,6 +108,15 @@ public class Absorber extends Gizmo implements Triggerable {
 
 			ourBall.setCenter(new Vect(ballX, ballY));
 		}
+	}
+
+	public String getSaveInfo() {
+		return saveInfo;
+	}
+
+	@Override
+	public int getRotation() {
+		return 0;
 	}
 
 	private boolean weHaveABall() {

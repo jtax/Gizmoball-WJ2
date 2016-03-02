@@ -13,14 +13,16 @@ public class Triangle extends Gizmo {
 
 	private List<Vect> coordinates;
 	private int rotation;
+	private String saveInfo;
 
 	public Triangle(Vect origin, String name) {
 		super(origin, name);
-		rotation = 3;
+		rotation = 2;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 		super.setColor(Color.blue);
+		setSaveInfo();
 	}
 
 	public Triangle(double x, double y, String name) {
@@ -55,8 +57,13 @@ public class Triangle extends Gizmo {
 		return calcLines;
 	}
 
+	public void setSaveInfo() {
+		saveInfo = "Triangle" + " " + super.getName() + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
+	}
+
 	public void rotate() {
 		rotation = (rotation + 1) % 4;
+		setSaveInfo();
 		Vect topLeft = origin;
 		Vect topRight = new Vect(bound.x(), origin.y());
 		Vect bottomRight = bound;
@@ -73,6 +80,14 @@ public class Triangle extends Gizmo {
 		Vect origin = super.getOrigin();
 		Vect bound = new Vect(1, 1);
 		return origin.plus(bound);
+	}
+
+	public String getSaveInfo() {
+		return saveInfo;
+	}
+
+	public int getRotation() {
+		return rotation;
 	}
 
 	@Override

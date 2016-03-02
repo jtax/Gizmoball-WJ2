@@ -3,6 +3,7 @@ package view;
 import javax.swing.SwingUtilities;
 
 import controller.BoardController;
+import model.SaveBoardToFile;
 
 /**
  * Created by Umar on 10/02/2016.

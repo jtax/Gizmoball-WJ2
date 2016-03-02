@@ -28,5 +28,9 @@ public interface IElement extends CollisionHandler {
 
 	String getName();
 
+	String getSaveInfo();
+
+	int getRotation();
+
 	void rotate();
 }

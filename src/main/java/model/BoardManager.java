@@ -1,7 +1,9 @@
 package model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import model.gizmos.Wall;
 import physics.Circle;
@@ -105,5 +107,25 @@ public class BoardManager implements IBoardManager {
 			Vect newV = Geometry.reflectCircle(otherBall.getCenter(), ball.getCenter(), ballV);
 			closestCollision = new Collision(newV, time, otherBall, ball);
 		}
+	}
+
+	public Ball applyForces(Ball ball, double time) {
+		Vect newVelocityG = applyGravity(ball.getVelocity(), time);
+		Vect newVelocityF = applyFriction(newVelocityG, time);
+		ball.setVelocity(newVelocityF);
+		return ball;
+	}
+
+	public Vect applyFriction(Vect velocity, double time) {
+		double mu = board.getFrictionConst()[0];
+		double mu2 = board.getFrictionConst()[1];
+		double changeAmount = 1 - mu * time - mu2 * velocity.length() * time;
+		return velocity.times(changeAmount);
+	}
+
+	public Vect applyGravity(Vect velocity, double time) {
+		double changeAmount = board.getGravityConst() * time;
+		Vect change = new Vect(0, changeAmount);
+		return velocity.plus(change);
 	}
 }

@@ -4,7 +4,14 @@ import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
 
-import model.*;
+import model.Ball;
+import model.Board;
+import model.BoardManager;
+import model.Direction;
+import model.Gizmo;
+import model.IBoardManager;
+import model.IElement;
+import model.SaveBoardToFile;
 import model.gizmos.Absorber;
 import model.gizmos.Flipper;
 import model.gizmos.Square;
@@ -23,7 +30,8 @@ public class BoardController {
 		Board board = l.loadFile();
 
 		if (board != null) {
-			boardManager = new BoardManager(board);
+			boardManager = new BoardManager();
+			boardManager.setBoard(board);
 			view = new GizmoBallView(boardManager);
 			boardManager.getBoard().addObserver(view);
 			// test();
@@ -37,6 +45,8 @@ public class BoardController {
 			view = new GizmoBallView(boardManager);
 
 		}
+		SaveBoardToFile save = new SaveBoardToFile();
+		System.out.println(save.saveBoard(board));
 	}
 
 	// TODO Remove test method

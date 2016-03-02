@@ -13,11 +13,13 @@ import physics.Vect;
 public class Circle extends Gizmo {
 
 	Vect center;
+	private String saveInfo;
 
 	public Circle(Vect origin, String name) {
 		super(origin, name);
 		super.setCircles(Arrays.asList(calculateCircle()));
 		super.setColor(Color.GREEN);
+		saveInfo = "Circle" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
 
 	public Circle(int x, int y, String name) {
@@ -43,6 +45,15 @@ public class Circle extends Gizmo {
 		Vect origin = super.getOrigin();
 		Vect bound = new Vect(1, 1);
 		return origin.plus(bound);
+	}
+
+	public String getSaveInfo() {
+		return saveInfo;
+	}
+
+	@Override
+	public int getRotation() {
+		return 0;
 	}
 
 	@Override
