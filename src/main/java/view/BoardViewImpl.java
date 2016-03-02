@@ -34,7 +34,7 @@ public class BoardViewImpl implements BoardView, Observer {
 
 		panel = getDefaultLayout();
 		panel.setPreferredSize(new Dimension(500, 500));
-		panel.setBackground(Color.white);
+		panel.setBackground(Color.black);
 
 		mode = Mode.BUILD;
 
@@ -119,6 +119,7 @@ public class BoardViewImpl implements BoardView, Observer {
 	private void drawGrid(Graphics2D g) {
 		for (int x = 0; x < board.getWidth(); x++)
 			drawColumn(g, x);
+		g.setColor(Color.green);
 	}
 
 	private void drawColumn(Graphics2D g, int x) {
