@@ -71,11 +71,7 @@ public class BoardViewImpl implements BoardView, Observer {
 		for (IElement e : board.getAllElements()) {
 			shapes.add(e);
 		}
-		
-		for (Ball b : board.getBalls()) {
-			System.out.println("view:" + b.getOrigin());
-		}
-		
+
 		panel.repaint();
 	}
 
