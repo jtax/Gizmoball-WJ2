@@ -1,29 +1,39 @@
-package model.Gizmos;
+package model.gizmos;
+
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import model.Gizmo;
 import physics.LineSegment;
 import physics.Vect;
 
-import java.awt.*;
-import java.util.*;
-import java.util.List;
-
 /**
  * Created by baird on 06/02/2016.
  */
-public class Wall extends Gizmo {
+public class Square extends Gizmo {
 
-	private Vect bound;
-	private java.util.List<Vect> coordinates;
+	private int reflectionCoefficient = 1;
+	private List<Vect> coordinates;
+	private String saveInfo;
 
-	public Wall(Vect origin, Vect bnd, String name) {
+	public Square(Vect origin, String name) {
 		super(origin, name);
-		this.bound = bnd;
-		super.setBound(bnd);
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		super.setColor(Color.BLACK);
+		super.setColor(Color.red);
+		saveInfo = "Square" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
+	}
+
+	@Override
+	public void trigger() {
+
+	}
+
+	public Square(int x, int y, String name) {
+		this(new Vect(x, y), name);
 	}
 
 	private List<Vect> calculateCoordinates() {
@@ -54,28 +64,28 @@ public class Wall extends Gizmo {
 		return calcLines;
 	}
 
-	@Override
 	public void rotate() {
-		// TODO Auto-generated method stub
-
+		// Pointless for Square: do nothing
 	}
 
-	@Override
 	public Vect calculateBound() {
-		return bound;
-	}
-
-	public String getSaveInfo() {
-		return "Wall";
-	}
-
-	@Override
-	public int getRotation() {
-		return 0;
+		Vect origin = super.getOrigin();
+		Vect bound = new Vect(1, 1);
+		return origin.plus(bound);
 	}
 
 	@Override
 	public List<Vect> getCoordinates() {
 		return coordinates;
+	}
+
+	@Override
+	public String getSaveInfo() {
+		return saveInfo;
+	}
+
+	@Override
+	public int getRotation() {
+		return 0;
 	}
 }

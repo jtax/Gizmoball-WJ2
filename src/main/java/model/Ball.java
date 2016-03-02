@@ -1,23 +1,25 @@
 package model;
 
+import java.awt.Color;
+import java.util.Arrays;
+import java.util.List;
+
 import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
 
-import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Created by baird on 06/02/2016.
  */
-public class Ball implements IElement {
+public class Ball implements IElement, Absorbable {
 	private Circle point;
 	private Vect origin;
 	private Vect velocity;
 	private Vect center;
 	private Color color = Color.BLUE;
 	private String name;
+	private boolean absorbed;
+	private final float diameter = 0.5f;
 	private String saveInfo;
 
 	// TODO do balls need names?
@@ -27,6 +29,7 @@ public class Ball implements IElement {
 		origin = new Vect(x - .25, y - .25);
 		velocity = new Vect(velocityX, velocityY);
 		this.name = name;
+		absorbed = false;
 		saveInfo = "Ball" + " " + name + " " + x + " " + y + " " + velocityX + " " + velocityY;
 	}
 
@@ -77,8 +80,8 @@ public class Ball implements IElement {
 
 	@Override
 	public Vect getBound() {
-		double x = origin.x() + 0.5;
-		double y = origin.y() + 0.5;
+		double x = origin.x() + diameter;
+		double y = origin.y() + diameter;
 		return new Vect(x, y);
 	}
 
@@ -113,10 +116,10 @@ public class Ball implements IElement {
 		Vect ourOrigin = origin, ourBound = getBound(), theirOrigin = otherElement.getOrigin(),
 				theirBound = otherElement.getBound();
 
-		boolean topIn = ourOrigin.y() <= theirBound.y() && ourOrigin.y() >= theirOrigin.y();
-		boolean bottomIn = ourBound.y() >= theirOrigin.y() && ourBound.y() <= theirBound.y();
-		boolean leftIn = ourOrigin.x() <= theirBound.x() && ourOrigin.x() >= theirOrigin.x();
-		boolean rightIn = ourBound.x() >= theirOrigin.x() && ourBound.x() <= theirBound.x();
+		boolean topIn = ourOrigin.y() < theirBound.y() && ourOrigin.y() > theirOrigin.y();
+		boolean bottomIn = ourBound.y() > theirOrigin.y() && ourBound.y() < theirBound.y();
+		boolean leftIn = ourOrigin.x() < theirBound.x() && ourOrigin.x() > theirOrigin.x();
+		boolean rightIn = ourBound.x() > theirOrigin.x() && ourBound.x() < theirBound.x();
 
 		// still with me?
 
@@ -130,6 +133,13 @@ public class Ball implements IElement {
 		return saveInfo;
 	}
 
+	public void moveForTime(double time) {
+		if (!absorbed) {
+			Vect changeAmount = velocity.times(time);
+			setCenter(center.plus(changeAmount));
+		}
+	}
+
 	@Override
 	public int getRotation() {
 		return 0;
@@ -138,4 +148,58 @@ public class Ball implements IElement {
 	public void rotate() {
 
 	}
+
+	@Override
+	public void handle(Collision collision) {
+		Ball ball = collision.getBall();
+		ball.moveForTime(collision.getTime());
+		ball.setVelocity(collision.getVelocity());
+	}
+
+	public void applyForces(double moveTime, double gravity, double[] friction) {
+		if (!absorbed) {
+			applyGravity(moveTime, gravity);
+			applyFriction(moveTime, friction);
+		}
+	}
+
+	private void applyGravity(double moveTime, double gravity) {
+		double changeAmount = gravity * moveTime;
+		Vect change = new Vect(0, changeAmount);
+		setVelocity(velocity.plus(change));
+	}
+
+	private void applyFriction(double moveTime, double[] friction) {
+		double mu = friction[0];
+		double mu2 = friction[1];
+		double changeAmount = 1 - mu * moveTime - mu2 * velocity.length() * moveTime;
+		setVelocity(velocity.times(changeAmount));
+	}
+
+	@Override
+	public boolean isAbsorbed() {
+		return absorbed;
+	}
+
+	@Override
+	public void setAbsorbed() {
+		absorbed = true;
+	}
+
+	@Override
+	public void clearAbsorbed() {
+		absorbed = false;
+	}
+
+	@Override
+	public void release() {
+		Vect escapeVelocity = new Vect(0, -50);
+		setVelocity(escapeVelocity);
+		clearAbsorbed();
+	}
+
+	public double getRadius() {
+		return diameter / 2;
+	}
+
 }

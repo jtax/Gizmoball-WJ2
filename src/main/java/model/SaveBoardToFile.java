@@ -1,13 +1,14 @@
 package model;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.util.Collection;
 import java.util.StringTokenizer;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Created by ElChupacobra on 01/03/2016.
@@ -18,7 +19,7 @@ public class SaveBoardToFile {
 
 		if (board != null) {
 
-			List<IElement> elements = board.getElements();
+			Collection<IElement> elements = board.getElements();
 
 			File file = getSaveFile();
 			if (file == null) {
@@ -66,8 +67,8 @@ public class SaveBoardToFile {
 					}
 				}
 
-				for (int i = 0; i < board.getBalls().size(); i++) {
-					bufferedWriter.write(board.getBalls().get(i).getSaveInfo());
+				for (Ball ball : board.getBalls()) {
+					bufferedWriter.write(ball.getSaveInfo());
 				}
 				bufferedWriter.newLine();
 				bufferedWriter.write("Gravity" + " " + String.format("%.0f", board.getGravityConst()));

@@ -1,11 +1,11 @@
-package model.Gizmos;
+package model.gizmos;
+
+import java.awt.Color;
+import java.util.Arrays;
+import java.util.List;
 
 import model.Gizmo;
 import physics.Vect;
-
-import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.

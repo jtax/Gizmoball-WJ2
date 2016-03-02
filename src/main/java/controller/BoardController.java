@@ -4,15 +4,25 @@ import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
 
-import model.*;
-import model.Gizmos.*;
-import view.*;
+import model.Ball;
+import model.Board;
+import model.BoardManager;
+import model.Direction;
+import model.Gizmo;
+import model.IBoardManager;
+import model.IElement;
+import model.SaveBoardToFile;
+import model.gizmos.Absorber;
+import model.gizmos.Flipper;
+import model.gizmos.Square;
+import view.GizmoBallView;
+import view.LoadBoard;
 
 /**
  * Created by bairdjb on 11/02/2016.
  */
 public class BoardController {
-	private BoardManager boardManager;
+	private IBoardManager boardManager;
 	private GizmoBallView view;
 
 	public BoardController() {
@@ -53,7 +63,7 @@ public class BoardController {
 		flipper1.addKeyPressTrigger(KeyEvent.VK_LEFT);
 		flipper2.addKeyPressTrigger(KeyEvent.VK_RIGHT);
 
-		List<Gizmo> testElements = Arrays.asList(new Gizmo[] { absorber, flipper1, flipper2 });
+		List<IElement> testElements = Arrays.asList(new Gizmo[] { absorber, flipper1, flipper2 });
 		boardManager.getBoard().setElements(testElements);
 
 		Ball ball = new Ball("Ball", 5, 5, 0, 0);

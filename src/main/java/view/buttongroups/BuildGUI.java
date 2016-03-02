@@ -1,7 +1,13 @@
-package view.ButtonGroups;
+package view.buttongroups;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 /**
  * Created by baird on 06/02/2016.

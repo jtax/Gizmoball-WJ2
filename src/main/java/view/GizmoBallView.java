@@ -1,21 +1,24 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+
 import controller.KeyPressListener;
 import controller.RunListener;
 import model.Board;
 import model.BoardManager;
-import model.IElement;
+import model.IBoard;
+import model.IBoardManager;
 import util.MagicKeyListener;
-import view.BoardViews.BoardViewImpl;
-import view.ButtonGroups.BuildGUI;
-import view.ButtonGroups.RunGUI;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+import view.buttongroups.BuildGUI;
+import view.buttongroups.RunGUI;
 
 /**
  * Created by baird on 06/02/2016.
@@ -31,11 +34,11 @@ public class GizmoBallView implements Observer {
 	private JPanel bottomButtons, topButtons, boardPanel;
 	private JMenuBar menu;
 	private BoardView boardView;
-	private BoardManager boardManager;
+	private IBoardManager boardManager;
 	private ActionListener listener;
 
-	public GizmoBallView(BoardManager bm) {
-		Board board = bm.getBoard();
+	public GizmoBallView(IBoardManager bm) {
+		IBoard board = bm.getBoard();
 		boardManager = bm;
 		runMode = true;
 		frame = new JFrame("Gizmo Baw");

@@ -1,8 +1,5 @@
 package model;
 
-import model.Gizmos.*;
-import physics.Vect;
-
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,6 +8,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import model.gizmos.Absorber;
+import model.gizmos.Circle;
+import model.gizmos.Flipper;
+import model.gizmos.Square;
+import model.gizmos.Triangle;
+import physics.Vect;
 
 public class GizmoParser {
 	private BufferedReader fileInput;
@@ -27,7 +31,7 @@ public class GizmoParser {
 		StringTokenizer st;
 		String gizmoType;
 		List<String> rotates = new ArrayList<>();
-		List<Gizmo> loadedElements = new ArrayList<>();
+		List<IElement> loadedElements = new ArrayList<>();
 		List<Ball> balls = new ArrayList<>();
 		double gravity = 0.0;
 		double[] friction = new double[2];
@@ -98,9 +102,9 @@ public class GizmoParser {
 			}
 		}
 		if (!rotates.isEmpty()) {
-			for (int i = 0; i < board.getElements().size(); i++) {
-				if (rotates.contains(board.getElements().get(i).getName())) {
-					board.getElements().get(i).rotate();
+			for (IElement e : board.getElements()) {
+				if (rotates.contains(e.getName())) {
+					e.rotate();
 				}
 			}
 		}

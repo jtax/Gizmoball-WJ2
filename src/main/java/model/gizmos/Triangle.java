@@ -1,6 +1,6 @@
-package model.Gizmos;
+package model.gizmos;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,30 +9,23 @@ import model.Gizmo;
 import physics.LineSegment;
 import physics.Vect;
 
-/**
- * Created by baird on 06/02/2016.
- */
-public class Square extends Gizmo {
+public class Triangle extends Gizmo {
 
-	private int reflectionCoefficient = 1;
 	private List<Vect> coordinates;
+	private int rotation;
 	private String saveInfo;
 
-	public Square(Vect origin, String name) {
+	public Triangle(Vect origin, String name) {
 		super(origin, name);
+		rotation = 2;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		super.setColor(Color.red);
-		saveInfo = "Square" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
+		super.setColor(Color.blue);
+		setSaveInfo();
 	}
 
-	@Override
-	public void trigger() {
-
-	}
-
-	public Square(int x, int y, String name) {
+	public Triangle(double x, double y, String name) {
 		this(new Vect(x, y), name);
 	}
 
@@ -41,7 +34,7 @@ public class Square extends Gizmo {
 		Vect topRight = new Vect(bound.x(), origin.y());
 		Vect bottomRight = bound;
 		Vect bottomLeft = new Vect(origin.x(), bound.y());
-		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
+		return Arrays.asList(topLeft, topRight, bottomLeft);
 	}
 
 	private List<physics.Circle> calculateCircles() {
@@ -64,10 +57,25 @@ public class Square extends Gizmo {
 		return calcLines;
 	}
 
-	public void rotate() {
-		// Pointless for Square: do nothing
+	public void setSaveInfo() {
+		saveInfo = "Triangle" + " " + super.getName() + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
 
+	public void rotate() {
+		rotation = (rotation + 1) % 4;
+		setSaveInfo();
+		Vect topLeft = origin;
+		Vect topRight = new Vect(bound.x(), origin.y());
+		Vect bottomRight = bound;
+		Vect bottomLeft = new Vect(origin.x(), bound.y());
+		List<Vect> vects = new ArrayList<Vect>(Arrays.asList(topLeft, topRight, bottomRight, bottomLeft));
+		vects.remove(rotation);
+		coordinates = vects;
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
+	}
+
+	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();
 		Vect bound = new Vect(1, 1);
@@ -78,9 +86,8 @@ public class Square extends Gizmo {
 		return saveInfo;
 	}
 
-	@Override
 	public int getRotation() {
-		return 0;
+		return rotation;
 	}
 
 	@Override

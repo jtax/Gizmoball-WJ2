@@ -1,21 +1,19 @@
 package view;
 
-import model.*;
-
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import model.Board;
+import model.GizmoParser;
 
 public class LoadBoard {
 
 	public Board loadFile() {
 		File filen = getFileToOpen();
-		if (openGizmoFromFile(filen) != null) {
-			return openGizmoFromFile(filen);
-		} else {
-			return null;
-		}
+		return openGizmoFromFile(filen);
 	}
 
 	public static File getFileToOpen() {
@@ -40,7 +38,7 @@ public class LoadBoard {
 		double[] temp = new double[2];
 		temp[0] = 0;
 		temp[0] = 0;
-		Board board = new Board(temp, 0, 0, 0);
+		Board board = null;
 		try {
 			GizmoParser g = new GizmoParser(filen);
 			board = g.getGizmosFromFile();
@@ -48,10 +46,8 @@ public class LoadBoard {
 		} catch (IOException e) {
 			//
 			System.out.println("IOException");
-			return null;
 		} catch (model.BadFileException | NullPointerException e) {
 			System.out.println("IOException");
-			return null;
 		}
 
 		return board;

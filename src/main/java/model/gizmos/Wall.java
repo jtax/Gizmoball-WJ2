@@ -1,33 +1,30 @@
-package model.Gizmos;
+package model.gizmos;
 
-import model.Gizmo;
-import physics.Angle;
-import physics.LineSegment;
-import physics.Vect;
-
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Triangle extends Gizmo {
+import model.Gizmo;
+import physics.LineSegment;
+import physics.Vect;
 
-	private List<Vect> coordinates;
-	private int rotation;
-	private String saveInfo;
+/**
+ * Created by baird on 06/02/2016.
+ */
+public class Wall extends Gizmo {
 
-	public Triangle(Vect origin, String name) {
+	private Vect bound;
+	private java.util.List<Vect> coordinates;
+
+	public Wall(Vect origin, Vect bnd, String name) {
 		super(origin, name);
-		rotation = 2;
+		this.bound = bnd;
+		super.setBound(bnd);
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		super.setColor(Color.blue);
-		setSaveInfo();
-	}
-
-	public Triangle(double x, double y, String name) {
-		this(new Vect(x, y), name);
+		super.setColor(Color.BLACK);
 	}
 
 	private List<Vect> calculateCoordinates() {
@@ -35,7 +32,7 @@ public class Triangle extends Gizmo {
 		Vect topRight = new Vect(bound.x(), origin.y());
 		Vect bottomRight = bound;
 		Vect bottomLeft = new Vect(origin.x(), bound.y());
-		return Arrays.asList(topLeft, topRight, bottomLeft);
+		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
 	}
 
 	private List<physics.Circle> calculateCircles() {
@@ -58,37 +55,24 @@ public class Triangle extends Gizmo {
 		return calcLines;
 	}
 
-	public void setSaveInfo() {
-		saveInfo = "Triangle" + " " + super.getName() + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
-	}
-
+	@Override
 	public void rotate() {
-		rotation = (rotation + 1) % 4;
-		setSaveInfo();
-		Vect topLeft = origin;
-		Vect topRight = new Vect(bound.x(), origin.y());
-		Vect bottomRight = bound;
-		Vect bottomLeft = new Vect(origin.x(), bound.y());
-		List<Vect> vects = new ArrayList<Vect>(Arrays.asList(topLeft, topRight, bottomRight, bottomLeft));
-		vects.remove(rotation);
-		coordinates = vects;
-		super.setCircles(calculateCircles());
-		super.setLines(calculateLines());
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public Vect calculateBound() {
-		Vect origin = super.getOrigin();
-		Vect bound = new Vect(1, 1);
-		return origin.plus(bound);
+		return bound;
 	}
 
 	public String getSaveInfo() {
-		return saveInfo;
+		return "Wall";
 	}
 
+	@Override
 	public int getRotation() {
-		return rotation;
+		return 0;
 	}
 
 	@Override

@@ -1,13 +1,12 @@
 package controller;
 
-import model.Gizmo;
-import model.Gizmos.Flipper;
-import model.IElement;
-import model.Triggerable;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.List;
+import java.util.Collection;
+
+import model.Gizmo;
+import model.IElement;
+import model.Triggerable;
 
 /**
  * Package: controller Created by Laurynas Sakalauskas on 17/02/16 13:39.
@@ -15,9 +14,9 @@ import java.util.List;
  */
 public class KeyPressListener implements KeyListener {
 
-	private final List<IElement> elements;
+	private final Collection<IElement> elements;
 
-	public KeyPressListener(List<IElement> elements) {
+	public KeyPressListener(Collection<IElement> elements) {
 
 		this.elements = elements;
 	}
