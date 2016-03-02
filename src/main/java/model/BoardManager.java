@@ -67,7 +67,7 @@ public class BoardManager implements IBoardManager {
 		for (IElement element : board.getElements()) {
 			if (!(element instanceof Wall) && ball.inside(element))
 				continue;
-			
+
 			for (Circle circle : element.getCircles()) {
 				detectCircleCollision(circle, ball, element);
 			}

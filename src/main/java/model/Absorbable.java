@@ -7,6 +7,6 @@ public interface Absorbable {
 	public void setAbsorbed();
 
 	public void clearAbsorbed();
-	
+
 	public void release();
 }

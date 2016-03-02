@@ -22,7 +22,7 @@ public class Absorber extends Gizmo implements Triggerable {
 	private Ball ourBall;
 
 	public Absorber(Vect origin, Vect bound, String name) {
-		super(origin,name);
+		super(origin, name);
 		this.bound = bound;
 		setBound(bound);
 		coordinates = calculateCoordinates();
@@ -90,7 +90,7 @@ public class Absorber extends Gizmo implements Triggerable {
 			Vect velocity = new Vect(xVelocity, yVelocity);
 			ourBall.setVelocity(velocity);
 			ourBall.clearAbsorbed();
-			
+
 			ourBall = null;
 		}
 	}
@@ -99,10 +99,10 @@ public class Absorber extends Gizmo implements Triggerable {
 		if (weHaveABall()) {
 			Vect ourBound = getBound();
 			double ballRadius = ourBall.getRadius();
-			
+
 			double ballX = ourBound.x() - ballRadius - .25;
 			double ballY = ourBound.y() - ballRadius - .25;
-			
+
 			ourBall.setCenter(new Vect(ballX, ballY));
 		}
 	}
@@ -115,7 +115,7 @@ public class Absorber extends Gizmo implements Triggerable {
 	public List<Vect> getCoordinates() {
 		return coordinates;
 	}
-	
+
 	@Override
 	public void handle(Collision c) {
 		Ball ball = c.getBall();

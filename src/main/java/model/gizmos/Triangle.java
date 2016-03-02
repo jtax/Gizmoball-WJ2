@@ -9,7 +9,6 @@ import model.Gizmo;
 import physics.LineSegment;
 import physics.Vect;
 
-
 public class Triangle extends Gizmo {
 
 	private List<Vect> coordinates;
@@ -36,7 +35,6 @@ public class Triangle extends Gizmo {
 		return Arrays.asList(topLeft, topRight, bottomLeft);
 	}
 
-
 	private List<physics.Circle> calculateCircles() {
 		List<physics.Circle> calcCircles = new ArrayList<>();
 		for (Vect coord : coordinates) {
@@ -56,7 +54,6 @@ public class Triangle extends Gizmo {
 		}
 		return calcLines;
 	}
-
 
 	public void rotate() {
 		rotation = (rotation + 1) % 4;

@@ -186,7 +186,7 @@ public class Ball implements IElement, Absorbable {
 		setVelocity(escapeVelocity);
 		clearAbsorbed();
 	}
-	
+
 	public double getRadius() {
 		return diameter / 2;
 	}

@@ -2,6 +2,5 @@ package view;
 
 public enum Mode {
 
-	BUILD,
-	RUN
+	BUILD, RUN
 }

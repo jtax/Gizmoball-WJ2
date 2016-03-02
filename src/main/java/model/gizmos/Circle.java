@@ -13,13 +13,12 @@ import physics.Vect;
 public class Circle extends Gizmo {
 
 	Vect center;
+
 	public Circle(Vect origin, String name) {
 		super(origin, name);
 		super.setCircles(Arrays.asList(calculateCircle()));
 		super.setColor(Color.GREEN);
 	}
-
-
 
 	public Circle(int x, int y, String name) {
 		this(new Vect(x, y), name);
@@ -38,7 +37,6 @@ public class Circle extends Gizmo {
 		// TODO Auto-generated method stub
 
 	}
-
 
 	@Override
 	public Vect calculateBound() {

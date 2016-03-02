@@ -6,35 +6,35 @@ import java.util.Collection;
  * Created by Umar on 02/03/2016.
  */
 public interface IBoard {
-    void addBall(Ball ball);
+	void addBall(Ball ball);
 
-    void setBalls(Collection<Ball> newBalls);
+	void setBalls(Collection<Ball> newBalls);
 
-    Collection<Ball> getBalls();
+	Collection<Ball> getBalls();
 
-    Collection<IElement> getElements();
+	Collection<IElement> getElements();
 
-    Collection<IElement> getAllElements();
+	Collection<IElement> getAllElements();
 
-    void setElements(Collection<IElement> elements);
+	void setElements(Collection<IElement> elements);
 
-    void addElement(IElement element);
+	void addElement(IElement element);
 
-    double[] getFrictionConst();
+	double[] getFrictionConst();
 
-    void setFrictionConst(double[] frictionConst);
+	void setFrictionConst(double[] frictionConst);
 
-    double getGravityConst();
+	double getGravityConst();
 
-    void setGravityConst(double gravityConst);
+	void setGravityConst(double gravityConst);
 
-    int getWidth();
+	int getWidth();
 
-    void setWidth(int width);
+	void setWidth(int width);
 
-    int getHeight();
+	int getHeight();
 
-    void setHeight(int height);
+	void setHeight(int height);
 
-    void changed();
+	void changed();
 }

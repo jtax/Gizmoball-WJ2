@@ -25,8 +25,7 @@ public class Wall extends Gizmo {
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 		super.setColor(Color.BLACK);
-		}
-
+	}
 
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
