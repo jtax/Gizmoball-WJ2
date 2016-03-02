@@ -27,7 +27,7 @@ public class Flipper extends Gizmo implements Triggerable {
 
 	public Flipper(Vect origin, String name) {
 
-		super(origin,name);
+		super(origin, name);
 		saveDirection = "Left";
 		rotation = 90;
 		coordinates = calculateCoordinates();
@@ -36,7 +36,6 @@ public class Flipper extends Gizmo implements Triggerable {
 		super.setColor(Color.yellow);
 		setSaveInfo();
 	}
-
 
 	@Override
 	public void trigger() {
@@ -55,7 +54,7 @@ public class Flipper extends Gizmo implements Triggerable {
 	public void setDirection(Direction direction) {
 
 		this.direction = direction;
-		if(direction == Direction.RIGHT) {
+		if (direction == Direction.RIGHT) {
 			saveDirection = "Right";
 			setSaveInfo();
 			origin = origin.plus(new Vect(1.5, 0));
@@ -65,15 +64,13 @@ public class Flipper extends Gizmo implements Triggerable {
 			super.setLines(calculateLines());
 		}
 
-
 	}
-
 
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
-		Vect topRight = new Vect(bound.x(),origin.y());
+		Vect topRight = new Vect(bound.x(), origin.y());
 		Vect bottomRight = bound;
-		Vect bottomLeft = new Vect(origin.x(),bound.y());
+		Vect bottomLeft = new Vect(origin.x(), bound.y());
 		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
 	}
 
@@ -102,7 +99,6 @@ public class Flipper extends Gizmo implements Triggerable {
 		//
 	}
 
-
 	/**
 	 * Flips a Flipper based on its direction and weather we need to rotate back
 	 */
@@ -110,10 +106,10 @@ public class Flipper extends Gizmo implements Triggerable {
 
 		if (direction == Direction.RIGHT) {
 			if (rotated) {
-				this.origin = new Vect(bound.x(), bound.y()).minus(new Vect(0.5,0.5));
+				this.origin = new Vect(bound.x(), bound.y()).minus(new Vect(0.5, 0.5));
 				bound = calculateBound();
 			} else {
-				this.bound  = origin.plus(new Vect(0.5,0.5));
+				this.bound = origin.plus(new Vect(0.5, 0.5));
 				this.origin = origin.minus(new Vect(1.5, 0));
 			}
 		} else {
@@ -130,11 +126,9 @@ public class Flipper extends Gizmo implements Triggerable {
 	/**
 	 * For tests
 	 */
-	public Boolean isFlipped()
-	{
-		return  rotated;
+	public Boolean isFlipped() {
+		return rotated;
 	}
-
 
 	/**
 	 * For tests
@@ -151,11 +145,12 @@ public class Flipper extends Gizmo implements Triggerable {
 		return origin.plus(bound);
 	}
 
-	public void setSaveInfo(){
-		saveInfo =  saveDirection+ "Flipper" + " " +super.getName() + " " + (int)origin.getXCoord() + " " + (int)origin.getyCoord();
+	public void setSaveInfo() {
+		saveInfo = saveDirection + "Flipper" + " " + super.getName() + " " + (int) origin.getXCoord() + " "
+				+ (int) origin.getyCoord();
 	}
 
-	public String getSaveInfo(){
+	public String getSaveInfo() {
 		return saveInfo;
 	}
 

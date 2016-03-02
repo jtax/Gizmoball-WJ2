@@ -11,14 +11,13 @@ import java.util.Observer;
 /**
  * Created by baird on 06/02/2016.
  */
-public interface BoardView{
+public interface BoardView {
 
+	JPanel getPanel();
 
-    JPanel getPanel();
+	int getHorizontalScalingFactor();
 
-    int getHorizontalScalingFactor();
+	int getVerticalScalingFactor();
 
-    int getVerticalScalingFactor();
-
-    void update(Observable o, Object arg);
+	void update(Observable o, Object arg);
 }

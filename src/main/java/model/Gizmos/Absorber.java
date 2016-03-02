@@ -22,14 +22,15 @@ public class Absorber extends Gizmo implements Triggerable {
 	private String saveInfo;
 
 	public Absorber(Vect origin, Vect bound, String name) {
-		super(origin,name);
+		super(origin, name);
 		this.bound = bound;
 		setBound(bound);
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 		super.setColor(Color.MAGENTA);
-		saveInfo = "Absorber" +" " +name + " " + (int)origin.getXCoord() + " " + (int)origin.getyCoord() + " " + (int)bound.getXCoord() + " " + (int)bound.getyCoord()  ;
+		saveInfo = "Absorber" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord() + " "
+				+ (int) bound.getXCoord() + " " + (int) bound.getyCoord();
 	}
 
 	public Absorber(int originX, int originY, int boundX, int boundY, String name) {
@@ -97,7 +98,8 @@ public class Absorber extends Gizmo implements Triggerable {
 	/**
 	 * Does the absorber have your ball?
 	 *
-	 * @param yourBall your ball
+	 * @param yourBall
+	 *            your ball
 	 * @return true if the absorber has your ball, otherwise false
 	 */
 	public boolean hasBall(Ball yourBall) {
@@ -112,7 +114,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		}
 	}
 
-	public String getSaveInfo(){
+	public String getSaveInfo() {
 		return saveInfo;
 	}
 

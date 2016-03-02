@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class Triangle extends Gizmo {
 
 	private List<Vect> coordinates;
@@ -39,7 +38,6 @@ public class Triangle extends Gizmo {
 		return Arrays.asList(topLeft, topRight, bottomLeft);
 	}
 
-
 	private List<physics.Circle> calculateCircles() {
 		List<physics.Circle> calcCircles = new ArrayList<>();
 		for (Vect coord : coordinates) {
@@ -60,10 +58,9 @@ public class Triangle extends Gizmo {
 		return calcLines;
 	}
 
-	public void setSaveInfo(){
-		saveInfo = "Triangle" +" " +super.getName() + " " + (int)origin.getXCoord() + " " + (int)origin.getyCoord();
+	public void setSaveInfo() {
+		saveInfo = "Triangle" + " " + super.getName() + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
-
 
 	public void rotate() {
 		rotation = (rotation + 1) % 4;
@@ -86,17 +83,13 @@ public class Triangle extends Gizmo {
 		return origin.plus(bound);
 	}
 
-	public String getSaveInfo(){
+	public String getSaveInfo() {
 		return saveInfo;
 	}
 
-	public int getRotation(){
+	public int getRotation() {
 		return rotation;
 	}
-
-
-
-
 
 	@Override
 	public List<Vect> getCoordinates() {

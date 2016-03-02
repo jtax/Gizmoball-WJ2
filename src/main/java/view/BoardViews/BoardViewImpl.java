@@ -43,8 +43,9 @@ public class BoardViewImpl implements BoardView, Observer {
 		balls = new HashSet<Shape>();
 		shapifier = new Shapifier(this);
 
-		// TODO: remove this test code can't test here. The panel scaling isnt ready yet
-		//shapes.add(shapifier.shapify(new Square(1, 0, "Your Mother")));
+		// TODO: remove this test code can't test here. The panel scaling isnt
+		// ready yet
+		// shapes.add(shapifier.shapify(new Square(1, 0, "Your Mother")));
 	}
 
 	private JPanel getDefaultLayout() {
@@ -58,7 +59,7 @@ public class BoardViewImpl implements BoardView, Observer {
 				if (mode == Mode.BUILD)
 					drawGrid((Graphics2D) g);
 
-				//drawShapes((Graphics2D) g);
+				// drawShapes((Graphics2D) g);
 				drawGizmos((Graphics2D) g);
 				drawBalls((Graphics2D) g);
 			}
@@ -77,7 +78,7 @@ public class BoardViewImpl implements BoardView, Observer {
 		balls.clear();
 
 		for (IElement e : board.getElements()) {
-			//Shape s = shapifier.shapify(e);
+			// Shape s = shapifier.shapify(e);
 			shapes.add(e);
 		}
 		if (!board.getBalls().isEmpty()) {
@@ -121,12 +122,10 @@ public class BoardViewImpl implements BoardView, Observer {
 		this.board = board;
 	}
 
-	/*private void drawShapes(Graphics2D g) {
-		for (Shape s : shapes) {
-			g.setColor(Color.BLUE);
-			g.fill(s);
-		}
-	}*/
+	/*
+	 * private void drawShapes(Graphics2D g) { for (Shape s : shapes) {
+	 * g.setColor(Color.BLUE); g.fill(s); } }
+	 */
 
 	private void drawGizmos(Graphics2D g) {
 		for (IElement s : shapes) {
@@ -139,6 +138,7 @@ public class BoardViewImpl implements BoardView, Observer {
 			}
 		}
 	}
+
 	private void drawBalls(Graphics2D g) {
 		for (Shape s : balls) {
 			g.setColor(Color.ORANGE);

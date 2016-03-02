@@ -9,18 +9,18 @@ import static org.junit.Assert.*;
  */
 public class FlipperTest {
 
-    @Test
-    public void testRotate() throws Exception {
+	@Test
+	public void testRotate() throws Exception {
 
-    }
+	}
 
-    @Test
-    public void testRotateBack() throws Exception {
+	@Test
+	public void testRotateBack() throws Exception {
 
-    }
+	}
 
-    @Test
-    public void testCalculateBound() throws Exception {
+	@Test
+	public void testCalculateBound() throws Exception {
 
-    }
+	}
 }

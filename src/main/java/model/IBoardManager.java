@@ -5,5 +5,4 @@ package model;
  */
 public interface IBoardManager {
 
-
 }

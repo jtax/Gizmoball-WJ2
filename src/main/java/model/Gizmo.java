@@ -11,117 +11,112 @@ import physics.Vect;
 /**
  * Created by baird on 06/02/2016.
  */
-abstract public class Gizmo implements IElement{
+abstract public class Gizmo implements IElement {
 
-    protected Vect origin, bound;
-    private Gizmo trigger;
-    private Color color;
-    private Color[] colors;
-    private List<LineSegment> lines;
-    private List<Circle> circles;
-    protected int rotation;
-    private int reflection;
-    private String name;
-    private int keyPressTrigger;
+	protected Vect origin, bound;
+	private Gizmo trigger;
+	private Color color;
+	private Color[] colors;
+	private List<LineSegment> lines;
+	private List<Circle> circles;
+	protected int rotation;
+	private int reflection;
+	private String name;
+	private int keyPressTrigger;
 
-    protected Gizmo(Vect origin, String name) {
-        lines = new ArrayList<>();
-        circles = new ArrayList<>();
-        this.origin = origin;
-        colors = new Color[]{Color.red, Color.green, Color.blue};
-        rotation = 0;
-        this.name = name;
-        color = colors[0];
-        rotation = 0;
+	protected Gizmo(Vect origin, String name) {
+		lines = new ArrayList<>();
+		circles = new ArrayList<>();
+		this.origin = origin;
+		colors = new Color[] { Color.red, Color.green, Color.blue };
+		rotation = 0;
+		this.name = name;
+		color = colors[0];
+		rotation = 0;
 
+		// TODO: set the bounds correctly according to which gizmo it is
+		// bound = new Vect(origin.x() + 1, origin.y() + 1);
+		bound = calculateBound();
+	}
 
-        // TODO: set the bounds correctly according to which gizmo it is
-        //bound = new Vect(origin.x() + 1, origin.y() + 1);
-        bound = calculateBound();
-    }
+	@Override
+	public Vect getOrigin() {
+		return origin;
+	}
 
-    @Override
-    public Vect getOrigin() {
-        return origin;
-    }
+	@Override
+	public Vect getBound() {
+		return bound;
+	}
 
-    @Override
-    public Vect getBound() {
-        return bound;
-    }
+	public Gizmo getGizmoTrigger() {
+		return trigger;
+	}
 
-    public Gizmo getGizmoTrigger(){
-        return trigger;
-    }
+	public String getName() {
+		return name;
+	}
 
+	public void addGizmoTrigger(Gizmo trigger) {
+		this.trigger = trigger;
+	}
 
+	public void addKeyPressTrigger(int keyCode) {
 
-    public String getName(){return name;}
+		keyPressTrigger = keyCode;
+	}
 
-    public void addGizmoTrigger(Gizmo trigger){
-        this.trigger = trigger;
-    }
+	public int getKeyPressTrigger() {
+		return keyPressTrigger;
+	}
 
-    public void addKeyPressTrigger(int keyCode) {
+	public void trigger() {
 
-        keyPressTrigger = keyCode;
-    }
+		color = Color.red;
+	}
 
-    public int getKeyPressTrigger() {
-        return keyPressTrigger;
-    }
+	public void onCollision() {
+		if (trigger instanceof Gizmo)
+			trigger.trigger();
+	}
 
-    public void trigger() {
+	@Override
+	public Color getColor() {
+		return color;
+	}
 
-        color = Color.red;
-    }
+	public void setColor(Color color) {
+		this.color = color;
+	}
 
-    public void onCollision() {
-        if (trigger instanceof Gizmo)
-            trigger.trigger();
-    }
+	public abstract void rotate();
 
-    @Override
-    public Color getColor(){
-        return color;
-    }
+	public int getReflectionCoefficient() {
+		return reflection;
+	}
 
-    public void setColor(Color color){
-        this.color = color;
-    }
+	public abstract Vect calculateBound();
 
-    public abstract void rotate();
+	@Override
+	public List<LineSegment> getLines() {
+		return lines;
+	}
 
-    public int getReflectionCoefficient(){
-        return reflection;
-    }
+	@Override
+	public List<Circle> getCircles() {
+		return circles;
+	}
 
-    public abstract Vect calculateBound();
+	protected void setLines(List<LineSegment> lines) {
+		this.lines = lines;
+	}
 
-    @Override
-    public List<LineSegment> getLines() {
-        return lines;
-    }
+	protected void setCircles(List<Circle> circles) {
+		this.circles = circles;
+	}
 
-    @Override
-    public List<Circle> getCircles() {
-        return circles;
-    }
-
-    protected void setLines(List<LineSegment> lines) {
-        this.lines = lines;
-    }
-
-    protected void setCircles(List<Circle> circles) {
-        this.circles = circles;
-    }
-
-    protected void setBound(Vect bound) {
-        this.bound = bound;
-    }
-
-
-
-
+	protected void setBound(Vect bound) {
+		this.bound = bound;
+	}
 
 }

@@ -12,131 +12,130 @@ import java.util.List;
  * Created by baird on 06/02/2016.
  */
 public class Ball implements IElement {
-    private Circle point;
-    private Vect origin;
-    private Vect velocity;
-    private Vect center;
-    private Color color = Color.BLUE;
-    private String name;
-    private String saveInfo;
+	private Circle point;
+	private Vect origin;
+	private Vect velocity;
+	private Vect center;
+	private Color color = Color.BLUE;
+	private String name;
+	private String saveInfo;
 
+	// TODO do balls need names?
+	public Ball(String name, double x, double y, double velocityX, double velocityY) {
+		center = new Vect(x, y);
+		point = new Circle(center, 0.25);
+		origin = new Vect(x - .25, y - .25);
+		velocity = new Vect(velocityX, velocityY);
+		this.name = name;
+		saveInfo = "Ball" + " " + name + " " + x + " " + y + " " + velocityX + " " + velocityY;
+	}
 
-    //TODO do balls need names?
-    public Ball(String name,double x, double y, double velocityX, double velocityY){
-        center = new Vect(x, y);
-        point = new Circle(center, 0.25);
-        origin = new Vect(x - .25, y - .25);
-        velocity = new Vect(velocityX, velocityY);
-        this.name = name;
-        saveInfo = "Ball" +" " +name + " " + x + " " + y  + " " + velocityX + " " + velocityY;
-    }
+	public Ball(String name, Vect center, Vect velocity) {
+		this(name, center.x(), center.y(), velocity.x(), velocity.y());
+	}
 
-    public Ball(String name, Vect center, Vect velocity) {
-        this(name, center.x(), center.y(), velocity.x(), velocity.y());
-    }
+	public Vect getCenter() {
+		return center;
+	}
 
-    public Vect getCenter() {
-        return center;
-    }
+	public void setCenter(Vect center) {
+		this.center = center;
+		update();
+	}
 
-    public void setCenter(Vect center) {
-        this.center = center;
-        update();
-    }
+	public Vect getVelocity() {
+		return velocity;
+	}
 
-    public Vect getVelocity() {
-        return velocity;
-    }
+	public void setVelocity(Vect velocity) {
+		this.velocity = velocity;
+	}
 
-    public void setVelocity(Vect velocity) {
-        this.velocity = velocity;
-    }
+	public Circle getCircle() {
+		return point;
+	}
 
-    public Circle getCircle() {
-        return point;
-    }
+	@Override
+	public List<LineSegment> getLines() {
+		return null;
+	}
 
-    @Override
-    public List<LineSegment> getLines() {
-        return null;
-    }
+	@Override
+	public List<Circle> getCircles() {
+		return Arrays.asList(point);
+	}
 
-    @Override
-    public List<Circle> getCircles() {
-        return Arrays.asList(point);
-    }
+	@Override
+	public List<Vect> getCoordinates() {
+		return Arrays.asList(center);
+	}
 
-    @Override
-    public List<Vect> getCoordinates() {
-        return Arrays.asList(center);
-    }
+	@Override
+	public Vect getOrigin() {
+		return origin;
+	}
 
-    @Override
-    public Vect getOrigin() {
-        return origin;
-    }
+	@Override
+	public Vect getBound() {
+		double x = origin.x() + 0.5;
+		double y = origin.y() + 0.5;
+		return new Vect(x, y);
+	}
 
-    @Override
-    public Vect getBound() {
-        double x = origin.x() + 0.5;
-        double y = origin.y() + 0.5;
-        return new Vect(x, y);
-    }
+	@Override
+	public Color getColor() {
+		return color;
+	}
 
-    @Override
-    public Color getColor() {
-        return color;
-    }
+	@Override
+	public void setColor(Color color) {
+		return;
+	}
 
-    @Override
-    public void setColor(Color color) {
-        return;
-    }
+	@Override
+	public String getName() {
+		return name;
+	}
 
-    @Override
-    public String getName() {
-        return name;
-    }
+	public void update() {
+		point = new Circle(center, 0.25);
+		origin = new Vect(center.x() - .25, center.y() - .25);
+	}
 
-    public void update() {
-        point = new Circle(center, 0.25);
-        origin = new Vect(center.x() - .25, center.y() - .25);
-    }
+	/**
+	 * Is the ball inside the other element?
+	 *
+	 * @param otherElement
+	 * @return true if the other element is within the absorber's bounds,
+	 *         otherwise false
+	 */
+	public boolean inside(IElement otherElement) {
+		Vect ourOrigin = origin, ourBound = getBound(), theirOrigin = otherElement.getOrigin(),
+				theirBound = otherElement.getBound();
 
-    /**
-     * Is the ball inside the other element?
-     *
-     * @param otherElement
-     * @return true if the other element is within the absorber's bounds,
-     * otherwise false
-     */
-    public boolean inside(IElement otherElement) {
-        Vect ourOrigin = origin, ourBound = getBound(), theirOrigin = otherElement.getOrigin(),
-                theirBound = otherElement.getBound();
+		boolean topIn = ourOrigin.y() <= theirBound.y() && ourOrigin.y() >= theirOrigin.y();
+		boolean bottomIn = ourBound.y() >= theirOrigin.y() && ourBound.y() <= theirBound.y();
+		boolean leftIn = ourOrigin.x() <= theirBound.x() && ourOrigin.x() >= theirOrigin.x();
+		boolean rightIn = ourBound.x() >= theirOrigin.x() && ourBound.x() <= theirBound.x();
 
-        boolean topIn = ourOrigin.y() <= theirBound.y() && ourOrigin.y() >= theirOrigin.y();
-        boolean bottomIn = ourBound.y() >= theirOrigin.y() && ourBound.y() <= theirBound.y();
-        boolean leftIn = ourOrigin.x() <= theirBound.x() && ourOrigin.x() >= theirOrigin.x();
-        boolean rightIn = ourBound.x() >= theirOrigin.x() && ourBound.x() <= theirBound.x();
+		// still with me?
 
-        // still with me?
+		boolean verticallyIn = leftIn && rightIn;
+		boolean horizontallyIn = topIn && bottomIn;
 
-        boolean verticallyIn = leftIn && rightIn;
-        boolean horizontallyIn = topIn && bottomIn;
+		return (verticallyIn && (topIn || bottomIn)) || (horizontallyIn && (leftIn || rightIn));
+	}
 
-        return (verticallyIn && (topIn || bottomIn)) || (horizontallyIn && (leftIn || rightIn));
-    }
+	public String getSaveInfo() {
+		return saveInfo;
+	}
 
-    public String getSaveInfo(){
-        return saveInfo;
-    }
+	@Override
+	public int getRotation() {
+		return 0;
+	}
 
-    @Override
-    public int getRotation() {
-        return 0;
-    }
+	public void rotate() {
 
-    public void rotate(){
-
-    }
+	}
 }

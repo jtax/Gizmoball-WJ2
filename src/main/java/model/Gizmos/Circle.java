@@ -14,14 +14,13 @@ public class Circle extends Gizmo {
 
 	Vect center;
 	private String saveInfo;
+
 	public Circle(Vect origin, String name) {
 		super(origin, name);
 		super.setCircles(Arrays.asList(calculateCircle()));
 		super.setColor(Color.GREEN);
-		saveInfo = "Circle" +" " +name + " " + (int)origin.getXCoord() + " " + (int)origin.getyCoord();
+		saveInfo = "Circle" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
-
-
 
 	public Circle(int x, int y, String name) {
 		this(new Vect(x, y), name);
@@ -41,7 +40,6 @@ public class Circle extends Gizmo {
 
 	}
 
-
 	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();
@@ -49,7 +47,7 @@ public class Circle extends Gizmo {
 		return origin.plus(bound);
 	}
 
-	public String getSaveInfo(){
+	public String getSaveInfo() {
 		return saveInfo;
 	}
 
