@@ -12,9 +12,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
-
-import model.Ball;
-import model.Board;
+import model.IBoard;
 import model.IElement;
 import model.gizmos.Wall;
 
@@ -23,13 +21,13 @@ import model.gizmos.Wall;
  */
 public class BoardViewImpl implements BoardView, Observer {
 
-	private Board board;
+	private IBoard board;
 	private JPanel panel;
 	private Mode mode;
 	private Collection<IElement> shapes;
 	private Shapifier shapifier;
 
-	public BoardViewImpl(Board board) {
+	public BoardViewImpl(IBoard board) {
 		setBoard(board);
 
 		panel = getDefaultLayout();
@@ -65,7 +63,7 @@ public class BoardViewImpl implements BoardView, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Board board = (Board) o;
+		IBoard board = (IBoard) o;
 		shapes.clear();
 
 		for (IElement e : board.getAllElements()) {
@@ -100,7 +98,7 @@ public class BoardViewImpl implements BoardView, Observer {
 		return panel.getHeight() / board.getHeight();
 	}
 
-	private void setBoard(Board board) {
+	private void setBoard(IBoard board) {
 		this.board = board;
 	}
 
