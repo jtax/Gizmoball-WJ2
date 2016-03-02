@@ -12,7 +12,7 @@ import physics.Vect;
 /**
  * Created by baird on 06/02/2016.
  */
-public class BoardManager {
+public class BoardManager implements IBoardManager {
 	private Board board;
 	private Collision closestCollision;
 	private final static double moveTime = 0.05;
@@ -28,16 +28,19 @@ public class BoardManager {
 		this.board = board;
 	}
 
+	@Override
 	public Board getBoard() {
 		return board;
 	}
 
+	@Override
 	public void setBoard(Board board) {
 		this.board = board;
 	}
 
 	/* ----- Physics Loop ---- */
 
+	@Override
 	public void tick() {
 		Collection<Ball> newBalls = new ArrayList<>();
 		for (Ball ball : board.getBalls()) {
@@ -78,7 +81,7 @@ public class BoardManager {
 		return closestCollision;
 	}
 
-	public void detectCircleCollision(Circle circle, Ball ball, IElement element) {
+	private void detectCircleCollision(Circle circle, Ball ball, IElement element) {
 		double time = Geometry.timeUntilCircleCollision(circle, ball.getCircle(), ball.getVelocity());
 		if (time < closestCollision.getTime()) {
 			Vect newV = Geometry.reflectCircle(circle.getCenter(), ball.getCenter(), ball.getVelocity());
@@ -86,7 +89,7 @@ public class BoardManager {
 		}
 	}
 
-	public void detectLineCollision(LineSegment line, Ball ball, IElement element) {
+	private void detectLineCollision(LineSegment line, Ball ball, IElement element) {
 		double time = Geometry.timeUntilWallCollision(line, ball.getCircle(), ball.getVelocity());
 		if (time < closestCollision.getTime()) {
 			Vect newV = Geometry.reflectWall(line, ball.getVelocity());
@@ -94,7 +97,7 @@ public class BoardManager {
 		}
 	}
 
-	public void detectBallCollision(Ball otherBall, Ball ball) {
+	private void detectBallCollision(Ball otherBall, Ball ball) {
 		Circle ballC = ball.getCircle(), oBallC = otherBall.getCircle();
 		Vect ballV = ball.getVelocity(), oBallV = otherBall.getVelocity();
 		double time = Geometry.timeUntilBallBallCollision(ballC, ballV, oBallC, oBallV);
