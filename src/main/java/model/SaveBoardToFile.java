@@ -1,6 +1,9 @@
 package model;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -15,12 +18,17 @@ public class SaveBoardToFile {
 
         if (board != null) {
 
+
             List<IElement> elements = board.getElements();
 
-            String fileName = "test" + ".txt";
+            File file = getSaveFile();
+            if (file == null){return false;}
+
+
+
 
             try {
-                FileWriter fileWriter = new FileWriter(fileName);
+                FileWriter fileWriter = new FileWriter(file+ ".txt");
 
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                 System.out.println("here");
@@ -57,7 +65,7 @@ public class SaveBoardToFile {
                 bufferedWriter.close();
                 return true;
             } catch (IOException ex) {
-                System.out.println("Error writing to file '" + fileName + "'");
+                System.out.println("Error writing to file");
                 return false;
             }
         }
@@ -67,5 +75,23 @@ public class SaveBoardToFile {
             }
 
         }
+
+   public File getSaveFile(){
+        File file;
+        JFileChooser saveFile = new JFileChooser();
+        saveFile.setCurrentDirectory(new File("/home/me/Documents"));
+        saveFile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        saveFile.setAcceptAllFileFilterUsed(false);
+        saveFile.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        int retrival = saveFile.showSaveDialog(null);
+        if (retrival == JFileChooser.APPROVE_OPTION) {
+            file = saveFile.getSelectedFile();
+        }
+        else{
+            System.out.println("save file not selected");
+            return null;
+        }
+       return file;
+    }
     }
 

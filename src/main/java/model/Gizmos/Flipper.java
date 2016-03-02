@@ -58,10 +58,13 @@ public class Flipper extends Gizmo implements Triggerable {
 		if(direction == Direction.RIGHT) {
 			saveDirection = "Right";
 			setSaveInfo();
-			this.origin = origin.plus(new Vect(1.5, 0));
-			this.bound = calculateBound();
-			this.coordinates = calculateCoordinates();
+			origin = origin.plus(new Vect(1.5, 0));
+			bound = calculateBound();
+			coordinates = calculateCoordinates();
+			super.setCircles(calculateCircles());
+			super.setLines(calculateLines());
 		}
+
 
 	}
 
