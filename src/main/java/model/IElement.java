@@ -10,23 +10,27 @@ import physics.Vect;
 /**
  * Created by baird on 06/02/2016.
  */
-public interface IElement {
+public interface IElement extends CollisionHandler {
 
-    List<LineSegment> getLines();
+	List<LineSegment> getLines();
 
-    List<Circle> getCircles();
+	List<Circle> getCircles();
 
-    List<Vect> getCoordinates();
+	List<Vect> getCoordinates();
 
-    Vect getOrigin();
+	Vect getOrigin();
 
-    Vect getBound();
+	Vect getBound();
 
-    Color getColor();
+	Color getColor();
 
-    void setColor(Color color);
+	void setColor(Color color);
 
-    String getName();
+	String getName();
 
-    void rotate();
+	String getSaveInfo();
+
+	int getRotation();
+
+	void rotate();
 }

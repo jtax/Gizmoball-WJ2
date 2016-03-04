@@ -1,9 +1,12 @@
 package model;
 
 /**
- * Created by baird on 06/02/2016.
+ * Created by Umar on 02/03/2016.
  */
 public interface IBoardManager {
+	Board getBoard();
 
+	void setBoard(Board board);
 
+	void tick();
 }

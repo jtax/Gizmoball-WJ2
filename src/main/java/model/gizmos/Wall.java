@@ -25,8 +25,7 @@ public class Wall extends Gizmo {
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 		super.setColor(Color.BLACK);
-		}
-
+	}
 
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
@@ -65,6 +64,15 @@ public class Wall extends Gizmo {
 	@Override
 	public Vect calculateBound() {
 		return bound;
+	}
+
+	public String getSaveInfo() {
+		return "Wall";
+	}
+
+	@Override
+	public int getRotation() {
+		return 0;
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.Ball;
+import model.Collision;
 import model.Gizmo;
 import model.Triggerable;
 import physics.LineSegment;
@@ -19,15 +20,18 @@ public class Absorber extends Gizmo implements Triggerable {
 	private Vect bound;
 	private List<Vect> coordinates;
 	private Ball ourBall;
+	private String saveInfo;
 
 	public Absorber(Vect origin, Vect bound, String name) {
-		super(origin,name);
+		super(origin, name);
 		this.bound = bound;
 		setBound(bound);
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 		super.setColor(Color.MAGENTA);
+		saveInfo = "Absorber" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord() + " "
+				+ (int) bound.getXCoord() + " " + (int) bound.getyCoord();
 	}
 
 	public Absorber(int originX, int originY, int boundX, int boundY, String name) {
@@ -79,6 +83,7 @@ public class Absorber extends Gizmo implements Triggerable {
 
 	public void absorb(Ball ball) {
 		ourBall = ball;
+		ourBall.setAbsorbed();
 		positionBall();
 	}
 
@@ -87,27 +92,31 @@ public class Absorber extends Gizmo implements Triggerable {
 			double xVelocity = 0, yVelocity = -50;
 			Vect velocity = new Vect(xVelocity, yVelocity);
 			ourBall.setVelocity(velocity);
+			ourBall.clearAbsorbed();
 
 			ourBall = null;
 		}
 	}
 
-	/**
-	 * Does the absorber have your ball?
-	 *
-	 * @param yourBall your ball
-	 * @return true if the absorber has your ball, otherwise false
-	 */
-	public boolean hasBall(Ball yourBall) {
-		return yourBall == ourBall;
-	}
-
 	private void positionBall() {
 		if (weHaveABall()) {
-			Vect bound = getBound();
-			double ballX = bound.x() - .25, ballY = bound.y() - .25;
+			Vect ourBound = getBound();
+			double ballRadius = ourBall.getRadius();
+
+			double ballX = ourBound.x() - ballRadius - .25;
+			double ballY = ourBound.y() - ballRadius - .25;
+
 			ourBall.setCenter(new Vect(ballX, ballY));
 		}
+	}
+
+	public String getSaveInfo() {
+		return saveInfo;
+	}
+
+	@Override
+	public int getRotation() {
+		return 0;
 	}
 
 	private boolean weHaveABall() {
@@ -117,5 +126,11 @@ public class Absorber extends Gizmo implements Triggerable {
 	@Override
 	public List<Vect> getCoordinates() {
 		return coordinates;
+	}
+
+	@Override
+	public void handle(Collision c) {
+		Ball ball = c.getBall();
+		absorb(ball);
 	}
 }

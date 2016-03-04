@@ -6,41 +6,45 @@ import physics.Vect;
  * Created by baird on 14/02/2016.
  */
 public class Collision {
-    private double time;
-    private Vect velocity;
-    private IElement collisionElement;
+	private double time;
+	private Vect velocity;
+	private CollisionHandler handler;
+	private Ball ball;
 
+	public Collision(Vect velocity, double time, CollisionHandler handler, Ball ball) {
+		this.velocity = velocity;
+		this.time = time;
+		this.handler = handler;
+		this.ball = ball;
+	}
 
-    public Collision(Vect velocity, double time, IElement element) {
-        this.velocity = velocity;
-        this.time = time;
-        this.collisionElement = element;
-    }
+	public Collision(Vect velocity, double time) {
+		this.velocity = velocity;
+		this.time = time;
+	}
 
-    public Collision(Vect velocity, double time) {
-        this.velocity = velocity;
-        this.time = time;
-    }
+	public Collision(double x, double y, double time, CollisionHandler handler, Ball ball) {
+		this(new Vect(x, y), time, handler, ball);
+	}
 
-    public Collision(double x, double y, double time, IElement element) {
-        this(new Vect(x, y), time, element);
-    }
+	public Collision(double x, double y, double time) {
+		this(new Vect(x, y), time);
+	}
 
+	public Vect getVelocity() {
+		return velocity;
+	}
 
-    public Collision(double x, double y, double time) {
-        this(new Vect(x, y), time);
-    }
+	public double getTime() {
+		return time;
+	}
 
-    public Vect getVelocity() {
-        return velocity;
-    }
+	public CollisionHandler getHandler() {
+		return handler;
+	}
 
-    public double getTime() {
-        return time;
-    }
-
-    public IElement getElement() {
-        return collisionElement;
-    }
+	public Ball getBall() {
+		return ball;
+	}
 
 }

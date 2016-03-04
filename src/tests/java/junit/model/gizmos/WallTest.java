@@ -10,19 +10,18 @@ import static org.junit.Assert.*;
  */
 public class WallTest {
 
+	@Before
+	public void setUp() throws Exception {
 
-    @Before
-    public void setUp() throws Exception {
+	}
 
-    }
+	@Test
+	public void testRotate() throws Exception {
 
-    @Test
-    public void testRotate() throws Exception {
+	}
 
-    }
+	@Test
+	public void testCalculateBound() throws Exception {
 
-    @Test
-    public void testCalculateBound() throws Exception {
-
-    }
+	}
 }

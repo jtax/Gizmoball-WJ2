@@ -8,9 +8,8 @@ import java.awt.event.ActionListener;
  */
 public class RunModeButtonListener implements ActionListener {
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+	@Override
+	public void actionPerformed(ActionEvent e) {
 
-
-    }
+	}
 }
