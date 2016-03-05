@@ -1,15 +1,14 @@
 package model;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import model.gizmos.Flipper;
 import model.gizmos.Wall;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by baird on 06/02/2016.
@@ -17,7 +16,7 @@ import physics.Vect;
 public class BoardManager implements IBoardManager {
 	private Board board;
 	private Collision closestCollision;
-	private final static double moveTime = 0.05;
+	public final static double moveTime = 0.05;
 
 	public BoardManager() {
 		this(new Board(new double[] { 0.025, 0.025 }, 25, 20, 20));
@@ -76,6 +75,11 @@ public class BoardManager implements IBoardManager {
 			for (LineSegment line : element.getLines()) {
 				detectLineCollision(line, ball, element);
 			}
+
+			if (element instanceof Flipper) {
+				((Flipper) element).flip();
+			}
+
 		}
 		for (Ball otherBall : board.getBalls()) {
 			detectBallCollision(otherBall, ball);
