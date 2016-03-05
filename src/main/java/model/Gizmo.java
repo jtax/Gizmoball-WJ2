@@ -1,12 +1,12 @@
 package model;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
 import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
@@ -32,7 +32,6 @@ abstract public class Gizmo implements IElement {
 		rotation = 0;
 		this.name = name;
 		color = colors[0];
-		rotation = 0;
 
 		// TODO: set the bounds correctly according to which gizmo it is
 		// bound = new Vect(origin.x() + 1, origin.y() + 1);
