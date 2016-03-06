@@ -62,18 +62,41 @@ public class Triangle extends Gizmo {
 	}
 
 	public void rotate() {
+		Vect centerPoint = getCenterPoint();
 		rotation = (rotation + 1) % 4;
 		setSaveInfo();
+		List<Vect> newCoords = new ArrayList<Vect>();
+		for (int i = 0; i < coordinates.size(); i++) {
+			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, 90));
+		}
+		/*
 		Vect topLeft = origin;
 		Vect topRight = new Vect(bound.x(), origin.y());
 		Vect bottomRight = bound;
 		Vect bottomLeft = new Vect(origin.x(), bound.y());
 		List<Vect> vects = new ArrayList<Vect>(Arrays.asList(topLeft, topRight, bottomRight, bottomLeft));
 		vects.remove(rotation);
-		coordinates = vects;
+		coordinates = vects;*/
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 	}
+
+	public Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
+		double angleR = Math.toRadians(angle);
+		Vect coord = coordinate.minus(center);
+		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
+		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
+		Vect rotatedCoord = new Vect(newX, newY).plus(center);
+		return rotatedCoord;
+	}
+
+	public Vect getCenterPoint() {
+		double width = bound.x() - origin.x();
+		double height = bound.y() - origin.y();
+		return origin.plus(new Vect(width / 2, height / 2));
+	}
+
+
 
 	@Override
 	public Vect calculateBound() {
