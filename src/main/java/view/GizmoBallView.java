@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
+import controller.BuildListener;
 import controller.KeyPressListener;
 import controller.RunListener;
 import model.Board;
@@ -35,7 +36,8 @@ public class GizmoBallView implements Observer {
 	private JMenuBar menu;
 	private BoardView boardView;
 	private IBoardManager boardManager;
-	private ActionListener listener;
+	private ActionListener runListener;
+	private ActionListener buildListener;
 
 	public GizmoBallView(IBoardManager bm) {
 		IBoard board = bm.getBoard();
@@ -45,8 +47,8 @@ public class GizmoBallView implements Observer {
 		contentPane = frame.getContentPane();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		boardView = new BoardViewImpl(board);
-		listener = new RunListener(bm);
-
+		runListener = new RunListener(bm, this);
+		buildListener = new BuildListener(bm, this);
 		keyPressListener = new MagicKeyListener(new KeyPressListener(bm.getBoard().getElements()));
 		makeFrame();
 	}
@@ -76,13 +78,13 @@ public class GizmoBallView implements Observer {
 	}
 
 	private void makeRunGUI() {
-		runGUI = new RunGUI(listener);
+		runGUI = new RunGUI(runListener);
 		bottomButtons = runGUI.createButton();
 		menu = runGUI.createMenu();
 	}
 
 	private void makeBuildGUI() {
-		buildGUI = new BuildGUI();
+		buildGUI = new BuildGUI(buildListener);
 		bottomButtons = buildGUI.createBottomButton();
 		topButtons = buildGUI.createTopButton();
 		menu = buildGUI.createMenu();
@@ -93,6 +95,16 @@ public class GizmoBallView implements Observer {
 
 		boardView.update(o, arg);
 
+	}
+
+	public JFrame getFrame(){
+		return frame;
+	}
+
+	public void switchMode(){
+		runMode = !runMode;
+		contentPane.removeAll();
+		makeFrame();
 	}
 
 }
