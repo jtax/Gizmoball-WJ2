@@ -20,8 +20,10 @@ public class BuildGUI {
 	private JButton absorber;
 	private JButton ball;
 	private JButton flipper;
+	private ActionListener listener;
 
-	public BuildGUI() {
+	public BuildGUI(ActionListener listener) {
+		this.listener = listener;
 		makeFrame();
 	}
 
@@ -34,6 +36,8 @@ public class BuildGUI {
 
 	public JPanel createBottomButton() {
 		switchToRun = new JButton("Run Mode");
+		switchToRun.addActionListener(listener);
+
 		shape = new JComboBox<String>();
 		shape.addItem("Pick a gizmo");
 		shape.addItem("Square");
@@ -60,6 +64,7 @@ public class BuildGUI {
 		bottomButtons.add(gravity);
 		bottomButtons.add(keyConn);
 		bottomButtons.add(connGizmo);
+
 
 		return bottomButtons;
 	}
