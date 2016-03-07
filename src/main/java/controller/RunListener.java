@@ -40,6 +40,9 @@ public class RunListener implements ActionListener {
 			case "Exit":
 				System.exit(0);
 				break;
+			case "Build Mode":
+				System.out.println("Build mode switch");
+				break;
 			}
 		}
 	}
