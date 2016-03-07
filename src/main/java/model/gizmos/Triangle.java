@@ -32,7 +32,6 @@ public class Triangle extends Gizmo {
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
 		Vect topRight = new Vect(bound.x(), origin.y());
-		Vect bottomRight = bound;
 		Vect bottomLeft = new Vect(origin.x(), bound.y());
 		return Arrays.asList(topLeft, topRight, bottomLeft);
 	}
@@ -69,14 +68,6 @@ public class Triangle extends Gizmo {
 		for (int i = 0; i < coordinates.size(); i++) {
 			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, 90));
 		}
-		/*
-		Vect topLeft = origin;
-		Vect topRight = new Vect(bound.x(), origin.y());
-		Vect bottomRight = bound;
-		Vect bottomLeft = new Vect(origin.x(), bound.y());
-		List<Vect> vects = new ArrayList<Vect>(Arrays.asList(topLeft, topRight, bottomRight, bottomLeft));
-		vects.remove(rotation);
-		coordinates = vects;*/
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 	}

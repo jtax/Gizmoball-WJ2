@@ -16,7 +16,7 @@ public class Ball implements IElement, Absorbable {
 	private Vect origin;
 	private Vect velocity;
 	private Vect center;
-	private Color color = Color.BLUE;
+	private Color color = Color.CYAN;
 	private String name;
 	private boolean absorbed;
 	private final float diameter = 0.5f;
