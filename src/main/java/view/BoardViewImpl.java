@@ -34,7 +34,7 @@ public class BoardViewImpl implements BoardView, Observer {
 		panel.setPreferredSize(new Dimension(500, 500));
 		panel.setBackground(Color.black);
 
-		mode = Mode.BUILD;
+		mode = Mode.RUN;
 
 		shapes = new HashSet<IElement>();
 		shapifier = new Shapifier(this);
