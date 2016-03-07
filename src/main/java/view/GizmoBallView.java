@@ -27,7 +27,6 @@ import view.buttongroups.RunGUI;
 public class GizmoBallView implements Observer {
 
 	private final MagicKeyListener keyPressListener;
-	private boolean runMode;
 	private JFrame frame;
 	Container contentPane;
 	private RunGUI runGUI;
@@ -42,7 +41,6 @@ public class GizmoBallView implements Observer {
 	public GizmoBallView(IBoardManager bm) {
 		IBoard board = bm.getBoard();
 		boardManager = bm;
-		runMode = true;
 		frame = new JFrame("Gizmo Baw");
 		contentPane = frame.getContentPane();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,10 +52,10 @@ public class GizmoBallView implements Observer {
 	}
 
 	public void makeFrame() {
-		if (runMode) {
+		boardPanel = boardView.getPanel();
+		
+		if (boardView.getMode() == Mode.RUN) {
 			makeRunGUI();
-
-			boardPanel = boardView.getPanel();
 
 			// Listen for key events
 			frame.addKeyListener(keyPressListener);
@@ -65,6 +63,7 @@ public class GizmoBallView implements Observer {
 			makeBuildGUI();
 			contentPane.add(topButtons, BorderLayout.NORTH);
 		}
+		
 		contentPane.add(boardPanel, BorderLayout.CENTER);
 		contentPane.add(bottomButtons, BorderLayout.SOUTH);
 		frame.setJMenuBar(menu);
@@ -102,7 +101,7 @@ public class GizmoBallView implements Observer {
 	}
 
 	public void switchMode(){
-		runMode = !runMode;
+		boardView.toggleMode();
 		contentPane.removeAll();
 		makeFrame();
 	}
