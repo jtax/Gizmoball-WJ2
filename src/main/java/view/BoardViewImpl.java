@@ -37,7 +37,7 @@ public class BoardViewImpl implements BoardView, Observer {
 
 		panel = getDefaultLayout();
 		panel.setPreferredSize(new Dimension(500, 500));
-		panel.setBackground(Color.black);
+		panel.setBackground(new Color(0x34495e));
 		panel.addMouseListener(new BoardMouseListener(this, board));
 
 		mode = Mode.BUILD;

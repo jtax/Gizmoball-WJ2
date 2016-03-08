@@ -25,7 +25,7 @@ public class Square extends Gizmo {
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		super.setColor(Color.red);
+		super.setColor(new Color(0xc0392b));
 		saveInfo = "Square" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
 

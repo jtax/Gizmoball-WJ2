@@ -1,6 +1,6 @@
 package view.buttongroups;
 
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
@@ -63,13 +63,10 @@ public class BuildGUI {
 	}
 
 	public JPanel createTopButton() {
-		ImageIcon addIco = new ImageIcon("src/resources/add.png");
-		add = new JButton(addIco);
-		ImageIcon runIco = new ImageIcon("src/resources/play.png");
-		switchToRun = new JButton(runIco);
+		add = new JButton("Add");
+		switchToRun = new JButton("Run Mode");
 		switchToRun.addActionListener(listener);
-		ImageIcon removeIco = new ImageIcon("src/resources/delete.png");
-		remove = new JButton(removeIco);
+		remove = new JButton("Remove");
 		remove.addActionListener(listener);
 
 
@@ -77,7 +74,6 @@ public class BuildGUI {
 		topButtons.add(add);
 		topButtons.add(remove);
 		topButtons.add(switchToRun);
-
 		return topButtons;
 	}
 
@@ -85,6 +81,8 @@ public class BuildGUI {
 		JMenuBar menus = new JMenuBar();
 
 		JMenu file = new JMenu("File");
+		file.setBackground(new Color(0x2C3E50));
+		file.setForeground(new Color(0xECF0F1));
 
 		JMenuItem loadModel = new JMenuItem("Load Board");
 		file.add(loadModel);
@@ -102,7 +100,8 @@ public class BuildGUI {
 		file.add(quit);
 
 		menus.add(file);
-
+		menus.setBackground(new Color(0x2C3E50));
+		menus.setForeground(new Color(0xECF0F1));
 		return menus;
 	}
 }

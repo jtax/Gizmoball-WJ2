@@ -19,7 +19,7 @@ public class Circle extends Gizmo {
 	public Circle(Vect origin, String name) {
 		super(origin, name);
 		super.setCircles(Arrays.asList(calculateCircle()));
-		super.setColor(Color.GREEN);
+		super.setColor(new Color(0x27ae60));
 		saveInfo = "Circle" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 		this.name = name;
 	}

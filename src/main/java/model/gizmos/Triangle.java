@@ -21,7 +21,7 @@ public class Triangle extends Gizmo {
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		super.setColor(Color.blue);
+		super.setColor(new Color(0x2980b9));
 		setSaveInfo();
 	}
 
