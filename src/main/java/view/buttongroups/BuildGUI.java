@@ -49,6 +49,7 @@ public class BuildGUI {
 		JButton rotate = new JButton("Rotate");
 		rotate.addActionListener(listener);
 		JButton move = new JButton("Move");
+		move.addActionListener(listener);
 		JButton friction = new JButton("Friction");
 		JButton gravity = new JButton("Gravity");
 		JButton keyConn = new JButton("Key Connection");

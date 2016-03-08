@@ -21,10 +21,12 @@ public class Absorber extends Gizmo implements Triggerable {
 	private List<Vect> coordinates;
 	private Ball ourBall;
 	private String saveInfo;
+	private String name;
 
 	public Absorber(Vect origin, Vect bound, String name) {
 		super(origin, name);
 		this.bound = bound;
+		this.name = name;
 		setBound(bound);
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
@@ -154,5 +156,16 @@ public class Absorber extends Gizmo implements Triggerable {
 	public void handle(Collision c) {
 		Ball ball = c.getBall();
 		absorb(ball);
+	}
+
+	public void move(Vect distance) {
+		super.origin = super.origin.plus(distance);
+		this.bound = bound.plus(distance);
+		super.bound = bound;
+		coordinates = calculateCoordinates();
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
+		saveInfo = "Absorber" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord() + " "
+				+ (int) bound.getXCoord() + " " + (int) bound.getyCoord();
 	}
 }

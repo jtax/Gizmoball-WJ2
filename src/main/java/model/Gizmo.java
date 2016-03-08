@@ -37,6 +37,9 @@ abstract public class Gizmo implements IElement {
 		bound = calculateBound();
 	}
 
+	public abstract void move(Vect distance);
+
+
 	@Override
 	public Vect getOrigin() {
 		return origin;
