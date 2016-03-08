@@ -22,6 +22,8 @@ public interface IBoard {
 
 	void addElement(IElement element);
 
+	void removeElement(IElement element);
+
 	double[] getFrictionConst();
 
 	void setFrictionConst(double[] frictionConst);
