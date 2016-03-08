@@ -35,7 +35,19 @@ public class BuildListener implements ActionListener {
                 if (getSelectedElement() != null) {
                     getSelectedElement().rotate();
                     gbv.updateBoardView();
-                } else {
+                }
+                else{
+                    System.out.println("No Element Was Selected");
+                }
+                break;
+            case "Gravity":
+                break;
+            case "Remove":
+                if (getSelectedElement() != null){
+                    boardManager.getBoard().removeElement(getSelectedElement());
+                    gbv.updateBoardView();
+                }
+                else{
                     System.out.println("No Element Was Selected");
                 }
                 break;

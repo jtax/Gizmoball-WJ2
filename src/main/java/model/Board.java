@@ -90,6 +90,13 @@ public class Board extends Observable implements IBoard {
 	}
 
 	@Override
+	public void removeElement(IElement element) {
+		elements.remove(element);
+		setChanged();
+		notifyObservers();
+	}
+
+	@Override
 	public double[] getFrictionConst() {
 		return frictionConst;
 	}

@@ -75,6 +75,8 @@ public class BuildGUI {
 		add = new JButton("Add");
 		select = new JButton("Select");
 		remove = new JButton("Remove");
+		remove.addActionListener(listener);
+
 
 		JPanel topButtons = new JPanel(new GridLayout(1, 3));
 		topButtons.add(add);
