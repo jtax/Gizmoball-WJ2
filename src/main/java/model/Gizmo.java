@@ -16,7 +16,7 @@ abstract public class Gizmo implements IElement {
 	protected Vect origin, bound;
 	private Gizmo trigger;
 	private Color color;
-	private Color[] colors;
+	private Color backupColor;
 	private List<LineSegment> lines;
 	private List<Circle> circles;
 	protected int rotation;
@@ -28,10 +28,9 @@ abstract public class Gizmo implements IElement {
 		lines = new ArrayList<>();
 		circles = new ArrayList<>();
 		this.origin = origin;
-		colors = new Color[] { Color.red, Color.green, Color.blue };
+		color = Color.RED;
 		rotation = 0;
 		this.name = name;
-		color = colors[0];
 
 		// TODO: set the bounds correctly according to which gizmo it is
 		// bound = new Vect(origin.x() + 1, origin.y() + 1);
@@ -86,6 +85,7 @@ abstract public class Gizmo implements IElement {
 
 	public void setColor(Color color) {
 		this.color = color;
+		this.backupColor = color;
 	}
 
 	public abstract void rotate();
@@ -128,5 +128,15 @@ abstract public class Gizmo implements IElement {
 
 		setColor(Color.GREEN);
 	}
+
+	public void highlight() {
+		if (color != backupColor) {
+			color = backupColor;
+		} else {
+			color = Color.CYAN;
+		}
+	}
+
+
 
 }

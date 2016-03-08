@@ -47,6 +47,7 @@ public class BuildGUI {
 		shape.addItem("Right Flipper");
 		shape.addItem("Absorber");
 		JButton rotate = new JButton("Rotate");
+		rotate.addActionListener(listener);
 		JButton move = new JButton("Move");
 		JButton friction = new JButton("Friction");
 		JButton gravity = new JButton("Gravity");

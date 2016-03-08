@@ -1,6 +1,7 @@
 package controller;
 
 import model.IBoardManager;
+import model.IElement;
 import view.GizmoBallView;
 
 import javax.swing.*;
@@ -29,9 +30,22 @@ public class BuildListener implements ActionListener {
                 System.out.println("i work here, Run mode");
                 gbv.switchMode();
                 break;
-            }
+            case "Rotate":
+                System.out.println("Rotating");
+                if (getSelectedElement() != null) {
+                    getSelectedElement().rotate();
+                    gbv.updateBoardView();
+                } else {
+                    System.out.println("No Element Was Selected");
+                }
+                break;
+        }
 
 
+    }
+
+    private IElement getSelectedElement() {
+        return boardManager.getBoard().getSelectedElement();
     }
 }
 

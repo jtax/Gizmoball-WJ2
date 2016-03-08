@@ -150,6 +150,11 @@ public class Ball implements IElement, Absorbable {
 	}
 
 	@Override
+	public void highlight() {
+
+	}
+
+	@Override
 	public void handle(Collision collision) {
 		Ball ball = collision.getBall();
 		ball.moveForTime(collision.getTime());
