@@ -16,4 +16,8 @@ public interface BoardView {
 	int getVerticalScalingFactor();
 
 	void update(Observable o, Object arg);
+	
+	Mode getMode();
+	
+	Mode toggleMode();
 }
