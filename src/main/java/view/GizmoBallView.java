@@ -106,6 +106,14 @@ public class GizmoBallView implements Observer {
 		makeFrame();
 	}
 
+	public BuildGUI getBuildGUI(){
+		return buildGUI;
+	}
+
+	public RunGUI getRunGUI(){
+		return runGUI;
+	}
+
 	public void updateBoardView() {
 		boardView.getPanel().repaint();
 	}

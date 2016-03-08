@@ -45,7 +45,9 @@ public class BuildGUI {
 		JButton move = new JButton("Move");
 		move.addActionListener(listener);
 		JButton friction = new JButton("Friction");
+		friction.addActionListener(listener);
 		JButton gravity = new JButton("Gravity");
+		gravity.addActionListener(listener);
 		JButton keyConn = new JButton("Key Connection");
 		JButton connGizmo = new JButton("Gizmo Connection");
 		ball = new JButton("Ball");
@@ -103,5 +105,36 @@ public class BuildGUI {
 		menus.setBackground(new Color(0x2C3E50));
 		menus.setForeground(new Color(0xECF0F1));
 		return menus;
+	}
+
+	public double promptGravity(){
+		String gravVal = JOptionPane.showInputDialog("Please enter a value for gravity (numerical)");
+		double gravValDouble = 0.0;
+
+		try {
+			gravValDouble = Double.parseDouble(gravVal);
+		}
+		catch (Exception e){
+			return 25.0;
+		}
+		return gravValDouble;
+	}
+
+	public double[] promptFriction() {
+		String frictVal1 = JOptionPane.showInputDialog("Please enter the 1st value for friction (numerical)");
+		String frictVal2 = JOptionPane.showInputDialog("Please enter the 2nd value for friction (numerical)");
+
+		double frictVal1Double = 0.0;
+		double frictVal2Double = 0.0;
+
+
+		try {
+			frictVal1Double = Double.parseDouble(frictVal1);
+			frictVal2Double = Double.parseDouble(frictVal2);
+		}
+		catch (Exception e){
+			return new double[]{0.025, 0.025};
+		}
+		return new double[]{frictVal1Double, frictVal2Double};
 	}
 }
