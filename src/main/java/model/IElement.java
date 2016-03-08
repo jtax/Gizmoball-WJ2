@@ -33,4 +33,6 @@ public interface IElement extends CollisionHandler {
 	int getRotation();
 
 	void rotate();
+
+	void highlight();
 }

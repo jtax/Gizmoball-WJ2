@@ -1,5 +1,7 @@
 package controller;
 
+import model.IBoard;
+import physics.Vect;
 import view.BoardViewImpl;
 
 import java.awt.event.MouseEvent;
@@ -10,24 +12,30 @@ import java.awt.event.MouseListener;
  */
 public class BoardMouseListener implements MouseListener {
     private BoardViewImpl bView;
+    private IBoard board;
 
-    public BoardMouseListener(BoardViewImpl bView) {
+    public BoardMouseListener(BoardViewImpl bView, IBoard board) {
         this.bView = bView;
+        this.board = board;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Click X: " + scaleX(e.getX()) + " Y: " + scaleY(e.getY()));
-        bView.highLight(scaleX(e.getX()), scaleY(e.getY()));
+        board.setMouseClick(new Vect(scaleX(e.getX()), scaleY(e.getY())));
+        bView.getPanel().repaint();
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        board.setMousePress(new Vect(scaleX(e.getX()), scaleY(e.getY())));
+        bView.getPanel().repaint();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Mouse Release X: " + scaleX(e.getX()) + " Y: " + scaleY(e.getY()));
+        board.setMouseRelease(new Vect(scaleX(e.getX()), scaleY(e.getY())));
+        bView.getPanel().repaint();
     }
 
     @Override
@@ -39,7 +47,6 @@ public class BoardMouseListener implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
-
     private int scaleX(int val) {
         return val / bView.getHorizontalScalingFactor();
     }

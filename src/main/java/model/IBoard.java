@@ -1,5 +1,7 @@
 package model;
 
+import physics.Vect;
+
 import java.util.Collection;
 
 /**
@@ -37,4 +39,21 @@ public interface IBoard {
 	void setHeight(int height);
 
 	void changed();
+
+	Vect getMouseClick();
+
+	void setMouseClick(Vect mouseClick);
+
+	Vect getMousePress();
+
+	void setMousePress(Vect mousePress);
+
+	Vect getMouseRelease();
+
+	void setMouseRelease(Vect mouseRelease);
+
+	IElement getSelectedElement();
+
+	void setSelectedElement(IElement selectedElement);
+
 }

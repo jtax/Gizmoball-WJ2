@@ -27,8 +27,10 @@ public class BoardViewImpl implements BoardView, Observer {
 	private IBoard board;
 	private JPanel panel;
 	private Mode mode;
+
 	private Collection<IElement> shapes;
 	private Shapifier shapifier;
+
 
 	public BoardViewImpl(IBoard board) {
 		setBoard(board);
@@ -36,7 +38,7 @@ public class BoardViewImpl implements BoardView, Observer {
 		panel = getDefaultLayout();
 		panel.setPreferredSize(new Dimension(500, 500));
 		panel.setBackground(Color.black);
-		panel.addMouseListener(new BoardMouseListener(this));
+		panel.addMouseListener(new BoardMouseListener(this, board));
 
 		mode = Mode.BUILD;
 
@@ -136,16 +138,5 @@ public class BoardViewImpl implements BoardView, Observer {
 		g.draw(square);
 	}
 
-	public void highLight(int x, int y) {
-		for (IElement shape : shapes) {
-			Vect origin = shape.getOrigin();
-			Vect bound = shape.getBound();
-			if (origin.x() <= x && bound.x() > x) {
-				if (origin.y() <= y && bound.y() > y) {
-					shape.setColor(Color.WHITE);
-				}
-			}
-		}
-		panel.repaint();
-	}
+
 }
