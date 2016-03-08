@@ -40,7 +40,9 @@ public class BuildListener implements ActionListener {
                     System.out.println("No Element Was Selected");
                 }
                 break;
-            /*case "Remove":
+            case "Gravity":
+                break;
+            case "Remove":
                 if (getSelectedElement() != null){
                     boardManager.getBoard().removeElement(getSelectedElement());
                     gbv.updateBoardView();
@@ -48,7 +50,7 @@ public class BuildListener implements ActionListener {
                 else{
                     System.out.println("No Element Was Selected");
                 }
-                break;*/
+                break;
         }
 
 
