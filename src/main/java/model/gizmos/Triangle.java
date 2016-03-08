@@ -108,4 +108,14 @@ public class Triangle extends Gizmo {
 	public List<Vect> getCoordinates() {
 		return coordinates;
 	}
+
+
+	public void move(Vect distance) {
+		super.origin = super.origin.plus(distance);
+		super.bound = super.bound.plus(distance);
+		coordinates = calculateCoordinates();
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
+		setSaveInfo();
+	}
 }

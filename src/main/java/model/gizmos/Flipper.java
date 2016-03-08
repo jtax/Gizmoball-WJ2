@@ -42,6 +42,15 @@ public class Flipper extends Gizmo implements Triggerable {
 		setSaveInfo();
 	}
 
+	public void move(Vect distance) {
+		super.origin = super.origin.plus(distance);
+		super.bound = super.bound.plus(distance);
+		coordinates = calculateCoordinates();
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
+		saveInfo = "Circle" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
+	}
+
 	@Override
 	public void trigger() {
 

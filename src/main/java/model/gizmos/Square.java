@@ -17,9 +17,11 @@ public class Square extends Gizmo {
 	private int reflectionCoefficient = 1;
 	private List<Vect> coordinates;
 	private String saveInfo;
+	private String name;
 
 	public Square(Vect origin, String name) {
 		super(origin, name);
+		this.name = name;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
@@ -110,5 +112,14 @@ public class Square extends Gizmo {
 	@Override
 	public int getRotation() {
 		return 0;
+	}
+
+	public void move(Vect distance) {
+		super.origin = super.origin.plus(distance);
+		super.bound = super.bound.plus(distance);
+		coordinates = calculateCoordinates();
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
+		saveInfo = "Square" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
 }

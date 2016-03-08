@@ -35,4 +35,7 @@ public interface IElement extends CollisionHandler {
 	void rotate();
 
 	void highlight();
+
+	void move(Vect distance);
+
 }

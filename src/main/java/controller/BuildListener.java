@@ -2,6 +2,7 @@ package controller;
 
 import model.IBoardManager;
 import model.IElement;
+import physics.Vect;
 import view.GizmoBallView;
 
 import javax.swing.*;
@@ -31,7 +32,6 @@ public class BuildListener implements ActionListener {
                 gbv.switchMode();
                 break;
             case "Rotate":
-                System.out.println("Rotating");
                 if (getSelectedElement() != null) {
                     getSelectedElement().rotate();
                     gbv.updateBoardView();
@@ -51,6 +51,15 @@ public class BuildListener implements ActionListener {
                     System.out.println("No Element Was Selected");
                 }
                 break;
+            case "Move":
+                if (getSelectedElement() != null) {
+
+                    getSelectedElement().move(getRelease().minus(getPress()));
+                    gbv.updateBoardView();
+                } else {
+                    System.out.println("No Element Was Selected");
+                }
+                break;
         }
 
 
@@ -58,6 +67,18 @@ public class BuildListener implements ActionListener {
 
     private IElement getSelectedElement() {
         return boardManager.getBoard().getSelectedElement();
+    }
+
+    private Vect getClick() {
+        return boardManager.getBoard().getMouseClick();
+    }
+
+    private Vect getPress() {
+        return boardManager.getBoard().getMousePress();
+    }
+
+    private Vect getRelease() {
+        return boardManager.getBoard().getMouseRelease();
     }
 }
 
