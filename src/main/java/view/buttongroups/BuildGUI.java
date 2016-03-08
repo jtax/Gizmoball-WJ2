@@ -3,12 +3,7 @@ package view.buttongroups;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * Created by baird on 06/02/2016.
@@ -35,8 +30,6 @@ public class BuildGUI {
 	}
 
 	public JPanel createBottomButton() {
-		switchToRun = new JButton("Run Mode");
-		switchToRun.addActionListener(listener);
 
 		shape = new JComboBox<String>();
 		shape.addItem("Pick a gizmo");
@@ -46,6 +39,7 @@ public class BuildGUI {
 		shape.addItem("Left Flipper");
 		shape.addItem("Right Flipper");
 		shape.addItem("Absorber");
+		shape.addItem("Ball");
 		JButton rotate = new JButton("Rotate");
 		rotate.addActionListener(listener);
 		JButton move = new JButton("Move");
@@ -57,11 +51,8 @@ public class BuildGUI {
 		ball = new JButton("Ball");
 
 		JPanel bottomButtons = new JPanel(new GridLayout(3, 5));
-		bottomButtons.add(switchToRun);
 		bottomButtons.add(shape);
-		bottomButtons.add(ball);
 		bottomButtons.add(rotate);
-		bottomButtons.add(move);
 		bottomButtons.add(friction);
 		bottomButtons.add(gravity);
 		bottomButtons.add(keyConn);
@@ -72,16 +63,20 @@ public class BuildGUI {
 	}
 
 	public JPanel createTopButton() {
-		add = new JButton("Add");
-		select = new JButton("Select");
-		remove = new JButton("Remove");
+		ImageIcon addIco = new ImageIcon("src/resources/add.png");
+		add = new JButton(addIco);
+		ImageIcon runIco = new ImageIcon("src/resources/play.png");
+		switchToRun = new JButton(runIco);
+		switchToRun.addActionListener(listener);
+		ImageIcon removeIco = new ImageIcon("src/resources/delete.png");
+		remove = new JButton(removeIco);
 		remove.addActionListener(listener);
 
 
-		JPanel topButtons = new JPanel(new GridLayout(1, 3));
+		JPanel topButtons = new JPanel(new GridLayout(1, 6));
 		topButtons.add(add);
-		topButtons.add(select);
 		topButtons.add(remove);
+		topButtons.add(switchToRun);
 
 		return topButtons;
 	}
