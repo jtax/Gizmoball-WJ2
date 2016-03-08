@@ -12,9 +12,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
+
+import controller.BoardMouseListener;
 import model.IBoard;
 import model.IElement;
 import model.gizmos.Wall;
+import physics.Vect;
 
 /**
  * Created by baird on 06/02/2016.
@@ -33,8 +36,9 @@ public class BoardViewImpl implements BoardView, Observer {
 		panel = getDefaultLayout();
 		panel.setPreferredSize(new Dimension(500, 500));
 		panel.setBackground(Color.black);
+		panel.addMouseListener(new BoardMouseListener(this));
 
-		mode = Mode.RUN;
+		mode = Mode.BUILD;
 
 		shapes = new HashSet<IElement>();
 		shapifier = new Shapifier(this);
@@ -130,5 +134,18 @@ public class BoardViewImpl implements BoardView, Observer {
 
 		Rectangle square = new Rectangle(x * width, y * height, width, height);
 		g.draw(square);
+	}
+
+	public void highLight(int x, int y) {
+		for (IElement shape : shapes) {
+			Vect origin = shape.getOrigin();
+			Vect bound = shape.getBound();
+			if (origin.x() <= x && bound.x() > x) {
+				if (origin.y() <= y && bound.y() > y) {
+					shape.setColor(Color.WHITE);
+				}
+			}
+		}
+		panel.repaint();
 	}
 }
