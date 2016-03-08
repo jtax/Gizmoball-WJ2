@@ -31,6 +31,7 @@ public class BuildListener implements ActionListener {
                 System.out.println("i work here, Run mode");
                 gbv.switchMode();
                 break;
+
             case "Rotate":
                 if (getSelectedElement() != null) {
                     getSelectedElement().rotate();
@@ -40,8 +41,19 @@ public class BuildListener implements ActionListener {
                     System.out.println("No Element Was Selected");
                 }
                 break;
+
             case "Gravity":
+                double userGravityValue = gbv.getBuildGUI().promptGravity();
+                System.out.println("gravity: " + userGravityValue);
+                boardManager.getBoard().setGravityConst(userGravityValue);
                 break;
+
+            case "Friction":
+                double[] userFrictionValue = gbv.getBuildGUI().promptFriction();
+                System.out.println("friction: " + userFrictionValue);
+                boardManager.getBoard().setFrictionConst(userFrictionValue);
+                break;
+
             case "Remove":
                 if (getSelectedElement() != null){
                     boardManager.getBoard().removeElement(getSelectedElement());
@@ -51,6 +63,7 @@ public class BuildListener implements ActionListener {
                     System.out.println("No Element Was Selected");
                 }
                 break;
+
             case "Move":
                 if (getSelectedElement() != null) {
 
