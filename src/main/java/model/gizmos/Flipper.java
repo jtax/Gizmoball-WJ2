@@ -38,7 +38,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		super.setColor(Color.yellow);
+		super.setColor(new Color(0xf1c40f));
 		setSaveInfo();
 	}
 

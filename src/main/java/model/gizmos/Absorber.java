@@ -31,7 +31,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		super.setColor(Color.MAGENTA);
+		super.setColor(new Color(0x8e44ad));
 		saveInfo = "Absorber" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord() + " "
 				+ (int) bound.getXCoord() + " " + (int) bound.getyCoord();
 	}
