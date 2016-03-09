@@ -22,9 +22,11 @@ public class Absorber extends Gizmo implements Triggerable {
 	private Ball ourBall;
 	private String saveInfo;
 	private String name;
+	int rotation;
 
 	public Absorber(Vect origin, Vect bound, String name) {
 		super(origin, name);
+		rotation = 2;
 		this.bound = bound;
 		this.name = name;
 		setBound(bound);
@@ -140,7 +142,7 @@ public class Absorber extends Gizmo implements Triggerable {
 
 	@Override
 	public int getRotation() {
-		return 0;
+		return rotation;
 	}
 
 	private boolean weHaveABall() {
