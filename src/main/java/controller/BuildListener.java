@@ -28,7 +28,7 @@ public class BuildListener implements ActionListener {
         switch (e.getActionCommand()) {
 
             case "Run Mode":
-                System.out.println("i work here, Run mode");
+                gbv.changeStatusMessage("Ready");
                 gbv.switchMode();
                 break;
 
@@ -36,9 +36,10 @@ public class BuildListener implements ActionListener {
                 if (getSelectedElement() != null) {
                     getSelectedElement().rotate();
                     gbv.updateBoardView();
+                    gbv.changeStatusMessage("Rotated " + getSelectedElement().getName());
                 }
                 else{
-                    System.out.println("No Element Was Selected");
+                    gbv.changeStatusMessage("Error: No Element Was Selected");
                 }
                 break;
 
@@ -56,21 +57,22 @@ public class BuildListener implements ActionListener {
 
             case "Remove":
                 if (getSelectedElement() != null){
+                    gbv.changeStatusMessage("Removed " + getSelectedElement().getName());
                     boardManager.getBoard().removeElement(getSelectedElement());
                     gbv.updateBoardView();
                 }
                 else{
-                    System.out.println("No Element Was Selected");
+                    gbv.changeStatusMessage("Error: No Element Was Selected");
                 }
                 break;
 
             case "Move":
                 if (getSelectedElement() != null) {
-
                     getSelectedElement().move(getRelease().minus(getPress()));
                     gbv.updateBoardView();
+                    gbv.changeStatusMessage("Moved " + getSelectedElement().getName());
                 } else {
-                    System.out.println("No Element Was Selected");
+                    gbv.changeStatusMessage("Error: No Element Was Selected");
                 }
                 break;
         }

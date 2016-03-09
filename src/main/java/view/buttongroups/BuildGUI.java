@@ -10,8 +10,9 @@ import javax.swing.*;
  */
 public class BuildGUI {
 
-	private JButton add, select, remove, switchToRun;
+	private JButton add, move, remove, switchToRun;
 	private JComboBox<String> shape;
+	private JLabel statusBar;
 	private JButton absorber;
 	private JButton ball;
 	private JButton flipper;
@@ -32,7 +33,7 @@ public class BuildGUI {
 	public JPanel createBottomButton() {
 
 		shape = new JComboBox<String>();
-		shape.addItem("Pick a gizmo");
+		shape.addItem("Pick Element");
 		shape.addItem("Square");
 		shape.addItem("Circle");
 		shape.addItem("Triangle");
@@ -52,7 +53,7 @@ public class BuildGUI {
 		JButton connGizmo = new JButton("Gizmo Connection");
 		ball = new JButton("Ball");
 
-		JPanel bottomButtons = new JPanel(new GridLayout(3, 5));
+		JPanel bottomButtons = new JPanel(new GridLayout(2, 3));
 		bottomButtons.add(shape);
 		bottomButtons.add(rotate);
 		bottomButtons.add(friction);
@@ -60,14 +61,22 @@ public class BuildGUI {
 		bottomButtons.add(keyConn);
 		bottomButtons.add(connGizmo);
 
+		statusBar = new JLabel("Build Mode");
 
-		return bottomButtons;
+		JPanel bottomPanel = new JPanel(new BorderLayout());
+		bottomPanel.add(bottomButtons, BorderLayout.CENTER);
+		bottomPanel.add(statusBar, BorderLayout.SOUTH);
+
+
+		return bottomPanel;
 	}
 
 	public JPanel createTopButton() {
 		add = new JButton("Add");
 		switchToRun = new JButton("Run Mode");
 		switchToRun.addActionListener(listener);
+		move = new JButton("Move");
+		move.addActionListener(listener);
 		remove = new JButton("Remove");
 		remove.addActionListener(listener);
 
@@ -75,6 +84,7 @@ public class BuildGUI {
 		JPanel topButtons = new JPanel(new GridLayout(1, 6));
 		topButtons.add(add);
 		topButtons.add(remove);
+		topButtons.add(move);
 		topButtons.add(switchToRun);
 		return topButtons;
 	}
@@ -105,6 +115,10 @@ public class BuildGUI {
 		menus.setBackground(new Color(0x2C3E50));
 		menus.setForeground(new Color(0xECF0F1));
 		return menus;
+	}
+
+	public void updateStatusBar(String message) {
+		statusBar.setText(message);
 	}
 
 	public double promptGravity(){

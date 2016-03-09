@@ -3,11 +3,7 @@ package view.buttongroups;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * Created by baird on 06/02/2016.
@@ -15,6 +11,7 @@ import javax.swing.JPanel;
 public class RunGUI {
 
 	private ActionListener listener;
+	private JLabel statusBar;
 
 	public RunGUI(ActionListener listener) {
 		makeFrame();
@@ -43,17 +40,14 @@ public class RunGUI {
 		switchMode.addActionListener(listener);
 		switchMode.setFocusable(false);
 
-		JButton exit = new JButton("Exit");
-		exit.addActionListener(listener);
-		exit.setFocusable(false);
 
-		JPanel bottomButtons = new JPanel(new GridLayout(1, 5));
+		JPanel bottomButtons = new JPanel(new GridLayout(1, 4));
 
 		bottomButtons.add(start);
 		bottomButtons.add(stop);
 		bottomButtons.add(tick);
 		bottomButtons.add(switchMode);
-		bottomButtons.add(exit);
+
 		return bottomButtons;
 	}
 
@@ -68,7 +62,8 @@ public class RunGUI {
 		JMenuItem tick = new JMenuItem("Tick");
 		file.add(tick);
 
-		JMenuItem quit = new JMenuItem("Quit");
+		JMenuItem quit = new JMenuItem("Exit");
+		quit.addActionListener(listener);
 		file.add(quit);
 
 		menus.add(file);
@@ -77,5 +72,16 @@ public class RunGUI {
 		menus.setForeground(new Color(0xECF0F1));
 
 		return menus;
+	}
+
+	public void updateStatusBar(String message) {
+		statusBar.setText(message);
+	}
+
+	public JPanel getStatusBar() {
+		JPanel status = new JPanel(new GridLayout(1, 1));
+		statusBar = new JLabel("Run Mode");
+		status.add(statusBar);
+		return status;
 	}
 }
