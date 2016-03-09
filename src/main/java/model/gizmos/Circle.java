@@ -15,9 +15,11 @@ public class Circle extends Gizmo {
 	Vect center;
 	String name;
 	private String saveInfo;
+	private int rotation;
 
 	public Circle(Vect origin, String name) {
 		super(origin, name);
+		rotation = 2;
 		super.setCircles(Arrays.asList(calculateCircle()));
 		super.setColor(new Color(0x27ae60));
 		saveInfo = "Circle" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
@@ -38,6 +40,7 @@ public class Circle extends Gizmo {
 
 	@Override
 	public void rotate() {
+		rotation = (rotation + 1) % 4;
 		// TODO Auto-generated method stub
 
 	}
@@ -55,7 +58,7 @@ public class Circle extends Gizmo {
 
 	@Override
 	public int getRotation() {
-		return 0;
+		return rotation;
 	}
 
 	@Override

@@ -20,6 +20,7 @@ public class BoardController {
 	private GizmoBallView view;
 
 	public BoardController() {
+
 		LoadBoard l = new LoadBoard();
 		Board board = l.loadFile();
 //		Board board = l.openGizmoFromFile(new File(getClass().getClassLoader().getResource("inputFile.txt").getFile()));

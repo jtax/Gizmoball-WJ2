@@ -1,7 +1,12 @@
 package view.buttongroups;
 
+import model.Board;
+import view.LoadBoard;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
@@ -99,10 +104,20 @@ public class BuildGUI {
 		file.setForeground(new Color(0xECF0F1));
 
 		JMenuItem loadModel = new JMenuItem("Load Board");
+		loadModel.setAccelerator(KeyStroke.getKeyStroke(
+				KeyEvent.VK_L, ActionEvent.CTRL_MASK));
+		loadModel.addActionListener(listener);
 		file.add(loadModel);
 
 		JMenuItem saveModel = new JMenuItem("Save Board");
+		saveModel.setAccelerator(KeyStroke.getKeyStroke(
+				KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		saveModel.addActionListener(listener);
+
 		file.add(saveModel);
+
+
+
 
 		JMenuItem undo = new JMenuItem("Undo build");
 		file.add(undo);
