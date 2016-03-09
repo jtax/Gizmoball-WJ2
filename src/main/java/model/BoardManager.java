@@ -1,13 +1,14 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import model.gizmos.Flipper;
 import model.gizmos.Absorber;
+import model.gizmos.Flipper;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by baird on 06/02/2016.
@@ -15,7 +16,7 @@ import physics.Vect;
 public class BoardManager implements IBoardManager {
 	private Board board;
 	private Collision closestCollision;
-	public final static double moveTime = 0.05;
+	public final static double moveTime = 0.03;
 
 	public BoardManager() {
 		this(new Board(new double[] { 0.025, 0.025 }, 25, 20, 20));

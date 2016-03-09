@@ -196,18 +196,21 @@ public class Board extends Observable implements IBoard {
 			if (element.getClass() == Flipper.class) {
 
 				if (((Flipper) element).getDirection() == Direction.RIGHT) {
-					x += 1;
-				}
-
-				if (origin.x() <= x && bound.x() >= x) {
-					if (origin.y() <= y && bound.y() >= y) {
-						selectedElement = element;
-						selectedElement.highlight();
-						return;
+					if (origin.x() - 1.5 <= x && bound.x() > x) {
+						if (origin.y() <= y && bound.y() > y) {
+							selectedElement = element;
+							selectedElement.highlight();
+							return;
+						}
 					}
-				}
-				if (((Flipper) element).getDirection() == Direction.RIGHT) {
-					x -= 1;
+				} else {
+					if (origin.x() <= x && bound.x() + 1.5 > x) {
+						if (origin.y() <= y && bound.y() > y) {
+							selectedElement = element;
+							selectedElement.highlight();
+							return;
+						}
+					}
 				}
 
 			} else if (element.getClass() != Wall.class) {
