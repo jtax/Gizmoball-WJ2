@@ -48,21 +48,16 @@ public class BuildGUI {
 		shape.addItem("Ball");
 		JButton rotate = new JButton("Rotate");
 		rotate.addActionListener(listener);
-		JButton move = new JButton("Move");
-		move.addActionListener(listener);
 		JButton friction = new JButton("Friction");
 		friction.addActionListener(listener);
 		JButton gravity = new JButton("Gravity");
 		gravity.addActionListener(listener);
 		JButton keyConn = new JButton("Key Connection");
 		JButton connGizmo = new JButton("Gizmo Connection");
-		ball = new JButton("Ball");
 
 		JPanel bottomButtons = new JPanel(new GridLayout(2, 3));
 		bottomButtons.add(shape);
-		bottomButtons.add(ball);
 		bottomButtons.add(rotate);
-		bottomButtons.add(move);
 		bottomButtons.add(friction);
 		bottomButtons.add(gravity);
 		bottomButtons.add(keyConn);

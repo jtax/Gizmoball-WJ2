@@ -1,9 +1,12 @@
 package controller;
 
+import model.Board;
 import model.IBoardManager;
 import model.IElement;
+import model.SaveBoardToFile;
 import physics.Vect;
 import view.GizmoBallView;
+import view.LoadBoard;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -73,7 +76,7 @@ public class BuildListener implements ActionListener {
                         gbv.updateBoardView();
                         gbv.changeStatusMessage("Moved " + getSelectedElement().getName());
                     }
-                    gbv.changeStatusMessage("Error: An Element Already existing at this location");
+                    gbv.changeStatusMessage("Error: Invalid ");
                 } else {
                     gbv.changeStatusMessage("Error: No Element Was Selected");
                 }

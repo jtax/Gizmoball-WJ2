@@ -199,6 +199,12 @@ public class Board extends Observable implements IBoard {
 	}
 
 	public boolean detectEmptyLocation(Vect position) {
+		if (position.x() > 19 || position.x() < 0) {
+			return false;
+		}
+		if (position.y() > 19 || position.y() < 0) {
+			return false;
+		}
 		for (IElement existingElement : elements) {
 			if (existingElement.getOrigin().equals(position)) {
 				return false;
