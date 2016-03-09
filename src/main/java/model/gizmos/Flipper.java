@@ -8,7 +8,6 @@ import physics.Vect;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,27 +85,29 @@ public class Flipper extends Gizmo implements Triggerable {
 	}
 
 	private List<Vect> calculateCoordinates() {
-		Vect topLeft,topRight, bottomRight, bottomLeft;
+//		Vect topLeft,topRight, bottomRight, bottomLeft;
 
-		topLeft = origin.plus(new Vect(0, 0.5));
-		topRight = origin.plus(new Vect(rotationConst * 0.5, 0));
-		bottomRight = bound.plus(new Vect(0, 0.5));
-		bottomLeft = bound.plus(new Vect(rotationConst *  0.5, 0));
-
-
+		Vect topLeft = origin;
+		Vect topRight = new Vect(bound.x(), origin.y());
+		Vect bottomRight = bound;
+		Vect bottomLeft = new Vect(origin.x(), bound.y());
+//		topLeft = origin.plus(new Vect(0, 0.5));
+//		topRight = origin.plus(new Vect(directionConst * rotationConst * 0.5, 0));
+//		bottomRight = bound.plus(new Vect(0, 0.5));
+//		bottomLeft = bound.plus(new Vect(directionConst * rotationConst *  0.5, 0));
 
 		centerCoordinateTop = new Vect((topLeft.getXCoord() + topRight.getXCoord()) / 2, (topLeft.getyCoord() + topRight.getyCoord()) / 2);
 		centerCoordinateBottom = new Vect((bottomLeft.getXCoord() + bottomRight.getXCoord()) / 2, (bottomLeft.getyCoord() + bottomRight.getyCoord()) / 2);
 
 		//return Arrays.asList(topRight,centerCoordinateTop.plus(new Vect(0.25, -0.25)), topLeft, bottomRight, centerCoordinateBottom.plus(new Vect(-0.25,0.25)), bottomLeft);
 
-		//return Arrays.asList(topRight, topLeft, bottomRight,  bottomLeft);
+		return Arrays.asList(topLeft,topRight, bottomRight,  bottomLeft);
 
-		if (direction == Direction.RIGHT) {
-			return Arrays.asList(topRight,centerCoordinateTop.plus(new Vect(0.25 * rotationConst, -0.25)), topLeft, bottomRight, centerCoordinateBottom.plus(new Vect(-0.25* rotationConst,0.25)), bottomLeft);
-		} else {
-			return Arrays.asList(topRight,centerCoordinateTop.plus(new Vect(-0.25 * rotationConst,-0.25)), topLeft, bottomRight, centerCoordinateBottom.plus(new Vect(0.25 * rotationConst,0.25)), bottomLeft);
-		}
+//		if (direction == Direction.RIGHT) {
+//			return Arrays.asList(topRight,centerCoordinateTop.plus(new Vect(0.25 * rotationConst, -0.25)), topLeft, bottomRight, centerCoordinateBottom.plus(new Vect(-0.25* rotationConst,0.25)), bottomLeft);
+//		} else {
+//			return Arrays.asList(topRight,centerCoordinateTop.plus(new Vect(-0.25 * rotationConst,-0.25)), topLeft, bottomRight, centerCoordinateBottom.plus(new Vect(0.25 * rotationConst,0.25)), bottomLeft);
+//		}
 	}
 
 	private List<physics.Circle> calculateCircles() {
@@ -134,68 +135,70 @@ public class Flipper extends Gizmo implements Triggerable {
 	}
 
 	public void rotate() {
-
 		Vect centerPoint = getCenterPoint();
+
 		rotation = (rotation + 1) % 4;
-		setSaveInfo();
-
-		rotationConst = -1;
-		calculateCoordinates();
-
-		bound = rotationMatrix(bound, centerPoint, 90);
-		origin = rotationMatrix(origin, centerPoint, 90);
-
-
-		switch (rotation) {
-			case 1:
-				if (direction == Direction.RIGHT) {
-					bound = bound.plus(new Vect(-0.5,1.5));
-					origin = origin.plus(new Vect(-0.5,1.5));
-				}
-
-			break;
-			case 2:
-				if (direction == Direction.RIGHT) {
-
-					bound = bound.plus(new Vect(-1.5,0));
-					origin = origin.plus(new Vect(-1.5,0));
-				} else {
-					bound = bound.minus(new Vect(-2,-1.5));
-					origin = origin.minus(new Vect(-2,-1.5));
-				}
-
-
-
-			break;
-			case 3:
-				if (direction == Direction.RIGHT) {
-
-					bound = bound.minus(new Vect(0,1.5));
-					origin = origin.minus(new Vect(0,1.5));
-				} else {
-					bound = bound.minus(new Vect(-0.5,0));
-					origin = origin.minus(new Vect(-0.5,0));
-				}
-
-
-			break;
-			case 0:
-				if (direction == Direction.RIGHT) {
-					bound = bound.plus(new Vect(1.5,0));
-					origin = origin.plus(new Vect(1.5,0));
-				} else {
-					bound = bound.plus(new Vect(2 * directionConst,-1.5));
-					origin = origin.plus(new Vect(2 * directionConst,-1.5));
-				}
-
-			break;
+		List<Vect> newCoords = new ArrayList<Vect>();
+		for (int i = 0; i < coordinates.size(); i++) {
+			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, 90));
 		}
-
-
-
-		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
+//		Vect centerPoint = getCenterPoint();
+//		rotation = (rotation + 1) % 4;
+//		setSaveInfo();
+//
+//		rotationConst = -1;
+//		calculateCoordinates();
+//
+//		bound = rotationMatrix(bound, centerPoint, 90);
+//		origin = rotationMatrix(origin, centerPoint, 90);
+//
+//
+//		switch (rotation) {
+//			case 1:
+//				if (direction == Direction.RIGHT) {
+//					bound = bound.plus(new Vect(-0.5,1.5));
+//					origin = origin.plus(new Vect(-0.5,1.5));
+//				}
+//
+//			break;
+//			case 2:
+//				if (direction == Direction.RIGHT) {
+//
+//					bound = bound.plus(new Vect(-1.5,0));
+//					origin = origin.plus(new Vect(-1.5,0));
+//				} else {
+//					bound = bound.minus(new Vect(-2,-1.5));
+//					origin = origin.minus(new Vect(-2,-1.5));
+//				}
+//
+//
+//
+//			break;
+//			case 3:
+//				if (direction == Direction.RIGHT) {
+//
+//					bound = bound.minus(new Vect(0,1));
+//					origin = origin.minus(new Vect(0,1));
+//				} else {
+//					bound = bound.minus(new Vect(-0.5,0));
+//					origin = origin.minus(new Vect(-0.5,0));
+//				}
+//
+//
+//			break;
+//			case 0:
+////				bound = bound.plus(new Vect(2 * directionConst,-1.5));
+////				origin = origin.plus(new Vect(2 * directionConst,-1.5));
+//			break;
+//		}
+//
+//
+//
+//		coordinates = calculateCoordinates();
+//		super.setCircles(calculateCircles());
+//		super.setLines(calculateLines());
 	}
 
 	public Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
@@ -213,7 +216,7 @@ public class Flipper extends Gizmo implements Triggerable {
 			return origin.plus(new Vect(rotationConst,rotationConst));
 
 		} else {
-			return origin.plus(new Vect(0,0));
+			return origin.plus(new Vect(-1,1));
 		}
 	}
 
@@ -252,11 +255,31 @@ public class Flipper extends Gizmo implements Triggerable {
 
 
 			// Do the rotation
-			AffineTransform
-					.getRotateInstance(Math.toRadians(rotate * directionConst), origin.getXCoord(), origin.getyCoord())
-					.transform(bound.toPoint2D(), result);
-			bound = new Vect(result.getX(), result.getY());
-			coordinates = calculateCoordinates();
+//			AffineTransform
+//					.getRotateInstance(Math.toRadians(rotate * directionConst), origin.getXCoord(), origin.getyCoord())
+//					.transform(bound.toPoint2D(), result);
+//			bound = new Vect(result.getX(), result.getY());
+//			coordinates = calculateCoordinates();
+//			super.setCircles(calculateCircles());
+//			super.setLines(calculateLines());
+
+			Vect centerPoint = coordinates.get(1);
+
+			List<Vect> newCoords = new ArrayList<Vect>();
+
+
+			switch (rotation) {
+				case 0:
+					centerPoint = coordinates.get(0); //.plus(new Vect(0.5,0.5));
+
+					break;
+
+
+			}
+
+			for (int i = 0; i < coordinates.size(); i++) {
+				coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, rotate * directionConst));
+			}
 			super.setCircles(calculateCircles());
 			super.setLines(calculateLines());
 		}
@@ -273,7 +296,7 @@ public class Flipper extends Gizmo implements Triggerable {
 	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();
-		Vect bound = new Vect(0, 1.5);
+		Vect bound = new Vect(0.5, 2);
 		return origin.plus(bound);
 	}
 
