@@ -103,8 +103,10 @@ public class GizmoParser {
 		}
 		if (!rotates.isEmpty()) {
 			for (IElement e : board.getElements()) {
-				if (rotates.contains(e.getName())) {
-					e.rotate();
+				for (String rotate : rotates) {
+					if (e.getName().equals(rotate)) {
+						e.rotate();
+					}
 				}
 			}
 		}
