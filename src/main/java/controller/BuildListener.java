@@ -1,9 +1,9 @@
 package controller;
 
-import model.IBoardManager;
-import model.IElement;
+import model.*;
 import physics.Vect;
 import view.GizmoBallView;
+import view.LoadBoard;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -75,6 +75,26 @@ public class BuildListener implements ActionListener {
                     gbv.changeStatusMessage("Error: No Element Was Selected");
                 }
                 break;
+
+            case "Load Board":
+                LoadBoard l = new LoadBoard();
+                Board board = l.loadFile();
+                if(board != null){
+                boardManager.setBoard(board);
+                }
+                else{
+                    System.out.println("failed");
+
+                }
+
+            case "Save Board":
+                SaveBoardToFile s = new SaveBoardToFile();
+                if(s.saveBoard(boardManager.getBoard())){
+                    System.out.println("successful save");
+                }
+                else{
+                    System.out.println("unsuccessful save");
+                }
         }
 
 
