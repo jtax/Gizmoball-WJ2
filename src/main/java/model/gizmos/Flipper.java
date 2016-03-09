@@ -1,8 +1,6 @@
 package model.gizmos;
 
-import model.BoardManager;
-import model.Direction;
-import model.Gizmo;
+import model.*;
 import model.Triggerable;
 import physics.LineSegment;
 import physics.Vect;
@@ -37,8 +35,8 @@ public class Flipper extends Gizmo implements Triggerable {
     public Flipper(Vect origin, String name) {
 
 		super(origin, name);
-        angularVelocity = BoardManager.moveTime * 1080;
-        saveDirection = "Left";
+		angularVelocity = Board.moveTime * 1080;
+		saveDirection = "Left";
 		rotation = 0;
 		movementRotation = 0;
 		coordinates = calculateCoordinates();

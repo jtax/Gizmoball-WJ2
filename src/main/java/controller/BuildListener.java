@@ -1,14 +1,10 @@
 package controller;
 
-import model.Board;
-import model.IBoardManager;
-import model.IElement;
-import model.SaveBoardToFile;
+import model.*;
 import physics.Vect;
 import view.GizmoBallView;
 import view.LoadBoard;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,12 +13,12 @@ import java.awt.event.ActionListener;
  */
 public class BuildListener implements ActionListener {
 
-    private IBoardManager boardManager;
+    private IBoard board;
     private GizmoBallView gbv;
 
-    public BuildListener(IBoardManager bm, GizmoBallView gbv) {
+    public BuildListener(IBoard b, GizmoBallView gbv) {
         System.out.println("i work!");
-        this.boardManager = bm;
+        this.board = b;
         this.gbv = gbv;
     }
 
@@ -49,19 +45,19 @@ public class BuildListener implements ActionListener {
             case "Gravity":
                 double userGravityValue = gbv.getBuildGUI().promptGravity();
                 System.out.println("gravity: " + userGravityValue);
-                boardManager.getBoard().setGravityConst(userGravityValue);
+                board.setGravityConst(userGravityValue);
                 break;
 
             case "Friction":
                 double[] userFrictionValue = gbv.getBuildGUI().promptFriction();
                 System.out.println("friction: " + userFrictionValue);
-                boardManager.getBoard().setFrictionConst(userFrictionValue);
+                board.setFrictionConst(userFrictionValue);
                 break;
 
             case "Remove":
                 if (getSelectedElement() != null){
                     gbv.changeStatusMessage("Removed " + getSelectedElement().getName());
-                    boardManager.getBoard().removeElement(getSelectedElement());
+                    board.removeElement(getSelectedElement());
                     gbv.updateBoardView();
                 }
                 else{
@@ -72,7 +68,7 @@ public class BuildListener implements ActionListener {
             case "Move":
                 if (getSelectedElement() != null) {
                     Vect distance = getRelease().minus(getPress());
-                    if (boardManager.getBoard().moveGizmo(getSelectedElement(), distance)) {
+                    if (board.moveGizmo(getSelectedElement(), distance)) {
                         gbv.updateBoardView();
                         gbv.changeStatusMessage("Moved " + getSelectedElement().getName());
                     }
@@ -92,9 +88,13 @@ public class BuildListener implements ActionListener {
 
             case "Load Board":
                 LoadBoard l = new LoadBoard();
-                Board board = l.loadFile();
-                if(board != null){
-                boardManager.setBoard(board);
+                Board lboard = l.loadFile();
+                if (lboard != null) {
+                    board.setElements(lboard.getAllElements());
+                    board.setFrictionConst(lboard.getFrictionConst());
+                    board.setGravityConst(lboard.getGravityConst());
+                    board.setHeight(lboard.getHeight());
+                    board.setWidth(lboard.getWidth());
                 }
                 else{
                     System.out.println("failed");
@@ -103,7 +103,7 @@ public class BuildListener implements ActionListener {
 
             case "Save Board":
                 SaveBoardToFile s = new SaveBoardToFile();
-                if(s.saveBoard(boardManager.getBoard())){
+                if (s.saveBoard((Board) board)) {
                     System.out.println("successful save");
                 }
                 else{
@@ -115,19 +115,19 @@ public class BuildListener implements ActionListener {
     }
 
     private IElement getSelectedElement() {
-        return boardManager.getBoard().getSelectedElement();
+        return board.getSelectedElement();
     }
 
     private Vect getClick() {
-        return boardManager.getBoard().getMouseClick();
+        return board.getMouseClick();
     }
 
     private Vect getPress() {
-        return boardManager.getBoard().getMousePress();
+        return board.getMousePress();
     }
 
     private Vect getRelease() {
-        return boardManager.getBoard().getMouseRelease();
+        return board.getMouseRelease();
     }
 }
 

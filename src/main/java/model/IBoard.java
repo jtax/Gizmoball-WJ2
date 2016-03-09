@@ -59,4 +59,6 @@ public interface IBoard {
 	void setSelectedElement(IElement selectedElement);
 
 	boolean moveGizmo(IElement selectedElement, Vect distance);
+
+	void tick();
 }
