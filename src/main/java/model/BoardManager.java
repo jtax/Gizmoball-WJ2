@@ -131,4 +131,5 @@ public class BoardManager implements IBoardManager {
 		Vect change = new Vect(0, changeAmount);
 		return velocity.plus(change);
 	}
+
 }

@@ -1,14 +1,9 @@
 package view.buttongroups;
 
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * Created by baird on 06/02/2016.
@@ -35,8 +30,6 @@ public class BuildGUI {
 	}
 
 	public JPanel createBottomButton() {
-		switchToRun = new JButton("Run Mode");
-		switchToRun.addActionListener(listener);
 
 		shape = new JComboBox<String>();
 		shape.addItem("Pick a gizmo");
@@ -46,20 +39,22 @@ public class BuildGUI {
 		shape.addItem("Left Flipper");
 		shape.addItem("Right Flipper");
 		shape.addItem("Absorber");
+		shape.addItem("Ball");
 		JButton rotate = new JButton("Rotate");
+		rotate.addActionListener(listener);
 		JButton move = new JButton("Move");
+		move.addActionListener(listener);
 		JButton friction = new JButton("Friction");
+		friction.addActionListener(listener);
 		JButton gravity = new JButton("Gravity");
+		gravity.addActionListener(listener);
 		JButton keyConn = new JButton("Key Connection");
 		JButton connGizmo = new JButton("Gizmo Connection");
 		ball = new JButton("Ball");
 
 		JPanel bottomButtons = new JPanel(new GridLayout(3, 5));
-		bottomButtons.add(switchToRun);
 		bottomButtons.add(shape);
-		bottomButtons.add(ball);
 		bottomButtons.add(rotate);
-		bottomButtons.add(move);
 		bottomButtons.add(friction);
 		bottomButtons.add(gravity);
 		bottomButtons.add(keyConn);
@@ -71,14 +66,16 @@ public class BuildGUI {
 
 	public JPanel createTopButton() {
 		add = new JButton("Add");
-		select = new JButton("Select");
+		switchToRun = new JButton("Run Mode");
+		switchToRun.addActionListener(listener);
 		remove = new JButton("Remove");
+		remove.addActionListener(listener);
 
-		JPanel topButtons = new JPanel(new GridLayout(1, 3));
+
+		JPanel topButtons = new JPanel(new GridLayout(1, 6));
 		topButtons.add(add);
-		topButtons.add(select);
 		topButtons.add(remove);
-
+		topButtons.add(switchToRun);
 		return topButtons;
 	}
 
@@ -86,6 +83,8 @@ public class BuildGUI {
 		JMenuBar menus = new JMenuBar();
 
 		JMenu file = new JMenu("File");
+		file.setBackground(new Color(0x2C3E50));
+		file.setForeground(new Color(0xECF0F1));
 
 		JMenuItem loadModel = new JMenuItem("Load Board");
 		file.add(loadModel);
@@ -103,7 +102,39 @@ public class BuildGUI {
 		file.add(quit);
 
 		menus.add(file);
-
+		menus.setBackground(new Color(0x2C3E50));
+		menus.setForeground(new Color(0xECF0F1));
 		return menus;
+	}
+
+	public double promptGravity(){
+		String gravVal = JOptionPane.showInputDialog("Please enter a value for gravity (numerical)");
+		double gravValDouble = 0.0;
+
+		try {
+			gravValDouble = Double.parseDouble(gravVal);
+		}
+		catch (Exception e){
+			return 25.0;
+		}
+		return gravValDouble;
+	}
+
+	public double[] promptFriction() {
+		String frictVal1 = JOptionPane.showInputDialog("Please enter the 1st value for friction (numerical)");
+		String frictVal2 = JOptionPane.showInputDialog("Please enter the 2nd value for friction (numerical)");
+
+		double frictVal1Double = 0.0;
+		double frictVal2Double = 0.0;
+
+
+		try {
+			frictVal1Double = Double.parseDouble(frictVal1);
+			frictVal2Double = Double.parseDouble(frictVal2);
+		}
+		catch (Exception e){
+			return new double[]{0.025, 0.025};
+		}
+		return new double[]{frictVal1Double, frictVal2Double};
 	}
 }

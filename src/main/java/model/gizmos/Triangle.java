@@ -21,7 +21,7 @@ public class Triangle extends Gizmo {
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		super.setColor(Color.blue);
+		super.setColor(new Color(0x2980b9));
 		setSaveInfo();
 	}
 
@@ -107,5 +107,15 @@ public class Triangle extends Gizmo {
 	@Override
 	public List<Vect> getCoordinates() {
 		return coordinates;
+	}
+
+
+	public void move(Vect distance) {
+		super.origin = super.origin.plus(distance);
+		super.bound = super.bound.plus(distance);
+		coordinates = calculateCoordinates();
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
+		setSaveInfo();
 	}
 }

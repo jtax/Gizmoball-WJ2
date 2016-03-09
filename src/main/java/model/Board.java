@@ -18,6 +18,9 @@ public class Board extends Observable implements IBoard {
 	private int width;
 	private int height;
 
+	private Vect mouseClick, mousePress, mouseRelease;
+	private IElement selectedElement;
+
 	public Board(double[] frictionConst, double gravityConst, int width, int height) {
 		this.frictionConst = frictionConst;
 		this.gravityConst = gravityConst;
@@ -87,6 +90,13 @@ public class Board extends Observable implements IBoard {
 	}
 
 	@Override
+	public void removeElement(IElement element) {
+		elements.remove(element);
+		setChanged();
+		notifyObservers();
+	}
+
+	@Override
 	public double[] getFrictionConst() {
 		return frictionConst;
 	}
@@ -130,6 +140,67 @@ public class Board extends Observable implements IBoard {
 	public void changed() {
 		setChanged();
 		notifyObservers();
+	}
+
+	@Override
+	public Vect getMouseClick() {
+		return mouseClick;
+	}
+
+	@Override
+	public void setMouseClick(Vect mouseClick) {
+		this.mouseClick = mouseClick;
+		selectElement(mouseClick.x(), mouseClick.y());
+	}
+
+	@Override
+	public Vect getMousePress() {
+		return mousePress;
+	}
+
+	@Override
+	public void setMousePress(Vect mousePress) {
+		this.mousePress = mousePress;
+		selectElement(mousePress.x(), mousePress.y());
+	}
+
+	@Override
+	public Vect getMouseRelease() {
+		return mouseRelease;
+	}
+
+	public void setMouseRelease(Vect mouseRelease) {
+		this.mouseRelease = mouseRelease;
+	}
+
+	@Override
+	public IElement getSelectedElement() {
+		return selectedElement;
+	}
+
+	@Override
+	public void setSelectedElement(IElement selectedElement) {
+		this.selectedElement = selectedElement;
+	}
+
+	public void selectElement(double x, double y) {
+		if (selectedElement != null) {
+			selectedElement.highlight();
+		}
+		for (IElement element : elements) {
+			Vect origin = element.getOrigin();
+			Vect bound = element.getBound();
+			if (element.getClass() != Wall.class) {
+				if (origin.x() <= x && bound.x() > x) {
+					if (origin.y() <= y && bound.y() > y) {
+						selectedElement = element;
+						selectedElement.highlight();
+						return;
+					}
+				}
+			}
+		}
+		selectedElement = null;
 	}
 
 }

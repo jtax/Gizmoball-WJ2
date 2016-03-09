@@ -16,7 +16,7 @@ public class Ball implements IElement, Absorbable {
 	private Vect origin;
 	private Vect velocity;
 	private Vect center;
-	private Color color = Color.CYAN;
+	private Color color = new Color(0xecf0f1);
 	private String name;
 	private boolean absorbed;
 	private final float diameter = 0.5f;
@@ -146,6 +146,16 @@ public class Ball implements IElement, Absorbable {
 	}
 
 	public void rotate() {
+
+	}
+
+	@Override
+	public void highlight() {
+
+	}
+
+	@Override
+	public void move(Vect distance) {
 
 	}
 
