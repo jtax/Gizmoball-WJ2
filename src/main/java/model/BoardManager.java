@@ -16,7 +16,7 @@ import java.util.Collection;
 public class BoardManager implements IBoardManager {
 	private Board board;
 	private Collision closestCollision;
-	public final static double moveTime = 0.03;
+    public final static double moveTime = 0.005;
 
 	public BoardManager() {
 		this(new Board(new double[] { 0.025, 0.025 }, 25, 20, 20));

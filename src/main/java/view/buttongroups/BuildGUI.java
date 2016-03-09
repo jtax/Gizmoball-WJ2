@@ -95,9 +95,6 @@ public class BuildGUI {
 		JMenuBar menus = new JMenuBar();
 
 		JMenu file = new JMenu("File");
-		file.setBackground(new Color(0x2C3E50));
-		file.setForeground(new Color(0xECF0F1));
-
 		JMenuItem loadModel = new JMenuItem("Load Board");
 		loadModel.setAccelerator(KeyStroke.getKeyStroke(
 				KeyEvent.VK_L, ActionEvent.CTRL_MASK));
@@ -124,8 +121,6 @@ public class BuildGUI {
 		file.add(quit);
 
 		menus.add(file);
-		menus.setBackground(new Color(0x2C3E50));
-		menus.setForeground(new Color(0xECF0F1));
 		return menus;
 	}
 

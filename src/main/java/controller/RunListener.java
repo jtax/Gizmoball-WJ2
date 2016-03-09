@@ -19,7 +19,7 @@ public class RunListener implements ActionListener {
 	private GizmoBallView gbv;
 	public RunListener(IBoardManager bm, GizmoBallView gbv) {
 		this.boardManager = bm;
-		timer = new Timer(50, this);
+		timer = new Timer(5, this);
 		this.gbv = gbv;
 	}
 
