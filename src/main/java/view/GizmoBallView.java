@@ -117,4 +117,14 @@ public class GizmoBallView implements Observer {
 	public void updateBoardView() {
 		boardView.getPanel().repaint();
 	}
+
+	public void changeStatusMessage(String message) {
+		if (boardView.getMode() == Mode.BUILD) {
+			buildGUI.updateStatusBar("Build Mode: " + message);
+		} else if (boardView.getMode() == Mode.RUN) {
+			runGUI.updateStatusBar("Run Mode: " + message);
+		} else {
+			System.out.println(message);
+		}
+	}
 }

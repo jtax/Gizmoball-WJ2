@@ -10,8 +10,9 @@ import javax.swing.*;
  */
 public class BuildGUI {
 
-	private JButton add, select, remove, switchToRun;
+	private JButton add, move, remove, switchToRun;
 	private JComboBox<String> shape;
+	private JLabel statusBar;
 	private JButton absorber;
 	private JButton ball;
 	private JButton flipper;
@@ -32,7 +33,7 @@ public class BuildGUI {
 	public JPanel createBottomButton() {
 
 		shape = new JComboBox<String>();
-		shape.addItem("Pick a gizmo");
+		shape.addItem("Pick Element");
 		shape.addItem("Square");
 		shape.addItem("Circle");
 		shape.addItem("Triangle");
@@ -52,23 +53,32 @@ public class BuildGUI {
 		JButton connGizmo = new JButton("Gizmo Connection");
 		ball = new JButton("Ball");
 
-		JPanel bottomButtons = new JPanel(new GridLayout(3, 5));
+		JPanel bottomButtons = new JPanel(new GridLayout(2, 3));
 		bottomButtons.add(shape);
+		bottomButtons.add(ball);
 		bottomButtons.add(rotate);
+		bottomButtons.add(move);
 		bottomButtons.add(friction);
 		bottomButtons.add(gravity);
 		bottomButtons.add(keyConn);
 		bottomButtons.add(connGizmo);
 
+		statusBar = new JLabel("Build Mode");
 
-		return bottomButtons;
+		JPanel bottomPanel = new JPanel(new BorderLayout());
+		bottomPanel.add(bottomButtons, BorderLayout.CENTER);
+		bottomPanel.add(statusBar, BorderLayout.SOUTH);
+
+
+		return bottomPanel;
 	}
 
 	public JPanel createTopButton() {
 		add = new JButton("Add");
-		add.addActionListener(listener);
 		switchToRun = new JButton("Run Mode");
 		switchToRun.addActionListener(listener);
+		move = new JButton("Move");
+		move.addActionListener(listener);
 		remove = new JButton("Remove");
 		remove.addActionListener(listener);
 
@@ -76,6 +86,7 @@ public class BuildGUI {
 		JPanel topButtons = new JPanel(new GridLayout(1, 6));
 		topButtons.add(add);
 		topButtons.add(remove);
+		topButtons.add(move);
 		topButtons.add(switchToRun);
 		return topButtons;
 	}
@@ -141,5 +152,40 @@ public class BuildGUI {
 
 	public String dropboxValue(){
 		return shape.getSelectedItem().toString();
+	}
+
+	public void updateStatusBar(String message) {
+		statusBar.setText(message);
+	}
+
+	public double promptGravity(){
+		String gravVal = JOptionPane.showInputDialog("Please enter a value for gravity (numerical)");
+		double gravValDouble = 0.0;
+
+		try {
+			gravValDouble = Double.parseDouble(gravVal);
+		}
+		catch (Exception e){
+			return 25.0;
+		}
+		return gravValDouble;
+	}
+
+	public double[] promptFriction() {
+		String frictVal1 = JOptionPane.showInputDialog("Please enter the 1st value for friction (numerical)");
+		String frictVal2 = JOptionPane.showInputDialog("Please enter the 2nd value for friction (numerical)");
+
+		double frictVal1Double = 0.0;
+		double frictVal2Double = 0.0;
+
+
+		try {
+			frictVal1Double = Double.parseDouble(frictVal1);
+			frictVal2Double = Double.parseDouble(frictVal2);
+		}
+		catch (Exception e){
+			return new double[]{0.025, 0.025};
+		}
+		return new double[]{frictVal1Double, frictVal2Double};
 	}
 }
