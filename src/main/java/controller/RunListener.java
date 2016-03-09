@@ -7,6 +7,7 @@ import javax.swing.Timer;
 
 import model.BoardManager;
 import model.IBoardManager;
+import view.GizmoBallView;
 
 /**
  * Created by baird on 14/02/2016.
@@ -15,10 +16,11 @@ public class RunListener implements ActionListener {
 
 	private Timer timer;
 	private IBoardManager boardManager;
-
-	public RunListener(IBoardManager bm) {
+	private GizmoBallView gbv;
+	public RunListener(IBoardManager bm, GizmoBallView gbv) {
 		this.boardManager = bm;
 		timer = new Timer(50, this);
+		this.gbv = gbv;
 	}
 
 	@Override
@@ -39,6 +41,10 @@ public class RunListener implements ActionListener {
 				break;
 			case "Exit":
 				System.exit(0);
+				break;
+			case "Build Mode":
+				System.out.println("i work here, build mode");
+				gbv.switchMode();
 				break;
 			}
 		}

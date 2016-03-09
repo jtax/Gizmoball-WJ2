@@ -1,14 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import model.gizmos.Flipper;
-import model.gizmos.Wall;
+import model.gizmos.Absorber;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by baird on 06/02/2016.
@@ -66,7 +65,7 @@ public class BoardManager implements IBoardManager {
 	private Collision getTimeTillCollision(Ball ball) {
 		closestCollision = new Collision(0, 0, Double.MAX_VALUE);
 		for (IElement element : board.getElements()) {
-			if (!(element instanceof Wall) && ball.inside(element))
+			if (element instanceof Absorber && ball.inside(element))
 				continue;
 
 			for (Circle circle : element.getCircles()) {

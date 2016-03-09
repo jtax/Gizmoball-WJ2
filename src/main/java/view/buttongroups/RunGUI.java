@@ -39,15 +39,20 @@ public class RunGUI {
 		tick.addActionListener(listener);
 		tick.setFocusable(false);
 
+		JButton switchMode = new JButton("Build Mode");
+		switchMode.addActionListener(listener);
+		switchMode.setFocusable(false);
+
 		JButton exit = new JButton("Exit");
 		exit.addActionListener(listener);
 		exit.setFocusable(false);
 
-		JPanel bottomButtons = new JPanel(new GridLayout(1, 4));
+		JPanel bottomButtons = new JPanel(new GridLayout(1, 5));
 
 		bottomButtons.add(start);
 		bottomButtons.add(stop);
 		bottomButtons.add(tick);
+		bottomButtons.add(switchMode);
 		bottomButtons.add(exit);
 		return bottomButtons;
 	}
