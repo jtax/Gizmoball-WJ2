@@ -1,23 +1,16 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.JPanel;
-
 import controller.BoardMouseListener;
 import model.IBoard;
 import model.IElement;
 import model.gizmos.Wall;
-import physics.Vect;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by baird on 06/02/2016.
@@ -54,7 +47,7 @@ public class BoardViewImpl implements BoardView, Observer {
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 
-				if (mode == Mode.BUILD)
+				//if (mode == Mode.BUILD)
 					drawGrid((Graphics2D) g);
 
 				drawElements((Graphics2D) g);
@@ -137,6 +130,4 @@ public class BoardViewImpl implements BoardView, Observer {
 		Rectangle square = new Rectangle(x * width, y * height, width, height);
 		g.draw(square);
 	}
-
-
 }

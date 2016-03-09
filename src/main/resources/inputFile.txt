@@ -36,6 +36,8 @@ RightFlipper RF112 11 2
 KeyConnect key 32 down RF112
 KeyConnect key 32 up RF112
 LeftFlipper LF87 8 7
+Rotate LF87
+Rotate LF87
 KeyConnect key 81 down LF87
 KeyConnect key 81 up LF87
 Connect C43 LF87

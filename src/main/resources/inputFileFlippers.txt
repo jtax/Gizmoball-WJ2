@@ -1,0 +1,119 @@
+LeftFlipper LF92 2 4
+KeyConnect key 32 down LF92
+KeyConnect key 32 up LF92
+
+LeftFlipper LF87 6 4
+Rotate LF87
+KeyConnect key 81 down LF87
+KeyConnect key 81 up LF87
+
+LeftFlipper LF88 10 4
+Rotate LF88
+Rotate LF88
+KeyConnect key 82 down LF88
+KeyConnect key 82 up LF88
+
+
+LeftFlipper LF89 14 4
+Rotate LF89
+Rotate LF89
+Rotate LF89
+KeyConnect key 82 down LF89
+KeyConnect key 82 up LF89
+
+LeftFlipper LF90 18 4
+Rotate LF90
+Rotate LF90
+Rotate LF90
+Rotate LF90
+KeyConnect key 82 down LF90
+KeyConnect key 82 up LF90
+
+
+
+LeftFlipper LF12 2 2
+KeyConnect key 32 down LF12
+KeyConnect key 32 up LF12
+
+LeftFlipper LF17 6 2
+KeyConnect key 81 down LF17
+KeyConnect key 81 up LF17
+
+LeftFlipper LF18 10 2
+KeyConnect key 82 down LF18
+KeyConnect key 82 up LF18
+
+LeftFlipper LF19 14 2
+KeyConnect key 82 down LF19
+KeyConnect key 82 up LF19
+
+LeftFlipper LF10 18 2
+KeyConnect key 82 down LF10
+KeyConnect key 82 up LF10
+
+
+
+
+RightFlipper RF12 0 12
+KeyConnect key 32 down RF12
+KeyConnect key 32 up RF12
+
+RightFlipper RF17 4 12
+KeyConnect key 81 down RF17
+KeyConnect key 81 up RF17
+
+RightFlipper RF18 8 12
+KeyConnect key 82 down RF18
+KeyConnect key 82 up RF18
+
+RightFlipper RF19 12 12
+KeyConnect key 82 down RF19
+KeyConnect key 82 up RF19
+
+RightFlipper RF10 16 12
+KeyConnect key 82 down RF10
+KeyConnect key 82 up RF10
+
+
+RightFlipper RF92 0 10
+KeyConnect key 32 down RF92
+KeyConnect key 32 up RF92
+
+RightFlipper RF87 4 10
+Rotate RF87
+KeyConnect key 81 down RF87
+KeyConnect key 81 up RF87
+
+RightFlipper RF88 8 10
+Rotate RF88
+Rotate RF88
+KeyConnect key 82 down RF88
+KeyConnect key 82 up RF88
+
+
+RightFlipper RF89 12 10
+Rotate RF89
+Rotate RF89
+Rotate RF89
+KeyConnect key 82 down RF89
+KeyConnect key 82 up RF89
+
+RightFlipper RF90 16 10
+Rotate RF90
+Rotate RF90
+Rotate RF90
+Rotate RF90
+KeyConnect key 82 down RF90
+KeyConnect key 82 up RF90
+
+
+
+Triangle T 19 0
+Rotate T
+
+Absorber A 0 19 20 20
+KeyConnect key 127 down A
+Connect A A
+Ball B 1.0 11.0 0.0 0.0
+Gravity 25
+Friction 0.025 0.025

@@ -1,11 +1,12 @@
 package model;
 
+import model.gizmos.Flipper;
+import model.gizmos.Wall;
+import physics.Vect;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Observable;
-
-import model.gizmos.Wall;
-import physics.Vect;
 
 /**
  * Created by baird on 06/02/2016.
@@ -187,10 +188,29 @@ public class Board extends Observable implements IBoard {
 		if (selectedElement != null) {
 			selectedElement.highlight();
 		}
+
 		for (IElement element : elements) {
 			Vect origin = element.getOrigin();
 			Vect bound = element.getBound();
-			if (element.getClass() != Wall.class) {
+
+			if (element.getClass() == Flipper.class) {
+
+				if (((Flipper) element).getDirection() == Direction.RIGHT) {
+					x += 1;
+				}
+
+				if (origin.x() <= x && bound.x() >= x) {
+					if (origin.y() <= y && bound.y() >= y) {
+						selectedElement = element;
+						selectedElement.highlight();
+						return;
+					}
+				}
+				if (((Flipper) element).getDirection() == Direction.RIGHT) {
+					x -= 1;
+				}
+
+			} else if (element.getClass() != Wall.class) {
 				if (origin.x() <= x && bound.x() > x) {
 					if (origin.y() <= y && bound.y() > y) {
 						selectedElement = element;
