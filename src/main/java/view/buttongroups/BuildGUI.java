@@ -66,6 +66,7 @@ public class BuildGUI {
 
 	public JPanel createTopButton() {
 		add = new JButton("Add");
+		add.addActionListener(listener);
 		switchToRun = new JButton("Run Mode");
 		switchToRun.addActionListener(listener);
 		remove = new JButton("Remove");
@@ -136,5 +137,9 @@ public class BuildGUI {
 			return new double[]{0.025, 0.025};
 		}
 		return new double[]{frictVal1Double, frictVal2Double};
+	}
+
+	public String dropboxValue(){
+		return shape.getSelectedItem().toString();
 	}
 }
