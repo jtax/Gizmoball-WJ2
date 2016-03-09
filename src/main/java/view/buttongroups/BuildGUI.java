@@ -158,34 +158,4 @@ public class BuildGUI {
 		statusBar.setText(message);
 	}
 
-	public double promptGravity(){
-		String gravVal = JOptionPane.showInputDialog("Please enter a value for gravity (numerical)");
-		double gravValDouble = 0.0;
-
-		try {
-			gravValDouble = Double.parseDouble(gravVal);
-		}
-		catch (Exception e){
-			return 25.0;
-		}
-		return gravValDouble;
-	}
-
-	public double[] promptFriction() {
-		String frictVal1 = JOptionPane.showInputDialog("Please enter the 1st value for friction (numerical)");
-		String frictVal2 = JOptionPane.showInputDialog("Please enter the 2nd value for friction (numerical)");
-
-		double frictVal1Double = 0.0;
-		double frictVal2Double = 0.0;
-
-
-		try {
-			frictVal1Double = Double.parseDouble(frictVal1);
-			frictVal2Double = Double.parseDouble(frictVal2);
-		}
-		catch (Exception e){
-			return new double[]{0.025, 0.025};
-		}
-		return new double[]{frictVal1Double, frictVal2Double};
-	}
 }
