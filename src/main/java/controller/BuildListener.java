@@ -68,9 +68,12 @@ public class BuildListener implements ActionListener {
 
             case "Move":
                 if (getSelectedElement() != null) {
-                    getSelectedElement().move(getRelease().minus(getPress()));
-                    gbv.updateBoardView();
-                    gbv.changeStatusMessage("Moved " + getSelectedElement().getName());
+                    Vect distance = getRelease().minus(getPress());
+                    if (boardManager.getBoard().moveGizmo(getSelectedElement(), distance)) {
+                        gbv.updateBoardView();
+                        gbv.changeStatusMessage("Moved " + getSelectedElement().getName());
+                    }
+                    gbv.changeStatusMessage("Error: An Element Already existing at this location");
                 } else {
                     gbv.changeStatusMessage("Error: No Element Was Selected");
                 }

@@ -20,7 +20,7 @@ public interface IBoard {
 
 	void setElements(Collection<IElement> elements);
 
-	void addElement(IElement element);
+	boolean addElement(IElement element);
 
 	void removeElement(IElement element);
 
@@ -58,4 +58,5 @@ public interface IBoard {
 
 	void setSelectedElement(IElement selectedElement);
 
+	boolean moveGizmo(IElement selectedElement, Vect distance);
 }

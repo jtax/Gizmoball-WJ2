@@ -83,10 +83,15 @@ public class Board extends Observable implements IBoard {
 	}
 
 	@Override
-	public void addElement(IElement element) {
+	public boolean addElement(IElement element) {
+		Vect target = element.getOrigin();
+		if (detectEmptyLocation(target)) {
 		elements.add(element);
 		setChanged();
 		notifyObservers();
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -181,6 +186,25 @@ public class Board extends Observable implements IBoard {
 	@Override
 	public void setSelectedElement(IElement selectedElement) {
 		this.selectedElement = selectedElement;
+	}
+
+	@Override
+	public boolean moveGizmo(IElement selectedElement, Vect distance) {
+		Vect newLocation = selectedElement.getOrigin().plus(distance);
+		if (detectEmptyLocation(newLocation)) {
+			selectedElement.move(distance);
+			return true;
+		}
+		return false;
+	}
+
+	public boolean detectEmptyLocation(Vect position) {
+		for (IElement existingElement : elements) {
+			if (existingElement.getOrigin().equals(position)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public void selectElement(double x, double y) {

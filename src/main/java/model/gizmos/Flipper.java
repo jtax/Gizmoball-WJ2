@@ -32,7 +32,7 @@ public class Flipper extends Gizmo implements Triggerable {
 	public Flipper(Vect origin, String name) {
 
 		super(origin, name);
-		angularVelocity = BoardManager.moveTime * 1080;
+		angularVelocity = BoardManager.moveTime * 2080;
 		saveDirection = "Left";
 		rotation = 0;
 		coordinates = calculateCoordinates();
