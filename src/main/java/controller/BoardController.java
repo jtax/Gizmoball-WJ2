@@ -1,22 +1,16 @@
 package controller;
 
-import java.awt.event.KeyEvent;
-import java.util.Arrays;
-import java.util.List;
-
-import model.Ball;
-import model.Board;
-import model.BoardManager;
-import model.Direction;
-import model.Gizmo;
-import model.IBoardManager;
-import model.IElement;
-import model.SaveBoardToFile;
+import model.*;
 import model.gizmos.Absorber;
 import model.gizmos.Flipper;
 import model.gizmos.Square;
 import view.GizmoBallView;
 import view.LoadBoard;
+
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by bairdjb on 11/02/2016.
@@ -28,6 +22,7 @@ public class BoardController {
 	public BoardController() {
 		LoadBoard l = new LoadBoard();
 		Board board = l.loadFile();
+//		Board board = l.openGizmoFromFile(new File(getClass().getClassLoader().getResource("inputFile.txt").getFile()));
 
 		if (board != null) {
 			boardManager = new BoardManager();
@@ -45,8 +40,8 @@ public class BoardController {
 			view = new GizmoBallView(boardManager);
 
 		}
-		SaveBoardToFile save = new SaveBoardToFile();
-		System.out.println(save.saveBoard(board));
+		//SaveBoardToFile save = new SaveBoardToFile();
+		///System.out.println(save.saveBoard(board));
 	}
 
 	// TODO Remove test method

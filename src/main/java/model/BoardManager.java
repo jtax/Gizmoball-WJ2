@@ -15,7 +15,8 @@ import physics.Vect;
 public class BoardManager implements IBoardManager {
 	private Board board;
 	private Collision closestCollision;
-	private final static double moveTime = 0.05;
+	public final static double moveTime = 0.05;
+
 
 	public BoardManager() {
 		this(new Board(new double[] { 0.025, 0.025 }, 25, 20, 20));
@@ -126,4 +127,5 @@ public class BoardManager implements IBoardManager {
 		Vect change = new Vect(0, changeAmount);
 		return velocity.plus(change);
 	}
+
 }
