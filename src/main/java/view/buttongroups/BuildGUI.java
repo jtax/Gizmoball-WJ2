@@ -55,7 +55,9 @@ public class BuildGUI {
 
 		JPanel bottomButtons = new JPanel(new GridLayout(2, 3));
 		bottomButtons.add(shape);
+		bottomButtons.add(ball);
 		bottomButtons.add(rotate);
+		bottomButtons.add(move);
 		bottomButtons.add(friction);
 		bottomButtons.add(gravity);
 		bottomButtons.add(keyConn);
@@ -117,10 +119,6 @@ public class BuildGUI {
 		return menus;
 	}
 
-	public void updateStatusBar(String message) {
-		statusBar.setText(message);
-	}
-
 	public double promptGravity(){
 		String gravVal = JOptionPane.showInputDialog("Please enter a value for gravity (numerical)");
 		double gravValDouble = 0.0;
@@ -151,4 +149,13 @@ public class BuildGUI {
 		}
 		return new double[]{frictVal1Double, frictVal2Double};
 	}
+
+	public String dropboxValue(){
+		return shape.getSelectedItem().toString();
+	}
+
+	public void updateStatusBar(String message) {
+		statusBar.setText(message);
+	}
+
 }

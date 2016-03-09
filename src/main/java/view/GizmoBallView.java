@@ -61,12 +61,11 @@ public class GizmoBallView implements Observer {
 			frame.addKeyListener(keyPressListener);
 		} else {
 			makeBuildGUI();
-
-
+			contentPane.add(topButtons, BorderLayout.NORTH);
 		}
-		contentPane.add(bottomButtons, BorderLayout.SOUTH);
-		contentPane.add(topButtons, BorderLayout.NORTH);
+		
 		contentPane.add(boardPanel, BorderLayout.CENTER);
+		contentPane.add(bottomButtons, BorderLayout.SOUTH);
 		frame.setJMenuBar(menu);
 		frame.setLocation(100, 100);
 		frame.setVisible(true);
@@ -79,9 +78,8 @@ public class GizmoBallView implements Observer {
 
 	private void makeRunGUI() {
 		runGUI = new RunGUI(runListener);
-		topButtons = runGUI.createButton();
+		bottomButtons = runGUI.createButton();
 		menu = runGUI.createMenu();
-		bottomButtons = runGUI.getStatusBar();
 	}
 
 	private void makeBuildGUI() {

@@ -78,6 +78,14 @@ public class BuildListener implements ActionListener {
                     gbv.changeStatusMessage("Error: No Element Was Selected");
                 }
                 break;
+
+            case "Add":
+                String option = gbv.getBuildGUI().dropboxValue();
+                if(!option.equals("Pick a gizmo")){
+                    System.out.println("Adding the element "+ option +"\n To the coords: " + getPress());
+                    // IElement elementToAdd =
+                }
+                break;
         }
 
 
