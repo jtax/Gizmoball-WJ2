@@ -29,6 +29,7 @@ public class Flipper extends Gizmo implements Triggerable {
 	private String saveDirection;
 	private Vect centerCoordinateTop, centerCoordinateBottom;
 	private double angularVelocity;
+	int rotation;
 	public Flipper(Vect origin, String name) {
 
 		super(origin, name);

@@ -19,7 +19,6 @@ abstract public class Gizmo implements IElement {
 	private Color backupColor;
 	private List<LineSegment> lines;
 	private List<Circle> circles;
-	protected int rotation;
 	private int reflection;
 	private String name;
 	private int keyPressTrigger;
@@ -29,7 +28,6 @@ abstract public class Gizmo implements IElement {
 		circles = new ArrayList<>();
 		this.origin = origin;
 		color = Color.RED;
-		rotation = 0;
 		this.name = name;
 
 		// TODO: set the bounds correctly according to which gizmo it is
