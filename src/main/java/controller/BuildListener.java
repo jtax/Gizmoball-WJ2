@@ -115,7 +115,6 @@ public class BuildListener implements ActionListener {
 
                 if ((selectedElement = getSelectedElement()) != null && selectedElement instanceof Gizmo) {
 
-                    //((Gizmo) selectedElement).addKeyPressTrigger((Triggerable) secondElement);
                     JDialog dialog = gbv.getBuildGUI().promptSetKeyListener(selectedElement);
 
                     dialog.addKeyListener(new KeyListener() {
