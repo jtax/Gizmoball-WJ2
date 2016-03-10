@@ -38,14 +38,7 @@ public class BuildListener implements ActionListener {
                 break;
 
             case "Rotate":
-                if (getSelectedElement() != null) {
-                    getSelectedElement().rotate();
-                    gbv.updateBoardView();
-                    gbv.changeStatusMessage("Rotated " + getSelectedElement().getName());
-                }
-                else{
-                    gbv.changeStatusMessage("Error: No Element Was Selected");
-                }
+                rotateElement();
                 break;
 
             case "Gravity":
@@ -61,75 +54,25 @@ public class BuildListener implements ActionListener {
                 break;
 
             case "Remove":
-                if (getSelectedElement() != null){
-                    gbv.changeStatusMessage("Removed " + getSelectedElement().getName());
-                    board.removeElement(getSelectedElement());
-                    gbv.updateBoardView();
-                }
-                else{
-                    gbv.changeStatusMessage("Error: No Element Was Selected");
-                }
+                removeElement();
                 break;
 
             case "Move":
-                if (getSelectedElement() != null) {
-                    Vect distance = getRelease().minus(getPress());
-                    if (board.moveGizmo(getSelectedElement(), distance)) {
-                        gbv.updateBoardView();
-                        gbv.changeStatusMessage("Moved " + getSelectedElement().getName());
-                    }
-                    gbv.changeStatusMessage("Error: Invalid ");
-                } else {
-                    gbv.changeStatusMessage("Error: No Element Was Selected");
-                }
+                moveElement();
                 break;
 
             case "Add":
-                String option = gbv.getBuildGUI().dropboxValue();
-                if(!option.equals("Pick a gizmo")){
-                    System.out.println("Adding the element "+ option +"\n To the coords: " + getPress());
-                    switch (option) {
-
-                        case "Circle":
-                            board.addElement(new Circle(getPress(), "C" + Math.random()));
-                            break;
-                        case "Square":
-                            board.addElement(new Square(getPress(), "S" + Math.random()));
-                            break;
-                        case "Triangle":
-                            board.addElement(new Triangle(getPress(), "T" + Math.random()));
-                            break;
-                    }
-                }
-
+                addElement();
                 break;
 
             case "Load Board":
-                LoadBoard l = new LoadBoard();
-                Board lboard = l.loadFile();
-                if (lboard != null) {
-                    board.setElements(lboard.getAllElements());
-                    board.setFrictionConst(lboard.getFrictionConst());
-                    board.setGravityConst(lboard.getGravityConst());
-                    board.setHeight(lboard.getHeight());
-                    board.setWidth(lboard.getWidth());
-                }
-                else{
-                    System.out.println("failed");
-
-                }
+                loadBoard();
+                break;
 
             case "Save Board":
-                SaveBoardToFile s = new SaveBoardToFile();
-                if (s.saveBoard((Board) board)) {
-                    System.out.println("successful save");
-                }
-                else{
-                    System.out.println("unsuccessful save");
-                }
+                saveBoard();
+                break;
         }
-
-
     }
 
     private IElement getSelectedElement() {
@@ -146,6 +89,97 @@ public class BuildListener implements ActionListener {
 
     private Vect getRelease() {
         return board.getMouseRelease();
+    }
+
+    private void rotateElement(){
+        if (getSelectedElement() != null) {
+            getSelectedElement().rotate();
+            gbv.updateBoardView();
+            gbv.changeStatusMessage("Rotated " + getSelectedElement().getName());
+        }
+        else{
+            gbv.changeStatusMessage("Error: No Element Was Selected");
+        }
+    }
+
+    private void removeElement(){
+        if (getSelectedElement() != null){
+            gbv.changeStatusMessage("Removed " + getSelectedElement().getName());
+            board.removeElement(getSelectedElement());
+            gbv.updateBoardView();
+        }
+        else{
+            gbv.changeStatusMessage("Error: No Element Was Selected");
+        }
+    }
+
+    private void moveElement(){
+        if (getSelectedElement() != null) {
+            Vect distance = getRelease().minus(getPress());
+            if (board.moveGizmo(getSelectedElement(), distance)) {
+                gbv.updateBoardView();
+                gbv.changeStatusMessage("Moved " + getSelectedElement().getName());
+            }
+            gbv.changeStatusMessage("Error: Invalid ");
+        } else {
+            gbv.changeStatusMessage("Error: No Element Was Selected");
+        }
+    }
+
+    private void loadBoard(){
+        LoadBoard l = new LoadBoard();
+        Board lboard = l.loadFile();
+        if (lboard != null) {
+            board.setElements(lboard.getAllElements());
+            board.setFrictionConst(lboard.getFrictionConst());
+            board.setGravityConst(lboard.getGravityConst());
+            board.setHeight(lboard.getHeight());
+            board.setWidth(lboard.getWidth());
+        }
+        else{
+            System.out.println("failed");
+
+        }
+    }
+
+    private void saveBoard(){
+        SaveBoardToFile s = new SaveBoardToFile();
+        if (s.saveBoard((Board) board)) {
+            System.out.println("successful save");
+        }
+        else{
+            System.out.println("unsuccessful save");
+        }
+    }
+
+    private void addElement(){
+        String option = gbv.getBuildGUI().dropboxValue();
+        if(!option.equals("Pick a gizmo")){
+            System.out.println("Adding the element "+ option +"\n To the coords: " + getPress());
+            ElementFactory ef = new ElementFactory();
+            IElement e = null;
+            switch (option) {
+                case "Absorber":
+                    e = ef.createElement(option, getPress(), getRelease());
+                    break;
+                case "Ball":
+                    e = ef.createElement(option, getPress(), new Vect(0.5,0.5));
+                    break;
+                default:
+                    e = ef.createElement(option, getPress());
+            }
+
+            if(e.getName().matches("[B]\\d+")){
+                board.addBall((Ball)e);
+                gbv.changeStatusMessage(e.getName() + " was added to" + e.getOrigin().toString());
+            }
+            else if (board.addElement(e)){
+                gbv.changeStatusMessage(e.getName() + " was added to" + e.getOrigin().toString());
+            }
+            else{
+                gbv.changeStatusMessage("Error: Add gizmo failed.");
+            }
+        }
     }
 }
 
