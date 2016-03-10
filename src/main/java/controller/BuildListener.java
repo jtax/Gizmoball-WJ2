@@ -5,8 +5,11 @@ import physics.Vect;
 import view.GizmoBallView;
 import view.LoadBoard;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Created by Umar on 07/03/2016.
@@ -86,25 +89,53 @@ public class BuildListener implements ActionListener {
                 }
                 break;
                 
-		case "Gizmo Connection":
-			IElement firstElement;
-			// FIXME: nasty casty
-			if ((firstElement = getSelectedElement()) != null && firstElement instanceof Gizmo) {
-				Vect secondElementLocation = board.getMouseRelease();
-				IElement secondElement;
-				if ((secondElement = board.getElementAtLocation(secondElementLocation)) != null && secondElement instanceof Triggerable) {
-					if (!firstElement.equals(secondElement)) {
-						((Gizmo) firstElement).addTriggerable((Triggerable) secondElement);
-						gbv.changeStatusMessage("Success! " + secondElement + " will now be tiggered by " + firstElement + ".");
-					} else {
-						gbv.changeStatusMessage("Error: You can't connect a gizmo to itself.");
-					}
-				} else {
-					gbv.changeStatusMessage("Error: Please select a second Gizmo.");
-				}
-			} else {
-				gbv.changeStatusMessage("Error: Please select an initial Gizmo.");
-			}
+		    case "Gizmo Connection":
+                IElement firstElement;
+                // FIXME: nasty casty
+                if ((firstElement = getSelectedElement()) != null && firstElement instanceof Gizmo) {
+                    Vect secondElementLocation = board.getMouseRelease();
+                    IElement secondElement;
+                    if ((secondElement = board.getElementAtLocation(secondElementLocation)) != null && secondElement instanceof Triggerable) {
+                        if (!firstElement.equals(secondElement)) {
+                            ((Gizmo) firstElement).addTriggerable((Triggerable) secondElement);
+                            gbv.changeStatusMessage("Success! " + secondElement + " will now be triggered by " + firstElement + ".");
+                        } else {
+                            gbv.changeStatusMessage("Error: You can't connect a gizmo to itself.");
+                        }
+                    } else {
+                        gbv.changeStatusMessage("Error: Please select a second Gizmo.");
+                    }
+                } else {
+                    gbv.changeStatusMessage("Error: Please select an initial Gizmo.");
+                }
+			break;
+		    case "Key Connection":
+                IElement selectedElement;
+
+
+                if ((selectedElement = getSelectedElement()) != null && selectedElement instanceof Gizmo) {
+
+                    //((Gizmo) selectedElement).addKeyPressTrigger((Triggerable) secondElement);
+                    JDialog dialog = gbv.getBuildGUI().promptSetKeyListener(selectedElement);
+
+                    dialog.addKeyListener(new KeyListener() {
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            System.out.println(e);
+                            dialog.dispose();
+                            ((Gizmo) selectedElement).addKeyPressTrigger(e.getKeyCode());
+
+                            gbv.changeStatusMessage("Success! " + selectedElement + " will be triggered by pressing " + KeyEvent.getKeyText(e.getKeyCode()));
+                        }
+
+                        public void keyTyped(KeyEvent e) {}
+                        public void keyReleased(KeyEvent e) {}
+                    });
+
+
+                } else {
+                    gbv.changeStatusMessage("Error: Please select a Gizmo.");
+                }
 			break;
 
             case "Load Board":

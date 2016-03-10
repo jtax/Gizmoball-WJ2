@@ -1,14 +1,12 @@
 package view.buttongroups;
 
-import model.Board;
-import view.LoadBoard;
+import model.IElement;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
-import javax.swing.*;
 
 /**
  * Created by baird on 06/02/2016.
@@ -137,6 +135,22 @@ public class BuildGUI {
 			return 25.0;
 		}
 		return gravValDouble;
+	}
+
+	public JDialog promptSetKeyListener(IElement element){
+
+
+		JDialog dialog = new JDialog();
+		dialog.setTitle("Press a key to connect");
+		dialog.setSize(200, 0);
+		dialog.setVisible(true);
+		dialog.setFocusable(true);
+		dialog.requestFocus();
+		JLabel label = new JLabel();
+		dialog.add(label);
+
+
+		return dialog;
 	}
 
 	public double[] promptFriction() {
