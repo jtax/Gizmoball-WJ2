@@ -61,4 +61,8 @@ public interface IBoard {
 	boolean moveGizmo(IElement selectedElement, Vect distance);
 
 	void tick();
+	
+	IElement getElementAtLocation(Vect location);
+	
+	IElement getElementAtLocation(double x, double y);
 }

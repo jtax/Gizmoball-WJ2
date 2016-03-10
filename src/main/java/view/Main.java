@@ -10,10 +10,13 @@ import javax.swing.*;
 public class Main {
 	public static void main(String[] args) {
 
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			e.printStackTrace();
+		String username = System.getProperty("user.name");
+		if (username == null || !(username.equals("chris") || username.equals("wrb13148"))) {
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			} catch (Exception e) {
+				// Never mind. We'll manage fine without it.
+			}
 		}
 
 		SwingUtilities.invokeLater(new Runnable() {

@@ -228,42 +228,48 @@ public class Board extends Observable implements IBoard {
 		if (selectedElement != null) {
 			selectedElement.highlight();
 		}
-
+		
+		if ((selectedElement = getElementAtLocation(x, y)) != null)
+			selectedElement.highlight();
+	}
+	
+	@Override
+	public IElement getElementAtLocation(double x, double y) {
 		for (IElement element : elements) {
 			Vect origin = element.getOrigin();
 			Vect bound = element.getBound();
 
-			if (element.getClass() == Flipper.class) {
+			if (element instanceof Flipper) {
 
 				if (((Flipper) element).getDirection() == Direction.RIGHT) {
 					if (origin.x() - 1.5 <= x && bound.x() > x) {
 						if (origin.y() <= y && bound.y() > y) {
-							selectedElement = element;
-							selectedElement.highlight();
-							return;
+							return element;
 						}
 					}
 				} else {
 					if (origin.x() <= x && bound.x() + 1.5 > x) {
 						if (origin.y() <= y && bound.y() > y) {
-							selectedElement = element;
-							selectedElement.highlight();
-							return;
+							return element;
 						}
 					}
 				}
 
-			} else if (element.getClass() != Wall.class) {
+			} else if (!(element instanceof Wall)) {
 				if (origin.x() <= x && bound.x() > x) {
 					if (origin.y() <= y && bound.y() > y) {
-						selectedElement = element;
-						selectedElement.highlight();
-						return;
+						return element;
 					}
 				}
 			}
 		}
-		selectedElement = null;
+		
+		return null;
+	}
+	
+	@Override
+	public IElement getElementAtLocation(Vect location) {
+		return getElementAtLocation(location.x(), location.y());
 	}
 
 

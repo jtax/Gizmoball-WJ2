@@ -85,6 +85,27 @@ public class BuildListener implements ActionListener {
                     // IElement elementToAdd =
                 }
                 break;
+                
+		case "Gizmo Connection":
+			IElement firstElement;
+			// FIXME: nasty casty
+			if ((firstElement = getSelectedElement()) != null && firstElement instanceof Gizmo) {
+				Vect secondElementLocation = board.getMouseRelease();
+				IElement secondElement;
+				if ((secondElement = board.getElementAtLocation(secondElementLocation)) != null && secondElement instanceof Triggerable) {
+					if (!firstElement.equals(secondElement)) {
+						((Gizmo) firstElement).addTriggerable((Triggerable) secondElement);
+						gbv.changeStatusMessage("Success! " + secondElement + " will now be tiggered by " + firstElement + ".");
+					} else {
+						gbv.changeStatusMessage("Error: You can't connect a gizmo to itself.");
+					}
+				} else {
+					gbv.changeStatusMessage("Error: Please select a second Gizmo.");
+				}
+			} else {
+				gbv.changeStatusMessage("Error: Please select an initial Gizmo.");
+			}
+			break;
 
             case "Load Board":
                 LoadBoard l = new LoadBoard();

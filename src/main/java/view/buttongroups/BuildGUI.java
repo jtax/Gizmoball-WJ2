@@ -53,7 +53,9 @@ public class BuildGUI {
 		JButton gravity = new JButton("Gravity");
 		gravity.addActionListener(listener);
 		JButton keyConn = new JButton("Key Connection");
+		keyConn.addActionListener(listener);
 		JButton connGizmo = new JButton("Gizmo Connection");
+		connGizmo.addActionListener(listener);
 
 		JPanel bottomButtons = new JPanel(new GridLayout(2, 3));
 		bottomButtons.add(shape);
