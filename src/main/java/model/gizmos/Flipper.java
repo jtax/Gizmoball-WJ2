@@ -1,12 +1,13 @@
 package model.gizmos;
 
-import model.*;
+import model.Board;
+import model.Direction;
+import model.Gizmo;
 import model.Triggerable;
 import physics.LineSegment;
 import physics.Vect;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,8 +24,6 @@ public class Flipper extends Gizmo implements Triggerable {
 	private double movementRotation = 0;
 	private Direction direction = Direction.LEFT;
 	private int directionConst = 1;
-	private int rotationConst = 1;
-	private KeyEvent keyPressTrigger;
 	private String saveInfo;
 	private String name;
 	private String saveDirection;
@@ -47,6 +46,15 @@ public class Flipper extends Gizmo implements Triggerable {
 		super.setColor(new Color(0xf1c40f));
 		setSaveInfo();
 	}
+
+	public Vect getPivotPoint() {
+		return pivotPoint;
+	}
+
+	public double getAngularVelocity() {
+		return angularVelocity;
+	}
+
 
 	public void move(Vect distance) {
 		super.origin = super.origin.plus(distance);

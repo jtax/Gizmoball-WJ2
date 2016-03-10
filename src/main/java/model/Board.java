@@ -304,12 +304,19 @@ public class Board extends Observable implements IBoard {
 			for (Circle circle : element.getCircles()) {
 				detectCircleCollision(circle, ball, element);
 			}
+
 			for (LineSegment line : element.getLines()) {
 				detectLineCollision(line, ball, element);
 			}
 
 			if (element instanceof Flipper) {
+
 				((Flipper) element).flip();
+
+				for (LineSegment line : element.getLines()) {
+					detectFlipperCollision(line, ball, element);
+				}
+
 			}
 
 		}
@@ -331,6 +338,14 @@ public class Board extends Observable implements IBoard {
 		double time = Geometry.timeUntilWallCollision(line, ball.getCircle(), ball.getVelocity());
 		if (time < closestCollision.getTime()) {
 			Vect newV = Geometry.reflectWall(line, ball.getVelocity());
+			closestCollision = new Collision(newV, time, element, ball);
+		}
+	}
+
+	private void detectFlipperCollision(LineSegment line, Ball ball, IElement element) {
+		double time = Geometry.timeUntilRotatingWallCollision(line, ((Flipper) element).getPivotPoint(), ((Flipper) element).getAngularVelocity(),  ball.getCircle(), ball.getVelocity());
+		if (time < closestCollision.getTime()) {
+			Vect newV = Geometry.reflectRotatingWall(line, ((Flipper) element).getPivotPoint(), ((Flipper) element).getAngularVelocity(), ball.getCircle(), ball.getVelocity());
 			closestCollision = new Collision(newV, time, element, ball);
 		}
 	}
