@@ -152,6 +152,7 @@ public class BuildListener implements ActionListener {
                     System.out.println("failed");
 
                 }
+                break;
 
             case "Save Board":
                 SaveBoardToFile s = new SaveBoardToFile();
@@ -161,6 +162,7 @@ public class BuildListener implements ActionListener {
                 else{
                     System.out.println("unsuccessful save");
                 }
+                break;
         }
 
 
