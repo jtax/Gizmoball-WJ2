@@ -345,7 +345,7 @@ public class Board extends Observable implements IBoard {
 	private void detectFlipperCollision(LineSegment line, Ball ball, IElement element) {
 		double time = Geometry.timeUntilRotatingWallCollision(line, ((Flipper) element).getPivotPoint(), ((Flipper) element).getAngularVelocity(),  ball.getCircle(), ball.getVelocity());
 		if (time < closestCollision.getTime()) {
-			Vect newV = Geometry.reflectRotatingWall(line, ((Flipper) element).getPivotPoint(), ((Flipper) element).getAngularVelocity(), ball.getCircle(), ball.getVelocity());
+			Vect newV = Geometry.reflectRotatingWall(line, ((Flipper) element).getPivotPoint(), ((Flipper) element).getAngularVelocity(), ball.getCircle(), ball.getVelocity(), 0.95);
 			closestCollision = new Collision(newV, time, element, ball);
 		}
 	}
