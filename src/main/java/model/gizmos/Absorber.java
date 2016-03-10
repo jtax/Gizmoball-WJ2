@@ -155,7 +155,7 @@ public class Absorber extends Gizmo implements Triggerable {
 	}
 
 	@Override
-	public void handle(Collision c) {
+	public void subHandle(Collision c) {
 		Ball ball = c.getBall();
 		absorb(ball);
 	}
