@@ -1,12 +1,18 @@
 package controller;
 
 import model.*;
+import model.gizmos.Circle;
+import model.gizmos.Square;
+import model.gizmos.Triangle;
 import physics.Vect;
 import view.GizmoBallView;
 import view.LoadBoard;
 
+import javax.swing.text.StyledEditorKit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
 /**
  * Created by Umar on 07/03/2016.
@@ -82,8 +88,20 @@ public class BuildListener implements ActionListener {
                 String option = gbv.getBuildGUI().dropboxValue();
                 if(!option.equals("Pick a gizmo")){
                     System.out.println("Adding the element "+ option +"\n To the coords: " + getPress());
-                    // IElement elementToAdd =
+                    switch (option) {
+
+                        case "Circle":
+                            board.addElement(new Circle(getPress(), "C" + Math.random()));
+                            break;
+                        case "Square":
+                            board.addElement(new Square(getPress(), "S" + Math.random()));
+                            break;
+                        case "Triangle":
+                            board.addElement(new Triangle(getPress(), "T" + Math.random()));
+                            break;
+                    }
                 }
+
                 break;
 
             case "Load Board":

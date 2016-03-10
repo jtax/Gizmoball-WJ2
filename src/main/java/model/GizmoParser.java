@@ -21,6 +21,8 @@ public class GizmoParser {
 		fileInput = new BufferedReader(new FileReader(filename));
 	}
 
+
+
 	public Board getGizmosFromFile() throws IOException, BadFileException {
 
 		String line = fileInput.readLine();
@@ -110,7 +112,7 @@ public class GizmoParser {
 		return board;
 	}
 
-	private Gizmo shapeParser(String gizmo, StringTokenizer st) throws BadFileException {
+	public Gizmo shapeParser(String gizmo, StringTokenizer st) throws BadFileException {
 		String gizmoName;
 		int xCoord;
 		int yCoord;

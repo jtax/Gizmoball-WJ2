@@ -75,6 +75,7 @@ public class BuildGUI {
 
 	public JPanel createTopButton() {
 		add = new JButton("Add");
+		add.addActionListener(listener);
 		switchToRun = new JButton("Run Mode");
 		switchToRun.addActionListener(listener);
 		move = new JButton("Move");
