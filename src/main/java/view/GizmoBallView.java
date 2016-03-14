@@ -14,9 +14,7 @@ import controller.BuildListener;
 import controller.KeyPressListener;
 import controller.RunListener;
 import model.Board;
-import model.BoardManager;
 import model.IBoard;
-import model.IBoardManager;
 import util.MagicKeyListener;
 import view.buttongroups.BuildGUI;
 import view.buttongroups.RunGUI;
@@ -34,20 +32,18 @@ public class GizmoBallView implements Observer {
 	private JPanel bottomButtons, topButtons, boardPanel;
 	private JMenuBar menu;
 	private BoardView boardView;
-	private IBoardManager boardManager;
 	private ActionListener runListener;
 	private ActionListener buildListener;
 
-	public GizmoBallView(IBoardManager bm) {
-		IBoard board = bm.getBoard();
-		boardManager = bm;
+	public GizmoBallView(IBoard bm) {
+		IBoard board = bm;
 		frame = new JFrame("Gizmo Baw");
 		contentPane = frame.getContentPane();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		boardView = new BoardViewImpl(board);
 		runListener = new RunListener(bm, this);
 		buildListener = new BuildListener(bm, this);
-		keyPressListener = new MagicKeyListener(new KeyPressListener(bm.getBoard().getElements()));
+		keyPressListener = new MagicKeyListener(new KeyPressListener(bm.getElements()));
 		makeFrame();
 	}
 
@@ -61,12 +57,11 @@ public class GizmoBallView implements Observer {
 			frame.addKeyListener(keyPressListener);
 		} else {
 			makeBuildGUI();
-
-
+			contentPane.add(topButtons, BorderLayout.NORTH);
 		}
-		contentPane.add(bottomButtons, BorderLayout.SOUTH);
-		contentPane.add(topButtons, BorderLayout.NORTH);
+		
 		contentPane.add(boardPanel, BorderLayout.CENTER);
+		contentPane.add(bottomButtons, BorderLayout.SOUTH);
 		frame.setJMenuBar(menu);
 		frame.setLocation(100, 100);
 		frame.setVisible(true);
@@ -79,9 +74,8 @@ public class GizmoBallView implements Observer {
 
 	private void makeRunGUI() {
 		runGUI = new RunGUI(runListener);
-		topButtons = runGUI.createButton();
+		bottomButtons = runGUI.createButton();
 		menu = runGUI.createMenu();
-		bottomButtons = runGUI.getStatusBar();
 	}
 
 	private void makeBuildGUI() {

@@ -48,15 +48,12 @@ public class BuildGUI {
 		shape.addItem("Ball");
 		JButton rotate = new JButton("Rotate");
 		rotate.addActionListener(listener);
-		JButton move = new JButton("Move");
-		move.addActionListener(listener);
 		JButton friction = new JButton("Friction");
 		friction.addActionListener(listener);
 		JButton gravity = new JButton("Gravity");
 		gravity.addActionListener(listener);
 		JButton keyConn = new JButton("Key Connection");
 		JButton connGizmo = new JButton("Gizmo Connection");
-		ball = new JButton("Ball");
 
 		JPanel bottomButtons = new JPanel(new GridLayout(2, 3));
 		bottomButtons.add(shape);
@@ -98,9 +95,6 @@ public class BuildGUI {
 		JMenuBar menus = new JMenuBar();
 
 		JMenu file = new JMenu("File");
-		file.setBackground(new Color(0x2C3E50));
-		file.setForeground(new Color(0xECF0F1));
-
 		JMenuItem loadModel = new JMenuItem("Load Board");
 		loadModel.setAccelerator(KeyStroke.getKeyStroke(
 				KeyEvent.VK_L, ActionEvent.CTRL_MASK));
@@ -127,13 +121,7 @@ public class BuildGUI {
 		file.add(quit);
 
 		menus.add(file);
-		menus.setBackground(new Color(0x2C3E50));
-		menus.setForeground(new Color(0xECF0F1));
 		return menus;
-	}
-
-	public void updateStatusBar(String message) {
-		statusBar.setText(message);
 	}
 
 	public double promptGravity(){
@@ -166,4 +154,13 @@ public class BuildGUI {
 		}
 		return new double[]{frictVal1Double, frictVal2Double};
 	}
+
+	public String dropboxValue(){
+		return shape.getSelectedItem().toString();
+	}
+
+	public void updateStatusBar(String message) {
+		statusBar.setText(message);
+	}
+
 }
