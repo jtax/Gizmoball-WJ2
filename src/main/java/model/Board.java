@@ -211,7 +211,8 @@ public class Board extends Observable implements IBoard {
 	}
 
 	public boolean detectEmptyLocation(Vect position) {
-		if (position.x() > 19 || position.x() <= 0) {
+		return true;
+		/*if (position.x() > 19 || position.x() <= 0) {
 			return false;
 		}
 		if (position.y() > 19 || position.y() <= 0) {
@@ -223,6 +224,7 @@ public class Board extends Observable implements IBoard {
 			}
 		}
 		return true;
+		*/
 	}
 
 	public void selectElement(double x, double y) {

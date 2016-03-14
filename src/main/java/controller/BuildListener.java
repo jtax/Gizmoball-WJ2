@@ -130,11 +130,12 @@ public class BuildListener implements ActionListener {
         LoadBoard l = new LoadBoard();
         Board lboard = l.loadFile();
         if (lboard != null) {
-            board.setElements(lboard.getAllElements());
+            board.setElements(lboard.getElements());
             board.setFrictionConst(lboard.getFrictionConst());
             board.setGravityConst(lboard.getGravityConst());
             board.setHeight(lboard.getHeight());
             board.setWidth(lboard.getWidth());
+            board.setBalls(lboard.getBalls());
         }
         else{
             System.out.println("failed");
