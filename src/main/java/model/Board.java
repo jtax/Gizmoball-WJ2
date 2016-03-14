@@ -297,6 +297,12 @@ public class Board extends Observable implements IBoard {
 		return ball;
 
 	}
+	public void clear(){
+		elements.clear();
+		balls.clear();
+		setChanged();
+		notifyObservers();
+	}
 
 	private Collision getTimeTillCollision(Ball ball) {
 		closestCollision = new Collision(0, 0, Double.MAX_VALUE);

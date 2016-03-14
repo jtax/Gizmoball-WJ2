@@ -118,6 +118,12 @@ public class BuildGUI {
 		JMenuItem redo = new JMenuItem("Redo build");
 		file.add(redo);
 
+		JMenuItem clear = new JMenuItem("Clear Board");
+		clear.setAccelerator(KeyStroke.getKeyStroke(
+				KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+		clear.addActionListener(listener);
+		file.add(clear);
+
 		JMenuItem quit = new JMenuItem("Quit");
 		file.add(quit);
 

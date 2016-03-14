@@ -41,6 +41,7 @@ public interface IBoard {
 	void setHeight(int height);
 
 	void changed();
+	void clear();
 
 	Vect getMouseClick();
 

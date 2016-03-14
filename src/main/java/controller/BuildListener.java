@@ -72,6 +72,10 @@ public class BuildListener implements ActionListener {
             case "Save Board":
                 saveBoard();
                 break;
+
+            case "Clear Board":
+                board.clear();
+                break;
         }
     }
 
@@ -130,6 +134,7 @@ public class BuildListener implements ActionListener {
         LoadBoard l = new LoadBoard();
         Board lboard = l.loadFile();
         if (lboard != null) {
+            board.clear();
             board.setElements(lboard.getElements());
             board.setFrictionConst(lboard.getFrictionConst());
             board.setGravityConst(lboard.getGravityConst());
