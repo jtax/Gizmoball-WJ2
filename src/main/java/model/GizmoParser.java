@@ -108,7 +108,7 @@ public class GizmoParser {
 				}
 			}
 		}
-		if(!keyConnects.isEmpty()){
+	/*	if(!keyConnects.isEmpty()){
 			for (IElement e : board.getElements()) {
 				for (String key : keyConnects) {
 					StringTokenizer keytoken;
@@ -132,7 +132,7 @@ public class GizmoParser {
 				}
 			}
 		}
-
+*/
 
 		return board;
 	}

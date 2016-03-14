@@ -88,7 +88,7 @@ public class BuildListener implements ActionListener {
                     // IElement elementToAdd =
                 }
                 break;
-                
+
 		    case "Gizmo Connection":
                 IElement firstElement;
                 // FIXME: nasty casty
@@ -146,6 +146,7 @@ public class BuildListener implements ActionListener {
                     board.setGravityConst(lboard.getGravityConst());
                     board.setHeight(lboard.getHeight());
                     board.setWidth(lboard.getWidth());
+                    //board.setBalls(lboard.getBalls());
                 }
                 else{
                     System.out.println("failed");
