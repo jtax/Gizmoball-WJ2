@@ -55,7 +55,7 @@ public class Board extends Observable implements IBoard {
 		Vect bottomLeft = new Vect(0, 20);
 		Vect bottomRight = new Vect(20, 20);
 		Gizmo walls = new Wall(topLeft, bottomRight, "Wall");
-		addElement(walls);
+		elements.add(walls);
 	}
 
 	@Override
@@ -104,6 +104,7 @@ public class Board extends Observable implements IBoard {
 		}
 		return false;
 	}
+
 
 	@Override
 	public void removeElement(IElement element) {
@@ -210,10 +211,11 @@ public class Board extends Observable implements IBoard {
 	}
 
 	public boolean detectEmptyLocation(Vect position) {
-		if (position.x() > 19 || position.x() < 0) {
+		return true;
+		/*if (position.x() > 19 || position.x() <= 0) {
 			return false;
 		}
-		if (position.y() > 19 || position.y() < 0) {
+		if (position.y() > 19 || position.y() <= 0) {
 			return false;
 		}
 		for (IElement existingElement : elements) {
@@ -222,6 +224,7 @@ public class Board extends Observable implements IBoard {
 			}
 		}
 		return true;
+		*/
 	}
 
 	public void selectElement(double x, double y) {
