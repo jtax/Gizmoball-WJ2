@@ -42,13 +42,6 @@ public class Board extends Observable implements IBoard {
 		this(new double[]{0.025, 0.025}, 25, 20, 20);
 	}
 
-	@Override
-	public void addBall(Ball ball) {
-		balls.add(ball);
-		setChanged();
-		notifyObservers();
-	}
-
 	private void addWalls() {
 		Vect topLeft = new Vect(0, 0);
 		Vect topRight = new Vect(20, 0);
@@ -56,6 +49,13 @@ public class Board extends Observable implements IBoard {
 		Vect bottomRight = new Vect(20, 20);
 		Gizmo walls = new Wall(topLeft, bottomRight, "Wall");
 		elements.add(walls);
+	}
+
+	@Override
+	public void addBall(Ball ball) {
+		balls.add(ball);
+		setChanged();
+		notifyObservers();
 	}
 
 	@Override
@@ -301,11 +301,12 @@ public class Board extends Observable implements IBoard {
 		ball.applyForces(moveTime, getGravityConst(), getFrictionConst());
 		Collision collision = getTimeTillCollision(ball);
 
-		if (collision.getTime() >= moveTime) // No Collision
+		if (collision.getTime() >= moveTime) { // No Collision
 			ball.moveForTime(moveTime);
-		else // Collision
+		} else { // Collision
+			ball.moveForTime(collision.getTime());
 			collision.getHandler().handle(collision);
-
+		}
 		return ball;
 
 	}

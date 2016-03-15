@@ -21,129 +21,246 @@ public class BoardTest {
     }
 
     @Test
-    public void testAddBall() throws Exception {
-
+    public void testBoard() {
+        //See spreadsheet Test 1
     }
 
     @Test
-    public void testSetBalls() throws Exception {
-
+    public void testBoardWithParams() {
+        //See spreadsheet Test 2
     }
 
     @Test
-    public void testGetBalls() throws Exception {
-
+    public void testBoardWalls() {
+        //See spreadsheet Test 3
     }
 
     @Test
-    public void testGetElements() throws Exception {
-
+    public void testBoardWallClean() {
+        //See spreadsheet Test 4
     }
 
     @Test
-    public void testGetAllElements() throws Exception {
-
+    public void testAddWallsCoords() {
+        //See spreadsheet Test 5
     }
 
     @Test
-    public void testSetElements() throws Exception {
-
+    public void testAddWalls() {
+        //See spreadsheet Test 6
     }
 
     @Test
-    public void testAddElement() throws Exception {
-
+    public void testAddBall() {
+        //See spreadsheet Test 7
     }
 
     @Test
-    public void testRemoveElement() throws Exception {
-
+    public void testAddBallNum() {
+        //See spreadsheet Test 8
     }
 
     @Test
-    public void testGetFrictionConst() throws Exception {
-
+    public void testSetBall() {
+        //See spreadsheet Test  9
     }
 
     @Test
-    public void testSetFrictionConst() throws Exception {
-
+    public void getAllElementsTypes() {
+        //See spreadsheet Test 10
     }
 
     @Test
-    public void testGetGravityConst() throws Exception {
-
+    public void getAllElements() {
+        //See spreadsheet Test 11
     }
 
     @Test
-    public void testSetGravityConst() throws Exception {
+    public void setElements1() {
+        //See spreadsheet Test 12
+    }
 
+
+    @Test
+    public void setElements2() {
+        //See spreadsheet Test 13
     }
 
     @Test
-    public void testGetWidth() throws Exception {
-
+    public void setElements3() {
+        //See spreadsheet Test 14
     }
 
     @Test
-    public void testSetWidth() throws Exception {
-
+    public void addElement1() {
+        //See spreadsheet Test 15
     }
 
     @Test
-    public void testGetHeight() throws Exception {
-
+    public void addElement2() {
+        //See spreadsheet Test 16
     }
 
     @Test
-    public void testSetHeight() throws Exception {
-
+    public void addElement3() {
+        //See spreadsheet Test 17
     }
 
     @Test
-    public void testChanged() throws Exception {
-
+    public void removeElement1() {
+        //See spreadsheet Test 18
     }
 
     @Test
-    public void testGetMouseClick() throws Exception {
-
+    public void removeElement2() {
+        //See spreadsheet Test 19
     }
 
     @Test
-    public void testSetMouseClick() throws Exception {
-
+    public void getsetFriction() {
+        //See spreadsheet Test 20
     }
 
     @Test
-    public void testGetMousePress() throws Exception {
-
+    public void getsetGravity() {
+        //See spreadsheet Test 21
     }
 
     @Test
-    public void testSetMousePress() throws Exception {
-
+    public void getsetWidth() {
+        //See spreadsheet Test 22
     }
 
     @Test
-    public void testGetMouseRelease() throws Exception {
-
+    public void getsetHeight() {
+        //See spreadsheet Test 23
     }
 
     @Test
-    public void testSetMouseRelease() throws Exception {
-
+    public void moveGizmo1() {
+        //See spreadsheet Test 24
     }
 
     @Test
-    public void testGetSelectedElement() throws Exception {
-
+    public void moveGizmo2() {
+        //See spreadsheet Test 25
     }
 
     @Test
-    public void testSetSelectedElement() throws Exception {
-
+    public void moveGizmo3() {
+        //See spreadsheet Test 26
     }
+
+    @Test
+    public void detectEmptyArea1() {
+        //See spreadsheet Test 27
+    }
+
+    @Test
+    public void detectEmptyArea2() {
+        //See spreadsheet Test 28
+    }
+
+    @Test
+    public void detectEmptyArea3() {
+        //See spreadsheet Test 29
+    }
+
+    @Test
+    public void detectEmptySquare1() {
+        //See spreadsheet Test 30
+    }
+
+    @Test
+    public void detectEmptySquare2() {
+        //See spreadsheet Test 31
+    }
+
+    @Test
+    public void detectEmptySquare3() {
+        //See spreadsheet Test 32
+    }
+
+    @Test
+    public void getElementAtLocation1() {
+        //See spreadsheet Test33
+    }
+
+    @Test
+    public void getElementAtLocation2() {
+        //See spreadsheet Test 34
+    }
+
+    @Test
+    public void getElementAtLocation3() {
+        //See spreadsheet Test 35
+    }
+
+    @Test
+    public void getElementAtLocation4() {
+        //See spreadsheet Test 36
+    }
+
+    @Test
+    public void getElementAtLocation5() {
+        //See spreadsheet Test 37
+    }
+
+    @Test
+    public void getElementAtLocation6() {
+        //See spreadsheet Test 38
+    }
+
+    @Test
+    public void getElementAtLocation7() {
+        //See spreadsheet Test 39
+    }
+
+    @Test
+    public void getElementAtLocation8() {
+        //See spreadsheet Test 40
+    }
+
+    @Test
+    public void getElementAtLocation9() {
+        //See spreadsheet Test 41
+    }
+
+    @Test
+    public void getElementAtLocation10() {
+        //See spreadsheet Test 42
+    }
+
+    @Test
+    public void getElementAtLocation11() {
+        //See spreadsheet Test 43
+    }
+
+    @Test
+    public void getElementAtLocation12() {
+        //See spreadsheet Test 44
+    }
+
+    @Test
+    public void clear1() {
+        //See spreadsheet Test 45
+    }
+
+    @Test
+    public void clear2() {
+        //See spreadsheet Test 46
+    }
+
+    @Test
+    public void tick() {
+        //See spreadsheet Test 47
+    }
+
+    @Test
+    public void moveBall() {
+        //See spreadsheet Test 48
+    }
+
 
     @Test
     public void testSimpleMoveGizmo() throws Exception {
@@ -213,31 +330,6 @@ public class BoardTest {
         //Bottom Side
         assertFalse(board.moveGizmo(originalAbsorber, new Vect(0, -6)));
         assertTrue(board.moveGizmo(originalAbsorber, new Vect(0, -5)));
-
-    }
-
-    @Test
-    public void testDetectEmptyArea() throws Exception {
-
-    }
-
-    @Test
-    public void testDetectEmptyLocation() throws Exception {
-
-    }
-
-    @Test
-    public void testSelectElement() throws Exception {
-
-    }
-
-    @Test
-    public void testGetElementAtLocation() throws Exception {
-
-    }
-
-    @Test
-    public void testGetElementAtLocation1() throws Exception {
 
     }
 }
