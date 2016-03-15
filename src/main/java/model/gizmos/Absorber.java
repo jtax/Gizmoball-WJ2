@@ -170,4 +170,27 @@ public class Absorber extends Gizmo implements Triggerable {
 		saveInfo = "Absorber" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord() + " "
 				+ (int) bound.getXCoord() + " " + (int) bound.getyCoord();
 	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != Absorber.class) {
+			return false;
+		}
+		//We know that its a absorber
+		Absorber otherAbsorber = (Absorber) other;
+
+		if (!origin.equals(otherAbsorber.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherAbsorber.getBound())) {
+			return false;
+		}
+		if (rotation != otherAbsorber.rotation) {
+			return false;
+		}
+		if(!coordinates.equals(otherAbsorber.coordinates)){
+			return false;
+		}
+		return true;
+	}
 }

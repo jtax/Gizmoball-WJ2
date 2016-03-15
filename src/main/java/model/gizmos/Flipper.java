@@ -247,4 +247,38 @@ public class Flipper extends Gizmo implements Triggerable {
 		return coordinates;
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != Flipper.class) {
+			return false;
+		}
+		//We know that its a flipper
+		Flipper otherFlipper = (Flipper) other;
+
+		if (!origin.equals(otherFlipper.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherFlipper.getBound())) {
+			return false;
+		}
+		if (rotation != otherFlipper.getRotation()) {
+			return false;
+		}
+		if (!coordinates.equals(otherFlipper.getCoordinates())) {
+			return false;
+		}
+
+		if (!direction.equals(otherFlipper.getDirection())) {
+			return false;
+		}
+
+		if (!pivotPoint.equals(otherFlipper.getPivotPoint())) {
+			return false;
+		}
+		if (angularVelocity != otherFlipper.getAngularVelocity()) {
+			return false;
+		}
+
+		return true;
+	}
 }
