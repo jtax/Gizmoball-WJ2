@@ -1,18 +1,15 @@
 package controller;
 
 import model.*;
-import model.gizmos.Circle;
-import model.gizmos.Square;
-import model.gizmos.Triangle;
 import physics.Vect;
 import view.GizmoBallView;
 import view.LoadBoard;
 
-import javax.swing.text.StyledEditorKit;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.StringTokenizer;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Created by Umar on 07/03/2016.
@@ -63,6 +60,14 @@ public class BuildListener implements ActionListener {
 
             case "Add":
                 addElement();
+                break;
+
+            case "Gizmo Connection":
+                setGizmoConnection();
+                break;
+
+            case "Key Connection":
+                setKeyConnection();
                 break;
 
             case "Load Board":
@@ -185,6 +190,59 @@ public class BuildListener implements ActionListener {
             else{
                 gbv.changeStatusMessage("Error: Add gizmo failed.");
             }
+        }
+    }
+
+
+    private void setKeyConnection() {
+        IElement selectedElement;
+
+        if ((selectedElement = getSelectedElement()) != null && selectedElement instanceof Gizmo) {
+
+            JDialog dialog = gbv.getBuildGUI().promptSetKeyListener(selectedElement);
+
+            dialog.addKeyListener(new KeyListener() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+
+                    // Close dialog
+                    dialog.dispose();
+
+                    // Set trigger
+                    ((Gizmo) selectedElement).addKeyPressTrigger(e.getKeyCode());
+
+                    // Change status
+                    gbv.changeStatusMessage("Success! " + selectedElement + " will be triggered by pressing " + KeyEvent.getKeyText(e.getKeyCode()));
+                }
+
+                public void keyTyped(KeyEvent e) {}
+                public void keyReleased(KeyEvent e) {}
+            });
+
+
+        } else {
+            gbv.changeStatusMessage("Error: Please select a Gizmo.");
+        }
+    }
+
+    private void setGizmoConnection() {
+        IElement firstElement;
+        // FIXME: nasty casty
+        if ((firstElement = getSelectedElement()) != null && firstElement instanceof Gizmo) {
+            Vect secondElementLocation = board.getMouseRelease();
+            IElement secondElement;
+            if ((secondElement = board.getElementAtLocation(secondElementLocation)) != null && secondElement instanceof Triggerable) {
+                if (!firstElement.equals(secondElement)) {
+                    ((Gizmo) firstElement).addTriggerable((Triggerable) secondElement);
+                    gbv.changeStatusMessage("Success! " + secondElement + " will now be triggered by " + firstElement + ".");
+                } else {
+                    gbv.changeStatusMessage("Error: You can't connect a gizmo to itself.");
+                }
+            } else {
+                gbv.changeStatusMessage("Error: Please select a second Gizmo.");
+            }
+        } else {
+            gbv.changeStatusMessage("Error: Please select an initial Gizmo.");
         }
     }
 }

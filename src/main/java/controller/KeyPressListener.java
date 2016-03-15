@@ -1,12 +1,12 @@
 package controller;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Collection;
-
 import model.Gizmo;
 import model.IElement;
 import model.Triggerable;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Collection;
 
 /**
  * Package: controller Created by Laurynas Sakalauskas on 17/02/16 13:39.
@@ -43,20 +43,7 @@ public class KeyPressListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 
-		System.out.println("Key Pressed:" + e.getKeyChar());
-
-		for (IElement element : elements) {
-
-			if (e.getKeyCode() == ((Gizmo) element).getKeyPressTrigger()) {
-
-				System.out.println("Key Pressed:" + e.getKeyChar());
-				if (element instanceof Triggerable) {
-					((Triggerable) element).trigger();
-					// ((Flipper) element).trigger();
-
-				}
-			}
-		}
+		handleTrigger(e);
 	}
 
 	/**
@@ -68,18 +55,26 @@ public class KeyPressListener implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 
+		handleTrigger(e);
+
+	}
+
+	/**
+	 * Execute trigger on keyPress and keyReleased action
+	 *
+	 * @param e
+	 */
+	private void handleTrigger(KeyEvent e) {
 		for (IElement element : elements) {
 
 			if (e.getKeyCode() == ((Gizmo) element).getKeyPressTrigger()) {
 
 				if (element instanceof Triggerable) {
-					System.out.println("Key Released:" + e.getKeyChar());
 
 					((Triggerable) element).trigger();
 
 				}
 			}
 		}
-
 	}
 }
