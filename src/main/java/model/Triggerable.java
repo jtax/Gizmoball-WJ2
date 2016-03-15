@@ -7,5 +7,7 @@ package model;
 public interface Triggerable {
 
 	void trigger();
+	
+	void keyTrigger();
 
 }

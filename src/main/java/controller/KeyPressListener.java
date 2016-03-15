@@ -71,7 +71,7 @@ public class KeyPressListener implements KeyListener {
 
 				if (element instanceof Triggerable) {
 
-					((Triggerable) element).trigger();
+					((Triggerable) element).keyTrigger();
 
 				}
 			}

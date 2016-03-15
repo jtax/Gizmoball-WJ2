@@ -72,9 +72,13 @@ abstract public class Gizmo implements IElement, Triggerable {
 	public int getKeyPressTrigger() {
 		return keyPressTrigger;
 	}
-
+	
+	public void keyTrigger() {
+		trigger();
+		onCollision();
+	}
+	
 	public void trigger() {
-
 		color = Color.red;
 	}
 
