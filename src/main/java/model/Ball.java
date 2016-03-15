@@ -212,4 +212,31 @@ public class Ball implements IElement, Absorbable {
 		return diameter / 2;
 	}
 
+	public boolean equals(Object other) {
+		if (other.getClass() != Ball.class) {
+			return false;
+		}
+		//We know that its a ball
+		Ball otherBall = (Ball) other;
+
+		if (!origin.equals(otherBall.getOrigin())) {
+			return false;
+		}
+		if (!velocity.equals(otherBall.getVelocity())) {
+			return false;
+		}
+		if (point != otherBall.getCircle()) {
+			return false;
+		}
+		if(!center.equals(otherBall.getCenter())){
+			return false;
+		}
+		if(!color.equals(otherBall.getColor())){
+			return false;
+		}
+		if(!getCoordinates().equals(otherBall.getCoordinates())){
+			return false;
+		}
+		return true;
+	}
 }
