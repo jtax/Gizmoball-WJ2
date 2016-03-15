@@ -118,4 +118,29 @@ public class Triangle extends Gizmo {
 		super.setLines(calculateLines());
 		setSaveInfo();
 	}
+
+	public boolean equals(Object other) {
+		if (other.getClass() != Triangle.class) {
+			return false;
+		}
+		//We know that its a triangle
+		Triangle otherTriangle = (Triangle) other;
+
+		if (!origin.equals(otherTriangle.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherTriangle.getBound())) {
+			return false;
+		}
+		if (rotation != otherTriangle.rotation) {
+			return false;
+		}
+		if(!coordinates.equals(otherTriangle.getCoordinates())){
+			return false;
+		}
+		if(!getCenterPoint().equals(otherTriangle.getCenterPoint())){
+			return false;
+		}
+		return true;
+	}
 }
