@@ -95,8 +95,7 @@ public class Board extends Observable implements IBoard {
 
 	@Override
 	public boolean addElement(IElement element) {
-		Vect target = element.getOrigin();
-		if (detectEmptyLocation(target)) {
+		if (detectEmptyArea(element.getOrigin(), element.getBound())) {
 		elements.add(element);
 		setChanged();
 		notifyObservers();
@@ -202,29 +201,42 @@ public class Board extends Observable implements IBoard {
 
 	@Override
 	public boolean moveGizmo(IElement selectedElement, Vect distance) {
-		Vect newLocation = selectedElement.getOrigin().plus(distance);
-		if (detectEmptyLocation(newLocation)) {
+		Vect newOrigin = selectedElement.getOrigin().plus(distance);
+		Vect newBound = selectedElement.getBound().plus(distance);
+		if (detectEmptyArea(newOrigin, newBound)) {
 			selectedElement.move(distance);
+			System.out.println(selectedElement.getName() + "Moved");
 			return true;
 		}
 		return false;
 	}
 
-	public boolean detectEmptyLocation(Vect position) {
+	public boolean detectEmptyArea(Vect origin, Vect bound) {
+		for (double x = origin.x(); x < bound.x(); x += 1) {
+			for (double y = origin.y(); y < bound.y(); y += 1) {
+				if (!detectEmptyLocation(new Vect(x, y))) {
+					return false;
+				}
+			}
+		}
 		return true;
-		/*if (position.x() > 19 || position.x() <= 0) {
+	}
+	public boolean detectEmptyLocation(Vect position) {
+		if (position.x() >= 20 || position.x() < 0) {
+			System.out.println("DETECT EMPTY FAILED : X");
 			return false;
 		}
-		if (position.y() > 19 || position.y() <= 0) {
+		if (position.y() >= 20 || position.y() < 0) {
+			System.out.println("DETECT EMPTY FAILED : Y");
 			return false;
 		}
 		for (IElement existingElement : elements) {
-			if (existingElement.getOrigin().equals(position)) {
+			if (existingElement.getOrigin().equals(position) && !(existingElement instanceof Wall)) {
+				System.out.println("DETECT EMPTY FAILED : " + existingElement.getName());
 				return false;
 			}
 		}
 		return true;
-		*/
 	}
 
 	public void selectElement(double x, double y) {

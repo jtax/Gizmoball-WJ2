@@ -124,4 +124,28 @@ public class Square extends Gizmo {
 		super.setLines(calculateLines());
 		saveInfo = "Square" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
+
+
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != Square.class) {
+			return false;
+		}
+		//We know that its a square
+		Square otherSquare = (Square) other;
+
+		if (!origin.equals(otherSquare.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherSquare.getBound())) {
+			return false;
+		}
+		if (rotation != otherSquare.rotation) {
+			return false;
+		}
+		if (!name.equals(otherSquare.name)) {
+			return false;
+		}
+		return true;
+	}
 }
