@@ -140,10 +140,10 @@ public class Square extends Gizmo {
 		if (!bound.equals(otherSquare.getBound())) {
 			return false;
 		}
-		if (rotation != otherSquare.rotation) {
+		if (rotation != otherSquare.getRotation()) {
 			return false;
 		}
-		if (!name.equals(otherSquare.name)) {
+		if (!coordinates.equals(otherSquare.getCoordinates())) {
 			return false;
 		}
 		return true;

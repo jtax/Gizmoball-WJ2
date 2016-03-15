@@ -72,4 +72,28 @@ public class Circle extends Gizmo {
 		super.setCircles(Arrays.asList(calculateCircle()));
 		saveInfo = "Circle" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != Circle.class) {
+			return false;
+		}
+		//We know that its a circle
+		Circle otherCircle = (Circle) other;
+
+		if (!origin.equals(otherCircle.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherCircle.getBound())) {
+			return false;
+		}
+		if (rotation != otherCircle.getRotation()) {
+			return false;
+		}
+		if(!getCoordinates().equals(otherCircle.getCoordinates())){
+			return false;
+		}
+
+		return true;
+	}
 }
