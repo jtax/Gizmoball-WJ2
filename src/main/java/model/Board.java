@@ -55,7 +55,7 @@ public class Board extends Observable implements IBoard {
 		Vect bottomLeft = new Vect(0, 20);
 		Vect bottomRight = new Vect(20, 20);
 		Gizmo walls = new Wall(topLeft, bottomRight, "Wall");
-		addElement(walls);
+		elements.add(walls);
 	}
 
 	@Override
@@ -104,6 +104,7 @@ public class Board extends Observable implements IBoard {
 		}
 		return false;
 	}
+
 
 	@Override
 	public void removeElement(IElement element) {
@@ -210,10 +211,11 @@ public class Board extends Observable implements IBoard {
 	}
 
 	public boolean detectEmptyLocation(Vect position) {
-		if (position.x() > 19 || position.x() < 0) {
+		return true;
+		/*if (position.x() > 19 || position.x() <= 0) {
 			return false;
 		}
-		if (position.y() > 19 || position.y() < 0) {
+		if (position.y() > 19 || position.y() <= 0) {
 			return false;
 		}
 		for (IElement existingElement : elements) {
@@ -222,48 +224,55 @@ public class Board extends Observable implements IBoard {
 			}
 		}
 		return true;
+		*/
 	}
 
 	public void selectElement(double x, double y) {
 		if (selectedElement != null) {
 			selectedElement.highlight();
 		}
-
+		
+		if ((selectedElement = getElementAtLocation(x, y)) != null)
+			selectedElement.highlight();
+	}
+	
+	@Override
+	public IElement getElementAtLocation(double x, double y) {
 		for (IElement element : elements) {
 			Vect origin = element.getOrigin();
 			Vect bound = element.getBound();
 
-			if (element.getClass() == Flipper.class) {
+			if (element instanceof Flipper) {
 
 				if (((Flipper) element).getDirection() == Direction.RIGHT) {
 					if (origin.x() - 1.5 <= x && bound.x() > x) {
 						if (origin.y() <= y && bound.y() > y) {
-							selectedElement = element;
-							selectedElement.highlight();
-							return;
+							return element;
 						}
 					}
 				} else {
 					if (origin.x() <= x && bound.x() + 1.5 > x) {
 						if (origin.y() <= y && bound.y() > y) {
-							selectedElement = element;
-							selectedElement.highlight();
-							return;
+							return element;
 						}
 					}
 				}
 
-			} else if (element.getClass() != Wall.class) {
+			} else if (!(element instanceof Wall)) {
 				if (origin.x() <= x && bound.x() > x) {
 					if (origin.y() <= y && bound.y() > y) {
-						selectedElement = element;
-						selectedElement.highlight();
-						return;
+						return element;
 					}
 				}
 			}
 		}
-		selectedElement = null;
+		
+		return null;
+	}
+	
+	@Override
+	public IElement getElementAtLocation(Vect location) {
+		return getElementAtLocation(location.x(), location.y());
 	}
 
 
@@ -288,6 +297,12 @@ public class Board extends Observable implements IBoard {
 		return ball;
 
 	}
+	public void clear(){
+		elements.clear();
+		balls.clear();
+		setChanged();
+		notifyObservers();
+	}
 
 	private Collision getTimeTillCollision(Ball ball) {
 		closestCollision = new Collision(0, 0, Double.MAX_VALUE);
@@ -298,12 +313,19 @@ public class Board extends Observable implements IBoard {
 			for (Circle circle : element.getCircles()) {
 				detectCircleCollision(circle, ball, element);
 			}
+
 			for (LineSegment line : element.getLines()) {
 				detectLineCollision(line, ball, element);
 			}
 
 			if (element instanceof Flipper) {
+
 				((Flipper) element).flip();
+
+				for (LineSegment line : element.getLines()) {
+					detectFlipperCollision(line, ball, element);
+				}
+
 			}
 
 		}
@@ -325,6 +347,14 @@ public class Board extends Observable implements IBoard {
 		double time = Geometry.timeUntilWallCollision(line, ball.getCircle(), ball.getVelocity());
 		if (time < closestCollision.getTime()) {
 			Vect newV = Geometry.reflectWall(line, ball.getVelocity());
+			closestCollision = new Collision(newV, time, element, ball);
+		}
+	}
+
+	private void detectFlipperCollision(LineSegment line, Ball ball, IElement element) {
+		double time = Geometry.timeUntilRotatingWallCollision(line, ((Flipper) element).getPivotPoint(), ((Flipper) element).getAngularVelocity(),  ball.getCircle(), ball.getVelocity());
+		if (time < closestCollision.getTime()) {
+			Vect newV = Geometry.reflectRotatingWall(line, ((Flipper) element).getPivotPoint(), ((Flipper) element).getAngularVelocity(), ball.getCircle(), ball.getVelocity(), 0.95);
 			closestCollision = new Collision(newV, time, element, ball);
 		}
 	}

@@ -1,20 +1,22 @@
 package model;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+
 import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by baird on 06/02/2016.
  */
-abstract public class Gizmo implements IElement {
+abstract public class Gizmo implements IElement, Triggerable {
 
 	protected Vect origin, bound;
-	private Gizmo trigger;
+	private Collection<Triggerable> triggerables;
 	private Color color;
 	private Color backupColor;
 	private List<LineSegment> lines;
@@ -33,6 +35,8 @@ abstract public class Gizmo implements IElement {
 		// TODO: set the bounds correctly according to which gizmo it is
 		// bound = new Vect(origin.x() + 1, origin.y() + 1);
 		bound = calculateBound();
+		
+		triggerables = new HashSet<>();
 	}
 
 	public abstract void move(Vect distance);
@@ -48,16 +52,16 @@ abstract public class Gizmo implements IElement {
 		return bound;
 	}
 
-	public Gizmo getGizmoTrigger() {
-		return trigger;
+	public Collection<Triggerable> getTriggerables() {
+		return triggerables;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void addGizmoTrigger(Gizmo trigger) {
-		this.trigger = trigger;
+	public void addTriggerable(Triggerable t) {
+		triggerables.add(t);
 	}
 
 	public void addKeyPressTrigger(int keyCode) {
@@ -74,9 +78,10 @@ abstract public class Gizmo implements IElement {
 		color = Color.red;
 	}
 
-	public void onCollision() {
-		if (trigger instanceof Gizmo)
-			trigger.trigger();
+	/** trigger the attached tirggerables */
+	protected void onCollision() {
+		for (Triggerable t : triggerables)
+			t.trigger();
 	}
 
 	@Override
@@ -119,13 +124,21 @@ abstract public class Gizmo implements IElement {
 		this.bound = bound;
 	}
 
-	public void handle(Collision collision) {
-		// trigger the attached gizmo
+	/**
+	 * Subclasses override subHandle() to change behaviour.
+	 */
+	/*
+	 * This is to guarantee that onCollision() is called on every collision.
+	 */
+	public final void handle(Collision c) {
 		onCollision();
-
-		Ball ball = collision.getBall();
-		ball.moveForTime(collision.getTime());
-		ball.setVelocity(collision.getVelocity());
+		subHandle(c);
+	}
+	
+	protected void subHandle(Collision c) {
+		Ball ball = c.getBall();
+		ball.moveForTime(c.getTime());
+		ball.setVelocity(c.getVelocity());
 
 		setColor(Color.GREEN);
 	}

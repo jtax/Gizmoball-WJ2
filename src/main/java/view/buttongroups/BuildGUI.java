@@ -1,14 +1,12 @@
 package view.buttongroups;
 
-import model.Board;
-import view.LoadBoard;
+import model.IElement;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
-import javax.swing.*;
 
 /**
  * Created by baird on 06/02/2016.
@@ -53,7 +51,9 @@ public class BuildGUI {
 		JButton gravity = new JButton("Gravity");
 		gravity.addActionListener(listener);
 		JButton keyConn = new JButton("Key Connection");
+		keyConn.addActionListener(listener);
 		JButton connGizmo = new JButton("Gizmo Connection");
+		connGizmo.addActionListener(listener);
 
 		JPanel bottomButtons = new JPanel(new GridLayout(2, 3));
 		bottomButtons.add(shape);
@@ -75,6 +75,7 @@ public class BuildGUI {
 
 	public JPanel createTopButton() {
 		add = new JButton("Add");
+		add.addActionListener(listener);
 		switchToRun = new JButton("Run Mode");
 		switchToRun.addActionListener(listener);
 		move = new JButton("Move");
@@ -117,6 +118,12 @@ public class BuildGUI {
 		JMenuItem redo = new JMenuItem("Redo build");
 		file.add(redo);
 
+		JMenuItem clear = new JMenuItem("Clear Board");
+		clear.setAccelerator(KeyStroke.getKeyStroke(
+				KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+		clear.addActionListener(listener);
+		file.add(clear);
+
 		JMenuItem quit = new JMenuItem("Quit");
 		file.add(quit);
 
@@ -135,6 +142,22 @@ public class BuildGUI {
 			return 25.0;
 		}
 		return gravValDouble;
+	}
+
+	public JDialog promptSetKeyListener(IElement element){
+
+
+		JDialog dialog = new JDialog();
+		dialog.setTitle("Press a key to connect");
+		dialog.setSize(200, 0);
+		dialog.setVisible(true);
+		dialog.setFocusable(true);
+		dialog.requestFocus();
+		JLabel label = new JLabel();
+		dialog.add(label);
+
+
+		return dialog;
 	}
 
 	public double[] promptFriction() {

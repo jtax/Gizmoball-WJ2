@@ -42,7 +42,6 @@ public class SaveBoardToFile {
 					StringTokenizer st = new StringTokenizer(element.getSaveInfo(), " ");
 						String type  =st.nextToken();
 						String name = st.nextToken();
-					if(!type.equals("RightFlipper")&& !type.equals("LeftFlipper")) {
 						switch (element.getRotation()) {
 							case 2:
 								break;
@@ -64,7 +63,7 @@ public class SaveBoardToFile {
 								bufferedWriter.write("Rotate" + " " + name);
 								bufferedWriter.newLine();
 								break;
-						}
+
 					}
 					}
 

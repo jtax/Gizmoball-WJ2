@@ -21,6 +21,8 @@ public class GizmoParser {
 		fileInput = new BufferedReader(new FileReader(filename));
 	}
 
+
+
 	public Board getGizmosFromFile() throws IOException, BadFileException {
 
 		String line = fileInput.readLine();
@@ -29,6 +31,8 @@ public class GizmoParser {
 		List<String> rotates = new ArrayList<>();
 		List<IElement> loadedElements = new ArrayList<>();
 		List<Ball> balls = new ArrayList<>();
+		List<String> keyConnects = new ArrayList<String>();
+		List<String> gizmoConnects = new ArrayList<String>();
 		double gravity = 0.0;
 		double[] friction = new double[2];
 
@@ -64,13 +68,13 @@ public class GizmoParser {
 
 			if (gizmoType.equals("KeyConnect")) {
 
-				parseKey(gizmoType, st);
+				parseKey(gizmoType, st,keyConnects);
 
 			}
 
 			if (gizmoType.equals("Connect")) {
 
-				parseConnect(gizmoType, st);
+				parseConnect(gizmoType, st,gizmoConnects);
 
 			}
 
@@ -106,11 +110,36 @@ public class GizmoParser {
 				}
 			}
 		}
+	/*	if(!keyConnects.isEmpty()){
+			for (IElement e : board.getElements()) {
+				for (String key : keyConnects) {
+					StringTokenizer keytoken;
+					keytoken = new StringTokenizer(key, " ");
+
+					if (e.getName().equals(keytoken.nextToken())) {
+						//addKeyconnect ? e.addKeyPressTrigger(KeyEvent.(keytoken.nextToken()));
+					}
+				}
+			}
+		}
+		if(!gizmoConnects.isEmpty()){
+			for (IElement e : board.getElements()) {
+				for (String connection : gizmoConnects) {
+					StringTokenizer conectToken;
+					conectToken = new StringTokenizer(connection, " ");
+
+					if (e.getName().equals(conectToken.nextToken())) {
+						//connect gizmo? e.connectGizmo(conectToken.nextToken());
+					}
+				}
+			}
+		}
+*/
 
 		return board;
 	}
 
-	private Gizmo shapeParser(String gizmo, StringTokenizer st) throws BadFileException {
+	public Gizmo shapeParser(String gizmo, StringTokenizer st) throws BadFileException {
 		String gizmoName;
 		int xCoord;
 		int yCoord;
@@ -236,7 +265,7 @@ public class GizmoParser {
 		return b;
 	}
 
-	private void parseKey(String gizmo, StringTokenizer st) throws BadFileException {
+	private void parseKey(String gizmo, StringTokenizer st, List<String> keyConnects) throws BadFileException {
 		String action;
 		String linkedGizmo;
 		String gizmoName;
@@ -261,21 +290,21 @@ public class GizmoParser {
 
 		linkedGizmo = st.nextToken();
 		System.out.println(gizmo + gizmoName + key + action + linkedGizmo);
-
+		keyConnects.add(gizmoName + " " + key);
 	}
 
-	private void parseConnect(String gizmo, StringTokenizer st) throws BadFileException {
+	private void parseConnect(String gizmo, StringTokenizer st,List<String> gizmoConnects) throws BadFileException {
 		String gizmoName;
 		String linkedGizmo;
 		String action = "";
-		int key = 0;
 		gizmoName = st.nextToken();
 		if (!st.hasMoreTokens()) {
 			throw new BadFileException("No linked Gizmo");
 		}
 
 		linkedGizmo = st.nextToken();
-		System.out.println(gizmo + gizmoName + key + action + linkedGizmo);
+		System.out.println(gizmo + gizmoName  + action + linkedGizmo);
+		gizmoConnects.add(gizmoName +"" + linkedGizmo);
 	}
 
 	private String getKey(int keycode) {
@@ -289,7 +318,7 @@ public class GizmoParser {
 		case (34):
 			return "PAGE_DOWN";
 		default:
-			return java.awt.event.KeyEvent.getKeyText(32);
+			return java.awt.event.KeyEvent.getKeyText(keycode);
 		}
 
 	}
