@@ -10,12 +10,11 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
+import controller.BuildListener;
 import controller.KeyPressListener;
 import controller.RunListener;
 import model.Board;
-import model.BoardManager;
 import model.IBoard;
-import model.IBoardManager;
 import util.MagicKeyListener;
 import view.buttongroups.BuildGUI;
 import view.buttongroups.RunGUI;
@@ -26,7 +25,6 @@ import view.buttongroups.RunGUI;
 public class GizmoBallView implements Observer {
 
 	private final MagicKeyListener keyPressListener;
-	private boolean runMode;
 	private JFrame frame;
 	Container contentPane;
 	private RunGUI runGUI;
@@ -34,28 +32,26 @@ public class GizmoBallView implements Observer {
 	private JPanel bottomButtons, topButtons, boardPanel;
 	private JMenuBar menu;
 	private BoardView boardView;
-	private IBoardManager boardManager;
-	private ActionListener listener;
+	private ActionListener runListener;
+	private ActionListener buildListener;
 
-	public GizmoBallView(IBoardManager bm) {
-		IBoard board = bm.getBoard();
-		boardManager = bm;
-		runMode = true;
+	public GizmoBallView(IBoard bm) {
+		IBoard board = bm;
 		frame = new JFrame("Gizmo Baw");
 		contentPane = frame.getContentPane();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		boardView = new BoardViewImpl(board);
-		listener = new RunListener(bm);
-
-		keyPressListener = new MagicKeyListener(new KeyPressListener(bm.getBoard().getElements()));
+		runListener = new RunListener(bm, this);
+		buildListener = new BuildListener(bm, this);
+		keyPressListener = new MagicKeyListener(new KeyPressListener(bm.getElements()));
 		makeFrame();
 	}
 
 	public void makeFrame() {
-		if (runMode) {
+		boardPanel = boardView.getPanel();
+		
+		if (boardView.getMode() == Mode.RUN) {
 			makeRunGUI();
-
-			boardPanel = boardView.getPanel();
 
 			// Listen for key events
 			frame.addKeyListener(keyPressListener);
@@ -63,6 +59,7 @@ public class GizmoBallView implements Observer {
 			makeBuildGUI();
 			contentPane.add(topButtons, BorderLayout.NORTH);
 		}
+		
 		contentPane.add(boardPanel, BorderLayout.CENTER);
 		contentPane.add(bottomButtons, BorderLayout.SOUTH);
 		frame.setJMenuBar(menu);
@@ -76,13 +73,13 @@ public class GizmoBallView implements Observer {
 	}
 
 	private void makeRunGUI() {
-		runGUI = new RunGUI(listener);
+		runGUI = new RunGUI(runListener);
 		bottomButtons = runGUI.createButton();
 		menu = runGUI.createMenu();
 	}
 
 	private void makeBuildGUI() {
-		buildGUI = new BuildGUI();
+		buildGUI = new BuildGUI(buildListener);
 		bottomButtons = buildGUI.createBottomButton();
 		topButtons = buildGUI.createTopButton();
 		menu = buildGUI.createMenu();
@@ -95,4 +92,35 @@ public class GizmoBallView implements Observer {
 
 	}
 
+	public JFrame getFrame(){
+		return frame;
+	}
+
+	public void switchMode(){
+		boardView.toggleMode();
+		contentPane.removeAll();
+		makeFrame();
+	}
+
+	public BuildGUI getBuildGUI(){
+		return buildGUI;
+	}
+
+	public RunGUI getRunGUI(){
+		return runGUI;
+	}
+
+	public void updateBoardView() {
+		boardView.getPanel().repaint();
+	}
+
+	public void changeStatusMessage(String message) {
+		if (boardView.getMode() == Mode.BUILD) {
+			buildGUI.updateStatusBar("Build Mode: " + message);
+		} else if (boardView.getMode() == Mode.RUN) {
+			runGUI.updateStatusBar("Run Mode: " + message);
+		} else {
+			System.out.println(message);
+		}
+	}
 }

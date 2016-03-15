@@ -1,13 +1,11 @@
 package view.buttongroups;
 
-import java.awt.GridLayout;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
-import javax.swing.JButton;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * Created by baird on 06/02/2016.
@@ -15,6 +13,7 @@ import javax.swing.JPanel;
 public class RunGUI {
 
 	private ActionListener listener;
+	private JLabel statusBar;
 
 	public RunGUI(ActionListener listener) {
 		makeFrame();
@@ -39,32 +38,42 @@ public class RunGUI {
 		tick.addActionListener(listener);
 		tick.setFocusable(false);
 
-		JButton exit = new JButton("Exit");
-		exit.addActionListener(listener);
-		exit.setFocusable(false);
+		JButton switchMode = new JButton("Build Mode");
+		switchMode.addActionListener(listener);
+		switchMode.setFocusable(false);
+
 
 		JPanel bottomButtons = new JPanel(new GridLayout(1, 4));
 
 		bottomButtons.add(start);
 		bottomButtons.add(stop);
 		bottomButtons.add(tick);
-		bottomButtons.add(exit);
+		bottomButtons.add(switchMode);
+
 		return bottomButtons;
 	}
 
 	public JMenuBar createMenu() {
 		JMenuBar menus = new JMenuBar();
-
 		JMenu file = new JMenu("File");
-
 		JMenuItem tick = new JMenuItem("Tick");
 		file.add(tick);
-
-		JMenuItem quit = new JMenuItem("Quit");
+		JMenuItem quit = new JMenuItem("Exit");
+		quit.addActionListener(listener);
 		file.add(quit);
-
 		menus.add(file);
 
 		return menus;
+	}
+
+	public void updateStatusBar(String message) {
+		statusBar.setText(message);
+	}
+
+	public JPanel getStatusBar() {
+		JPanel status = new JPanel(new GridLayout(1, 1));
+		statusBar = new JLabel("Run Mode");
+		status.add(statusBar);
+		return status;
 	}
 }

@@ -40,32 +40,33 @@ public class SaveBoardToFile {
 					bufferedWriter.write(element.getSaveInfo());
 					bufferedWriter.newLine();
 					StringTokenizer st = new StringTokenizer(element.getSaveInfo(), " ");
-					if (st.nextToken().equals("Triangle")) {
+						String type  =st.nextToken();
 						String name = st.nextToken();
 						switch (element.getRotation()) {
-						case 2:
-							break;
-						case 3:
-							bufferedWriter.write("Rotate" + " " + name);
-							bufferedWriter.newLine();
-							break;
-						case 0:
-							bufferedWriter.write("Rotate" + " " + name);
-							bufferedWriter.newLine();
-							bufferedWriter.write("Rotate" + " " + name);
-							bufferedWriter.newLine();
-							break;
-						case 1:
-							bufferedWriter.write("Rotate" + " " + name);
-							bufferedWriter.newLine();
-							bufferedWriter.write("Rotate" + " " + name);
-							bufferedWriter.newLine();
-							bufferedWriter.write("Rotate" + " " + name);
-							bufferedWriter.newLine();
-							break;
-						}
+							case 2:
+								break;
+							case 3:
+								bufferedWriter.write("Rotate" + " " + name);
+								bufferedWriter.newLine();
+								break;
+							case 0:
+								bufferedWriter.write("Rotate" + " " + name);
+								bufferedWriter.newLine();
+								bufferedWriter.write("Rotate" + " " + name);
+								bufferedWriter.newLine();
+								break;
+							case 1:
+								bufferedWriter.write("Rotate" + " " + name);
+								bufferedWriter.newLine();
+								bufferedWriter.write("Rotate" + " " + name);
+								bufferedWriter.newLine();
+								bufferedWriter.write("Rotate" + " " + name);
+								bufferedWriter.newLine();
+								break;
+
 					}
-				}
+					}
+
 
 				for (Ball ball : board.getBalls()) {
 					bufferedWriter.write(ball.getSaveInfo());

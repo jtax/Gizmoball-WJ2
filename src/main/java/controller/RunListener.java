@@ -2,11 +2,10 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.Timer;
 
-import model.BoardManager;
-import model.IBoardManager;
+import model.IBoard;
+import view.GizmoBallView;
 
 /**
  * Created by baird on 14/02/2016.
@@ -14,18 +13,20 @@ import model.IBoardManager;
 public class RunListener implements ActionListener {
 
 	private Timer timer;
-	private IBoardManager boardManager;
+	private IBoard board;
+	private GizmoBallView gbv;
 
-	public RunListener(IBoardManager bm) {
-		this.boardManager = bm;
-		timer = new Timer(50, this);
+	public RunListener(IBoard bm, GizmoBallView gbv) {
+		this.board = bm;
+		timer = new Timer(5, this);
+		this.gbv = gbv;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
 
-			boardManager.tick();
+			board.tick();
 		} else {
 			switch (e.getActionCommand()) {
 			case "Start":
@@ -35,10 +36,13 @@ public class RunListener implements ActionListener {
 				timer.stop();
 				break;
 			case "Tick":
-				boardManager.tick();
+				board.tick();
 				break;
 			case "Exit":
 				System.exit(0);
+				break;
+			case "Build Mode":
+				gbv.switchMode();
 				break;
 			}
 		}

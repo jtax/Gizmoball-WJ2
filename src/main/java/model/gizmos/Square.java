@@ -17,13 +17,17 @@ public class Square extends Gizmo {
 	private int reflectionCoefficient = 1;
 	private List<Vect> coordinates;
 	private String saveInfo;
+	private String name;
+	private int rotation;
 
 	public Square(Vect origin, String name) {
 		super(origin, name);
+		this.name = name;
+		rotation = 2;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		super.setColor(Color.red);
+		super.setColor(new Color(0xc0392b));
 		saveInfo = "Square" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
 
@@ -65,7 +69,30 @@ public class Square extends Gizmo {
 	}
 
 	public void rotate() {
-		// Pointless for Square: do nothing
+		Vect centerPoint = getCenterPoint();
+		rotation = (rotation + 1) % 4;
+		//setSaveInfo();
+		List<Vect> newCoords = new ArrayList<Vect>();
+		for (int i = 0; i < coordinates.size(); i++) {
+			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, 90));
+		}
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
+	}
+
+	public Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
+		double angleR = Math.toRadians(angle);
+		Vect coord = coordinate.minus(center);
+		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
+		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
+		Vect rotatedCoord = new Vect(newX, newY).plus(center);
+		return rotatedCoord;
+	}
+
+	public Vect getCenterPoint() {
+		double width = bound.x() - origin.x();
+		double height = bound.y() - origin.y();
+		return origin.plus(new Vect(width / 2, height / 2));
 	}
 
 	public Vect calculateBound() {
@@ -86,6 +113,39 @@ public class Square extends Gizmo {
 
 	@Override
 	public int getRotation() {
-		return 0;
+		return rotation;
+	}
+
+	public void move(Vect distance) {
+		super.origin = super.origin.plus(distance);
+		super.bound = super.bound.plus(distance);
+		coordinates = calculateCoordinates();
+		super.setCircles(calculateCircles());
+		super.setLines(calculateLines());
+		saveInfo = "Square" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
+	}
+
+
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != Square.class) {
+			return false;
+		}
+		//We know that its a square
+		Square otherSquare = (Square) other;
+
+		if (!origin.equals(otherSquare.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherSquare.getBound())) {
+			return false;
+		}
+		if (rotation != otherSquare.rotation) {
+			return false;
+		}
+		if (!name.equals(otherSquare.name)) {
+			return false;
+		}
+		return true;
 	}
 }

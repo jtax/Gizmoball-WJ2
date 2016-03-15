@@ -56,6 +56,11 @@ public class Wall extends Gizmo {
 	}
 
 	@Override
+	public void move(Vect distance) {
+
+	}
+
+	@Override
 	public void rotate() {
 		// TODO Auto-generated method stub
 

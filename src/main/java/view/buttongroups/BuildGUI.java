@@ -1,26 +1,28 @@
 package view.buttongroups;
 
-import java.awt.GridLayout;
+import model.IElement;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class BuildGUI {
 
-	private JButton add, select, remove, switchToRun;
+	private JButton add, move, remove, switchToRun;
 	private JComboBox<String> shape;
+	private JLabel statusBar;
 	private JButton absorber;
 	private JButton ball;
 	private JButton flipper;
+	private ActionListener listener;
 
-	public BuildGUI() {
+	public BuildGUI(ActionListener listener) {
+		this.listener = listener;
 		makeFrame();
 	}
 
@@ -32,47 +34,61 @@ public class BuildGUI {
 	}
 
 	public JPanel createBottomButton() {
-		switchToRun = new JButton("Run Mode");
+
 		shape = new JComboBox<String>();
-		shape.addItem("Pick a gizmo");
+		shape.addItem("Pick Element");
 		shape.addItem("Square");
 		shape.addItem("Circle");
 		shape.addItem("Triangle");
 		shape.addItem("Left Flipper");
 		shape.addItem("Right Flipper");
 		shape.addItem("Absorber");
+		shape.addItem("Ball");
 		JButton rotate = new JButton("Rotate");
-		JButton move = new JButton("Move");
+		rotate.addActionListener(listener);
 		JButton friction = new JButton("Friction");
+		friction.addActionListener(listener);
 		JButton gravity = new JButton("Gravity");
+		gravity.addActionListener(listener);
 		JButton keyConn = new JButton("Key Connection");
+		keyConn.addActionListener(listener);
 		JButton connGizmo = new JButton("Gizmo Connection");
-		ball = new JButton("Ball");
+		connGizmo.addActionListener(listener);
 
-		JPanel bottomButtons = new JPanel(new GridLayout(3, 5));
-		bottomButtons.add(switchToRun);
+		JPanel bottomButtons = new JPanel(new GridLayout(2, 3));
 		bottomButtons.add(shape);
-		bottomButtons.add(ball);
 		bottomButtons.add(rotate);
-		bottomButtons.add(move);
 		bottomButtons.add(friction);
 		bottomButtons.add(gravity);
 		bottomButtons.add(keyConn);
 		bottomButtons.add(connGizmo);
 
-		return bottomButtons;
+		statusBar = new JLabel("Build Mode");
+
+		JPanel bottomPanel = new JPanel(new BorderLayout());
+		bottomPanel.add(bottomButtons, BorderLayout.CENTER);
+		bottomPanel.add(statusBar, BorderLayout.SOUTH);
+
+
+		return bottomPanel;
 	}
 
 	public JPanel createTopButton() {
 		add = new JButton("Add");
-		select = new JButton("Select");
+		add.addActionListener(listener);
+		switchToRun = new JButton("Run Mode");
+		switchToRun.addActionListener(listener);
+		move = new JButton("Move");
+		move.addActionListener(listener);
 		remove = new JButton("Remove");
+		remove.addActionListener(listener);
 
-		JPanel topButtons = new JPanel(new GridLayout(1, 3));
+
+		JPanel topButtons = new JPanel(new GridLayout(1, 6));
 		topButtons.add(add);
-		topButtons.add(select);
 		topButtons.add(remove);
-
+		topButtons.add(move);
+		topButtons.add(switchToRun);
 		return topButtons;
 	}
 
@@ -80,12 +96,21 @@ public class BuildGUI {
 		JMenuBar menus = new JMenuBar();
 
 		JMenu file = new JMenu("File");
-
 		JMenuItem loadModel = new JMenuItem("Load Board");
+		loadModel.setAccelerator(KeyStroke.getKeyStroke(
+				KeyEvent.VK_L, ActionEvent.CTRL_MASK));
+		loadModel.addActionListener(listener);
 		file.add(loadModel);
 
 		JMenuItem saveModel = new JMenuItem("Save Board");
+		saveModel.setAccelerator(KeyStroke.getKeyStroke(
+				KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		saveModel.addActionListener(listener);
+
 		file.add(saveModel);
+
+
+
 
 		JMenuItem undo = new JMenuItem("Undo build");
 		file.add(undo);
@@ -93,11 +118,72 @@ public class BuildGUI {
 		JMenuItem redo = new JMenuItem("Redo build");
 		file.add(redo);
 
+		JMenuItem clear = new JMenuItem("Clear Board");
+		clear.setAccelerator(KeyStroke.getKeyStroke(
+				KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+		clear.addActionListener(listener);
+		file.add(clear);
+
 		JMenuItem quit = new JMenuItem("Quit");
 		file.add(quit);
 
 		menus.add(file);
-
 		return menus;
 	}
+
+	public double promptGravity(){
+		String gravVal = JOptionPane.showInputDialog("Please enter a value for gravity (numerical)");
+		double gravValDouble = 0.0;
+
+		try {
+			gravValDouble = Double.parseDouble(gravVal);
+		}
+		catch (Exception e){
+			return 25.0;
+		}
+		return gravValDouble;
+	}
+
+	public JDialog promptSetKeyListener(IElement element){
+
+
+		JDialog dialog = new JDialog();
+		dialog.setTitle("Press a key to connect");
+		dialog.setSize(200, 0);
+		dialog.setVisible(true);
+		dialog.setFocusable(true);
+		dialog.requestFocus();
+		JLabel label = new JLabel();
+		dialog.add(label);
+
+
+		return dialog;
+	}
+
+	public double[] promptFriction() {
+		String frictVal1 = JOptionPane.showInputDialog("Please enter the 1st value for friction (numerical)");
+		String frictVal2 = JOptionPane.showInputDialog("Please enter the 2nd value for friction (numerical)");
+
+		double frictVal1Double = 0.0;
+		double frictVal2Double = 0.0;
+
+
+		try {
+			frictVal1Double = Double.parseDouble(frictVal1);
+			frictVal2Double = Double.parseDouble(frictVal2);
+		}
+		catch (Exception e){
+			return new double[]{0.025, 0.025};
+		}
+		return new double[]{frictVal1Double, frictVal2Double};
+	}
+
+	public String dropboxValue(){
+		return shape.getSelectedItem().toString();
+	}
+
+	public void updateStatusBar(String message) {
+		statusBar.setText(message);
+	}
+
 }

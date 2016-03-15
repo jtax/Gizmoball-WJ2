@@ -1,5 +1,7 @@
 package model;
 
+import physics.Vect;
+
 import java.util.Collection;
 
 /**
@@ -18,7 +20,9 @@ public interface IBoard {
 
 	void setElements(Collection<IElement> elements);
 
-	void addElement(IElement element);
+	boolean addElement(IElement element);
+
+	void removeElement(IElement element);
 
 	double[] getFrictionConst();
 
@@ -37,4 +41,29 @@ public interface IBoard {
 	void setHeight(int height);
 
 	void changed();
+	void clear();
+
+	Vect getMouseClick();
+
+	void setMouseClick(Vect mouseClick);
+
+	Vect getMousePress();
+
+	void setMousePress(Vect mousePress);
+
+	Vect getMouseRelease();
+
+	void setMouseRelease(Vect mouseRelease);
+
+	IElement getSelectedElement();
+
+	void setSelectedElement(IElement selectedElement);
+
+	boolean moveGizmo(IElement selectedElement, Vect distance);
+
+	void tick();
+	
+	IElement getElementAtLocation(Vect location);
+	
+	IElement getElementAtLocation(double x, double y);
 }
