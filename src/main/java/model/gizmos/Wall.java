@@ -84,4 +84,23 @@ public class Wall extends Gizmo {
 	public List<Vect> getCoordinates() {
 		return coordinates;
 	}
+
+	public boolean equals(Object other) {
+		if (other.getClass() != Wall.class) {
+			return false;
+		}
+		//We know that its a wall
+		Wall otherWall = (Wall) other;
+
+		if (!origin.equals(otherWall.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherWall.getBound())) {
+			return false;
+		}
+		if(!coordinates.equals(otherWall.getCoordinates())){
+			return false;
+		}
+		return true;
+	}
 }
