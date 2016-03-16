@@ -85,7 +85,8 @@ public class TriangleTest {
     public void saveString() {
         //See spreadsheet Test 99
         String expected = "Triangle Test 5 5";
-        triangle.getSaveInfo();
+
+        assert(triangle.getSaveInfo().equals(expected));
     }
 
     @Test

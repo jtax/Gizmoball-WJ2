@@ -104,8 +104,8 @@ public class SquareTest {
 	@Test
 	public void saveString() {
 		//See spreadsheet Test 91
-		String expected = "Triangle Test 5 5";
-		square.getSaveInfo();
+		String expected = "Square Test 5 5";
+		assert(square.getSaveInfo().equals(expected));
 	}
 
 	@Test
