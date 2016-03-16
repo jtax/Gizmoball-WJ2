@@ -85,7 +85,8 @@ public class TriangleTest {
     public void saveString() {
         //See spreadsheet Test 99
         String expected = "Triangle Test 5 5";
-        triangle.getSaveInfo();
+
+        assert(triangle.getSaveInfo().equals(expected));
     }
 
     @Test
@@ -133,13 +134,7 @@ public class TriangleTest {
         assert compareLists(triangle.getLines(), expectedLines);
     }
 
-    @Test
-    public void rotate4() {
-        //See spreadsheet Test 103
-        triangle.rotate();
-        List<Vect> expected = Arrays.asList(new Vect(5, 5), new Vect(6, 5), new Vect(6, 6));
-        assert (compareLists(triangle.getCoordinates(), expected));
-    }
+
 
     private boolean compareLists(List actual, List expected) {
         if (actual.size() == expected.size()) {

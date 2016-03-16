@@ -1,4 +1,4 @@
-package junit.model;
+package junit.model.gizmos;
 
 import org.junit.Before;
 
