@@ -67,8 +67,7 @@ public class TriangleTest {
         assert compareLists(triangle.getLines(), expected);
     }
 
-    @Test
-    public void
+
 
 
     private boolean compareLists(List actual, List expected) {

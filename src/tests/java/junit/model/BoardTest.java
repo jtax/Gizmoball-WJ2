@@ -3,9 +3,13 @@ package junit.model;
 import model.*;
 import model.gizmos.Absorber;
 import model.gizmos.Square;
+import model.gizmos.Wall;
 import org.junit.Before;
 import org.junit.Test;
 import physics.Vect;
+
+import java.sql.Array;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -20,39 +24,53 @@ public class BoardTest {
         board = new Board();
     }
 
+    //See spreadsheet Test 1
     @Test
-    public void testBoard() {
-        //See spreadsheet Test 1
+    public void makeBoardWithDeafultFrictionGravityWidthandHeight() {
+        Board b = new Board();
+        assertTrue(25 == b.getGravityConst());
+        assertTrue(20 == b.getWidth());
+        assertTrue(20 == b.getHeight());
+        assertTrue(0.025 == b.getFrictionConst()[0]);
+        assertTrue(0.025 == b.getFrictionConst()[1]);
     }
 
     @Test
-    public void testBoardWithParams() {
+    public void makeBoardWithParams() {
         //See spreadsheet Test 2
+        Board b = new Board(new double[]{0.001,0.02}, 19, 24,26);
+        assertTrue(19 == b.getGravityConst());
+        assertTrue(24 == b.getWidth());
+        assertTrue(26 == b.getHeight());
+        assertTrue(0.001 == b.getFrictionConst()[0]);
+        assertTrue(0.02 == b.getFrictionConst()[1]);
     }
 
+
     @Test
-    public void testBoardWalls() {
+    public void checkWallsAreAdded() {
         //See spreadsheet Test 3
+        Board b = new Board();
+        assertTrue(b.getAllElements().size() > 0);
     }
 
     @Test
-    public void testBoardWallClean() {
-        //See spreadsheet Test 4
+    public void checkThatTheOnlyIElementOnTheBoardIsWalls() {
+        //See spreadsheet Test 4 & 6
+        Board b = new Board();
+        b.getAllElements().contains(Wall.class);
     }
 
     @Test
-    public void testAddWallsCoords() {
+    public void checkThatWallCoordsAreCorrect() {
         //See spreadsheet Test 5
-    }
+        Board b = new Board();
+        IElement wall = (IElement)b.getElements().toArray()[0];
+        Vect topLeft = new Vect(0, 0);
+        Vect bottomRight = new Vect(20, 20);
 
-    @Test
-    public void testAddWalls() {
-        //See spreadsheet Test 6
-    }
-
-    @Test
-    public void testAddBall() {
-        //See spreadsheet Test 7
+        assertEquals(topLeft, wall.getCoordinates().get(0));
+        assertEquals(bottomRight, wall.getCoordinates().get(1));
     }
 
     @Test
