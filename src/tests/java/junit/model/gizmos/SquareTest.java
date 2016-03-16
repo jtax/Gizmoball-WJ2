@@ -46,9 +46,10 @@ public class SquareTest {
 	public void calcLinesTest() {
 		//See spreadsheet Test 88
 		Vect expTL = new Vect(5, 5);
-		Vect expBR = new Vect(6, 5);
+		Vect expBR = new Vect(6, 6);
 		Vect expBL = new Vect(5, 6);
-		List<LineSegment> expected = Arrays.asList(new LineSegment(expTL, expBR), new LineSegment(expBR, expBL), new LineSegment(expBL, expTL));
+		Vect expTR = new Vect(6, 5);
+		List<LineSegment> expected = Arrays.asList(new LineSegment(expBL, expTL), new LineSegment(expBR, expBL), new LineSegment(expTR, expBR),new LineSegment(expTL,expTR));
 		assert compareLists(square.getLines(), expected);
 	}
 
@@ -62,8 +63,8 @@ public class SquareTest {
 
 	@Test
 	public void calculateCirclesTest() {
-		//See spreadsheet Test 94
-		List<Vect> expected = Arrays.asList(new Vect(5, 5), new Vect(5, 6), new Vect(6, 5));
+		//See spreadsheet Test 86
+		List<Vect> expected = Arrays.asList(new Vect(5, 5), new Vect(5, 6), new Vect(6, 5),new Vect(6, 6));
 		List<Vect> actual = new ArrayList<>();
 		for (Circle circle : square.getCircles()) {
 			actual.add(circle.getCenter());
@@ -71,18 +72,17 @@ public class SquareTest {
 		assert (compareLists(actual, expected));
 	}
 
-	@Test
-	public void testRotate() throws Exception {
 
-	}
 
 	@Test
 	public void testCalculateBound() throws Exception {
+		//See spreadsheet Test 89
 		Assert.assertEquals(square.getBound(), new Vect(6, 6));
 	}
 
 	@Test
 	public void testCoordinates() throws Exception {
+		//See spreadsheet Test 93
 		List<LineSegment> actLines = square.getLines();
 		LineSegment top = new LineSegment(5, 5, 6, 5);
 		LineSegment right = new LineSegment(6, 5, 6, 6);
@@ -110,7 +110,7 @@ public class SquareTest {
 
 	@Test
 	public void rotate1() {
-		//See spreadsheet Test 100
+		//See spreadsheet Test 149
 		square.rotate();
 		List<Vect> expected = Arrays.asList(new Vect(5, 5), new Vect(6, 5), new Vect(6, 6),new Vect(5, 6));
 		assert (compareLists(square.getCoordinates(), expected));
@@ -118,7 +118,7 @@ public class SquareTest {
 
 	@Test
 	public void rotate2() {
-		//See spreadsheet Test 101
+		//See spreadsheet Test 150
 		square.rotate();
 		Vect expectedOrigin = new Vect(5, 5);
 		Vect expectedBound = new Vect(6, 6);
@@ -128,7 +128,7 @@ public class SquareTest {
 
 	@Test
 	public void rotate3() {
-		//See spreadsheet Test 102
+		//See spreadsheet Test 151
 		square.rotate();
 		List<Vect> expected = Arrays.asList(new Vect(5, 5), new Vect(6, 5), new Vect(6, 6),new Vect(5, 6));
 		List<Vect> actual = new ArrayList<>();
@@ -140,7 +140,7 @@ public class SquareTest {
 
 	@Test
 	public void rotate4Lines() {
-		//See spreadsheet Test 102
+		//See spreadsheet Test 152
 		square.rotate();
 		Vect expTL = new Vect(6, 5);
 		Vect expTR = new Vect(6, 6);
