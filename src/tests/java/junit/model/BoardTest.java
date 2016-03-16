@@ -9,6 +9,8 @@ import org.junit.Test;
 import physics.Vect;
 
 import java.sql.Array;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -74,13 +76,30 @@ public class BoardTest {
     }
 
     @Test
-    public void testAddBallNum() {
-        //See spreadsheet Test 8
+    public void checkThatWhenABallIsAddedTheBallsListContainsThatBall() {
+        //See spreadsheet Test 7 & 8
+        Board b = new Board();
+        IElement ball = new Ball("B", 1.0, 11.0, 0.0, 0.0);
+        int ballCount = b.getBalls().size();
+        b.addBall((Ball) ball);
+        assertTrue(b.getBalls().contains(ball));
+        assertTrue(ballCount+1 == b.getBalls().size());
     }
 
     @Test
     public void testSetBall() {
         //See spreadsheet Test  9
+        Board b = new Board();
+        IElement baw = new Ball("B", 2.0, 13.0, 0.0, 0.0);
+        b.addBall((Ball) baw);
+        IElement ball = new Ball("B", 1.0, 11.0, 0.0, 0.0);
+        Collection<Ball> nb = new LinkedList<>();
+        nb.add((Ball)ball);
+        b.setBalls(nb);
+        Collection<Ball> otherBawList = new LinkedList<>();
+        otherBawList.add((Ball)baw);
+        assertEquals(nb, (LinkedList)b.getBalls());
+        assertNotEquals(otherBawList, (LinkedList)b.getBalls());
     }
 
     @Test
