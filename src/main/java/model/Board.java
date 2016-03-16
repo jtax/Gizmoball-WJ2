@@ -1,5 +1,6 @@
 package model;
 
+import model.*;
 import model.gizmos.Absorber;
 import model.gizmos.Flipper;
 import model.gizmos.Wall;
@@ -313,6 +314,7 @@ public class Board extends Observable implements IBoard {
 	public void clear(){
 		elements.clear();
 		balls.clear();
+		addWalls();
 		setChanged();
 		notifyObservers();
 	}
