@@ -1,26 +1,54 @@
 package junit.model.gizmos;
 
-import org.junit.Test;
+import model.Direction;
+import model.gizmos.Flipper;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+import physics.Vect;
+
+import static org.junit.Assert.assertTrue;
 
 /**
- * Created by baird on 16/02/2016.
+ * Package: model.Gizmos Created by Laurynas Sakalauskas on 15/02/16 16:19.
+ * Project: Gizmoball-WJ2
  */
 public class FlipperTest {
 
 	@Test
-	public void testRotate() throws Exception {
+	public void testFlipLeftDirection() throws Exception {
+
+		Flipper test = new Flipper(new Vect(0, 0), "Test Left");
+
+		System.out.println("Before X:" + test.getBound().x() + ", Y:" + test.getBound().y());
+		test.flip();
+		System.out.println("After X:" + test.getBound().x() + ", Y:" + test.getBound().y());
+
+		assertTrue(test.getBound().equals(new Vect(-1, 1)));
+
+		test.flip();
+
+		System.out.println("Flip back X:" + test.getBound().x() + ", Y:" + test.getBound().y());
+
+		assertTrue(test.getBound().equals(new Vect(1, 1)));
 
 	}
 
 	@Test
-	public void testRotateBack() throws Exception {
+	public void testFlipRightDirection() throws Exception {
 
-	}
+		Flipper test = new Flipper(new Vect(0, 0), "Test Right");
+		test.setDirection(Direction.RIGHT);
 
-	@Test
-	public void testCalculateBound() throws Exception {
+		System.out.println("Before X:" + test.getBound().x() + ", Y:" + test.getBound().y());
+		test.flip();
+		System.out.println("After X:" + test.getBound().x() + ", Y:" + test.getBound().y());
+
+		assertTrue(test.getBound().equals(new Vect(1, -1)));
+
+		test.flip();
+
+		System.out.println("Flip back X:" + test.getBound().x() + ", Y:" + test.getBound().y());
+		assertTrue(test.getBound().equals(new Vect(1, 1)));
 
 	}
 }
