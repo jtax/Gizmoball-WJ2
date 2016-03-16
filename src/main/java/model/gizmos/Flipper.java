@@ -36,7 +36,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		super(origin, name);
 		angularVelocity = Board.moveTime * 1080;
 		saveDirection = "Left";
-		rotation = 2;
+		rotation = 0;
 		movementRotation = 0;
 		coordinates = calculateCoordinates();
 		pivotPoint = coordinates.get(0).plus(new Vect(0.25,0.25));
@@ -144,17 +144,17 @@ public class Flipper extends Gizmo implements Triggerable {
 
 
 		switch (rotation) {
-			case 3:
+			case 1:
 				pivotPoint = coordinates.get(1).plus(new Vect(-0.25, -0.25));
 			break;
-			case 0:
+			case 2:
 				pivotPoint = coordinates.get(1).plus(new Vect(0.25, -0.25));
 			break;
-			case 1:
+			case 3:
 				pivotPoint = coordinates.get(0).plus(new Vect(0.25, -0.25));
 			break;
 
-			case 2:
+			case 0:
 				pivotPoint = coordinates.get(1).plus(new Vect(-0.25, 0.25));
 			break;
 		}

@@ -43,19 +43,19 @@ public class SaveBoardToFile {
 						String type  =st.nextToken();
 						String name = st.nextToken();
 						switch (element.getRotation()) {
-							case 2:
-								break;
-							case 3:
-								bufferedWriter.write("Rotate" + " " + name);
-								bufferedWriter.newLine();
-								break;
 							case 0:
-								bufferedWriter.write("Rotate" + " " + name);
-								bufferedWriter.newLine();
-								bufferedWriter.write("Rotate" + " " + name);
-								bufferedWriter.newLine();
 								break;
 							case 1:
+								bufferedWriter.write("Rotate" + " " + name);
+								bufferedWriter.newLine();
+								break;
+							case 2:
+								bufferedWriter.write("Rotate" + " " + name);
+								bufferedWriter.newLine();
+								bufferedWriter.write("Rotate" + " " + name);
+								bufferedWriter.newLine();
+								break;
+							case 3:
 								bufferedWriter.write("Rotate" + " " + name);
 								bufferedWriter.newLine();
 								bufferedWriter.write("Rotate" + " " + name);

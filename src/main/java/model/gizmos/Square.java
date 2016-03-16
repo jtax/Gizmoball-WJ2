@@ -23,7 +23,7 @@ public class Square extends Gizmo {
 	public Square(Vect origin, String name) {
 		super(origin, name);
 		this.name = name;
-		rotation = 2;
+		rotation = 0;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());

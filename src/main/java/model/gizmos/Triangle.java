@@ -17,7 +17,7 @@ public class Triangle extends Gizmo {
 
 	public Triangle(Vect origin, String name) {
 		super(origin, name);
-		rotation = 2;
+		rotation = 0;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
@@ -62,7 +62,7 @@ public class Triangle extends Gizmo {
 
 	public void rotate() {
 		Vect centerPoint = getCenterPoint();
-		rotation = (rotation + 1) % 4;
+		rotation =( (rotation + 1) % 4);
 		setSaveInfo();
 		List<Vect> newCoords = new ArrayList<Vect>();
 		for (int i = 0; i < coordinates.size(); i++) {
