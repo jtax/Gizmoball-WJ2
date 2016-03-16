@@ -68,8 +68,78 @@ public class TriangleTest {
     }
 
     @Test
-    public void
+    public void calcBoundTest() {
+        //See spreadsheet Test 97
+        Vect expectedBound = new Vect(6, 6);
+        assert triangle.getBound().equals(expectedBound);
+    }
 
+    @Test
+    public void move() {
+        //See spreadsheet Test 98
+        triangle.move(new Vect(1, 1));
+        assert triangle.getOrigin().equals(new Vect(6, 6));
+    }
+
+    @Test
+    public void saveString() {
+        //See spreadsheet Test 99
+        String expected = "Triangle Test 5 5";
+        triangle.getSaveInfo();
+    }
+
+    @Test
+    public void rotate1() {
+        //See spreadsheet Test 100
+        triangle.rotate();
+        List<Vect> expected = Arrays.asList(new Vect(5, 5), new Vect(6, 5), new Vect(6, 6));
+        assert (compareLists(triangle.getCoordinates(), expected));
+    }
+
+    @Test
+    public void rotate2() {
+        //See spreadsheet Test 101
+        triangle.rotate();
+        Vect expectedOrigin = new Vect(5, 5);
+        Vect expectedBound = new Vect(6, 6);
+        assert triangle.getOrigin().equals(expectedOrigin);
+        assert triangle.getBound().equals(expectedBound);
+    }
+
+    @Test
+    public void rotate3() {
+        //See spreadsheet Test 102
+        triangle.rotate();
+        List<Vect> expected = Arrays.asList(new Vect(5, 5), new Vect(6, 5), new Vect(6, 6));
+        List<Vect> actual = new ArrayList<>();
+        for (Circle circle : triangle.getCircles()) {
+            actual.add(circle.getCenter());
+        }
+        assert compareLists(expected, actual);
+    }
+
+    @Test
+    public void rotate3Lines() {
+        //See spreadsheet Test 102
+        triangle.rotate();
+        Vect expTL = new Vect(5, 5);
+        Vect expTR = new Vect(6, 5);
+        Vect expBR = new Vect(6, 6);
+        LineSegment top = new LineSegment(expTL, expTR);
+        LineSegment right = new LineSegment(expTR, expBR);
+        LineSegment left = new LineSegment(expBR, expTL);
+
+        List<LineSegment> expectedLines = Arrays.asList(top, right, left);
+        assert compareLists(triangle.getLines(), expectedLines);
+    }
+
+    @Test
+    public void rotate4() {
+        //See spreadsheet Test 103
+        triangle.rotate();
+        List<Vect> expected = Arrays.asList(new Vect(5, 5), new Vect(6, 5), new Vect(6, 6));
+        assert (compareLists(triangle.getCoordinates(), expected));
+    }
 
     private boolean compareLists(List actual, List expected) {
         if (actual.size() == expected.size()) {
