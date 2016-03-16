@@ -39,7 +39,7 @@ public class CircleTest {
 	public void getCenterTest() {
 		//See spreadsheet Test 80
 		Vect expected = new Vect(5.5, 5.5);
-		assert (circle.getCoordinates().equals(expected));
+		assert(circle.getCircles().get(0).getCenter().equals(expected));
 	}
 
 	@Test
