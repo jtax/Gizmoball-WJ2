@@ -281,11 +281,27 @@ public class BoardTest {
     @Test
     public void clear1() {
         //See spreadsheet Test 45
+        Board b = new Board();
+        Ball b1 = new Ball("ball",1,1,1,1);
+        Square s = new Square(5,5,"t");
+        b.addBall(b1);
+        b.addElement(s);
+        b.clear();
+        assert(b.getElements().size() == 1);
+        assert(b.getBalls().isEmpty());
     }
 
     @Test
     public void clear2() {
         //See spreadsheet Test 46
+        Board b = new Board();
+        Ball b1 = new Ball("ball",1,1,1,1);
+        Square s = new Square(5,5,"t");
+        b.addBall(b1);
+        b.addElement(s);
+        b.clear();
+        assert(b.getElements().size() == 1);
+
     }
 
     @Test
