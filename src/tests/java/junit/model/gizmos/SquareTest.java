@@ -150,9 +150,6 @@ public class SquareTest {
 		LineSegment right = new LineSegment(expTR, expBR);
 		LineSegment bot = new LineSegment(expBR,expBL );
 		LineSegment left = new LineSegment(expBL, expTL);
-
-
-
 		List<LineSegment> expectedLines = Arrays.asList(top, right, left,bot);
 		assert compareLists(square.getLines(), expectedLines);
 	}
