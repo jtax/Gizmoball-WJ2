@@ -26,7 +26,7 @@ public class Absorber extends Gizmo implements Triggerable {
 
 	public Absorber(Vect origin, Vect bound, String name) {
 		super(origin, name);
-		rotation = 2;
+		rotation = 0;
 		this.bound = bound;
 		this.name = name;
 		setBound(bound);
