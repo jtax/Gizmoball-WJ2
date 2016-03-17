@@ -1,19 +1,302 @@
 package junit.model.gizmos;
 
-import model.Direction;
-import model.gizmos.Flipper;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
+
+import model.Direction;
+import model.gizmos.Flipper;
 import physics.Vect;
 
-import static org.junit.Assert.assertTrue;
-
-/**
- * Package: model.Gizmos Created by Laurynas Sakalauskas on 15/02/16 16:19.
- * Project: Gizmoball-WJ2
- */
 public class FlipperTest {
 
+	private final int expectedOriginX = 5, expectedOriginY = 8;
+	private final Vect expectedOrigin = new Vect(expectedOriginX, expectedOriginY), flipperSize = new Vect(2, 2),
+			expectedBound = expectedOrigin.plus(flipperSize);
+	private final String expectedName = "flipper";
+	private final Flipper immutableFlipper = new Flipper(expectedOrigin, expectedName);
+
+	@Test
+	public void testMove() {
+		Vect originalOrigin = new Vect(2, 2);
+		Vect moveBy = new Vect(5, 6);
+		Vect expectedOrigin = originalOrigin.plus(moveBy);
+
+		Flipper f = new Flipper(originalOrigin, "Flipper");
+		f.move(moveBy);
+		Vect actualOrigin = f.getOrigin();
+
+		assertEquals(expectedOrigin, actualOrigin);
+	}
+
+	@Test
+	public void testTrigger() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRotateOrigin() {
+		Flipper f = new Flipper(expectedOrigin, "flipper");
+		f.rotate();
+
+		Vect actualOrigin = f.getOrigin();
+		assertEquals(expectedOrigin, actualOrigin);
+	}
+
+	@Test
+	public void testRotateBound() {
+		Flipper f = new Flipper(expectedOrigin, "flipper");
+		f.rotate();
+
+		Vect actualBound = f.getBound();
+		assertEquals(expectedBound, actualBound);
+	}
+
+	@Test
+	public void testCalculateBound() {
+		Vect actualBound = immutableFlipper.getBound();
+		assertEquals(expectedBound, actualBound);
+	}
+
+	@Test
+	public void testFlipperVectString() { // i.e. the constructor
+		Vect actualOrigin = immutableFlipper.getOrigin();
+		assertEquals(expectedOrigin, actualOrigin);
+
+		String actualName = immutableFlipper.getName();
+		assertEquals(expectedName, actualName);
+	}
+
+	@Test
+	public void testGetPivotPoint() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetAngularVelocity() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testFlipperIntIntString() {
+		int expectedOriginX = (int) expectedOrigin.x(), expectedOriginY = (int) expectedOrigin.y();
+		String expectedName = "Flipperino";
+
+		Flipper f = new Flipper(expectedOriginX, expectedOriginY, expectedName);
+
+		int actualOriginX = (int) f.getOrigin().x(), actualOriginY = (int) f.getOrigin().y();
+		String actualName = f.getName();
+
+		assertEquals(expectedOriginX, actualOriginX);
+		assertEquals(expectedOriginY, actualOriginY);
+		assertEquals(expectedName, actualName);
+
+	}
+
+	@Test
+	public void testSetDirection() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRotationMatrix() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testFlip() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testDefaultDirection() {
+		Direction expectedDirection = Direction.LEFT;
+		Direction actualDirection = immutableFlipper.getDirection();
+		assertEquals(expectedDirection, actualDirection);
+	}
+	
+	@Test
+	public void testSetDirectionLeft() {
+		Direction expectedDirection = Direction.LEFT;
+		Flipper f = new Flipper(expectedOrigin, expectedName);
+
+		f.setDirection(expectedDirection);
+		Direction actualDirection = f.getDirection();
+
+		assertEquals(expectedDirection, actualDirection);
+		
+		assertEquals(expectedOrigin, f.getOrigin());
+		assertEquals(expectedBound, f.getBound());
+	}
+
+	@Test
+	public void testSetDirectionRight() {
+		Flipper f = new Flipper(expectedOrigin, expectedName);
+		
+		Direction expectedDirection = Direction.RIGHT;
+		f.setDirection(expectedDirection);
+		Direction actualDirection = f.getDirection();
+
+		assertEquals(expectedDirection, actualDirection);
+	}
+
+	@Test
+	public void testGetSaveInfoLeftFlipper() {
+		String expectedSaveInfo = String.format("\"LeftFlipper\" %s %d %d", expectedName, expectedOriginX,
+				expectedOriginY);
+		String actualSaveInfo = immutableFlipper.getSaveInfo();
+		
+		assertEquals(expectedSaveInfo, actualSaveInfo);
+	}
+
+	@Test
+	public void testGetRotation() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testLeftFlipperCoordinatesRotate0() {
+		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
+		
+		List<Vect> expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedOrigin);
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(0.5, 0)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(0.5, 2)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 2)));
+
+		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		
+		assertEquals(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void testLeftFlipperCoordinatesRotate1() {
+		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
+		f.rotate();
+		
+		List<Vect> expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedOrigin);
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 0)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 0.5)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 0.5)));
+
+		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		
+		assertEquals(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void testLeftFlipperCoordinatesRotate2() {
+		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
+		for (int c = 0; c < 2; ++c)
+			f.rotate();
+
+		List<Vect> expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(1.5, 0)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 0)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 2)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(1.5, 2)));
+
+		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		
+		assertEquals(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void testLeftFlipperCoordinatesRotate3() {
+		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
+		for (int c = 0; c < 3; ++c)
+			f.rotate();
+
+		List<Vect> expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 1.5)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 1.5)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 2)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 2)));
+
+		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		
+		assertEquals(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void testRightFlipperCoordinatesRotate0() {
+		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
+		f.setDirection(Direction.RIGHT);
+		for (int c = 0; c < 0; ++c)
+			f.rotate();
+
+		List<Vect> expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(1.5, 0)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 0)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 2)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(1.5, 2)));
+
+		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		
+		assertEquals(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void testRightFlipperCoordinatesRotate1() {
+		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
+		f.setDirection(Direction.RIGHT);
+		for (int c = 0; c < 0; ++c)
+			f.rotate();
+
+		List<Vect> expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 1.5)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 1.5)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 2)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 2)));
+
+		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		
+		assertEquals(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void testRightFlipperCoordinatesRotate2() {
+		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
+		f.setDirection(Direction.RIGHT);
+		for (int c = 0; c < 0; ++c)
+			f.rotate();
+
+		List<Vect> expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedOrigin);
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(0.5, 0)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(0.5, 2)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 2)));
+
+		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		
+		assertEquals(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void testRightFlipperCoordinatesRotate3() {
+		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
+		f.setDirection(Direction.RIGHT);
+		for (int c = 0; c < 0; ++c)
+			f.rotate();
+
+		List<Vect> expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedOrigin);
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 0)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 0.5)));
+		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 0.5)));
+
+		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		
+		assertEquals(expectedCoordinates, actualCoordinates);
+	}
+
+	/*
+	// FIXME using getBound incorrectly.
 	@Test
 	public void testFlipLeftDirection() throws Exception {
 
@@ -33,6 +316,7 @@ public class FlipperTest {
 
 	}
 
+	// FIXME using getBound incorrectly.
 	@Test
 	public void testFlipRightDirection() throws Exception {
 
@@ -51,4 +335,5 @@ public class FlipperTest {
 		assertTrue(test.getBound().equals(new Vect(1, 1)));
 
 	}
+	*/
 }
