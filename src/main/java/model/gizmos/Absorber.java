@@ -1,16 +1,16 @@
 package model.gizmos;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import model.Ball;
 import model.Collision;
 import model.Gizmo;
 import model.Triggerable;
 import physics.LineSegment;
 import physics.Vect;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
@@ -113,7 +113,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		positionBall();
 	}
 
-	private void releaseOurBall() {
+	public void releaseOurBall() {
 		if (weHaveABall()) {
 			double xVelocity = 0, yVelocity = -50;
 			Vect velocity = new Vect(xVelocity, yVelocity);
@@ -124,7 +124,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		}
 	}
 
-	private void positionBall() {
+	public void positionBall() {
 		if (weHaveABall()) {
 			Vect ourBound = getBound();
 			double ballRadius = ourBall.getRadius();
@@ -145,7 +145,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		return rotation;
 	}
 
-	private boolean weHaveABall() {
+	public boolean weHaveABall() {
 		return ourBall != null;
 	}
 

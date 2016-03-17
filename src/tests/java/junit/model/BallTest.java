@@ -1,10 +1,12 @@
 package junit.model;
 
 import model.Ball;
+import model.gizmos.Absorber;
 import org.junit.Before;
 import org.junit.Test;
 import physics.Vect;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 /**
@@ -47,6 +49,29 @@ public class BallTest {
 		String actual = ball.getSaveInfo();
 		String expected = "Ball  5.0 5.0 2.0 2.0";
 		assertEquals(actual, expected);
+	}
+
+	@Test
+	public void testInside() throws Exception {
+		//See spreadsheet test 130
+
+		Absorber absorber = new Absorber(new Vect(0, 4),new Vect(10, 5), "Test");
+
+
+		assertTrue(ball.inside(absorber));
+
+		absorber.move(new Vect(0, 2));
+
+		assertFalse(ball.inside(absorber));
+	}
+
+	@Test
+	public void testMoveForTime() throws Exception {
+		//See spreadsheet test 131
+
+		ball.moveForTime(0.05);
+
+		assertThat(ball.getCenter(), is(new Vect(5.1, 5.1)));
 	}
 
 }
