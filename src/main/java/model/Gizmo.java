@@ -1,14 +1,14 @@
 package model;
 
-import java.awt.Color;
+import physics.Circle;
+import physics.LineSegment;
+import physics.Vect;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-
-import physics.Circle;
-import physics.LineSegment;
-import physics.Vect;
 
 /**
  * Created by baird on 06/02/2016.
@@ -136,6 +136,7 @@ abstract public class Gizmo implements IElement, Triggerable {
 	}
 	
 	protected void subHandle(Collision c) {
+
 		Ball ball = c.getBall();
 		ball.moveForTime(c.getTime());
 		ball.setVelocity(c.getVelocity());

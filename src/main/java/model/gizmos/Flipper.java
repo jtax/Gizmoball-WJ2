@@ -1,9 +1,6 @@
 package model.gizmos;
 
-import model.Board;
-import model.Direction;
-import model.Gizmo;
-import model.Triggerable;
+import model.*;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -19,6 +16,7 @@ public class Flipper extends Gizmo implements Triggerable {
 	private List<Vect> coordinates;
 
 	protected Boolean rotating = false;
+
 	protected Boolean rotatingUp = false;
 	protected Boolean finishedRotation = false;
 	private double movementRotation = 0;
@@ -47,12 +45,41 @@ public class Flipper extends Gizmo implements Triggerable {
 		setSaveInfo();
 	}
 
+
 	public Vect getPivotPoint() {
 		return pivotPoint;
 	}
 
 	public double getAngularVelocity() {
-		return angularVelocity;
+
+		double rotate = angularVelocity * 2;
+
+
+		// Execute only if Flipper is in rotating stage
+		if (rotating) {
+
+			if (rotatingUp) {
+
+				// rotate up
+				//if (angularVelocity + movementRotation > 90) {
+				//	rotate = 90 - movementRotation;
+				//}
+
+				// Sets direction up
+				rotate = rotate * -1;
+			//} else {
+
+				// rotate down
+				//if (angularVelocity % movementRotation != angularVelocity) {
+				//	rotate = movementRotation;
+				//}
+			}
+
+			return (rotate * directionConst);
+
+		} else {
+			return Math.toRadians(0);
+		}
 	}
 
 
@@ -70,7 +97,7 @@ public class Flipper extends Gizmo implements Triggerable {
 
 		rotating = true;
 		rotatingUp = !rotatingUp;
-		flip();
+
 		super.trigger();
 	}
 
@@ -174,7 +201,7 @@ public class Flipper extends Gizmo implements Triggerable {
 	 * Flips a Flipper based on its direction and weather we need to rotate back
 	 */
 	public void flip() {
-		double rotate = angularVelocity;
+		double rotate = angularVelocity ;
 
 		// Execute only if Flipper is in rotating stage
 		if (rotating) {
@@ -211,6 +238,14 @@ public class Flipper extends Gizmo implements Triggerable {
 			super.setCircles(calculateCircles());
 			super.setLines(calculateLines());
 		}
+	}
+	protected void subHandle(Collision c) {
+
+		Ball ball = c.getBall();
+		ball.moveForTime(Board.moveTime);
+		ball.setVelocity(c.getVelocity());
+
+		setColor(Color.GREEN);
 	}
 
 	/**	

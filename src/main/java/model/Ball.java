@@ -1,12 +1,12 @@
 package model;
 
-import java.awt.Color;
-import java.util.Arrays;
-import java.util.List;
-
 import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
+
+import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
@@ -51,7 +51,7 @@ public class Ball implements IElement, Absorbable {
 	}
 
 	public void setVelocity(Vect velocity) {
-		this.velocity = velocity;
+		this.velocity = new Vect(velocity.x() % 200, velocity.y() % 200);
 	}
 
 	public Circle getCircle() {
