@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Flipper extends Gizmo implements Triggerable {
 	private List<Vect> coordinates;
-
+	private List<String> connections = new ArrayList<>();
 	protected Boolean rotating = false;
 	protected Boolean rotatingUp = false;
 	protected Boolean finishedRotation = false;
@@ -282,5 +282,10 @@ public class Flipper extends Gizmo implements Triggerable {
 
 	public void gizmoConnect(IElement secondElement){
 		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	public List getConnections(){
+		return connections;
 	}
 }

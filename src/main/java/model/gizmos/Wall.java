@@ -3,6 +3,7 @@ package model.gizmos;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import model.Gizmo;
@@ -108,5 +109,9 @@ public class Wall extends Gizmo {
 
 	public void gizmoConnect(IElement secondElement){
 
+	}
+
+	public List<String> getConnections(){
+		return Collections.EMPTY_LIST;
 	}
 }

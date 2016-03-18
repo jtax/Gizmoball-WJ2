@@ -18,6 +18,7 @@ public class Square extends Gizmo {
 
 	private int reflectionCoefficient = 1;
 	private List<Vect> coordinates;
+	private List<String> connections = new ArrayList<>();
 	private String saveInfo;
 	private String name;
 	private int rotation;
@@ -151,8 +152,13 @@ public class Square extends Gizmo {
 		return true;
 	}
 
-
 	public void gizmoConnect(IElement secondElement){
-			this.addTriggerable((Triggerable) secondElement);
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
 	}
+
+	public List getConnections(){
+		return connections;
+	}
+
 }

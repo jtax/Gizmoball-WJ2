@@ -16,6 +16,7 @@ public class Absorber extends Gizmo implements Triggerable {
 
 	private Vect bound;
 	private List<Vect> coordinates;
+	private List<String> connections = new ArrayList<>();
 	private Ball ourBall;
 	private String saveInfo;
 	private String name;
@@ -192,7 +193,12 @@ public class Absorber extends Gizmo implements Triggerable {
 	}
 
 
-	public void gizmoConnect( IElement secondElement){
-			this.addTriggerable((Triggerable) secondElement);
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	public List getConnections(){
+		return connections;
 	}
 }

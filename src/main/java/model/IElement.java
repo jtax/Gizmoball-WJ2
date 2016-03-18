@@ -40,4 +40,6 @@ public interface IElement extends CollisionHandler {
 
 	void gizmoConnect(IElement secondElement);
 
+	List<String> getConnections();
+
 }

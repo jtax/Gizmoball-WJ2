@@ -1,6 +1,7 @@
 package model.gizmos;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import physics.Vect;
  * Created by baird on 06/02/2016.
  */
 public class Circle extends Gizmo {
-
+	private List<String> connections = new ArrayList<>();
 	Vect center;
 	String name;
 	private String saveInfo;
@@ -100,9 +101,12 @@ public class Circle extends Gizmo {
 	}
 
 
-	public void gizmoConnect( IElement secondElement){
-		//if(!firstElement.equals(null)||!secondElement.equals(null)) {
-			this.addTriggerable((Triggerable) secondElement);
-		//}
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	public List getConnections(){
+		return connections;
 	}
 }

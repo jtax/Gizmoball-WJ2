@@ -14,6 +14,7 @@ import physics.Vect;
 public class Triangle extends Gizmo {
 
 	private List<Vect> coordinates;
+	private List<String> connections = new ArrayList<>();
 	private int rotation;
 	private String saveInfo;
 
@@ -149,5 +150,10 @@ public class Triangle extends Gizmo {
 
 	public void gizmoConnect(IElement secondElement){
 		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	public List getConnections(){
+		return connections;
 	}
 }

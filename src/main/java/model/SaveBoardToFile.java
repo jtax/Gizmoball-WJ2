@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.swing.JFileChooser;
@@ -37,6 +38,7 @@ public class SaveBoardToFile {
 						continue;
 					}
 
+
 					bufferedWriter.write(element.getSaveInfo());
 					bufferedWriter.newLine();
 					StringTokenizer st = new StringTokenizer(element.getSaveInfo(), " ");
@@ -64,6 +66,14 @@ public class SaveBoardToFile {
 								bufferedWriter.newLine();
 								break;
 
+					}
+
+					if(!element.getConnections().isEmpty()){
+						List<String> connections = element.getConnections();
+						for(String connection : connections) {
+							bufferedWriter.write(connection);
+							bufferedWriter.newLine();
+						}
 					}
 					}
 

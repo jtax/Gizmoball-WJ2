@@ -233,7 +233,7 @@ public class BuildListener implements ActionListener {
             IElement secondElement;
             if ((secondElement = board.getElementAtLocation(secondElementLocation)) != null && secondElement instanceof Triggerable) {
                 if (!firstElement.equals(secondElement)) {
-                    ((Gizmo) firstElement).addTriggerable((Triggerable) secondElement);
+                     firstElement.gizmoConnect(secondElement);
                     gbv.changeStatusMessage("Success! " + secondElement + " will now be triggered by " + firstElement + ".");
                 } else {
                     gbv.changeStatusMessage("Error: You can't connect a gizmo to itself.");

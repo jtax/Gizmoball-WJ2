@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import physics.Circle;
@@ -243,5 +244,8 @@ public class Ball implements IElement, Absorbable {
 
 	public void gizmoConnect(IElement secondElement){
 
+	}
+	public List<String> getConnections(){
+		return Collections.EMPTY_LIST;
 	}
 }
