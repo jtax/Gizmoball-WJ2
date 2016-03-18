@@ -85,8 +85,9 @@ public class Board extends Observable implements IBoard {
 	}
 
 	@Override
-	public void setElements(Collection<IElement> elements) {
-		for (IElement element : elements) {
+	public void setElements(Collection<IElement> elems) {
+		elements = new ArrayList<>();
+		for (IElement element : elems) {
 			addElement(element);
 		}
 		addWalls();

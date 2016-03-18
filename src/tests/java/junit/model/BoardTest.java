@@ -71,7 +71,7 @@ public class BoardTest {
         Vect bottomRight = new Vect(20, 20);
 
         assertEquals(topLeft, wall.getCoordinates().get(0));
-        assertEquals(bottomRight, wall.getCoordinates().get(1));
+        assertEquals(bottomRight, wall.getCoordinates().get(2));
     }
 
     @Test
@@ -173,7 +173,7 @@ public class BoardTest {
 
         b.setElements(elements);
 
-       //assertFalse(b.getElements().contains(cir));
+        assertFalse(b.getElements().contains(cir));
     }
 
     @Test
@@ -199,8 +199,13 @@ public class BoardTest {
         elements.add(fli);
 
         b.setElements(elements);
-
-        //assertTrue(b.getAllElements().contains(Wall.class));
+        boolean found = false;
+        for (IElement elem : b.getAllElements()) {
+            if (elem instanceof Wall) {
+                found = true;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
@@ -407,10 +412,10 @@ public class BoardTest {
         //See spreadsheet Test 29
         Board b = new Board();
 
-        Vect origin = new Vect(-2,-2);
-        Vect bound = new Vect(-4,-4);
+        Vect bound = new Vect(-2, -2);
+        Vect origin = new Vect(-4, -4);
 
-        //assertTrue(b.detectEmptyArea(origin, bound) == false);
+        assertFalse(b.detectEmptyArea(origin, bound));
     }
 
     @Test
