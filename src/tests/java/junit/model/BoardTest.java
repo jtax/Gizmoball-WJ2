@@ -59,7 +59,8 @@ public class BoardTest {
     public void checkThatTheOnlyIElementOnTheBoardIsWalls() {
         //See spreadsheet Test 4 & 6
         Board b = new Board();
-        assertTrue(b.getAllElements().contains(Wall.class));
+        IElement wall = (IElement)b.getElements().toArray()[0];
+        assertTrue(b.getAllElements().contains(wall));
     }
 
     @Test
