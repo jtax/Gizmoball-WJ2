@@ -14,7 +14,7 @@ import physics.Vect;
 
 public class FlipperTest {
 
-	private final int expectedOriginX = 5, expectedOriginY = 8;
+	private final int expectedOriginX = 0, expectedOriginY = 0;
 	private final Vect expectedOrigin = new Vect(expectedOriginX, expectedOriginY), flipperSize = new Vect(2, 2),
 			expectedBound = expectedOrigin.plus(flipperSize);
 	private final String expectedName = "flipper";
@@ -238,6 +238,15 @@ public class FlipperTest {
 		
 		assertEquals(expectedSaveInfo, actualSaveInfo);
 	}
+	
+	@Test
+	public void testGetSaveInfoRightFlipper() {
+		String expectedSaveInfo = String.format("\"RightFlipper\" %s %d %d", expectedName, expectedOriginX,
+				expectedOriginY);
+		String actualSaveInfo = immutableFlipper.getSaveInfo();
+		
+		assertEquals(expectedSaveInfo, actualSaveInfo);
+	}
 
 	@Test
 	public void testGetRotation() {
@@ -254,7 +263,7 @@ public class FlipperTest {
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(0.5, 2)));
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 2)));
 
-		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		List<Vect> actualCoordinates = f.getCoordinates();
 		
 		assertEquals(expectedCoordinates, actualCoordinates);
 	}
@@ -270,7 +279,7 @@ public class FlipperTest {
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 0.5)));
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 0.5)));
 
-		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		List<Vect> actualCoordinates = f.getCoordinates();
 		
 		assertEquals(expectedCoordinates, actualCoordinates);
 	}
@@ -287,7 +296,7 @@ public class FlipperTest {
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 2)));
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(1.5, 2)));
 
-		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		List<Vect> actualCoordinates = f.getCoordinates();
 		
 		assertEquals(expectedCoordinates, actualCoordinates);
 	}
@@ -304,7 +313,7 @@ public class FlipperTest {
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 2)));
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 2)));
 
-		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		List<Vect> actualCoordinates = f.getCoordinates();
 		
 		assertEquals(expectedCoordinates, actualCoordinates);
 	}
@@ -322,7 +331,7 @@ public class FlipperTest {
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 2)));
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(1.5, 2)));
 
-		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		List<Vect> actualCoordinates = f.getCoordinates();
 		
 		assertEquals(expectedCoordinates, actualCoordinates);
 	}
@@ -331,7 +340,7 @@ public class FlipperTest {
 	public void testRightFlipperCoordinatesRotate1() {
 		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
 		f.setDirection(Direction.RIGHT);
-		for (int c = 0; c < 0; ++c)
+		for (int c = 0; c < 1; ++c)
 			f.rotate();
 
 		List<Vect> expectedCoordinates = new ArrayList<>();
@@ -340,7 +349,7 @@ public class FlipperTest {
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 2)));
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 2)));
 
-		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		List<Vect> actualCoordinates = f.getCoordinates();
 		
 		assertEquals(expectedCoordinates, actualCoordinates);
 	}
@@ -349,7 +358,7 @@ public class FlipperTest {
 	public void testRightFlipperCoordinatesRotate2() {
 		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
 		f.setDirection(Direction.RIGHT);
-		for (int c = 0; c < 0; ++c)
+		for (int c = 0; c < 2; ++c)
 			f.rotate();
 
 		List<Vect> expectedCoordinates = new ArrayList<>();
@@ -358,7 +367,7 @@ public class FlipperTest {
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(0.5, 2)));
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 2)));
 
-		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		List<Vect> actualCoordinates = f.getCoordinates();
 		
 		assertEquals(expectedCoordinates, actualCoordinates);
 	}
@@ -367,7 +376,7 @@ public class FlipperTest {
 	public void testRightFlipperCoordinatesRotate3() {
 		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
 		f.setDirection(Direction.RIGHT);
-		for (int c = 0; c < 0; ++c)
+		for (int c = 0; c < 3; ++c)
 			f.rotate();
 
 		List<Vect> expectedCoordinates = new ArrayList<>();
@@ -376,7 +385,7 @@ public class FlipperTest {
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(2, 0.5)));
 		expectedCoordinates.add(expectedOrigin.plus(new Vect(0, 0.5)));
 
-		List<Vect> actualCoordinates = immutableFlipper.getCoordinates();
+		List<Vect> actualCoordinates = f.getCoordinates();
 		
 		assertEquals(expectedCoordinates, actualCoordinates);
 	}
