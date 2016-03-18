@@ -18,7 +18,7 @@ public class FlipperTest {
 	private final Vect expectedOrigin = new Vect(expectedOriginX, expectedOriginY), flipperSize = new Vect(2, 2),
 			expectedBound = expectedOrigin.plus(flipperSize);
 	private final String expectedName = "flipper";
-	private final Flipper immutableFlipper = new Flipper(expectedOrigin, expectedName);
+	private final Flipper immutableFlipper = new Flipper(expectedOrigin, expectedName, Direction.LEFT);
 
 	@Test
 	public void testMove() {
@@ -26,7 +26,7 @@ public class FlipperTest {
 		Vect moveBy = new Vect(5, 6);
 		Vect expectedOrigin = originalOrigin.plus(moveBy);
 
-		Flipper f = new Flipper(originalOrigin, "Flipper");
+		Flipper f = new Flipper(originalOrigin, "Flipper", Direction.LEFT);
 		f.move(moveBy);
 		Vect actualOrigin = f.getOrigin();
 
@@ -40,7 +40,7 @@ public class FlipperTest {
 
 	@Test
 	public void testRotateOrigin() {
-		Flipper f = new Flipper(expectedOrigin, "flipper");
+		Flipper f = new Flipper(expectedOrigin, "flipper", Direction.LEFT);
 		f.rotate();
 
 		Vect actualOrigin = f.getOrigin();
@@ -49,7 +49,7 @@ public class FlipperTest {
 
 	@Test
 	public void testRotateBound() {
-		Flipper f = new Flipper(expectedOrigin, "flipper");
+		Flipper f = new Flipper(expectedOrigin, "flipper", Direction.LEFT);
 		f.rotate();
 
 		Vect actualBound = f.getBound();
@@ -73,7 +73,7 @@ public class FlipperTest {
 
 	@Test
 	public void testGetPivotPointLeftRotate0() {
-		Flipper f = new Flipper(expectedOrigin, "Flipper");
+		Flipper f = new Flipper(expectedOrigin, "Flipper", Direction.LEFT);
 		
 		Vect expectedPivotPoint = expectedOrigin.plus(new Vect(0.25, 0.25));
 		Vect actualPivotPoint = f.getPivotPoint();
@@ -83,7 +83,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testGetPivotPointLeftRotate1() {
-		Flipper f = new Flipper(expectedOrigin, "Flipper");
+		Flipper f = new Flipper(expectedOrigin, "Flipper", Direction.LEFT);
 		for (int r = 0; r < 1; ++r)
 			f.rotate();
 		
@@ -95,7 +95,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testGetPivotPointLeftRotate2() {
-		Flipper f = new Flipper(expectedOrigin, "Flipper");
+		Flipper f = new Flipper(expectedOrigin, "Flipper", Direction.LEFT);
 		for (int r = 0; r < 2; ++r)
 			f.rotate();
 		
@@ -107,7 +107,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testGetPivotPointLeftRotate3() {
-		Flipper f = new Flipper(expectedOrigin, "Flipper");
+		Flipper f = new Flipper(expectedOrigin, "Flipper", Direction.LEFT);
 		for (int r = 0; r < 3; ++r)
 			f.rotate();
 		
@@ -119,8 +119,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testGetPivotPointRightRotate0() {
-		Flipper f = new Flipper(expectedOrigin, "Flipper");
-		f.setDirection(Direction.RIGHT);
+		Flipper f = new Flipper(expectedOrigin, "Flipper", Direction.RIGHT);
 		
 		Vect expectedPivotPoint = expectedOrigin.plus(new Vect(1.75, 0.25));
 		Vect actualPivotPoint = f.getPivotPoint();
@@ -130,8 +129,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testGetPivotPointRightRotate1() {
-		Flipper f = new Flipper(expectedOrigin, "Flipper");
-		f.setDirection(Direction.RIGHT);
+		Flipper f = new Flipper(expectedOrigin, "Flipper", Direction.RIGHT);
 		for (int r = 0; r < 1; ++r)
 			f.rotate();
 		
@@ -143,8 +141,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testGetPivotPointRightRotate2() {
-		Flipper f = new Flipper(expectedOrigin, "Flipper");
-		f.setDirection(Direction.RIGHT);
+		Flipper f = new Flipper(expectedOrigin, "Flipper", Direction.RIGHT);
 		for (int r = 0; r < 2; ++r)
 			f.rotate();
 		
@@ -156,8 +153,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testGetPivotPointRightRotate3() {
-		Flipper f = new Flipper(expectedOrigin, "Flipper");
-		f.setDirection(Direction.RIGHT);
+		Flipper f = new Flipper(expectedOrigin, "Flipper", Direction.RIGHT);
 		for (int r = 0; r < 3; ++r)
 			f.rotate();
 		
@@ -177,7 +173,7 @@ public class FlipperTest {
 		int expectedOriginX = (int) expectedOrigin.x(), expectedOriginY = (int) expectedOrigin.y();
 		String expectedName = "Flipperino";
 
-		Flipper f = new Flipper(expectedOriginX, expectedOriginY, expectedName);
+		Flipper f = new Flipper(expectedOriginX, expectedOriginY, expectedName, Direction.LEFT);
 
 		int actualOriginX = (int) f.getOrigin().x(), actualOriginY = (int) f.getOrigin().y();
 		String actualName = f.getName();
@@ -196,38 +192,6 @@ public class FlipperTest {
 	@Test
 	public void testFlip() {
 		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDefaultDirection() {
-		Direction expectedDirection = Direction.LEFT;
-		Direction actualDirection = immutableFlipper.getDirection();
-		assertEquals(expectedDirection, actualDirection);
-	}
-	
-	@Test
-	public void testSetDirectionLeft() {
-		Direction expectedDirection = Direction.LEFT;
-		Flipper f = new Flipper(expectedOrigin, expectedName);
-
-		f.setDirection(expectedDirection);
-		Direction actualDirection = f.getDirection();
-
-		assertEquals(expectedDirection, actualDirection);
-		
-		assertEquals(expectedOrigin, f.getOrigin());
-		assertEquals(expectedBound, f.getBound());
-	}
-
-	@Test
-	public void testSetDirectionRight() {
-		Flipper f = new Flipper(expectedOrigin, expectedName);
-		
-		Direction expectedDirection = Direction.RIGHT;
-		f.setDirection(expectedDirection);
-		Direction actualDirection = f.getDirection();
-
-		assertEquals(expectedDirection, actualDirection);
 	}
 
 	@Test
@@ -255,7 +219,7 @@ public class FlipperTest {
 
 	@Test
 	public void testLeftFlipperCoordinatesRotate0() {
-		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
+		Flipper f = new Flipper(expectedOrigin, "El Flipperino", Direction.LEFT);
 		
 		List<Vect> expectedCoordinates = new ArrayList<>();
 		expectedCoordinates.add(expectedOrigin);
@@ -270,7 +234,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testLeftFlipperCoordinatesRotate1() {
-		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
+		Flipper f = new Flipper(expectedOrigin, "El Flipperino", Direction.LEFT);
 		f.rotate();
 		
 		List<Vect> expectedCoordinates = new ArrayList<>();
@@ -286,7 +250,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testLeftFlipperCoordinatesRotate2() {
-		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
+		Flipper f = new Flipper(expectedOrigin, "El Flipperino", Direction.LEFT);
 		for (int c = 0; c < 2; ++c)
 			f.rotate();
 
@@ -303,7 +267,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testLeftFlipperCoordinatesRotate3() {
-		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
+		Flipper f = new Flipper(expectedOrigin, "El Flipperino", Direction.LEFT);
 		for (int c = 0; c < 3; ++c)
 			f.rotate();
 
@@ -320,8 +284,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testRightFlipperCoordinatesRotate0() {
-		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
-		f.setDirection(Direction.RIGHT);
+		Flipper f = new Flipper(expectedOrigin, "onireppilF lE", Direction.RIGHT);
 		for (int c = 0; c < 0; ++c)
 			f.rotate();
 
@@ -338,8 +301,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testRightFlipperCoordinatesRotate1() {
-		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
-		f.setDirection(Direction.RIGHT);
+		Flipper f = new Flipper(expectedOrigin, "onireppilF lE", Direction.RIGHT);
 		for (int c = 0; c < 1; ++c)
 			f.rotate();
 
@@ -356,8 +318,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testRightFlipperCoordinatesRotate2() {
-		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
-		f.setDirection(Direction.RIGHT);
+		Flipper f = new Flipper(expectedOrigin, "onireppilF lE", Direction.RIGHT);
 		for (int c = 0; c < 2; ++c)
 			f.rotate();
 
@@ -374,8 +335,7 @@ public class FlipperTest {
 	
 	@Test
 	public void testRightFlipperCoordinatesRotate3() {
-		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
-		f.setDirection(Direction.RIGHT);
+		Flipper f = new Flipper(expectedOrigin, "onireppilF lE", Direction.RIGHT);
 		for (int c = 0; c < 3; ++c)
 			f.rotate();
 

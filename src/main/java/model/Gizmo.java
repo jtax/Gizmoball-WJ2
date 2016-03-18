@@ -21,16 +21,21 @@ abstract public class Gizmo implements IElement, Triggerable {
 	private Color backupColor;
 	private List<LineSegment> lines;
 	private List<Circle> circles;
-	private int reflection;
+	private double reflectionCoefficient;
 	private String name;
 	private int keyPressTrigger;
 
 	protected Gizmo(Vect origin, String name) {
+		this(origin, name, 1);
+	}
+	
+	protected Gizmo(Vect origin, String name, double reflectionCoefficient) {
 		lines = new ArrayList<>();
 		circles = new ArrayList<>();
 		this.origin = origin;
 		color = Color.RED;
 		this.name = name;
+		this.reflectionCoefficient = reflectionCoefficient;
 
 		// TODO: set the bounds correctly according to which gizmo it is
 		// bound = new Vect(origin.x() + 1, origin.y() + 1);
@@ -96,8 +101,8 @@ abstract public class Gizmo implements IElement, Triggerable {
 
 	public abstract void rotate();
 
-	public int getReflectionCoefficient() {
-		return reflection;
+	public double getReflectionCoefficient() {
+		return reflectionCoefficient;
 	}
 
 	public abstract Vect calculateBound();

@@ -300,7 +300,7 @@ public class Board extends Observable implements IBoard {
 
 	private Ball moveBall(Ball ball) {
 		ball.applyForces(moveTime, getGravityConst(), getFrictionConst());
-		Collision collision = getTimeTillCollision(ball);
+		Collision collision = getNextCollision(ball);
 
 		if (collision.getTime() >= moveTime) { // No Collision
 			ball.moveForTime(moveTime);
@@ -309,8 +309,8 @@ public class Board extends Observable implements IBoard {
 			collision.getHandler().handle(collision);
 		}
 		return ball;
-
 	}
+	
 	public void clear(){
 		elements.clear();
 		balls.clear();
@@ -319,26 +319,32 @@ public class Board extends Observable implements IBoard {
 		notifyObservers();
 	}
 
-	private Collision getTimeTillCollision(Ball ball) {
+	private Collision getNextCollision(Ball ball) {
 		closestCollision = new Collision(0, 0, Double.MAX_VALUE);
 		for (IElement element : getElements()) {
 			if (element instanceof Absorber && ball.inside(element))
 				continue;
 
-			for (Circle circle : element.getCircles()) {
-				detectCircleCollision(circle, ball, element);
-			}
+			if (!(element instanceof Flipper)) {
+				for (Circle circle : element.getCircles()) {
+					detectCircleCollision(circle, ball, element);
+				}
 
-			for (LineSegment line : element.getLines()) {
-				detectLineCollision(line, ball, element);
+				for (LineSegment line : element.getLines()) {
+					detectLineCollision(line, ball, element);
+				}
 			}
 
 			if (element instanceof Flipper) {
+				Flipper flipper = (Flipper) element;
+				flipper.flip();
+				
+				for (Circle circle : element.getCircles()) {
+					detectFlipperCircleCollision(circle, ball, flipper);
+				}
 
-				((Flipper) element).flip();
-
-				for (LineSegment line : element.getLines()) {
-					detectFlipperCollision(line, ball, element);
+				for (LineSegment line : flipper.getLines()) {
+					detectFlipperLineCollision(line, ball, flipper);
 				}
 
 			}
@@ -366,11 +372,19 @@ public class Board extends Observable implements IBoard {
 		}
 	}
 
-	private void detectFlipperCollision(LineSegment line, Ball ball, IElement element) {
-		double time = Geometry.timeUntilRotatingWallCollision(line, ((Flipper) element).getPivotPoint(), ((Flipper) element).getAngularVelocity(),  ball.getCircle(), ball.getVelocity());
+	private void detectFlipperLineCollision(LineSegment line, Ball ball, Flipper flipper) {
+		double time = Geometry.timeUntilRotatingWallCollision(line, flipper.getPivotPoint(), flipper.getFlipRotationThisTick(),  ball.getCircle(), ball.getVelocity());
 		if (time < closestCollision.getTime()) {
-			Vect newV = Geometry.reflectRotatingWall(line, ((Flipper) element).getPivotPoint(), ((Flipper) element).getAngularVelocity(), ball.getCircle(), ball.getVelocity(), 0.95);
-			closestCollision = new Collision(newV, time, element, ball);
+			Vect newV = Geometry.reflectRotatingWall(line, flipper.getPivotPoint(), flipper.getFlipRotationThisTick(), ball.getCircle(), ball.getVelocity(), flipper.getReflectionCoefficient());
+			closestCollision = new Collision(newV, time, flipper, ball);
+		}
+	}
+	
+	private void detectFlipperCircleCollision(Circle circle, Ball ball, Flipper flipper) {
+		double time = Geometry.timeUntilRotatingCircleCollision(circle, flipper.getPivotPoint(), flipper.getFlipRotationThisTick(), ball.getCircle(), ball.getVelocity());
+		if (time < closestCollision.getTime()) {
+			Vect newV = Geometry.reflectRotatingCircle(circle, flipper.getPivotPoint(), flipper.getFlipRotationThisTick(), ball.getCircle(), ball.getVelocity(), flipper.getReflectionCoefficient());;
+			closestCollision = new Collision(newV, time, flipper, ball);
 		}
 	}
 

@@ -57,8 +57,7 @@ public class ElementFactory {
     private IElement createFlipper(Vect origin, Direction d) {
         index ++;
         String name = (d==Direction.LEFT?"LF":"RF") + index;
-        Flipper f = new Flipper(origin, name);
-        f.setDirection(d);
+        Flipper f = new Flipper(origin, name, d);
         return f;
     }
 

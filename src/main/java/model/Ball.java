@@ -12,6 +12,8 @@ import physics.Vect;
  * Created by baird on 06/02/2016.
  */
 public class Ball implements IElement, Absorbable {
+	private final static double MAX_VELOCITY = 200, MIN_VELOCITY = 0.01; 
+	
 	private Circle point;
 	private Vect origin;
 	private Vect velocity;
@@ -50,8 +52,37 @@ public class Ball implements IElement, Absorbable {
 		return velocity;
 	}
 
-	public void setVelocity(Vect velocity) {
-		this.velocity = velocity;
+	public void setVelocity(Vect newVelocity) {
+		double newX = validateVelocity(velocity.x(), newVelocity.x()),
+				newY = validateVelocity(velocity.y(), newVelocity.y());
+		
+		this.velocity = new Vect(newX, newY);
+	}
+	
+	private double validateVelocity(double currentVelocity, double newVelocity) {
+		if (newVelocity > -MIN_VELOCITY || newVelocity < MIN_VELOCITY) {
+			if (newVelocity == 0) {
+				if (currentVelocity > 0) {
+					newVelocity = -MIN_VELOCITY;
+				} else {
+					newVelocity = MIN_VELOCITY;
+				}
+			} else if (newVelocity > 0) {
+				if (newVelocity < MIN_VELOCITY) {
+					newVelocity = MIN_VELOCITY;
+				}
+			} else if (newVelocity < 0) {
+				if (newVelocity > -MIN_VELOCITY)
+					newVelocity = -MIN_VELOCITY;
+			}
+		}
+
+		else if (newVelocity > MAX_VELOCITY)
+			newVelocity = MAX_VELOCITY;
+		else if (newVelocity < -MAX_VELOCITY)
+			newVelocity = -MAX_VELOCITY;
+
+		return newVelocity;
 	}
 
 	public Circle getCircle() {

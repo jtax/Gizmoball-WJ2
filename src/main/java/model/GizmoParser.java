@@ -166,12 +166,11 @@ public class GizmoParser {
 		case ("Triangle"):
 			return new Triangle(origin, gizmoName);
 		case ("RightFlipper"):
-			Flipper r = new Flipper(origin, gizmoName);
-			r.setDirection(Direction.RIGHT);
+			Flipper r = new Flipper(origin, gizmoName, Direction.RIGHT);
 			r.addKeyPressTrigger(KeyEvent.VK_RIGHT);
 			return r;
 		case ("LeftFlipper"):
-			Flipper l = new Flipper(origin, gizmoName);
+			Flipper l = new Flipper(origin, gizmoName, Direction.LEFT);
 			l.addKeyPressTrigger(KeyEvent.VK_LEFT);
 			return l;
 		default:
