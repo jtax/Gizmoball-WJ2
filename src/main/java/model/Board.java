@@ -300,15 +300,17 @@ public class Board extends Observable implements IBoard {
 	private Ball moveBall(Ball ball) {
 		ball.applyForces(moveTime, getGravityConst(), getFrictionConst());
 
-		flipFlippers();
+		//flipFlippers();
 
 		Collision collision = getTimeTillCollision(ball);
 
 		System.out.println((double) Math.round(collision.getTime() * 1000) / 1000);
 		if ((double) Math.round(collision.getTime() * 1000) / 1000 > moveTime) { // No Collision
 			ball.moveForTime(moveTime);
+			flipFlippers(moveTime);
 		} else { // Collision
 			collision.getHandler().handle(collision);
+			flipFlippers(collision.getTime());
 		}
 
 
@@ -407,11 +409,11 @@ public class Board extends Observable implements IBoard {
 		}
 	}
 
-	private void flipFlippers()
+	private void flipFlippers(double timeMoved)
 	{
 		for (IElement element : getElements()) {
 			if (element instanceof Flipper) {
-				((Flipper) element).flip();
+				((Flipper) element).flip(timeMoved);
 			}
 		}
 	}

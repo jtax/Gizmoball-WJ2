@@ -201,6 +201,11 @@ public class Flipper extends Gizmo implements Triggerable {
 	 * Flips a Flipper based on its direction and weather we need to rotate back
 	 */
 	public void flip() {
+		flip(Board.moveTime);
+	}
+
+	public void flip(double timeMoved) {
+		angularVelocity = timeMoved * 1080;
 		double rotate = angularVelocity ;
 
 		// Execute only if Flipper is in rotating stage
@@ -242,7 +247,7 @@ public class Flipper extends Gizmo implements Triggerable {
 	protected void subHandle(Collision c) {
 
 		Ball ball = c.getBall();
-		ball.moveForTime(Board.moveTime);
+		ball.moveForTime(c.getTime());
 		ball.setVelocity(c.getVelocity());
 
 		setColor(Color.GREEN);
