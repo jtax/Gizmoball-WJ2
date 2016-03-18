@@ -151,6 +151,12 @@ abstract public class Gizmo implements IElement, Triggerable {
 		}
 	}
 
+	public void gizmoConnect(IElement firstElement,IElement secondElement){
+		if(!firstElement.equals(null)||!secondElement.equals(null)) {
+			((Gizmo) firstElement).addTriggerable((Triggerable) secondElement);
+		}
+	}
+
 
 
 }

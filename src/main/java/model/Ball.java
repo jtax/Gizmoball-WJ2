@@ -239,4 +239,9 @@ public class Ball implements IElement, Absorbable {
 		}
 		return true;
 	}
+
+
+	public void gizmoConnect(IElement secondElement){
+
+	}
 }

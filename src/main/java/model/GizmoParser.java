@@ -122,19 +122,44 @@ public class GizmoParser {
 				}
 			}
 		}
-		if(!gizmoConnects.isEmpty()){
-			for (IElement e : board.getElements()) {
-				for (String connection : gizmoConnects) {
-					StringTokenizer conectToken;
-					conectToken = new StringTokenizer(connection, " ");
 
-					if (e.getName().equals(conectToken.nextToken())) {
-						//connect gizmo? e.connectGizmo(conectToken.nextToken());
+*/
+		if(!gizmoConnects.isEmpty()){
+			IElement firstElement = null;
+			IElement secondElement = null;
+			for (String connection : gizmoConnects) {
+				StringTokenizer connectToken;
+				connectToken = new StringTokenizer(connection, " ");
+				if (!connectToken.hasMoreTokens()) {
+					continue;
+				}
+				String first = connectToken.nextToken();
+				String second = connectToken.nextToken();
+
+				for (IElement e : board.getElements()) {
+					//System.out.println(e.getName());
+					if (e.getName().equals("Wall")) {
+						continue;
+					}
+					//System.out.println(first + " " + second);
+					if (e.getName().equals(first)) {
+						firstElement = e;
+						//System.out.println(firstElement.getName());
 					}
 				}
-			}
+					for (IElement e2 : board.getElements()) {
+						if (e2.getName().equals(second)){
+							secondElement = e2;
+						}
+					}
+					System.out.println(firstElement.getName() + " " + secondElement.getName());
+					//if(!firstElement.equals(null)&&!secondElement.equals(null)&&!firstElement.equals(secondElement))
+					firstElement.gizmoConnect(secondElement);
+				}
 		}
-*/
+
+
+
 
 		return board;
 	}
@@ -304,7 +329,7 @@ public class GizmoParser {
 
 		linkedGizmo = st.nextToken();
 		System.out.println(gizmo + gizmoName  + action + linkedGizmo);
-		gizmoConnects.add(gizmoName +"" + linkedGizmo);
+		gizmoConnects.add(gizmoName +" " + linkedGizmo);
 	}
 
 	private String getKey(int keycode) {

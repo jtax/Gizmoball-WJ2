@@ -1,9 +1,6 @@
 package model.gizmos;
 
-import model.Ball;
-import model.Collision;
-import model.Gizmo;
-import model.Triggerable;
+import model.*;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -192,5 +189,10 @@ public class Absorber extends Gizmo implements Triggerable {
 			return false;
 		}
 		return true;
+	}
+
+
+	public void gizmoConnect( IElement secondElement){
+			this.addTriggerable((Triggerable) secondElement);
 	}
 }

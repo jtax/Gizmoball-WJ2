@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.Gizmo;
+import model.IElement;
+import model.Triggerable;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -142,5 +144,10 @@ public class Triangle extends Gizmo {
 			return false;
 		}
 		return true;
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
 	}
 }

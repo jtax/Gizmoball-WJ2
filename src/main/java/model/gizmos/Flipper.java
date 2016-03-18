@@ -1,9 +1,6 @@
 package model.gizmos;
 
-import model.Board;
-import model.Direction;
-import model.Gizmo;
-import model.Triggerable;
+import model.*;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -280,5 +277,10 @@ public class Flipper extends Gizmo implements Triggerable {
 		}
 
 		return true;
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
 	}
 }

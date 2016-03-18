@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.Gizmo;
+import model.IElement;
+import model.Triggerable;
 import physics.Vect;
 
 /**
@@ -95,5 +97,12 @@ public class Circle extends Gizmo {
 		}
 
 		return true;
+	}
+
+
+	public void gizmoConnect( IElement secondElement){
+		//if(!firstElement.equals(null)||!secondElement.equals(null)) {
+			this.addTriggerable((Triggerable) secondElement);
+		//}
 	}
 }

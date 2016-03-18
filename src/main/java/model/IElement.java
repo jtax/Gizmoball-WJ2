@@ -38,4 +38,6 @@ public interface IElement extends CollisionHandler {
 
 	void move(Vect distance);
 
+	void gizmoConnect(IElement secondElement);
+
 }
