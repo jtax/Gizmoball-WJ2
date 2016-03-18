@@ -72,8 +72,99 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testGetPivotPoint() {
-		fail("Not yet implemented");
+	public void testGetPivotPointLeftRotate0() {
+		Flipper f = new Flipper(expectedOrigin, "Flipper");
+		
+		Vect expectedPivotPoint = expectedOrigin.plus(new Vect(0.25, 0.25));
+		Vect actualPivotPoint = f.getPivotPoint();
+		
+		assertEquals(expectedPivotPoint, actualPivotPoint);
+	}
+	
+	@Test
+	public void testGetPivotPointLeftRotate1() {
+		Flipper f = new Flipper(expectedOrigin, "Flipper");
+		for (int r = 0; r < 1; ++r)
+			f.rotate();
+		
+		Vect expectedPivotPoint = expectedOrigin.plus(new Vect(1.75, 0.25));
+		Vect actualPivotPoint = f.getPivotPoint();
+		
+		assertEquals(expectedPivotPoint, actualPivotPoint);
+	}
+	
+	@Test
+	public void testGetPivotPointLeftRotate2() {
+		Flipper f = new Flipper(expectedOrigin, "Flipper");
+		for (int r = 0; r < 2; ++r)
+			f.rotate();
+		
+		Vect expectedPivotPoint = expectedOrigin.plus(new Vect(1.75, 1.75));
+		Vect actualPivotPoint = f.getPivotPoint();
+		
+		assertEquals(expectedPivotPoint, actualPivotPoint);
+	}
+	
+	@Test
+	public void testGetPivotPointLeftRotate3() {
+		Flipper f = new Flipper(expectedOrigin, "Flipper");
+		for (int r = 0; r < 3; ++r)
+			f.rotate();
+		
+		Vect expectedPivotPoint = expectedOrigin.plus(new Vect(0.25, 1.75));
+		Vect actualPivotPoint = f.getPivotPoint();
+		
+		assertEquals(expectedPivotPoint, actualPivotPoint);
+	}
+	
+	@Test
+	public void testGetPivotPointRightRotate0() {
+		Flipper f = new Flipper(expectedOrigin, "Flipper");
+		f.setDirection(Direction.RIGHT);
+		
+		Vect expectedPivotPoint = expectedOrigin.plus(new Vect(1.75, 0.25));
+		Vect actualPivotPoint = f.getPivotPoint();
+		
+		assertEquals(expectedPivotPoint, actualPivotPoint);
+	}
+	
+	@Test
+	public void testGetPivotPointRightRotate1() {
+		Flipper f = new Flipper(expectedOrigin, "Flipper");
+		f.setDirection(Direction.RIGHT);
+		for (int r = 0; r < 1; ++r)
+			f.rotate();
+		
+		Vect expectedPivotPoint = expectedOrigin.plus(new Vect(1.75, 1.75));
+		Vect actualPivotPoint = f.getPivotPoint();
+		
+		assertEquals(expectedPivotPoint, actualPivotPoint);
+	}
+	
+	@Test
+	public void testGetPivotPointRightRotate2() {
+		Flipper f = new Flipper(expectedOrigin, "Flipper");
+		f.setDirection(Direction.RIGHT);
+		for (int r = 0; r < 2; ++r)
+			f.rotate();
+		
+		Vect expectedPivotPoint = expectedOrigin.plus(new Vect(0.25, 1.75));
+		Vect actualPivotPoint = f.getPivotPoint();
+		
+		assertEquals(expectedPivotPoint, actualPivotPoint);
+	}
+	
+	@Test
+	public void testGetPivotPointRightRotate3() {
+		Flipper f = new Flipper(expectedOrigin, "Flipper");
+		f.setDirection(Direction.RIGHT);
+		for (int r = 0; r < 3; ++r)
+			f.rotate();
+		
+		Vect expectedPivotPoint = expectedOrigin.plus(new Vect(0.25, 0.25));
+		Vect actualPivotPoint = f.getPivotPoint();
+		
+		assertEquals(expectedPivotPoint, actualPivotPoint);
 	}
 
 	@Test
@@ -95,11 +186,6 @@ public class FlipperTest {
 		assertEquals(expectedOriginY, actualOriginY);
 		assertEquals(expectedName, actualName);
 
-	}
-
-	@Test
-	public void testSetDirection() {
-		fail("Not yet implemented");
 	}
 
 	@Test
