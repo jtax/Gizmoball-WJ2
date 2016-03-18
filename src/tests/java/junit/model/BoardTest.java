@@ -547,6 +547,10 @@ public class BoardTest {
     @Test
     public void getElementAtLocation7() {
         //See spreadsheet Test 39
+        Vect position = new Vect(5, 5);
+        IElement square = new Square(position, "Square");
+        board.addElement(square);
+        assertTrue(board.getElementAtLocation(position).equals(square));
     }
 
     @Test
