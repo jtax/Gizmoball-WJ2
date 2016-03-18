@@ -209,7 +209,7 @@ public class BuildListener implements ActionListener {
                     dialog.dispose();
 
                     // Set trigger
-                    ((Gizmo) selectedElement).addKeyPressTrigger(e.getKeyCode());
+                    selectedElement.addKeyConnect(e.getKeyCode());
 
                     // Change status
                     gbv.changeStatusMessage("Success! " + selectedElement + " will be triggered by pressing " + KeyEvent.getKeyText(e.getKeyCode()));
