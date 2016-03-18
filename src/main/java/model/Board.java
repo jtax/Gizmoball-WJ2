@@ -280,6 +280,14 @@ public class Board extends Observable implements IBoard {
 				}
 			}
 		}
+		for (Ball ball : balls) {
+			if (ball.getOrigin().x() <= x && ball.getOrigin().x() + ball.getRadius() > x) {
+				if (ball.getOrigin().y() <= y && ball.getOrigin().y() + ball.getRadius() > y) {
+					return ball;
+				}
+			}
+
+		}
 		
 		return null;
 	}

@@ -505,7 +505,7 @@ public class BoardTest {
 
         IElement ball = new Ball("ball", centre, velocity);
         b.addBall((Ball)ball);
-       // assertTrue(ball.equals(b.getElementAtLocation(2,10)));
+        assertTrue(ball.equals(b.getElementAtLocation(2, 10)));
     }
 
     @Test
