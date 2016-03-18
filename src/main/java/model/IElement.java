@@ -42,4 +42,8 @@ public interface IElement extends CollisionHandler {
 
 	List<String> getConnections();
 
+	void addKeyConnect(int keyCode);
+
+	List<String> returnKeyConnects();
+
 }

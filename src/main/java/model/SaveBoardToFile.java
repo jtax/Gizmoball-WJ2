@@ -77,6 +77,14 @@ public class SaveBoardToFile {
 							bufferedWriter.newLine();
 						}
 					}
+
+					if(!element.returnKeyConnects().isEmpty()){
+						List<String> connections = element.returnKeyConnects();
+						for(String connection : connections) {
+							bufferedWriter.write(connection);
+							bufferedWriter.newLine();
+						}
+					}
 					}
 
 

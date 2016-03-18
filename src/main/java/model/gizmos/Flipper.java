@@ -15,6 +15,7 @@ import java.util.List;
 public class Flipper extends Gizmo implements Triggerable {
 	private List<Vect> coordinates;
 	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
 	protected Boolean rotating = false;
 	protected Boolean rotatingUp = false;
 	protected Boolean finishedRotation = false;
@@ -287,5 +288,14 @@ public class Flipper extends Gizmo implements Triggerable {
 
 	public List getConnections(){
 		return connections;
+	}
+
+	public void addKeyConnect(int keycode){
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+	}
+
+	public List<String> returnKeyConnects(){
+		return keyConnects;
 	}
 }

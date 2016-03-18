@@ -19,6 +19,7 @@ public class Square extends Gizmo {
 	private int reflectionCoefficient = 1;
 	private List<Vect> coordinates;
 	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
 	private String saveInfo;
 	private String name;
 	private int rotation;
@@ -159,6 +160,15 @@ public class Square extends Gizmo {
 
 	public List getConnections(){
 		return connections;
+	}
+
+	public void addKeyConnect(int keycode){
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+	}
+
+	public List<String> returnKeyConnects(){
+		return keyConnects;
 	}
 
 }

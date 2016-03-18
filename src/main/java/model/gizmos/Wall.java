@@ -114,4 +114,12 @@ public class Wall extends Gizmo {
 	public List<String> getConnections(){
 		return Collections.EMPTY_LIST;
 	}
+
+	public void addKeyConnect(int keycode){
+
+	}
+
+	public List<String> returnKeyConnects(){
+		return Collections.EMPTY_LIST;
+	}
 }

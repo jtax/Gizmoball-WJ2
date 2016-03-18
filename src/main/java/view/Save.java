@@ -16,8 +16,8 @@ public class Save {
         saveFile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         saveFile.setAcceptAllFileFilterUsed(false);
         saveFile.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
-        int retrival = saveFile.showSaveDialog(null);
-        if (retrival == JFileChooser.APPROVE_OPTION) {
+        int retrieval = saveFile.showSaveDialog(null);
+        if (retrieval == JFileChooser.APPROVE_OPTION) {
             file = saveFile.getSelectedFile();
         } else {
             System.out.println("save file not selected");

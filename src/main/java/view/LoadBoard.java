@@ -43,10 +43,8 @@ public class LoadBoard {
 			GizmoParser g = new GizmoParser(filen);
 			board = g.getGizmosFromFile();
 
-		} catch (IOException e) {
+		} catch (IOException | model.BadFileException | NullPointerException e) {
 			//
-			System.out.println("IOException");
-		} catch (model.BadFileException | NullPointerException e) {
 			System.out.println("IOException");
 		}
 

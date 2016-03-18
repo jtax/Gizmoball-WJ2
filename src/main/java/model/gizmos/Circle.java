@@ -15,6 +15,7 @@ import physics.Vect;
  */
 public class Circle extends Gizmo {
 	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
 	Vect center;
 	String name;
 	private String saveInfo;
@@ -108,5 +109,14 @@ public class Circle extends Gizmo {
 
 	public List getConnections(){
 		return connections;
+	}
+
+	public void addKeyConnect(int keycode){
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+	}
+
+	public List<String> returnKeyConnects(){
+		return keyConnects;
 	}
 }

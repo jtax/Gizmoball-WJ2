@@ -31,8 +31,8 @@ public class GizmoParser {
 		List<String> rotates = new ArrayList<>();
 		List<IElement> loadedElements = new ArrayList<>();
 		List<Ball> balls = new ArrayList<>();
-		List<String> keyConnects = new ArrayList<String>();
-		List<String> gizmoConnects = new ArrayList<String>();
+		List<String> keyConnects = new ArrayList<>();
+		List<String> gizmoConnects = new ArrayList<>();
 		double gravity = 0.0;
 		double[] friction = new double[2];
 
@@ -110,20 +110,24 @@ public class GizmoParser {
 				}
 			}
 		}
-	/*	if(!keyConnects.isEmpty()){
+		if(!keyConnects.isEmpty()){
 			for (IElement e : board.getElements()) {
 				for (String key : keyConnects) {
 					StringTokenizer keytoken;
 					keytoken = new StringTokenizer(key, " ");
+					String name = keytoken.nextToken();
+					int keyCode = Integer.valueOf(keytoken.nextToken());
 
-					if (e.getName().equals(keytoken.nextToken())) {
-						//addKeyconnect ? e.addKeyPressTrigger(KeyEvent.(keytoken.nextToken()));
+					if (e.getName().equals(name)) {
+						System.out.println(name +" "+ keyCode);
+						e.addKeyConnect(keyCode);
+						//((Gizmo) e).addKeyPressTrigger(keycode);
 					}
 				}
 			}
 		}
 
-*/
+
 		if(!gizmoConnects.isEmpty()){
 			IElement firstElement = null;
 			IElement secondElement = null;
@@ -137,14 +141,11 @@ public class GizmoParser {
 				String second = connectToken.nextToken();
 
 				for (IElement e : board.getElements()) {
-					//System.out.println(e.getName());
 					if (e.getName().equals("Wall")) {
 						continue;
 					}
-					//System.out.println(first + " " + second);
 					if (e.getName().equals(first)) {
 						firstElement = e;
-						//System.out.println(firstElement.getName());
 					}
 				}
 					for (IElement e2 : board.getElements()) {
@@ -153,7 +154,6 @@ public class GizmoParser {
 						}
 					}
 					System.out.println(firstElement.getName() + " " + secondElement.getName());
-					//if(!firstElement.equals(null)&&!secondElement.equals(null)&&!firstElement.equals(secondElement))
 					firstElement.gizmoConnect(secondElement);
 				}
 		}
@@ -193,11 +193,9 @@ public class GizmoParser {
 		case ("RightFlipper"):
 			Flipper r = new Flipper(origin, gizmoName);
 			r.setDirection(Direction.RIGHT);
-			r.addKeyPressTrigger(KeyEvent.VK_RIGHT);
 			return r;
 		case ("LeftFlipper"):
 			Flipper l = new Flipper(origin, gizmoName);
-			l.addKeyPressTrigger(KeyEvent.VK_LEFT);
 			return l;
 		default:
 			return null;
@@ -252,7 +250,6 @@ public class GizmoParser {
 		origin = new Vect(xAbsorberTopLeft, yAbsorberTopLeft);
 		Vect bound = new Vect(xAbsorberBotRight, yAbsorberBotRight);
 		Absorber a = new Absorber(origin, bound, gizmoName);
-		a.addKeyPressTrigger(KeyEvent.VK_SPACE);
 		return a;
 
 	}
@@ -295,15 +292,13 @@ public class GizmoParser {
 		String linkedGizmo;
 		String gizmoName;
 		int keycode;
-		String key = "VK_";
 		gizmoName = st.nextToken();
 		if (!st.hasMoreTokens()) {
 			throw new BadFileException("No key linked");
 		}
 
 		keycode = Integer.valueOf(st.nextToken());
-		System.out.println(getKey(keycode));
-		key = key + getKey(keycode).toUpperCase();
+
 		if (!st.hasMoreTokens()) {
 			throw new BadFileException("No action");
 		}
@@ -314,8 +309,8 @@ public class GizmoParser {
 		}
 
 		linkedGizmo = st.nextToken();
-		System.out.println(gizmo + gizmoName + key + action + linkedGizmo);
-		keyConnects.add(gizmoName + " " + key);
+		System.out.println(gizmo + gizmoName + keycode + action + linkedGizmo);
+		keyConnects.add(linkedGizmo + " " + keycode);
 	}
 
 	private void parseConnect(String gizmo, StringTokenizer st,List<String> gizmoConnects) throws BadFileException {
@@ -332,20 +327,6 @@ public class GizmoParser {
 		gizmoConnects.add(gizmoName +" " + linkedGizmo);
 	}
 
-	private String getKey(int keycode) {
-		switch (keycode) {
-		case (8):
-			return "BACK_SPACE";
-		case (17):
-			return "CONTROL";
-		case (33):
-			return "PAGE_UP";
-		case (34):
-			return "PAGE_DOWN";
-		default:
-			return java.awt.event.KeyEvent.getKeyText(keycode);
-		}
 
-	}
 
 }
