@@ -7,10 +7,8 @@ import model.gizmos.Wall;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
@@ -21,7 +19,7 @@ public class BoardViewImpl implements BoardView, Observer {
 	private JPanel panel;
 	private Mode mode;
 
-	private Collection<IElement> shapes;
+	private List<IElement> shapes;
 	private Shapifier shapifier;
 
 
@@ -35,7 +33,7 @@ public class BoardViewImpl implements BoardView, Observer {
 
 		mode = Mode.BUILD;
 
-		shapes = new HashSet<IElement>();
+		shapes = new ArrayList<IElement>();
 		shapifier = new Shapifier(this);
 	}
 
@@ -65,7 +63,11 @@ public class BoardViewImpl implements BoardView, Observer {
 		IBoard board = (IBoard) o;
 		shapes.clear();
 
-		for (IElement e : board.getAllElements()) {
+
+		for (IElement e : board.getElements()) {
+			shapes.add(e);
+		}
+		for (IElement e : board.getBalls()) {
 			shapes.add(e);
 		}
 

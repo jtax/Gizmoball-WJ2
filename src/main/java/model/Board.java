@@ -210,7 +210,6 @@ public class Board extends Observable implements IBoard {
 		Vect newBound = selectedElement.getBound().plus(distance);
 		if (detectEmptyArea(newOrigin, newBound)) {
 			selectedElement.move(distance);
-			System.out.println(selectedElement.getName() + "Moved");
 			return true;
 		}
 		return false;
@@ -228,16 +227,13 @@ public class Board extends Observable implements IBoard {
 	}
 	public boolean detectEmptyLocation(Vect position) {
 		if (position.x() >= 20 || position.x() < 0) {
-			System.out.println("DETECT EMPTY FAILED : X");
 			return false;
 		}
 		if (position.y() >= 20 || position.y() < 0) {
-			System.out.println("DETECT EMPTY FAILED : Y");
 			return false;
 		}
 		for (IElement existingElement : elements) {
 			if (existingElement.getOrigin().equals(position) && !(existingElement instanceof Wall)) {
-				System.out.println("DETECT EMPTY FAILED : " + existingElement.getName());
 				return false;
 			}
 		}
@@ -316,7 +312,6 @@ public class Board extends Observable implements IBoard {
 		ball.applyForces(moveTime, getGravityConst(), getFrictionConst());
 		Collision collision = getTimeTillCollision(ball);
 
-		System.out.println(collision.getTime());
 		if (collision.getTime() >= moveTime) { // No Collision
 			ball.moveForTime(moveTime);
 		} else { // Collision

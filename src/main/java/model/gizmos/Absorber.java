@@ -168,6 +168,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		super.setLines(calculateLines());
 		saveInfo = "Absorber" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord() + " "
 				+ (int) bound.getXCoord() + " " + (int) bound.getyCoord();
+		positionBall();
 	}
 
 	@Override
