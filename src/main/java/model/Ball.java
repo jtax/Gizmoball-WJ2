@@ -151,13 +151,19 @@ public class Ball implements IElement, Absorbable {
 	}
 
 	@Override
-	public void highlight() {
+	public void highlight(boolean toggle) {
+		Color backupColor = new Color(0xecf0f1);
+		if (toggle) {
+			color = Color.cyan;
+		} else {
+			color = backupColor;
+		}
 
 	}
 
 	@Override
 	public void move(Vect distance) {
-
+		setCenter(center.plus(distance));
 	}
 
 	@Override
@@ -204,9 +210,11 @@ public class Ball implements IElement, Absorbable {
 
 	@Override
 	public void release() {
-		Vect escapeVelocity = new Vect(0, -50);
-		setVelocity(escapeVelocity);
-		clearAbsorbed();
+		if (absorbed) {
+			Vect escapeVelocity = new Vect(0, -50);
+			setVelocity(escapeVelocity);
+			clearAbsorbed();
+		}
 	}
 
 	public double getRadius() {

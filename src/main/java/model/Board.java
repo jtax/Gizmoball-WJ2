@@ -1,6 +1,5 @@
 package model;
 
-import model.*;
 import model.gizmos.Absorber;
 import model.gizmos.Flipper;
 import model.gizmos.Wall;
@@ -85,8 +84,9 @@ public class Board extends Observable implements IBoard {
 	}
 
 	@Override
-	public void setElements(Collection<IElement> elements) {
-		for (IElement element : elements) {
+	public void setElements(Collection<IElement> elems) {
+		elements = new ArrayList<>();
+		for (IElement element : elems) {
 			addElement(element);
 		}
 		addWalls();
@@ -108,7 +108,11 @@ public class Board extends Observable implements IBoard {
 
 	@Override
 	public void removeElement(IElement element) {
-		elements.remove(element);
+		if (element instanceof Ball) {
+			balls.remove(element);
+		} else {
+			elements.remove(element);
+		}
 		setChanged();
 		notifyObservers();
 	}
@@ -242,11 +246,11 @@ public class Board extends Observable implements IBoard {
 
 	public void selectElement(double x, double y) {
 		if (selectedElement != null) {
-			selectedElement.highlight();
+			selectedElement.highlight(false);
 		}
 		
 		if ((selectedElement = getElementAtLocation(x, y)) != null)
-			selectedElement.highlight();
+			selectedElement.highlight(true);
 	}
 	
 	@Override
@@ -279,6 +283,16 @@ public class Board extends Observable implements IBoard {
 				}
 			}
 		}
+		for (Ball ball : balls) {
+			Vect origin = ball.getOrigin();
+			Vect bound = ball.getOrigin().plus(new Vect(0.5, 0.5));
+			if (origin.x() <= x && bound.x() > x) {
+				if (origin.y() <= y && bound.y() > y) {
+					return ball;
+				}
+			}
+
+		}
 		
 		return null;
 	}
@@ -302,6 +316,7 @@ public class Board extends Observable implements IBoard {
 		ball.applyForces(moveTime, getGravityConst(), getFrictionConst());
 		Collision collision = getTimeTillCollision(ball);
 
+		System.out.println(collision.getTime());
 		if (collision.getTime() >= moveTime) { // No Collision
 			ball.moveForTime(moveTime);
 		} else { // Collision
@@ -319,7 +334,7 @@ public class Board extends Observable implements IBoard {
 		notifyObservers();
 	}
 
-	private Collision getTimeTillCollision(Ball ball) {
+	public Collision getTimeTillCollision(Ball ball) {
 		closestCollision = new Collision(0, 0, Double.MAX_VALUE);
 		for (IElement element : getElements()) {
 			if (element instanceof Absorber && ball.inside(element))

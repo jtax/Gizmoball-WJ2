@@ -1,17 +1,20 @@
 package junit.model;
 
-import model.*;
+import model.Ball;
+import model.Board;
+import model.IElement;
 import model.gizmos.*;
 import org.junit.Before;
 import org.junit.Test;
 import physics.Vect;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.*;
 
 /**
@@ -59,7 +62,14 @@ public class BoardTest {
     public void checkThatTheOnlyIElementOnTheBoardIsWalls() {
         //See spreadsheet Test 4 & 6
         Board b = new Board();
-        assertTrue(b.getAllElements().contains(Wall.class));
+        IElement wall = (IElement)b.getElements().toArray()[0];
+        boolean found = false;
+        for (IElement elem : b.getAllElements()) {
+            if (elem instanceof Wall) {
+                found = true;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
@@ -71,7 +81,7 @@ public class BoardTest {
         Vect bottomRight = new Vect(20, 20);
 
         assertEquals(topLeft, wall.getCoordinates().get(0));
-        assertEquals(bottomRight, wall.getCoordinates().get(1));
+        assertEquals(bottomRight, wall.getCoordinates().get(2));
     }
 
     @Test
@@ -173,7 +183,7 @@ public class BoardTest {
 
         b.setElements(elements);
 
-       //assertFalse(b.getElements().contains(cir));
+        assertFalse(b.getElements().contains(cir));
     }
 
     @Test
@@ -199,8 +209,13 @@ public class BoardTest {
         elements.add(fli);
 
         b.setElements(elements);
-
-        //assertTrue(b.getAllElements().contains(Wall.class));
+        boolean found = false;
+        for (IElement elem : b.getAllElements()) {
+            if (elem instanceof Wall) {
+                found = true;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
@@ -407,10 +422,10 @@ public class BoardTest {
         //See spreadsheet Test 29
         Board b = new Board();
 
-        Vect origin = new Vect(-2,-2);
-        Vect bound = new Vect(-4,-4);
+        Vect bound = new Vect(-2, -2);
+        Vect origin = new Vect(-4, -4);
 
-        //assertTrue(b.detectEmptyArea(origin, bound) == false);
+        assertFalse(b.detectEmptyArea(origin, bound));
     }
 
     @Test
@@ -500,7 +515,7 @@ public class BoardTest {
 
         IElement ball = new Ball("ball", centre, velocity);
         b.addBall((Ball)ball);
-       // assertTrue(ball.equals(b.getElementAtLocation(2,10)));
+        assertTrue(ball.equals(b.getElementAtLocation(2, 10)));
     }
 
     @Test
@@ -547,6 +562,10 @@ public class BoardTest {
     @Test
     public void getElementAtLocation7() {
         //See spreadsheet Test 39
+        Vect position = new Vect(5, 5);
+        IElement square = new Square(position, "Square");
+        board.addElement(square);
+        assertTrue(board.getElementAtLocation(position).equals(square));
     }
 
     @Test
@@ -601,15 +620,106 @@ public class BoardTest {
     }
 
     @Test
-    public void tick() {
+    public void tickNoElements() {
         //See spreadsheet Test 47
+
+        board.tick();
+
+        // Should not do anything and don't throw any exeptions.
+    }
+    @Test
+    public void tick() {
+        //See spreadsheet Test 47 & 48
+
+        Ball ball = new Ball("", 5, 5, 2, 2);
+        Vect velo = ball.getVelocity();
+
+        board.addBall(ball);
+
+        assertThat(board.getBalls(), hasItem(ball));
+        assertThat(board.getBalls().size(), is(1));
+
+        board.tick();
+
+        double fr1 = board.getFrictionConst()[0];
+        double fr2 = board.getFrictionConst()[1];
+
+        for (Ball b : board.getBalls()) {
+
+            Vect newVelo = velo.times(1 - fr1 * Board.moveTime - fr2 * Board.moveTime * 0.05);
+            newVelo = newVelo.plus(new Vect(0, board.getGravityConst() * Board.moveTime));
+
+            assertEquals(b.getVelocity().x(),newVelo.x(), 0.01);
+            assertEquals(b.getVelocity().y(),newVelo.y(), 0.01);
+            assertEquals(b.getVelocity().angle().radians(),newVelo.angle().radians(), 0.01);
+        }
     }
 
     @Test
-    public void moveBall() {
-        //See spreadsheet Test 48
+    public void tickTouchGizmo() {
+        //See spreadsheet Test 49 & 51 & 54
+
+        Ball ball = new Ball("", 5, 4.74, 0, 2);
+        Square s = new Square(new Vect(5,5),"t");
+
+        board.addBall(ball);
+        board.addElement(s);
+
+
+        // collision move time must be < board.moveTime
+        for (Ball b : board.getBalls()) {
+            assertTrue(board.getTimeTillCollision(b).getTime() < Board.moveTime);
+        }
+    }
+    @Test
+    public void tickTouchGizmoCircle() {
+        //See spreadsheet Test 50 & 53
+
+        Ball ball = new Ball("", 5, 4.937, 0, 1);
+        Circle s = new Circle(new Vect(5,5),"t");
+
+        board.addBall(ball);
+        board.addElement(s);
+
+
+        // collision move time must be < board.moveTime
+        for (Ball b : board.getBalls()) {
+            assertTrue(board.getTimeTillCollision(b).getTime() < Board.moveTime);
+        }
     }
 
+    @Test
+    public void tickTouchGizmoCircle2() {
+        //See spreadsheet Test 50 & 53
+
+        Ball ball = new Ball("", 5, 4.937, 0, 1);
+        Square s = new Square(new Vect(5,5),"t");
+
+        board.addBall(ball);
+        board.addElement(s);
+
+
+        // collision move time must be < board.moveTime
+        for (Ball b : board.getBalls()) {
+            assertTrue(board.getTimeTillCollision(b).getTime() < Board.moveTime);
+        }
+    }
+    @Test
+    public void testTimeUntilCollisionNotMovingFlipper() {
+        //See spreadsheet Test 52
+
+        Ball ball = new Ball("", 5, 4.745, 0, 1);
+        Flipper s = new Flipper(new Vect(5,5),"t");
+
+        board.addBall(ball);
+        board.addElement(s);
+
+
+        // collision move time must be < board.moveTime
+        for (Ball b : board.getBalls()) {
+            assertTrue(board.getTimeTillCollision(b).getTime() < Board.moveTime);
+        }
+    }
 
     @Test
     public void testSimpleMoveGizmo() throws Exception {
