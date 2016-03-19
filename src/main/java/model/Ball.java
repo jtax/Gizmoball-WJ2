@@ -1,12 +1,12 @@
 package model;
 
-import java.awt.Color;
-import java.util.Arrays;
-import java.util.List;
-
 import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
+
+import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
@@ -203,9 +203,11 @@ public class Ball implements IElement, Absorbable {
 
 	@Override
 	public void release() {
-		Vect escapeVelocity = new Vect(0, -50);
-		setVelocity(escapeVelocity);
-		clearAbsorbed();
+		if (absorbed) {
+			Vect escapeVelocity = new Vect(0, -50);
+			setVelocity(escapeVelocity);
+			clearAbsorbed();
+		}
 	}
 
 	public double getRadius() {
