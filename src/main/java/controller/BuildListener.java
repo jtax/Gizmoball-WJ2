@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.gizmos.Absorber;
 import physics.Vect;
 import view.GizmoBallView;
 import view.LoadBoard;
@@ -31,6 +32,7 @@ public class BuildListener implements ActionListener {
 
             case "Run Mode":
                 gbv.changeStatusMessage("Ready");
+                board.clearSelection();
                 gbv.switchMode();
                 break;
 
@@ -97,8 +99,8 @@ public class BuildListener implements ActionListener {
     }
 
     private Vect snapToGrid(Vect coord) {
-        double x = Math.round(coord.x());
-        double y = Math.round(coord.y());
+        double x = Math.floor(coord.x());
+        double y = Math.floor(coord.y());
         return new Vect(x, y);
     }
 
@@ -241,9 +243,9 @@ public class BuildListener implements ActionListener {
             Vect secondElementLocation = board.getMouseRelease();
             IElement secondElement;
             if ((secondElement = board.getElementAtLocation(secondElementLocation)) != null && secondElement instanceof Triggerable) {
-                if (!firstElement.equals(secondElement)) {
+                if (!firstElement.equals(secondElement) || firstElement instanceof Absorber) {
                      firstElement.gizmoConnect(secondElement);
-                    gbv.changeStatusMessage("Success! " + secondElement + " will now be triggered by " + firstElement + ".");
+                    gbv.changeStatusMessage("Success! " + secondElement.getName() + " will now be triggered by " + firstElement.getName() + ".");
                 } else {
                     gbv.changeStatusMessage("Error: You can't connect a gizmo to itself.");
                 }

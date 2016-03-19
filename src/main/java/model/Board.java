@@ -248,9 +248,28 @@ public class Board extends Observable implements IBoard {
 		if ((selectedElement = getElementAtLocation(x, y)) != null)
 			selectedElement.highlight(true);
 	}
+
+	@Override
+	public void clearSelection() {
+		if (selectedElement != null) {
+			selectedElement.highlight(false);
+		}
+		selectedElement = null;
+	}
 	
 	@Override
 	public IElement getElementAtLocation(double x, double y) {
+
+		for (Ball ball : balls) {
+			Vect origin = ball.getOrigin();
+			Vect bound = ball.getOrigin().plus(new Vect(0.5, 0.5));
+			if (origin.x() <= x && bound.x() > x) {
+				if (origin.y() <= y && bound.y() > y) {
+					return ball;
+				}
+			}
+
+		}
 		for (IElement element : elements) {
 			Vect origin = element.getOrigin();
 			Vect bound = element.getBound();
@@ -278,16 +297,6 @@ public class Board extends Observable implements IBoard {
 					}
 				}
 			}
-		}
-		for (Ball ball : balls) {
-			Vect origin = ball.getOrigin();
-			Vect bound = ball.getOrigin().plus(new Vect(0.5, 0.5));
-			if (origin.x() <= x && bound.x() > x) {
-				if (origin.y() <= y && bound.y() > y) {
-					return ball;
-				}
-			}
-
 		}
 		
 		return null;

@@ -66,4 +66,6 @@ public interface IBoard {
 	IElement getElementAtLocation(Vect location);
 	
 	IElement getElementAtLocation(double x, double y);
+
+	void clearSelection();
 }

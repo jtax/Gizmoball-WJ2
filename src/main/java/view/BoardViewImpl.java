@@ -108,6 +108,7 @@ public class BoardViewImpl implements BoardView, Observer {
 			g.setColor(s.getColor());
 			Shape shape = shapifier.shapify(s);
 			if (s instanceof Wall) {
+
 				g.draw(shape);
 			} else {
 				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,

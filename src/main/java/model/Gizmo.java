@@ -131,8 +131,8 @@ abstract public class Gizmo implements IElement, Triggerable {
 	 * This is to guarantee that onCollision() is called on every collision.
 	 */
 	public final void handle(Collision c) {
-		onCollision();
 		subHandle(c);
+		onCollision();
 	}
 	
 	protected void subHandle(Collision c) {

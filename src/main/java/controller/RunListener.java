@@ -43,6 +43,7 @@ public class RunListener implements ActionListener {
 				break;
 			case "Build Mode":
 				gbv.switchMode();
+				timer.stop();
 				break;
 			}
 		}

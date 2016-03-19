@@ -117,10 +117,10 @@ public class Ball implements IElement, Absorbable {
 		Vect ourOrigin = origin, ourBound = getBound(), theirOrigin = otherElement.getOrigin(),
 				theirBound = otherElement.getBound();
 
-		boolean topIn = ourOrigin.y() < theirBound.y() && ourOrigin.y() > theirOrigin.y();
-		boolean bottomIn = ourBound.y() > theirOrigin.y() && ourBound.y() < theirBound.y();
-		boolean leftIn = ourOrigin.x() < theirBound.x() && ourOrigin.x() > theirOrigin.x();
-		boolean rightIn = ourBound.x() > theirOrigin.x() && ourBound.x() < theirBound.x();
+		boolean topIn = ourOrigin.y() <= theirBound.y() && ourOrigin.y() >= theirOrigin.y();
+		boolean bottomIn = ourBound.y() >= theirOrigin.y() && ourBound.y() <= theirBound.y();
+		boolean leftIn = ourOrigin.x() <= theirBound.x() && ourOrigin.x() >= theirOrigin.x();
+		boolean rightIn = ourBound.x() >= theirOrigin.x() && ourBound.x() <= theirBound.x();
 
 		// still with me?
 
