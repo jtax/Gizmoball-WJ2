@@ -151,19 +151,19 @@ public class Ball implements IElement, Absorbable {
 	}
 
 	@Override
-	public void highlight() {
+	public void highlight(boolean toggle) {
 		Color backupColor = new Color(0xecf0f1);
-		if (color != backupColor) {
-			color = backupColor;
+		if (toggle) {
+			color = Color.cyan;
 		} else {
-			color = Color.CYAN;
+			color = backupColor;
 		}
 
 	}
 
 	@Override
 	public void move(Vect distance) {
-
+		setCenter(center.plus(distance));
 	}
 
 	@Override

@@ -96,6 +96,12 @@ public class BuildListener implements ActionListener {
         return board.getMousePress();
     }
 
+    private Vect snapToGrid(Vect coord) {
+        double x = Math.round(coord.x());
+        double y = Math.round(coord.y());
+        return new Vect(x, y);
+    }
+
     private Vect getRelease() {
         return board.getMouseRelease();
     }
@@ -174,13 +180,13 @@ public class BuildListener implements ActionListener {
             IElement e = null;
             switch (option) {
                 case "Absorber":
-                    e = ef.createElement(option, getPress(), getRelease());
+                    e = ef.createElement(option, snapToGrid(getPress()), snapToGrid(getRelease()));
                     break;
                 case "Ball":
                     e = ef.createElement(option, getPress(), new Vect(0.5,0.5));
                     break;
                 default:
-                    e = ef.createElement(option, getPress());
+                    e = ef.createElement(option, snapToGrid(getPress()));
             }
 
             if(e.getName().matches("[B]\\d+")){
