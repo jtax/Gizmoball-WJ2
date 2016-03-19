@@ -24,7 +24,6 @@ public class Flipper extends Gizmo implements Triggerable {
 	private double movementRotation = 0;
 	private Direction direction = Direction.LEFT;
 	private int directionConst = 1;
-	private String saveInfo;
 	private String name;
 	private String saveDirection;
 	private double angularVelocity;
@@ -42,7 +41,6 @@ public class Flipper extends Gizmo implements Triggerable {
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 		super.setColor(new Color(0xf1c40f));
-		setSaveInfo();
 	}
 
 	public double getAngularVelocity() {
@@ -61,7 +59,6 @@ public class Flipper extends Gizmo implements Triggerable {
 
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		saveInfo = "Circle" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
 
 	@Override
@@ -83,7 +80,6 @@ public class Flipper extends Gizmo implements Triggerable {
 		if (direction == Direction.RIGHT) {
 			saveDirection = "Right";
 			directionConst = -1;
-			setSaveInfo();
 			//origin = origin.plus(new Vect(1.5, 0));
 			bound = calculateBound();
 			coordinates = calculateCoordinates(origin.plus(new Vect(1.5, 0)), bound);
@@ -259,13 +255,9 @@ public class Flipper extends Gizmo implements Triggerable {
 		return origin.plus(bound);
 	}
 
-	public void setSaveInfo() {
-		saveInfo = saveDirection + "Flipper" + " " + super.getName() + " " + (int) origin.getXCoord() + " "
-				+ (int) origin.getyCoord();
-	}
-
 	public String getSaveInfo() {
-		return saveInfo;
+		return saveDirection + "Flipper" + " " + super.getName() + " " + (int) origin.getXCoord() + " "
+				+ (int) origin.getyCoord();
 	}
 
 	@Override

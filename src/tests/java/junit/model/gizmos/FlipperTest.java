@@ -237,7 +237,7 @@ public class FlipperTest {
 
 	@Test
 	public void testGetSaveInfoLeftFlipper() {
-		String expectedSaveInfo = String.format("\"LeftFlipper\" %s %d %d", expectedName, expectedOriginX,
+		String expectedSaveInfo = String.format("LeftFlipper %s %d %d", expectedName, expectedOriginX,
 				expectedOriginY);
 		String actualSaveInfo = immutableFlipper.getSaveInfo();
 
@@ -246,9 +246,12 @@ public class FlipperTest {
 
 	@Test
 	public void testGetSaveInfoRightFlipper() {
-		String expectedSaveInfo = String.format("\"RightFlipper\" %s %d %d", expectedName, expectedOriginX,
+		Flipper f = new Flipper(expectedOriginX, expectedOriginY, expectedName);
+		f.setDirection(Direction.RIGHT);
+		
+		String expectedSaveInfo = String.format("RightFlipper %s %d %d", expectedName, expectedOriginX,
 				expectedOriginY);
-		String actualSaveInfo = immutableFlipper.getSaveInfo();
+		String actualSaveInfo = f.getSaveInfo();
 
 		assertEquals(expectedSaveInfo, actualSaveInfo);
 	}
