@@ -21,14 +21,19 @@ public class BoardMouseListener implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        board.setMouseClick(new Vect(scaleX(e.getX()), scaleY(e.getY())));
+
+        double x = scaleX(e.getX());
+        double y = scaleY(e.getY());
+        board.setMouseClick(new Vect(x, y));
         bView.getPanel().repaint();
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        board.setMousePress(new Vect(scaleX(e.getX()), scaleY(e.getY())));
+        double x = scaleX(e.getX());
+        double y = scaleY(e.getY());
+        board.setMousePress(new Vect(x, y));
         bView.getPanel().repaint();
     }
 
@@ -47,11 +52,12 @@ public class BoardMouseListener implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
-    private int scaleX(int val) {
+
+    private double scaleX(double val) {
         return val / bView.getHorizontalScalingFactor();
     }
 
-    private int scaleY(int val) {
+    private double scaleY(double val) {
         return val / bView.getVerticalScalingFactor();
     }
 }

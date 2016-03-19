@@ -1,17 +1,21 @@
 package model.gizmos;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import model.Gizmo;
+import model.IElement;
+import model.Triggerable;
 import physics.Vect;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class Circle extends Gizmo {
-
+	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
 	Vect center;
 	String name;
 	private String saveInfo;
@@ -95,5 +99,24 @@ public class Circle extends Gizmo {
 		}
 
 		return true;
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	public List getConnections(){
+		return connections;
+	}
+
+	public void addKeyConnect(int keycode){
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+	}
+
+	public List<String> returnKeyConnects(){
+		return keyConnects;
 	}
 }

@@ -143,13 +143,15 @@ abstract public class Gizmo implements IElement, Triggerable {
 		setColor(Color.GREEN);
 	}
 
-	public void highlight() {
-		if (color != backupColor) {
-			color = backupColor;
+	@Override
+	public void highlight(boolean toggle) {
+		if (toggle) {
+			color = Color.cyan;
 		} else {
-			color = Color.CYAN;
+			color = backupColor;
 		}
 	}
+
 
 
 

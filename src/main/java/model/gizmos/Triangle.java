@@ -6,12 +6,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.Gizmo;
+import model.IElement;
+import model.Triggerable;
 import physics.LineSegment;
 import physics.Vect;
 
 public class Triangle extends Gizmo {
 
 	private List<Vect> coordinates;
+	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
 	private int rotation;
 	private String saveInfo;
 
@@ -142,5 +146,24 @@ public class Triangle extends Gizmo {
 			return false;
 		}
 		return true;
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	public List getConnections(){
+		return connections;
+	}
+
+	public void addKeyConnect(int keycode){
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+	}
+
+	public List<String> returnKeyConnects(){
+		return keyConnects;
 	}
 }
