@@ -237,7 +237,7 @@ public class FlipperTest {
 
 	@Test
 	public void testGetSaveInfoLeftFlipper() {
-		String expectedSaveInfo = String.format("\"LeftFlipper\" %s %d %d", expectedName, expectedOriginX,
+		String expectedSaveInfo = String.format("LeftFlipper %s %d %d", expectedName, expectedOriginX,
 				expectedOriginY);
 		String actualSaveInfo = immutableFlipper.getSaveInfo();
 
@@ -246,9 +246,12 @@ public class FlipperTest {
 
 	@Test
 	public void testGetSaveInfoRightFlipper() {
-		String expectedSaveInfo = String.format("\"RightFlipper\" %s %d %d", expectedName, expectedOriginX,
+		Flipper f = new Flipper(expectedOriginX, expectedOriginY, expectedName);
+		f.setDirection(Direction.RIGHT);
+		
+		String expectedSaveInfo = String.format("RightFlipper %s %d %d", expectedName, expectedOriginX,
 				expectedOriginY);
-		String actualSaveInfo = immutableFlipper.getSaveInfo();
+		String actualSaveInfo = f.getSaveInfo();
 
 		assertEquals(expectedSaveInfo, actualSaveInfo);
 	}
@@ -259,7 +262,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testLeftFlipperCoordinatesRotate0() {
+	public void testCoordinatesLeftRotate0() {
 		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
 
 		List<Vect> expectedCoordinates = coordinateMapToList(expectedCoordinatesOfFlipperAtLeftOfBoundingBox());
@@ -269,7 +272,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testLeftFlipperCoordinatesRotate1() {
+	public void testCoordinatesLeftRotate1() {
 		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
 		f.rotate();
 
@@ -280,7 +283,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testLeftFlipperCoordinatesRotate2() {
+	public void testCoordinatesLeftRotate2() {
 		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
 		for (int c = 0; c < 2; ++c)
 			f.rotate();
@@ -292,7 +295,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testLeftFlipperCoordinatesRotate3() {
+	public void testCoordinatesLeftRotate3() {
 		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
 		for (int c = 0; c < 3; ++c)
 			f.rotate();
@@ -304,7 +307,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testRightFlipperCoordinatesRotate0() {
+	public void testCoordinatesRightRotate0() {
 		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
 		f.setDirection(Direction.RIGHT);
 		for (int c = 0; c < 0; ++c)
@@ -317,7 +320,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testRightFlipperCoordinatesRotate1() {
+	public void testCoordinatesRightRotate1() {
 		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
 		f.setDirection(Direction.RIGHT);
 		for (int c = 0; c < 1; ++c)
@@ -330,7 +333,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testRightFlipperCoordinatesRotate2() {
+	public void testCoordinatesRightRotate2() {
 		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
 		f.setDirection(Direction.RIGHT);
 		for (int c = 0; c < 2; ++c)
@@ -343,7 +346,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testRightFlipperCoordinatesRotate3() {
+	public void testCoordinatesRightRotate3() {
 		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
 		f.setDirection(Direction.RIGHT);
 		for (int c = 0; c < 3; ++c)
@@ -503,7 +506,7 @@ public class FlipperTest {
 		for (int c = 0; c < 3; c++)
 			f.rotate();
 
-		List<Circle> expectedCircles = coordinateMapToCircles(expectedCoordinatesOfFlipperAtRightOfBoundingBox());
+		List<Circle> expectedCircles = coordinateMapToCircles(expectedCoordinatesOfFlipperAtBottomOfBoundingBox());
 		List<Circle> actualCircles = f.getCircles();
 
 		assertEquals(expectedCircles, actualCircles);
@@ -604,7 +607,7 @@ public class FlipperTest {
 		coords.put(CoordinateLocation.TOP_LEFT, expectedOrigin.plus(new Vect(0, 1.5)));
 		coords.put(CoordinateLocation.TOP_RIGHT, expectedOrigin.plus(new Vect(2, 1.5)));
 		coords.put(CoordinateLocation.BOTTOM_RIGHT, expectedOrigin.plus(new Vect(2, 2)));
-		coords.put(CoordinateLocation.BOTTOM_LEFT, expectedOrigin.plus(new Vect(0, 1.5)));
+		coords.put(CoordinateLocation.BOTTOM_LEFT, expectedOrigin.plus(new Vect(0, 2)));
 
 		return coords;
 	}
