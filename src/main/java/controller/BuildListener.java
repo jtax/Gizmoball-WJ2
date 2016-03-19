@@ -125,6 +125,9 @@ public class BuildListener implements ActionListener {
     private void moveElement(){
         if (getSelectedElement() != null) {
             Vect distance = getRelease().minus(getPress());
+            double x = Math.round(distance.x());
+            double y = Math.round(distance.y());
+            distance = new Vect(x, y);
             if (board.moveGizmo(getSelectedElement(), distance)) {
                 gbv.updateBoardView();
                 gbv.changeStatusMessage("Moved " + getSelectedElement().getName());

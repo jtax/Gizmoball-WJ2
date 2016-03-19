@@ -167,7 +167,7 @@ public class Board extends Observable implements IBoard {
 	@Override
 	public void setMouseClick(Vect mouseClick) {
 		this.mouseClick = mouseClick;
-		selectElement(mouseClick.x(), mouseClick.y());
+		//selectElement(mouseClick.x(), mouseClick.y());
 	}
 
 	@Override
