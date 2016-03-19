@@ -1,6 +1,5 @@
 package model;
 
-import model.*;
 import model.gizmos.Absorber;
 import model.gizmos.Flipper;
 import model.gizmos.Wall;
@@ -311,6 +310,7 @@ public class Board extends Observable implements IBoard {
 		ball.applyForces(moveTime, getGravityConst(), getFrictionConst());
 		Collision collision = getTimeTillCollision(ball);
 
+		System.out.println(collision.getTime());
 		if (collision.getTime() >= moveTime) { // No Collision
 			ball.moveForTime(moveTime);
 		} else { // Collision
@@ -328,7 +328,7 @@ public class Board extends Observable implements IBoard {
 		notifyObservers();
 	}
 
-	private Collision getTimeTillCollision(Ball ball) {
+	public Collision getTimeTillCollision(Ball ball) {
 		closestCollision = new Collision(0, 0, Double.MAX_VALUE);
 		for (IElement element : getElements()) {
 			if (element instanceof Absorber && ball.inside(element))
