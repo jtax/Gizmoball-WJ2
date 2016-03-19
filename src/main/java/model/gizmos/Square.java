@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.Gizmo;
+import model.IElement;
+import model.Triggerable;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -16,6 +18,8 @@ public class Square extends Gizmo {
 
 	private int reflectionCoefficient = 1;
 	private List<Vect> coordinates;
+	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
 	private String saveInfo;
 	private String name;
 	private int rotation;
@@ -23,7 +27,7 @@ public class Square extends Gizmo {
 	public Square(Vect origin, String name) {
 		super(origin, name);
 		this.name = name;
-		rotation = 2;
+		rotation = 0;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
@@ -140,12 +144,31 @@ public class Square extends Gizmo {
 		if (!bound.equals(otherSquare.getBound())) {
 			return false;
 		}
-		if (rotation != otherSquare.rotation) {
+		if (rotation != otherSquare.getRotation()) {
 			return false;
 		}
-		if (!name.equals(otherSquare.name)) {
+		if (!coordinates.equals(otherSquare.getCoordinates())) {
 			return false;
 		}
 		return true;
 	}
+
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	public List getConnections(){
+		return connections;
+	}
+
+	public void addKeyConnect(int keycode){
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+	}
+
+	public List<String> returnKeyConnects(){
+		return keyConnects;
+	}
+
 }

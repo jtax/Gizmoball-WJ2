@@ -1,10 +1,13 @@
 package model;
 
+import view.Save;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.swing.JFileChooser;
@@ -20,8 +23,8 @@ public class SaveBoardToFile {
 		if (board != null) {
 
 			Collection<IElement> elements = board.getElements();
-
-			File file = getSaveFile();
+			Save save = new Save();
+			File file = save.getSaveFile();
 			if (file == null) {
 				return false;
 			}
@@ -37,25 +40,26 @@ public class SaveBoardToFile {
 						continue;
 					}
 
+
 					bufferedWriter.write(element.getSaveInfo());
 					bufferedWriter.newLine();
 					StringTokenizer st = new StringTokenizer(element.getSaveInfo(), " ");
 						String type  =st.nextToken();
 						String name = st.nextToken();
 						switch (element.getRotation()) {
-							case 2:
-								break;
-							case 3:
-								bufferedWriter.write("Rotate" + " " + name);
-								bufferedWriter.newLine();
-								break;
 							case 0:
-								bufferedWriter.write("Rotate" + " " + name);
-								bufferedWriter.newLine();
-								bufferedWriter.write("Rotate" + " " + name);
-								bufferedWriter.newLine();
 								break;
 							case 1:
+								bufferedWriter.write("Rotate" + " " + name);
+								bufferedWriter.newLine();
+								break;
+							case 2:
+								bufferedWriter.write("Rotate" + " " + name);
+								bufferedWriter.newLine();
+								bufferedWriter.write("Rotate" + " " + name);
+								bufferedWriter.newLine();
+								break;
+							case 3:
 								bufferedWriter.write("Rotate" + " " + name);
 								bufferedWriter.newLine();
 								bufferedWriter.write("Rotate" + " " + name);
@@ -64,6 +68,22 @@ public class SaveBoardToFile {
 								bufferedWriter.newLine();
 								break;
 
+					}
+
+					if(!element.getConnections().isEmpty()){
+						List<String> connections = element.getConnections();
+						for(String connection : connections) {
+							bufferedWriter.write(connection);
+							bufferedWriter.newLine();
+						}
+					}
+
+					if(!element.returnKeyConnects().isEmpty()){
+						List<String> connections = element.returnKeyConnects();
+						for(String connection : connections) {
+							bufferedWriter.write(connection);
+							bufferedWriter.newLine();
+						}
 					}
 					}
 
@@ -91,20 +111,5 @@ public class SaveBoardToFile {
 
 	}
 
-	public File getSaveFile() {
-		File file;
-		JFileChooser saveFile = new JFileChooser();
-		saveFile.setCurrentDirectory(new File("/home/me/Documents"));
-		saveFile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		saveFile.setAcceptAllFileFilterUsed(false);
-		saveFile.addChoosableFileFilter(new FileNameExtensionFilter(".txt", "txt"));
-		int retrival = saveFile.showSaveDialog(null);
-		if (retrival == JFileChooser.APPROVE_OPTION) {
-			file = saveFile.getSelectedFile();
-		} else {
-			System.out.println("save file not selected");
-			return null;
-		}
-		return file;
-	}
+
 }

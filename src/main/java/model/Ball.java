@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import physics.Circle;
@@ -212,4 +213,47 @@ public class Ball implements IElement, Absorbable {
 		return diameter / 2;
 	}
 
+	public boolean equals(Object other) {
+		if (other.getClass() != Ball.class) {
+			return false;
+		}
+		//We know that its a ball
+		Ball otherBall = (Ball) other;
+
+		if (!origin.equals(otherBall.getOrigin())) {
+			return false;
+		}
+		if (!velocity.equals(otherBall.getVelocity())) {
+			return false;
+		}
+		if (point != otherBall.getCircle()) {
+			return false;
+		}
+		if(!center.equals(otherBall.getCenter())){
+			return false;
+		}
+		if(!color.equals(otherBall.getColor())){
+			return false;
+		}
+		if(!getCoordinates().equals(otherBall.getCoordinates())){
+			return false;
+		}
+		return true;
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+
+	}
+	public List<String> getConnections(){
+		return Collections.EMPTY_LIST;
+	}
+
+	public void addKeyConnect(int keycode){
+
+	}
+
+	public List<String> returnKeyConnects(){
+		return Collections.EMPTY_LIST;
+	}
 }

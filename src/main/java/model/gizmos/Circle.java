@@ -1,17 +1,21 @@
 package model.gizmos;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import model.Gizmo;
+import model.IElement;
+import model.Triggerable;
 import physics.Vect;
 
 /**
  * Created by baird on 06/02/2016.
  */
 public class Circle extends Gizmo {
-
+	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
 	Vect center;
 	String name;
 	private String saveInfo;
@@ -19,7 +23,7 @@ public class Circle extends Gizmo {
 
 	public Circle(Vect origin, String name) {
 		super(origin, name);
-		rotation = 2;
+		rotation = 0;
 		super.setCircles(Arrays.asList(calculateCircle()));
 		super.setColor(new Color(0x27ae60));
 		saveInfo = "Circle" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
@@ -71,5 +75,48 @@ public class Circle extends Gizmo {
 		super.bound = super.bound.plus(distance);
 		super.setCircles(Arrays.asList(calculateCircle()));
 		saveInfo = "Circle" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != Circle.class) {
+			return false;
+		}
+		//We know that its a circle
+		Circle otherCircle = (Circle) other;
+
+		if (!origin.equals(otherCircle.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherCircle.getBound())) {
+			return false;
+		}
+		if (rotation != otherCircle.getRotation()) {
+			return false;
+		}
+		if(!getCoordinates().equals(otherCircle.getCoordinates())){
+			return false;
+		}
+
+		return true;
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	public List getConnections(){
+		return connections;
+	}
+
+	public void addKeyConnect(int keycode){
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+	}
+
+	public List<String> returnKeyConnects(){
+		return keyConnects;
 	}
 }

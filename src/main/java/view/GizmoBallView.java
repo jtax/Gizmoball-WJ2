@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import controller.BuildListener;
 import controller.KeyPressListener;
 import controller.RunListener;
-import model.Board;
 import model.IBoard;
 import util.MagicKeyListener;
 import view.buttongroups.BuildGUI;

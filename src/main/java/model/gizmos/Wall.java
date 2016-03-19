@@ -3,9 +3,11 @@ package model.gizmos;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import model.Gizmo;
+import model.IElement;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -83,5 +85,41 @@ public class Wall extends Gizmo {
 	@Override
 	public List<Vect> getCoordinates() {
 		return coordinates;
+	}
+
+	public boolean equals(Object other) {
+		if (other.getClass() != Wall.class) {
+			return false;
+		}
+		//We know that its a wall
+		Wall otherWall = (Wall) other;
+
+		if (!origin.equals(otherWall.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherWall.getBound())) {
+			return false;
+		}
+		if(!coordinates.equals(otherWall.getCoordinates())){
+			return false;
+		}
+		return true;
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+
+	}
+
+	public List<String> getConnections(){
+		return Collections.EMPTY_LIST;
+	}
+
+	public void addKeyConnect(int keycode){
+
+	}
+
+	public List<String> returnKeyConnects(){
+		return Collections.EMPTY_LIST;
 	}
 }

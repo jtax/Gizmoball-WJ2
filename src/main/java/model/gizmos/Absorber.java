@@ -1,16 +1,13 @@
 package model.gizmos;
 
-import java.awt.Color;
+import model.*;
+import physics.LineSegment;
+import physics.Vect;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import model.Ball;
-import model.Collision;
-import model.Gizmo;
-import model.Triggerable;
-import physics.LineSegment;
-import physics.Vect;
 
 /**
  * Created by baird on 06/02/2016.
@@ -19,6 +16,8 @@ public class Absorber extends Gizmo implements Triggerable {
 
 	private Vect bound;
 	private List<Vect> coordinates;
+	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
 	private Ball ourBall;
 	private String saveInfo;
 	private String name;
@@ -26,7 +25,7 @@ public class Absorber extends Gizmo implements Triggerable {
 
 	public Absorber(Vect origin, Vect bound, String name) {
 		super(origin, name);
-		rotation = 2;
+		rotation = 0;
 		this.bound = bound;
 		this.name = name;
 		setBound(bound);
@@ -113,7 +112,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		positionBall();
 	}
 
-	private void releaseOurBall() {
+	public void releaseOurBall() {
 		if (weHaveABall()) {
 			double xVelocity = 0, yVelocity = -50;
 			Vect velocity = new Vect(xVelocity, yVelocity);
@@ -124,7 +123,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		}
 	}
 
-	private void positionBall() {
+	public void positionBall() {
 		if (weHaveABall()) {
 			Vect ourBound = getBound();
 			double ballRadius = ourBall.getRadius();
@@ -145,7 +144,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		return rotation;
 	}
 
-	private boolean weHaveABall() {
+	public boolean weHaveABall() {
 		return ourBall != null;
 	}
 
@@ -169,5 +168,47 @@ public class Absorber extends Gizmo implements Triggerable {
 		super.setLines(calculateLines());
 		saveInfo = "Absorber" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord() + " "
 				+ (int) bound.getXCoord() + " " + (int) bound.getyCoord();
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != Absorber.class) {
+			return false;
+		}
+		//We know that its a absorber
+		Absorber otherAbsorber = (Absorber) other;
+
+		if (!origin.equals(otherAbsorber.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherAbsorber.getBound())) {
+			return false;
+		}
+		if (rotation != otherAbsorber.rotation) {
+			return false;
+		}
+		if(!coordinates.equals(otherAbsorber.coordinates)){
+			return false;
+		}
+		return true;
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	public List getConnections(){
+		return connections;
+	}
+
+	public void addKeyConnect(int keycode){
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+	}
+
+	public List<String> returnKeyConnects(){
+		return keyConnects;
 	}
 }

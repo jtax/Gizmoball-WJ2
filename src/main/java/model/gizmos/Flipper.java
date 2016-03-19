@@ -1,9 +1,6 @@
 package model.gizmos;
 
-import model.Board;
-import model.Direction;
-import model.Gizmo;
-import model.Triggerable;
+import model.*;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -17,7 +14,8 @@ import java.util.List;
  */
 public class Flipper extends Gizmo implements Triggerable {
 	private List<Vect> coordinates;
-
+	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
 	protected Boolean rotating = false;
 	protected Boolean rotatingUp = false;
 	protected Boolean finishedRotation = false;
@@ -36,7 +34,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		super(origin, name);
 		angularVelocity = Board.moveTime * 1080;
 		saveDirection = "Left";
-		rotation = 2;
+		rotation = 0;
 		movementRotation = 0;
 		coordinates = calculateCoordinates();
 		pivotPoint = coordinates.get(0).plus(new Vect(0.25,0.25));
@@ -144,17 +142,17 @@ public class Flipper extends Gizmo implements Triggerable {
 
 
 		switch (rotation) {
-			case 3:
+			case 1:
 				pivotPoint = coordinates.get(1).plus(new Vect(-0.25, -0.25));
 			break;
-			case 0:
+			case 2:
 				pivotPoint = coordinates.get(1).plus(new Vect(0.25, -0.25));
 			break;
-			case 1:
+			case 3:
 				pivotPoint = coordinates.get(0).plus(new Vect(0.25, -0.25));
 			break;
 
-			case 2:
+			case 0:
 				pivotPoint = coordinates.get(1).plus(new Vect(-0.25, 0.25));
 			break;
 		}
@@ -247,4 +245,57 @@ public class Flipper extends Gizmo implements Triggerable {
 		return coordinates;
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != Flipper.class) {
+			return false;
+		}
+		//We know that its a flipper
+		Flipper otherFlipper = (Flipper) other;
+
+		if (!origin.equals(otherFlipper.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherFlipper.getBound())) {
+			return false;
+		}
+		if (rotation != otherFlipper.getRotation()) {
+			return false;
+		}
+		if (!coordinates.equals(otherFlipper.getCoordinates())) {
+			return false;
+		}
+
+		if (!direction.equals(otherFlipper.getDirection())) {
+			return false;
+		}
+
+		if (!pivotPoint.equals(otherFlipper.getPivotPoint())) {
+			return false;
+		}
+		if (angularVelocity != otherFlipper.getAngularVelocity()) {
+			return false;
+		}
+
+		return true;
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	public List getConnections(){
+		return connections;
+	}
+
+	public void addKeyConnect(int keycode){
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+	}
+
+	public List<String> returnKeyConnects(){
+		return keyConnects;
+	}
 }
