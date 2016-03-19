@@ -10,7 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - Flipper
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Flipper extends Gizmo implements Triggerable {
 	private final static Vect FLIPPER_SIZE = new Vect(2,2);
@@ -18,13 +20,12 @@ public class Flipper extends Gizmo implements Triggerable {
 	private List<Vect> coordinates;
 	private List<String> connections = new ArrayList<>();
 	private List<String> keyConnects = new ArrayList<>();
-	protected Boolean rotating = false;
-	protected Boolean rotatingUp = false;
-	protected Boolean finishedRotation = false;
+	private Boolean rotating = false;
+	private Boolean rotatingUp = false;
+	private Boolean finishedRotation = false;
 	private double movementRotation = 0;
 	private Direction direction = Direction.LEFT;
 	private int directionConst = 1;
-	private String name;
 	private double angularVelocity;
     private int rotation;
 
@@ -91,16 +92,6 @@ public class Flipper extends Gizmo implements Triggerable {
 		Vect bottomLeft = new Vect(topLeft.x(), bottomRight.y());
 
 		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
-	}
-
-	private List<Vect> calculateCoordinates() {
-
-		Vect topLeft = origin;
-		Vect topRight = new Vect(bound.x(), origin.y());
-		Vect bottomRight = bound;
-		Vect bottomLeft = new Vect(origin.x(), bound.y());
-
-		return Arrays.asList(topLeft,topRight, bottomRight,  bottomLeft);
 	}
 
 	private List<physics.Circle> calculateCircles() {
@@ -175,17 +166,16 @@ public class Flipper extends Gizmo implements Triggerable {
 		}
 	}
 
-	public Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
+	private Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
 		double angleR = Math.toRadians(angle);
 		Vect coord = coordinate.minus(center);
 		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
 		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
 		Vect unTransposeCoord = roundRotationCoord(new Vect(newX, newY));
-		Vect rotatedCoord = unTransposeCoord.plus(center);
-		return rotatedCoord;
+		return unTransposeCoord.plus(center);
 	}
 
-	public Vect roundRotationCoord(Vect coord) {
+	private Vect roundRotationCoord(Vect coord) {
 		double x = Math.round(coord.x() * 100000);
 		double y = Math.round(coord.y() * 100000);
 		x = x / 100000;
@@ -301,11 +291,8 @@ public class Flipper extends Gizmo implements Triggerable {
 		if (!getPivotPoint().equals(otherFlipper.getPivotPoint())) {
 			return false;
 		}
-		if (angularVelocity != otherFlipper.getAngularVelocity()) {
-			return false;
-		}
+		return angularVelocity == otherFlipper.getAngularVelocity();
 
-		return true;
 	}
 
 
@@ -314,7 +301,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
 	}
 
-	public List getConnections(){
+	public List<String> getConnections() {
 		return connections;
 	}
 

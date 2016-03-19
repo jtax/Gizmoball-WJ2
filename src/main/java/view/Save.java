@@ -5,7 +5,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
 /**
- * Created by ElChupacobra on 18/03/2016.
+ * Gizmoball - Save
+ * Created by Group WJ2 on 18/03/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Save {
 

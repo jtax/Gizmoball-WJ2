@@ -10,7 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - Absorber
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Absorber extends Gizmo implements Triggerable {
 
@@ -20,8 +22,8 @@ public class Absorber extends Gizmo implements Triggerable {
 	private List<String> keyConnects = new ArrayList<>();
 	private Ball ourBall;
 	private String saveInfo;
-	private String name;
-	int rotation;
+	private final String name;
+	private int rotation;
 
 	public Absorber(Vect origin, Vect bound, String name) {
 		super(origin, name);
@@ -78,7 +80,6 @@ public class Absorber extends Gizmo implements Triggerable {
 		Vect centerPoint = getCenterPoint();
 		rotation = (rotation + 1) % 4;
 		//setSaveInfo();
-		List<Vect> newCoords = new ArrayList<Vect>();
 		for (int i = 0; i < coordinates.size(); i++) {
 			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, 90));
 		}
@@ -91,8 +92,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		Vect coord = coordinate.minus(center);
 		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
 		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
-		Vect rotatedCoord = new Vect(newX, newY).plus(center);
-		return rotatedCoord;
+		return new Vect(newX, newY).plus(center);
 	}
 
 	public Vect getCenterPoint() {
@@ -188,10 +188,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		if (rotation != otherAbsorber.rotation) {
 			return false;
 		}
-		if(!coordinates.equals(otherAbsorber.coordinates)){
-			return false;
-		}
-		return true;
+		return coordinates.equals(otherAbsorber.coordinates);
 	}
 
 
@@ -200,7 +197,8 @@ public class Absorber extends Gizmo implements Triggerable {
 		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
 	}
 
-	public List getConnections(){
+	@Override
+	public List<String> getConnections() {
 		return connections;
 	}
 

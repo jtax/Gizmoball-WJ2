@@ -11,7 +11,9 @@ import physics.LineSegment;
 import physics.Vect;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - Gizmo
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 abstract public class Gizmo implements IElement, Triggerable {
 
@@ -22,7 +24,7 @@ abstract public class Gizmo implements IElement, Triggerable {
 	private List<LineSegment> lines;
 	private List<Circle> circles;
 	private int reflection;
-	private String name;
+	private final String name;
 	private int keyPressTrigger;
 
 	protected Gizmo(Vect origin, String name) {
@@ -60,11 +62,11 @@ abstract public class Gizmo implements IElement, Triggerable {
 		return name;
 	}
 
-	public void addTriggerable(Triggerable t) {
+	protected void addTriggerable(Triggerable t) {
 		triggerables.add(t);
 	}
 
-	public void addKeyPressTrigger(int keyCode) {
+	protected void addKeyPressTrigger(int keyCode) {
 
 		keyPressTrigger = keyCode;
 	}
@@ -79,7 +81,7 @@ abstract public class Gizmo implements IElement, Triggerable {
 	}
 
 	/** trigger the attached tirggerables */
-	protected void onCollision() {
+	private void onCollision() {
 		for (Triggerable t : triggerables)
 			t.trigger();
 	}

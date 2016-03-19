@@ -9,16 +9,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - BuildGUI
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class BuildGUI {
 
-	private JButton add, move, remove, switchToRun;
 	private JComboBox<String> shape;
 	private JLabel statusBar;
-	private JButton absorber;
-	private JButton ball;
-	private JButton flipper;
 	private ActionListener listener;
 
 	public BuildGUI(ActionListener listener) {
@@ -26,7 +24,7 @@ public class BuildGUI {
 		makeFrame();
 	}
 
-	public void makeFrame() {
+	private void makeFrame() {
 		createTopButton();
 		createBottomButton();
 		createMenu();
@@ -35,7 +33,7 @@ public class BuildGUI {
 
 	public JPanel createBottomButton() {
 
-		shape = new JComboBox<String>();
+		shape = new JComboBox<>();
 		shape.addItem("Pick Element");
 		shape.addItem("Square");
 		shape.addItem("Circle");
@@ -74,13 +72,13 @@ public class BuildGUI {
 	}
 
 	public JPanel createTopButton() {
-		add = new JButton("Add");
+		JButton add = new JButton("Add");
 		add.addActionListener(listener);
-		switchToRun = new JButton("Run Mode");
+		JButton switchToRun = new JButton("Run Mode");
 		switchToRun.addActionListener(listener);
-		move = new JButton("Move");
+		JButton move = new JButton("Move");
 		move.addActionListener(listener);
-		remove = new JButton("Remove");
+		JButton remove = new JButton("Remove");
 		remove.addActionListener(listener);
 
 
@@ -133,7 +131,7 @@ public class BuildGUI {
 
 	public double promptGravity(){
 		String gravVal = JOptionPane.showInputDialog("Please enter a value for gravity (numerical)");
-		double gravValDouble = 0.0;
+		double gravValDouble;
 
 		try {
 			gravValDouble = Double.parseDouble(gravVal);
@@ -164,8 +162,8 @@ public class BuildGUI {
 		String frictVal1 = JOptionPane.showInputDialog("Please enter the 1st value for friction (numerical)");
 		String frictVal2 = JOptionPane.showInputDialog("Please enter the 2nd value for friction (numerical)");
 
-		double frictVal1Double = 0.0;
-		double frictVal2Double = 0.0;
+		double frictVal1Double;
+		double frictVal2Double;
 
 
 		try {

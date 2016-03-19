@@ -11,16 +11,18 @@ import java.util.*;
 import java.util.List;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - ${NAME}
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class BoardViewImpl implements BoardView, Observer {
 
 	private IBoard board;
-	private JPanel panel;
+	private final JPanel panel;
 	private Mode mode;
 
 	private List<IElement> shapes;
-	private Shapifier shapifier;
+	private final Shapifier shapifier;
 
 
 	public BoardViewImpl(IBoard board) {
@@ -33,7 +35,7 @@ public class BoardViewImpl implements BoardView, Observer {
 
 		mode = Mode.BUILD;
 
-		shapes = new ArrayList<IElement>();
+		shapes = new ArrayList<>();
 		shapifier = new Shapifier(this);
 	}
 
@@ -78,9 +80,6 @@ public class BoardViewImpl implements BoardView, Observer {
 		return mode;
 	}
 
-	public void setMode(Mode mode) {
-		this.mode = mode;
-	}
 
 	/**
 	 * Toggle run/build mode and return the new mode.

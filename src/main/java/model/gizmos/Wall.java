@@ -3,7 +3,6 @@ package model.gizmos;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import model.Gizmo;
@@ -12,12 +11,14 @@ import physics.LineSegment;
 import physics.Vect;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - Wall
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Wall extends Gizmo {
 
-	private Vect bound;
-	private java.util.List<Vect> coordinates;
+	private final Vect bound;
+	private final java.util.List<Vect> coordinates;
 
 	public Wall(Vect origin, Vect bnd, String name) {
 		super(origin, name);
@@ -100,10 +101,7 @@ public class Wall extends Gizmo {
 		if (!bound.equals(otherWall.getBound())) {
 			return false;
 		}
-		if(!coordinates.equals(otherWall.getCoordinates())){
-			return false;
-		}
-		return true;
+		return coordinates.equals(otherWall.getCoordinates());
 	}
 
 
@@ -112,7 +110,7 @@ public class Wall extends Gizmo {
 	}
 
 	public List<String> getConnections(){
-		return Collections.EMPTY_LIST;
+		return new ArrayList<>();
 	}
 
 	public void addKeyConnect(int keycode){
@@ -120,6 +118,6 @@ public class Wall extends Gizmo {
 	}
 
 	public List<String> returnKeyConnects(){
-		return Collections.EMPTY_LIST;
+		return new ArrayList<>();
 	}
 }

@@ -8,7 +8,9 @@ import physics.LineSegment;
 import physics.Vect;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - IElement
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public interface IElement extends CollisionHandler {
 
@@ -23,8 +25,6 @@ public interface IElement extends CollisionHandler {
 	Vect getBound();
 
 	Color getColor();
-
-	void setColor(Color color);
 
 	String getName();
 
@@ -44,6 +44,6 @@ public interface IElement extends CollisionHandler {
 
 	void addKeyConnect(int keyCode);
 
-	List<String> returnKeyConnects();
+	List returnKeyConnects();
 
 }

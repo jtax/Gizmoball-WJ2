@@ -15,7 +15,9 @@ import java.util.StringTokenizer;
 import static org.junit.Assert.*;
 
 /**
- * Created by baird on 15/03/2016.
+ * Gizmoball - GizmoParser Test
+ * Created by Group WJ2 on 15/03/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class GizmoParserTest {
     Board b;
@@ -59,7 +61,7 @@ public class GizmoParserTest {
         StringTokenizer st = new StringTokenizer("LF92 9 2");
         Gizmo lf = gp.shapeParser("LeftFlipper", st);
         assert lf.getOrigin().equals(new Vect(9, 2));
-        assert lf.getName().equals("C43");
+        assert lf.getName().equals("LF92");
         assert ((Flipper) lf).getDirection().equals(Direction.LEFT);
     }
 
@@ -68,7 +70,7 @@ public class GizmoParserTest {
         StringTokenizer st = new StringTokenizer("RF92 9 2");
         Gizmo rf = gp.shapeParser("RightFlipper", st);
         assert rf.getOrigin().equals(new Vect(9, 2));
-        assert rf.getName().equals("C43");
+        assert rf.getName().equals("RF92");
         assert ((Flipper) rf).getDirection().equals(Direction.RIGHT);
     }
 }

@@ -5,7 +5,9 @@ import java.util.Observable;
 import javax.swing.JPanel;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - BoardView
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public interface BoardView {
 

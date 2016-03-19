@@ -8,7 +8,9 @@ import model.IBoard;
 import view.GizmoBallView;
 
 /**
- * Created by baird on 14/02/2016.
+ * Gizmoball - RunListener
+ * Created by Group WJ2 on 14/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class RunListener implements ActionListener {
 

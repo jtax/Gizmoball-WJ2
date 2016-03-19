@@ -6,15 +6,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 /**
- * Created by ElChupacobra on 01/03/2016.
+ * Gizmoball - SaveBoardToFile
+ * Created by Group WJ2 on 01/03/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class SaveBoardToFile {
 
@@ -79,7 +79,7 @@ public class SaveBoardToFile {
 					}
 
 					if(!element.returnKeyConnects().isEmpty()){
-						List<String> connections = element.returnKeyConnects();
+						List<String> connections = new ArrayList<>();
 						for(String connection : connections) {
 							bufferedWriter.write(connection);
 							bufferedWriter.newLine();

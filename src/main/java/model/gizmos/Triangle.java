@@ -60,7 +60,7 @@ public class Triangle extends Gizmo {
 		return calcLines;
 	}
 
-	public void setSaveInfo() {
+	private void setSaveInfo() {
 		saveInfo = "Triangle" + " " + super.getName() + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
 
@@ -68,21 +68,19 @@ public class Triangle extends Gizmo {
 		Vect centerPoint = getCenterPoint();
 		rotation =( (rotation + 1) % 4);
 		setSaveInfo();
-		List<Vect> newCoords = new ArrayList<Vect>();
 		for (int i = 0; i < coordinates.size(); i++) {
-			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, 90));
+			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint));
 		}
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 	}
 
-	public Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
-		double angleR = Math.toRadians(angle);
+	private Vect rotationMatrix(Vect coordinate, Vect center) {
+		double angleR = Math.toRadians((double) 90);
 		Vect coord = coordinate.minus(center);
 		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
 		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
-		Vect rotatedCoord = new Vect(newX, newY).plus(center);
-		return rotatedCoord;
+		return new Vect(newX, newY).plus(center);
 	}
 
 	public Vect getCenterPoint() {
@@ -142,10 +140,7 @@ public class Triangle extends Gizmo {
 		if(!coordinates.equals(otherTriangle.getCoordinates())){
 			return false;
 		}
-		if(!getCenterPoint().equals(otherTriangle.getCenterPoint())){
-			return false;
-		}
-		return true;
+		return getCenterPoint().equals(otherTriangle.getCenterPoint());
 	}
 
 
@@ -154,7 +149,7 @@ public class Triangle extends Gizmo {
 		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
 	}
 
-	public List getConnections(){
+	public List<String> getConnections() {
 		return connections;
 	}
 

@@ -5,7 +5,9 @@ import physics.Vect;
 import java.util.Collection;
 
 /**
- * Created by Umar on 02/03/2016.
+ * Gizmoball - IBoard
+ * Created by Group WJ2 on 02/03/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public interface IBoard {
 	void addBall(Ball ball);

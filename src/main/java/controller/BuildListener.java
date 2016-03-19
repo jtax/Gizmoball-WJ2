@@ -11,14 +11,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Arrays;
 
 /**
- * Created by Umar on 07/03/2016.
+ * Gizmoball - Build Listener
+ * Created by Group WJ2 on 07/03/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class BuildListener implements ActionListener {
 
-    private IBoard board;
-    private GizmoBallView gbv;
+    private final IBoard board;
+    private final GizmoBallView gbv;
 
     public BuildListener(IBoard b, GizmoBallView gbv) {
         System.out.println("i work!");
@@ -48,7 +51,7 @@ public class BuildListener implements ActionListener {
 
             case "Friction":
                 double[] userFrictionValue = gbv.getBuildGUI().promptFriction();
-                System.out.println("friction: " + userFrictionValue);
+                System.out.println("friction: " + Arrays.toString(userFrictionValue));
                 board.setFrictionConst(userFrictionValue);
                 break;
 
@@ -90,9 +93,6 @@ public class BuildListener implements ActionListener {
         return board.getSelectedElement();
     }
 
-    private Vect getClick() {
-        return board.getMouseClick();
-    }
 
     private Vect getPress() {
         return board.getMousePress();
@@ -179,7 +179,7 @@ public class BuildListener implements ActionListener {
         if(!option.equals("Pick a gizmo")){
             System.out.println("Adding the element "+ option +"\n To the coords: " + getPress());
             ElementFactory ef = new ElementFactory();
-            IElement e = null;
+            IElement e;
             switch (option) {
                 case "Absorber":
                     e = ef.createElement(option, snapToGrid(getPress()), snapToGrid(getRelease()));

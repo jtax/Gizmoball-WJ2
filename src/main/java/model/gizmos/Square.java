@@ -12,7 +12,9 @@ import physics.LineSegment;
 import physics.Vect;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - Square
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Square extends Gizmo {
 
@@ -21,7 +23,7 @@ public class Square extends Gizmo {
 	private List<String> connections = new ArrayList<>();
 	private List<String> keyConnects = new ArrayList<>();
 	private String saveInfo;
-	private String name;
+	private final String name;
 	private int rotation;
 
 	public Square(Vect origin, String name) {
@@ -76,21 +78,19 @@ public class Square extends Gizmo {
 		Vect centerPoint = getCenterPoint();
 		rotation = (rotation + 1) % 4;
 		//setSaveInfo();
-		List<Vect> newCoords = new ArrayList<Vect>();
 		for (int i = 0; i < coordinates.size(); i++) {
-			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, 90));
+			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint));
 		}
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 	}
 
-	public Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
-		double angleR = Math.toRadians(angle);
+	private Vect rotationMatrix(Vect coordinate, Vect center) {
+		double angleR = Math.toRadians((double) 90);
 		Vect coord = coordinate.minus(center);
 		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
 		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
-		Vect rotatedCoord = new Vect(newX, newY).plus(center);
-		return rotatedCoord;
+		return new Vect(newX, newY).plus(center);
 	}
 
 	public Vect getCenterPoint() {
@@ -147,10 +147,7 @@ public class Square extends Gizmo {
 		if (rotation != otherSquare.getRotation()) {
 			return false;
 		}
-		if (!coordinates.equals(otherSquare.getCoordinates())) {
-			return false;
-		}
-		return true;
+		return coordinates.equals(otherSquare.getCoordinates());
 	}
 
 	public void gizmoConnect(IElement secondElement){
@@ -158,7 +155,7 @@ public class Square extends Gizmo {
 		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
 	}
 
-	public List getConnections(){
+	public List<String> getConnections() {
 		return connections;
 	}
 

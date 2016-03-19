@@ -13,7 +13,9 @@ import java.util.Collection;
 import java.util.Observable;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - Board
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Board extends Observable implements IBoard {
 	private Collection<IElement> elements;
@@ -44,8 +46,6 @@ public class Board extends Observable implements IBoard {
 
 	private void addWalls() {
 		Vect topLeft = new Vect(0, 0);
-		Vect topRight = new Vect(20, 0);
-		Vect bottomLeft = new Vect(0, 20);
 		Vect bottomRight = new Vect(20, 20);
 		Gizmo walls = new Wall(topLeft, bottomRight, "Wall");
 		elements.add(walls);
@@ -240,7 +240,7 @@ public class Board extends Observable implements IBoard {
 		return true;
 	}
 
-	public void selectElement(double x, double y) {
+	private void selectElement(double x, double y) {
 		if (selectedElement != null) {
 			selectedElement.highlight(false);
 		}
