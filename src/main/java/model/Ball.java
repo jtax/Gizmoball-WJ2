@@ -1,12 +1,13 @@
 package model;
 
+import java.awt.Color;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
-
-import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by baird on 06/02/2016.
@@ -241,5 +242,21 @@ public class Ball implements IElement, Absorbable {
 			return false;
 		}
 		return true;
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+
+	}
+	public List<String> getConnections(){
+		return Collections.EMPTY_LIST;
+	}
+
+	public void addKeyConnect(int keycode){
+
+	}
+
+	public List<String> returnKeyConnects(){
+		return Collections.EMPTY_LIST;
 	}
 }

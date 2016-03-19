@@ -1,9 +1,6 @@
 package model.gizmos;
 
-import model.Ball;
-import model.Collision;
-import model.Gizmo;
-import model.Triggerable;
+import model.*;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -19,6 +16,8 @@ public class Absorber extends Gizmo implements Triggerable {
 
 	private Vect bound;
 	private List<Vect> coordinates;
+	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
 	private Ball ourBall;
 	private String saveInfo;
 	private String name;
@@ -192,5 +191,24 @@ public class Absorber extends Gizmo implements Triggerable {
 			return false;
 		}
 		return true;
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	public List getConnections(){
+		return connections;
+	}
+
+	public void addKeyConnect(int keycode){
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+	}
+
+	public List<String> returnKeyConnects(){
+		return keyConnects;
 	}
 }

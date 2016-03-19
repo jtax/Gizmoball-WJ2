@@ -38,4 +38,12 @@ public interface IElement extends CollisionHandler {
 
 	void move(Vect distance);
 
+	void gizmoConnect(IElement secondElement);
+
+	List<String> getConnections();
+
+	void addKeyConnect(int keyCode);
+
+	List<String> returnKeyConnects();
+
 }
