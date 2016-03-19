@@ -2,7 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Timer;
+import javax.swing.*;
 
 import model.IBoard;
 import view.GizmoBallView;
@@ -40,8 +40,8 @@ public class RunListener implements ActionListener {
 			case "Tick":
 				board.tick();
 				break;
-			case "Exit":
-				System.exit(0);
+			case "Quit":
+				quit();
 				break;
 			case "Build Mode":
 				gbv.switchMode();
@@ -49,5 +49,16 @@ public class RunListener implements ActionListener {
 				break;
 			}
 		}
+
+
+	}
+
+	private void quit(){
+		int dialogButton = JOptionPane.YES_NO_OPTION;
+		int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to quit","Warning",dialogButton);
+		if(dialogResult == JOptionPane.YES_OPTION){
+			System.exit(0);
+		}
+
 	}
 }

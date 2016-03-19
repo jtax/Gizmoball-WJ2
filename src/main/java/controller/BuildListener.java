@@ -86,6 +86,10 @@ public class BuildListener implements ActionListener {
             case "Clear Board":
                 board.clear();
                 break;
+            case "Quit" :
+                quit();
+                break;
+
         }
     }
 
@@ -255,6 +259,15 @@ public class BuildListener implements ActionListener {
         } else {
             gbv.changeStatusMessage("Error: Please select an initial Gizmo.");
         }
+    }
+
+    private void quit(){
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to quit","Warning",dialogButton);
+        if(dialogResult == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+
     }
 }
 

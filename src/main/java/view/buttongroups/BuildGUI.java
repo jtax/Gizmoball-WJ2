@@ -123,7 +123,12 @@ public class BuildGUI {
 		file.add(clear);
 
 		JMenuItem quit = new JMenuItem("Quit");
+		quit.addActionListener(listener);
+		quit.setAccelerator(KeyStroke.getKeyStroke(
+				KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
 		file.add(quit);
+
+
 
 		menus.add(file);
 		return menus;
