@@ -151,6 +151,7 @@ public class Ball implements IElement, Absorbable {
 
 	@Override
 	public void highlight() {
+		color = Color.CYAN;
 
 	}
 

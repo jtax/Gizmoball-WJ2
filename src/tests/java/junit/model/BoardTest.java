@@ -63,7 +63,13 @@ public class BoardTest {
         //See spreadsheet Test 4 & 6
         Board b = new Board();
         IElement wall = (IElement)b.getElements().toArray()[0];
-        assertTrue(b.getAllElements().contains(wall));
+        boolean found = false;
+        for (IElement elem : b.getAllElements()) {
+            if (elem instanceof Wall) {
+                found = true;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
