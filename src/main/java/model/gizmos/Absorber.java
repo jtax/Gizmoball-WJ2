@@ -128,8 +128,8 @@ public class Absorber extends Gizmo implements Triggerable {
 			Vect ourBound = getBound();
 			double ballRadius = ourBall.getRadius();
 
-			double ballX = ourBound.x() - ballRadius - .25;
-			double ballY = ourBound.y() - ballRadius - .25;
+			double ballX = ourBound.x() - ballRadius;
+			double ballY = ourBound.y() - ballRadius;
 
 			ourBall.setCenter(new Vect(ballX, ballY));
 		}
