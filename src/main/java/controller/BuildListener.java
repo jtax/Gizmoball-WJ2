@@ -125,6 +125,9 @@ public class BuildListener implements ActionListener {
     private void moveElement(){
         if (getSelectedElement() != null) {
             Vect distance = getRelease().minus(getPress());
+            double x = Math.round(distance.x());
+            double y = Math.round(distance.y());
+            distance = new Vect(x, y);
             if (board.moveGizmo(getSelectedElement(), distance)) {
                 gbv.updateBoardView();
                 gbv.changeStatusMessage("Moved " + getSelectedElement().getName());
@@ -209,7 +212,7 @@ public class BuildListener implements ActionListener {
                     dialog.dispose();
 
                     // Set trigger
-                    ((Gizmo) selectedElement).addKeyPressTrigger(e.getKeyCode());
+                    selectedElement.addKeyConnect(e.getKeyCode());
 
                     // Change status
                     gbv.changeStatusMessage("Success! " + selectedElement + " will be triggered by pressing " + KeyEvent.getKeyText(e.getKeyCode()));
@@ -233,7 +236,7 @@ public class BuildListener implements ActionListener {
             IElement secondElement;
             if ((secondElement = board.getElementAtLocation(secondElementLocation)) != null && secondElement instanceof Triggerable) {
                 if (!firstElement.equals(secondElement)) {
-                    ((Gizmo) firstElement).addTriggerable((Triggerable) secondElement);
+                     firstElement.gizmoConnect(secondElement);
                     gbv.changeStatusMessage("Success! " + secondElement + " will now be triggered by " + firstElement + ".");
                 } else {
                     gbv.changeStatusMessage("Error: You can't connect a gizmo to itself.");

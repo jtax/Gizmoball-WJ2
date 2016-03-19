@@ -3,9 +3,11 @@ package model.gizmos;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import model.Gizmo;
+import model.IElement;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -102,5 +104,22 @@ public class Wall extends Gizmo {
 			return false;
 		}
 		return true;
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+
+	}
+
+	public List<String> getConnections(){
+		return Collections.EMPTY_LIST;
+	}
+
+	public void addKeyConnect(int keycode){
+
+	}
+
+	public List<String> returnKeyConnects(){
+		return Collections.EMPTY_LIST;
 	}
 }
