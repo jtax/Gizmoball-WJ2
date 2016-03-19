@@ -25,7 +25,6 @@ public class Flipper extends Gizmo implements Triggerable {
 	private Direction direction = Direction.LEFT;
 	private int directionConst = 1;
 	private String name;
-	private String saveDirection;
 	private double angularVelocity;
     private int rotation;
 
@@ -33,7 +32,6 @@ public class Flipper extends Gizmo implements Triggerable {
 
 		super(origin, name);
 		angularVelocity = Board.moveTime * 1080;
-		saveDirection = "Left";
 		rotation = 0;
 		movementRotation = 0;
 		coordinates = calculateCoordinates(origin, bound.minus(new Vect(1.5, 0)));
@@ -78,7 +76,6 @@ public class Flipper extends Gizmo implements Triggerable {
 
 		this.direction = direction;
 		if (direction == Direction.RIGHT) {
-			saveDirection = "Right";
 			directionConst = -1;
 			//origin = origin.plus(new Vect(1.5, 0));
 			bound = calculateBound();
@@ -256,6 +253,12 @@ public class Flipper extends Gizmo implements Triggerable {
 	}
 
 	public String getSaveInfo() {
+		String saveDirection;
+		if (direction == Direction.LEFT)
+			saveDirection = "Left";
+		else
+			saveDirection = "Right";
+		
 		return saveDirection + "Flipper" + " " + super.getName() + " " + (int) origin.getXCoord() + " "
 				+ (int) origin.getyCoord();
 	}
