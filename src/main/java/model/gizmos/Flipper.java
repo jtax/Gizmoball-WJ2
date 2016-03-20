@@ -10,13 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Gizmoball - Flipper
- * Created by Group WJ2 on 06/02/2016.
- * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
+ * Gizmoball - Flipper Created by Group WJ2 on 06/02/2016. Authors: J Baird, C
+ * Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Flipper extends Gizmo implements Triggerable {
-	private final static Vect FLIPPER_SIZE = new Vect(2,2);
-	
+	private final static Vect FLIPPER_SIZE = new Vect(2, 2);
+
 	private List<Vect> coordinates;
 	private List<String> connections = new ArrayList<>();
 	private List<String> keyConnects = new ArrayList<>();
@@ -27,9 +26,9 @@ public class Flipper extends Gizmo implements Triggerable {
 	private Direction direction = Direction.LEFT;
 	private int directionConst = 1;
 	private double angularVelocity;
-    private int rotation;
+	private int rotation;
 
-    public Flipper(Vect origin, String name) {
+	public Flipper(Vect origin, String name) {
 
 		super(origin, name);
 		angularVelocity = Board.moveTime * 1080;
@@ -45,7 +44,6 @@ public class Flipper extends Gizmo implements Triggerable {
 	public double getAngularVelocity() {
 		return angularVelocity;
 	}
-
 
 	public void move(Vect distance) {
 		super.origin = super.origin.plus(distance);
@@ -78,7 +76,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		this.direction = direction;
 		if (direction == Direction.RIGHT) {
 			directionConst = -1;
-			//origin = origin.plus(new Vect(1.5, 0));
+			// origin = origin.plus(new Vect(1.5, 0));
 			bound = calculateBound();
 			coordinates = calculateCoordinates(origin.plus(new Vect(1.5, 0)), bound);
 			super.setCircles(calculateCircles());
@@ -116,41 +114,42 @@ public class Flipper extends Gizmo implements Triggerable {
 	}
 
 	public void rotate() {
-		/*Vect centerPoint = origin.plus(new Vect(directionConst,directionConst));
-
-		if (Direction.RIGHT == direction) {
-			centerPoint = origin.plus(new Vect(-0.5,1));
-
-		}
-		*/
+		/*
+		 * Vect centerPoint = origin.plus(new
+		 * Vect(directionConst,directionConst));
+		 * 
+		 * if (Direction.RIGHT == direction) { centerPoint = origin.plus(new
+		 * Vect(-0.5,1));
+		 * 
+		 * }
+		 */
 		Vect centerPoint = origin.plus(new Vect(1, 1));
 		rotation = (rotation + 1) % 4;
 
 		for (int i = 0; i < coordinates.size(); i++) {
 			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, 90));
 		}
-		
+
 		Vect last = coordinates.get(coordinates.size() - 1);
 		for (int i = coordinates.size() - 1; i > 0; i--) {
 			coordinates.set(i, coordinates.get(i - 1));
 		}
 		coordinates.set(0, last);
-		
-		
+
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 	}
-	
+
 	public Vect getPivotPoint() {
 		Vect topLeftPivotPoint = origin.plus(FLIPPER_SIZE.times(1 / 8.0)),
 				bottomRightPivotPoint = origin.plus(FLIPPER_SIZE.times(7 / 8.0)),
 				topRightPivotPoint = new Vect(bottomRightPivotPoint.x(), topLeftPivotPoint.y()),
 				bottomLeftPivotPoint = new Vect(topLeftPivotPoint.x(), bottomRightPivotPoint.y()); // :-)
-		
+
 		int rotation = this.rotation;
 		if (direction == Direction.RIGHT)
 			rotation = (rotation + 1) % 4;
-		
+
 		switch (rotation) {
 		case 0:
 			return topLeftPivotPoint;
@@ -183,7 +182,6 @@ public class Flipper extends Gizmo implements Triggerable {
 		return new Vect(x, y);
 	}
 
-
 	/**
 	 * Flips a Flipper based on its direction and weather we need to rotate back
 	 */
@@ -193,7 +191,6 @@ public class Flipper extends Gizmo implements Triggerable {
 		if (rotating) {
 
 			if (!finishedRotation && rotatingUp) {
-
 
 				// rotate up
 				if (angularVelocity + movementRotation > 90) {
@@ -216,7 +213,6 @@ public class Flipper extends Gizmo implements Triggerable {
 				movementRotation -= rotate;
 			}
 
-
 			for (int i = 0; i < coordinates.size(); i++) {
 				coordinates.set(i, rotationMatrix(coordinates.get(i), getPivotPoint(), rotate * directionConst));
 			}
@@ -225,7 +221,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		}
 	}
 
-	/**	
+	/**
 	 * For tests
 	 */
 	public Direction getDirection() {
@@ -246,7 +242,7 @@ public class Flipper extends Gizmo implements Triggerable {
 			saveDirection = "Left";
 		else
 			saveDirection = "Right";
-		
+
 		return saveDirection + "Flipper" + " " + super.getName() + " " + (int) origin.getXCoord() + " "
 				+ (int) origin.getyCoord();
 	}
@@ -266,7 +262,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		if (other.getClass() != Flipper.class) {
 			return false;
 		}
-		//We know that its a flipper
+		// We know that its a flipper
 		Flipper otherFlipper = (Flipper) other;
 
 		if (!origin.equals(otherFlipper.getOrigin())) {
@@ -293,22 +289,21 @@ public class Flipper extends Gizmo implements Triggerable {
 
 	}
 
-
-	public void gizmoConnect(IElement secondElement){
+	public void gizmoConnect(IElement secondElement) {
 		this.addTriggerable((Triggerable) secondElement);
-		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+		connections.add("Connect " + this.getName() + " " + secondElement.getName());
 	}
 
 	public List<String> getConnections() {
 		return connections;
 	}
 
-	public void addKeyConnect(int keycode){
+	public void addKeyConnect(int keycode) {
 		this.addKeyPressTrigger(keycode);
-		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+		keyConnects.add("KeyConnect Key " + keycode + " change " + this.getName());
 	}
 
-	public List<String> returnKeyConnects(){
+	public List<String> returnKeyConnects() {
 		return keyConnects;
 	}
 
@@ -331,5 +326,14 @@ public class Flipper extends Gizmo implements Triggerable {
 				connections.remove(connect);
 			}
 		}
+	}
+
+	public void printAllTheFlippingThings() {
+		Vect topLeft = coordinates.get(0), topRight = coordinates.get(1), bottomRight = coordinates.get(2),
+				bottomLeft = coordinates.get(3);
+
+		System.out.print("tlx " + topLeft.x() + " tly " + topLeft.y() + " trx " + topRight.x() + " try " + topRight.y()
+				+ " brx " + bottomRight.x() + " bry " + bottomRight.y() + " blx " + bottomLeft.x() + " bly "
+				+ bottomLeft.y() + "\n");
 	}
 }
