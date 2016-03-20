@@ -25,7 +25,6 @@ public class BuildListener implements ActionListener {
     private final GizmoBallView gbv;
 
     public BuildListener(IBoard b, GizmoBallView gbv) {
-        System.out.println("i work!");
         this.board = b;
         this.gbv = gbv;
     }

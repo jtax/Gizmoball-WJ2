@@ -189,7 +189,6 @@ public class Flipper extends Gizmo implements Triggerable {
 	 */
 	public void flip() {
 		double rotate = angularVelocity;
-
 		// Execute only if Flipper is in rotating stage
 		if (rotating) {
 
@@ -214,7 +213,6 @@ public class Flipper extends Gizmo implements Triggerable {
 					rotating = false;
 					finishedRotation = false;
 				}
-
 				movementRotation -= rotate;
 			}
 

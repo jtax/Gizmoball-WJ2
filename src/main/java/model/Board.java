@@ -331,7 +331,13 @@ public class Board extends Observable implements IBoard {
 
 	/*  --  --  --  Physics Loop --  --  --  */
 	public void tick() {
-		Collection<Ball> newBalls = new ArrayList<>();
+
+		for (IElement element : getElements()) {
+			if (element instanceof Flipper) {
+				((Flipper) element).flip();
+			}
+		}
+			Collection<Ball> newBalls = new ArrayList<>();
 		for (Ball ball : getBalls()) {
 			newBalls.add(moveBall(ball));
 		}
@@ -375,7 +381,7 @@ public class Board extends Observable implements IBoard {
 
 			if (element instanceof Flipper) {
 
-				((Flipper) element).flip();
+				//((Flipper) element).flip();
 
 				for (LineSegment line : element.getLines()) {
 					detectFlipperCollision(line, ball, element);

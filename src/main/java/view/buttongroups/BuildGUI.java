@@ -160,7 +160,8 @@ public class BuildGUI {
 
 		JDialog dialog = new JDialog();
 		dialog.setTitle("Press a key to connect");
-		dialog.setSize(200, 0);
+		dialog.setSize(300, 0);
+		dialog.setLocation(300,300);
 		dialog.setVisible(true);
 		dialog.setFocusable(true);
 		dialog.requestFocus();
