@@ -39,8 +39,8 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void properTestFlip() {
-		Flipper f = new Flipper(0,0,"");
+	public void testFlip() {
+		Flipper f = new Flipper(0, 0, "");
 		f.trigger();
 
 		List<Vect> expectedCoordinates, actualCoordinates;
@@ -61,7 +61,6 @@ public class FlipperTest {
 
 		assertEquals(expectedCoordinates, actualCoordinates);
 
-
 		f.flip();
 
 		expectedTopLeft = new Vect(-0.04242000000000001, 0.05127999999999999);
@@ -78,7 +77,6 @@ public class FlipperTest {
 		actualCoordinates = f.getCoordinates();
 
 		assertEquals(expectedCoordinates, actualCoordinates);
-
 
 		f.flip();
 
@@ -97,7 +95,6 @@ public class FlipperTest {
 
 		assertEquals(expectedCoordinates, actualCoordinates);
 
-
 		f.flip();
 
 		expectedTopLeft = new Vect(-0.07446999999999998, 0.10958999999999999);
@@ -114,7 +111,6 @@ public class FlipperTest {
 		actualCoordinates = f.getCoordinates();
 
 		assertEquals(expectedCoordinates, actualCoordinates);
-
 
 		f.flip();
 
@@ -133,7 +129,6 @@ public class FlipperTest {
 
 		assertEquals(expectedCoordinates, actualCoordinates);
 
-
 		f.flip();
 
 		expectedTopLeft = new Vect(-0.09503, 0.17288);
@@ -150,7 +145,6 @@ public class FlipperTest {
 		actualCoordinates = f.getCoordinates();
 
 		assertEquals(expectedCoordinates, actualCoordinates);
-
 
 		f.flip();
 
@@ -169,7 +163,6 @@ public class FlipperTest {
 
 		assertEquals(expectedCoordinates, actualCoordinates);
 
-
 		f.flip();
 
 		expectedTopLeft = new Vect(-0.10337000000000002, 0.2389);
@@ -186,7 +179,6 @@ public class FlipperTest {
 		actualCoordinates = f.getCoordinates();
 
 		assertEquals(expectedCoordinates, actualCoordinates);
-
 
 		f.flip();
 
@@ -205,7 +197,6 @@ public class FlipperTest {
 
 		assertEquals(expectedCoordinates, actualCoordinates);
 
-
 		f.flip();
 
 		expectedTopLeft = new Vect(-0.09919, 0.30530999999999997);
@@ -222,7 +213,6 @@ public class FlipperTest {
 		actualCoordinates = f.getCoordinates();
 
 		assertEquals(expectedCoordinates, actualCoordinates);
-
 
 		f.flip();
 
@@ -241,7 +231,6 @@ public class FlipperTest {
 
 		assertEquals(expectedCoordinates, actualCoordinates);
 
-
 		f.flip();
 
 		expectedTopLeft = new Vect(-0.08265, 0.36977);
@@ -258,7 +247,6 @@ public class FlipperTest {
 		actualCoordinates = f.getCoordinates();
 
 		assertEquals(expectedCoordinates, actualCoordinates);
-
 
 		f.flip();
 
@@ -277,7 +265,6 @@ public class FlipperTest {
 
 		assertEquals(expectedCoordinates, actualCoordinates);
 
-
 		f.flip();
 
 		expectedTopLeft = new Vect(-0.054310000000000025, 0.42998000000000003);
@@ -294,7 +281,6 @@ public class FlipperTest {
 		actualCoordinates = f.getCoordinates();
 
 		assertEquals(expectedCoordinates, actualCoordinates);
-
 
 		f.flip();
 
@@ -313,7 +299,6 @@ public class FlipperTest {
 
 		assertEquals(expectedCoordinates, actualCoordinates);
 
-
 		f.flip();
 
 		expectedTopLeft = new Vect(-0.015189999999999981, 0.48380999999999996);
@@ -331,6 +316,22 @@ public class FlipperTest {
 
 		assertEquals(expectedCoordinates, actualCoordinates);
 
+		f.flip();
+
+		expectedTopLeft = new Vect(1.0000000000010001E-5, 0.5);
+		expectedTopRight = new Vect(0.0, 1.0000000000010001E-5);
+		expectedBottomRight = new Vect(1.99998, 1.0000000000010001E-5);
+		expectedBottomLeft = new Vect(1.99999, 0.49999);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
 
 		f.flip();
 
@@ -349,37 +350,6 @@ public class FlipperTest {
 
 		assertEquals(expectedCoordinates, actualCoordinates);
 
-
-		f.flip();
-
-		expectedTopLeft = new Vect(1.0000000000010001E-5, 0.5);
-		expectedTopRight = new Vect(0.0, 1.0000000000010001E-5);
-		expectedBottomRight = new Vect(1.99998, 1.0000000000010001E-5);
-		expectedBottomLeft = new Vect(1.99999, 0.49999);
-
-		expectedCoordinates = new ArrayList<>();
-		expectedCoordinates.add(expectedTopLeft);
-		expectedCoordinates.add(expectedTopRight);
-		expectedCoordinates.add(expectedBottomRight);
-		expectedCoordinates.add(expectedBottomLeft);
-
-		actualCoordinates = f.getCoordinates();
-
-		assertEquals(expectedCoordinates, actualCoordinates);
-
-
-		f.flip();
-	}
-	
-	@Test
-	public void testFlip() {
-		Flipper f = new Flipper(0,0,"");
-		f.trigger();
-
-		List<Vect> expectedCoordinates, actualCoordinates;
-		Vect expectedTopLeft, expectedTopRight, expectedBottomRight, expectedBottomLeft;
-
-		for (int x = 0; x < 30; x++)
 		f.flip();
 	}
 
@@ -516,7 +486,7 @@ public class FlipperTest {
 	public void testGetAngularVelocity() {
 		double expectedAngularVelocity = Board.moveTime * 1080,
 				actualAngularVelocity = immutableFlipper.getAngularVelocity();
-		
+
 		assertEquals(expectedAngularVelocity, actualAngularVelocity, 0);
 	}
 
@@ -534,34 +504,6 @@ public class FlipperTest {
 		assertEquals(expectedOriginY, actualOriginY);
 		assertEquals(expectedName, actualName);
 
-	}
-
-	@Test
-	public void testRotationMatrixPositiveAngle() {
-		Flipper f = new Flipper(0,0,"doesn't matter");
-		
-		Vect coordinate = new Vect(1, 1);
-		Vect center = new Vect(2, 2);
-		double angle = 90;
-		
-		Vect expectedCoordinate = new Vect(3, 1);
-		Vect actualCoordinate = f.rotationMatrix(coordinate, center, angle);
-		
-		assertEquals(expectedCoordinate, actualCoordinate);
-	}
-	
-	@Test
-	public void testRotationMatrixNegativeAngle() {
-		Flipper f = new Flipper(0,0,"doesn't matter");
-		
-		Vect coordinate = new Vect(1, 1);
-		Vect center = new Vect(2, 2);
-		double angle = -90;
-		
-		Vect expectedCoordinate = new Vect(1, 3);
-		Vect actualCoordinate = f.rotationMatrix(coordinate, center, angle);
-		
-		assertEquals(expectedCoordinate, actualCoordinate);
 	}
 
 	@Test
@@ -598,8 +540,7 @@ public class FlipperTest {
 
 	@Test
 	public void testGetSaveInfoLeftFlipper() {
-		String expectedSaveInfo = String.format("LeftFlipper %s %d %d", expectedName, expectedOriginX,
-				expectedOriginY);
+		String expectedSaveInfo = String.format("LeftFlipper %s %d %d", expectedName, expectedOriginX, expectedOriginY);
 		String actualSaveInfo = immutableFlipper.getSaveInfo();
 
 		assertEquals(expectedSaveInfo, actualSaveInfo);
@@ -609,7 +550,7 @@ public class FlipperTest {
 	public void testGetSaveInfoRightFlipper() {
 		Flipper f = new Flipper(expectedOriginX, expectedOriginY, expectedName);
 		f.setDirection(Direction.RIGHT);
-		
+
 		String expectedSaveInfo = String.format("RightFlipper %s %d %d", expectedName, expectedOriginX,
 				expectedOriginY);
 		String actualSaveInfo = f.getSaveInfo();
@@ -620,14 +561,14 @@ public class FlipperTest {
 	@Test
 	public void testGetRotation() {
 		Flipper f = new Flipper(0, 0, "doesn't matter");
-		
+
 		int expectedRotation, actualRotation, c = 0;
 		while (c < 5) {
 			expectedRotation = c % 4;
 			actualRotation = f.getRotation();
-			
+
 			assertEquals(expectedRotation, actualRotation);
-			
+
 			f.rotate();
 			++c;
 		}
