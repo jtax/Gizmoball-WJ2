@@ -185,7 +185,8 @@ public class BuildListener implements ActionListener {
                     e = ef.createElement(option, snapToGrid(getPress()), snapToGrid(getRelease()));
                     break;
                 case "Ball":
-                    e = ef.createElement(option, getPress(), new Vect(0.5,0.5));
+                    Vect userVectVal = gbv.getBuildGUI().promptVelocity();
+                    e = ef.createElement(option, getPress(), userVectVal);
                     break;
                 default:
                     e = ef.createElement(option, snapToGrid(getPress()));

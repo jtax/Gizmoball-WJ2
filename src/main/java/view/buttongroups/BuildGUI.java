@@ -1,12 +1,15 @@
 package view.buttongroups;
 
 import model.IElement;
+import physics.Vect;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Arc2D;
+import java.util.DoubleSummaryStatistics;
 
 /**
  * Gizmoball - BuildGUI
@@ -174,6 +177,18 @@ public class BuildGUI {
 			return new double[]{0.025, 0.025};
 		}
 		return new double[]{frictVal1Double, frictVal2Double};
+	}
+
+	public Vect promptVelocity() {
+		String xVel = JOptionPane.showInputDialog("Please enter the X Velocity for the Ball");
+		String yVel = JOptionPane.showInputDialog("Please enter the Y Velocity for the Ball");
+		try {
+			double xV = Double.parseDouble(xVel);
+			double yV = Double.parseDouble(yVel);
+			return new Vect(xV, yV);
+		} catch (Exception e) {
+			return new Vect(0.5, 0.5);
+		}
 	}
 
 	public String dropboxValue(){

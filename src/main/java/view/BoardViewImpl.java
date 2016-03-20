@@ -110,10 +110,10 @@ public class BoardViewImpl implements BoardView, Observer {
 
 				g.draw(shape);
 			} else {
-				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				/*g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 						RenderingHints.VALUE_ANTIALIAS_ON);
 				g.setRenderingHint(RenderingHints.KEY_RENDERING,
-						RenderingHints.VALUE_RENDER_QUALITY);
+						RenderingHints.VALUE_RENDER_QUALITY);*/
 				g.fill(shape);
 			}
 		}
