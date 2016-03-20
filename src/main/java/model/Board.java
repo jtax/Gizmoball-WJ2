@@ -417,4 +417,20 @@ public class Board extends Observable implements IBoard {
 		}
 	}
 
+	public int getNextElementID() {
+		int i = 0;
+		for (IElement elem : elements) {
+			String name = elem.getName();
+			String numberStr = name.replaceAll("[^0-9]", "");
+			try {
+				int num = Integer.parseInt(numberStr);
+				if (num > i) {
+					i = num;
+				}
+			} catch (Exception ignored) {
+			}
+		}
+		return i;
+	}
+
 }

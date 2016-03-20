@@ -74,4 +74,6 @@ public interface IBoard {
 	void stopHighlighting();
 
 	void startHighlighting();
+
+	int getNextElementID();
 }

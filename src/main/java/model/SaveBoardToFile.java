@@ -80,7 +80,7 @@ public class SaveBoardToFile {
 
 					if(!element.returnKeyConnects().isEmpty()){
 						List<String> connections = new ArrayList<>();
-						for(String connection : connections) {
+						for (String connection : element.returnKeyConnects()) {
 							bufferedWriter.write(connection);
 							bufferedWriter.newLine();
 						}

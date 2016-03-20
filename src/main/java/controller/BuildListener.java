@@ -161,7 +161,7 @@ public class BuildListener implements ActionListener {
         }
         else{
             System.out.println("failed");
-
+            gbv.changeStatusMessage("File Could Not Be Loaded");
         }
     }
 
@@ -179,7 +179,7 @@ public class BuildListener implements ActionListener {
         String option = gbv.getBuildGUI().dropboxValue();
         if(!option.equals("Pick a gizmo")){
             System.out.println("Adding the element "+ option +"\n To the coords: " + getPress());
-            ElementFactory ef = new ElementFactory();
+            ElementFactory ef = new ElementFactory(board.getNextElementID());
             IElement e;
             switch (option) {
                 case "Absorber":

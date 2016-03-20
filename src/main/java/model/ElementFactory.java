@@ -14,7 +14,12 @@ public class ElementFactory {
         index = 0;
     }
 
+    public ElementFactory(int startingValue) {
+        index = startingValue;
+    }
+
     public IElement createElement(String type, Vect origin){
+        index++;
         switch(type){
             case "Circle":
                 return createCircle(origin);
@@ -31,6 +36,7 @@ public class ElementFactory {
     }
 
     public IElement createElement(String type, Vect origin, Vect bound) {
+        index++;
         switch (type) {
             case "Absorber":
                 return createAbsorber(origin, bound);
