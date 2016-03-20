@@ -13,7 +13,9 @@ import java.util.Collection;
 import java.util.Observable;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - Board
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Board extends Observable implements IBoard {
 	private Collection<IElement> elements;
@@ -24,6 +26,7 @@ public class Board extends Observable implements IBoard {
 	private int height;
 	private Collision closestCollision;
 	public final static double moveTime = 0.005;
+	private boolean highlight = true;
 
 	private Vect mouseClick, mousePress, mouseRelease;
 	private IElement selectedElement;
@@ -44,8 +47,6 @@ public class Board extends Observable implements IBoard {
 
 	private void addWalls() {
 		Vect topLeft = new Vect(0, 0);
-		Vect topRight = new Vect(20, 0);
-		Vect bottomLeft = new Vect(0, 20);
 		Vect bottomRight = new Vect(20, 20);
 		Gizmo walls = new Wall(topLeft, bottomRight, "Wall");
 		elements.add(walls);
@@ -111,12 +112,19 @@ public class Board extends Observable implements IBoard {
 		if (element instanceof Ball) {
 			balls.remove(element);
 		} else {
+			removeGizmoConnections(element);
 			elements.remove(element);
 		}
 		setChanged();
 		notifyObservers();
 	}
 
+	private void removeGizmoConnections(IElement element) {
+		for (IElement elem : elements) {
+			((Gizmo) elem).getTriggerables().remove(element);
+			elem.removeConnection(element);
+		}
+	}
 	@Override
 	public double[] getFrictionConst() {
 		return frictionConst;
@@ -210,7 +218,6 @@ public class Board extends Observable implements IBoard {
 		Vect newBound = selectedElement.getBound().plus(distance);
 		if (detectEmptyArea(newOrigin, newBound)) {
 			selectedElement.move(distance);
-			System.out.println(selectedElement.getName() + "Moved");
 			return true;
 		}
 		return false;
@@ -228,23 +235,23 @@ public class Board extends Observable implements IBoard {
 	}
 	public boolean detectEmptyLocation(Vect position) {
 		if (position.x() >= 20 || position.x() < 0) {
-			System.out.println("DETECT EMPTY FAILED : X");
 			return false;
 		}
 		if (position.y() >= 20 || position.y() < 0) {
-			System.out.println("DETECT EMPTY FAILED : Y");
 			return false;
 		}
 		for (IElement existingElement : elements) {
 			if (existingElement.getOrigin().equals(position) && !(existingElement instanceof Wall)) {
-				System.out.println("DETECT EMPTY FAILED : " + existingElement.getName());
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public void selectElement(double x, double y) {
+	private void selectElement(double x, double y) {
+		if (!highlight) {
+			return;
+		}
 		if (selectedElement != null) {
 			selectedElement.highlight(false);
 		}
@@ -252,9 +259,38 @@ public class Board extends Observable implements IBoard {
 		if ((selectedElement = getElementAtLocation(x, y)) != null)
 			selectedElement.highlight(true);
 	}
-	
+
+	@Override
+	public void clearSelection() {
+		if (selectedElement != null) {
+			selectedElement.highlight(false);
+		}
+		selectedElement = null;
+	}
+
+	@Override
+	public void stopHighlighting() {
+		highlight = false;
+	}
+
+	@Override
+	public void startHighlighting() {
+		highlight = true;
+	}
+
 	@Override
 	public IElement getElementAtLocation(double x, double y) {
+
+		for (Ball ball : balls) {
+			Vect origin = ball.getOrigin();
+			Vect bound = ball.getOrigin().plus(new Vect(0.5, 0.5));
+			if (origin.x() <= x && bound.x() > x) {
+				if (origin.y() <= y && bound.y() > y) {
+					return ball;
+				}
+			}
+
+		}
 		for (IElement element : elements) {
 			Vect origin = element.getOrigin();
 			Vect bound = element.getBound();
@@ -283,16 +319,6 @@ public class Board extends Observable implements IBoard {
 				}
 			}
 		}
-		for (Ball ball : balls) {
-			Vect origin = ball.getOrigin();
-			Vect bound = ball.getOrigin().plus(new Vect(0.5, 0.5));
-			if (origin.x() <= x && bound.x() > x) {
-				if (origin.y() <= y && bound.y() > y) {
-					return ball;
-				}
-			}
-
-		}
 		
 		return null;
 	}
@@ -305,7 +331,13 @@ public class Board extends Observable implements IBoard {
 
 	/*  --  --  --  Physics Loop --  --  --  */
 	public void tick() {
-		Collection<Ball> newBalls = new ArrayList<>();
+
+		for (IElement element : getElements()) {
+			if (element instanceof Flipper) {
+				((Flipper) element).flip();
+			}
+		}
+			Collection<Ball> newBalls = new ArrayList<>();
 		for (Ball ball : getBalls()) {
 			newBalls.add(moveBall(ball));
 		}
@@ -316,7 +348,6 @@ public class Board extends Observable implements IBoard {
 		ball.applyForces(moveTime, getGravityConst(), getFrictionConst());
 		Collision collision = getTimeTillCollision(ball);
 
-		System.out.println(collision.getTime());
 		if (collision.getTime() >= moveTime) { // No Collision
 			ball.moveForTime(moveTime);
 		} else { // Collision
@@ -350,7 +381,7 @@ public class Board extends Observable implements IBoard {
 
 			if (element instanceof Flipper) {
 
-				((Flipper) element).flip();
+				//((Flipper) element).flip();
 
 				for (LineSegment line : element.getLines()) {
 					detectFlipperCollision(line, ball, element);
@@ -397,6 +428,22 @@ public class Board extends Observable implements IBoard {
 			Vect newV = Geometry.reflectCircle(otherBall.getCenter(), ball.getCenter(), ballV);
 			closestCollision = new Collision(newV, time, otherBall, ball);
 		}
+	}
+
+	public int getNextElementID() {
+		int i = 0;
+		for (IElement elem : elements) {
+			String name = elem.getName();
+			String numberStr = name.replaceAll("[^0-9]", "");
+			try {
+				int num = Integer.parseInt(numberStr);
+				if (num > i) {
+					i = num;
+				}
+			} catch (Exception ignored) {
+			}
+		}
+		return i;
 	}
 
 }

@@ -7,22 +7,22 @@ import model.gizmos.Wall;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
+import java.util.List;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - ${NAME}
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class BoardViewImpl implements BoardView, Observer {
 
 	private IBoard board;
-	private JPanel panel;
+	private final JPanel panel;
 	private Mode mode;
 
-	private Collection<IElement> shapes;
-	private Shapifier shapifier;
+	private List<IElement> shapes;
+	private final Shapifier shapifier;
 
 
 	public BoardViewImpl(IBoard board) {
@@ -35,7 +35,7 @@ public class BoardViewImpl implements BoardView, Observer {
 
 		mode = Mode.BUILD;
 
-		shapes = new HashSet<IElement>();
+		shapes = new ArrayList<>();
 		shapifier = new Shapifier(this);
 	}
 
@@ -47,8 +47,9 @@ public class BoardViewImpl implements BoardView, Observer {
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 
-				//if (mode == Mode.BUILD)
+				if (mode == Mode.BUILD) {
 					drawGrid((Graphics2D) g);
+				}
 
 				drawElements((Graphics2D) g);
 			}
@@ -65,7 +66,11 @@ public class BoardViewImpl implements BoardView, Observer {
 		IBoard board = (IBoard) o;
 		shapes.clear();
 
-		for (IElement e : board.getAllElements()) {
+
+		for (IElement e : board.getElements()) {
+			shapes.add(e);
+		}
+		for (IElement e : board.getBalls()) {
 			shapes.add(e);
 		}
 
@@ -76,9 +81,6 @@ public class BoardViewImpl implements BoardView, Observer {
 		return mode;
 	}
 
-	public void setMode(Mode mode) {
-		this.mode = mode;
-	}
 
 	/**
 	 * Toggle run/build mode and return the new mode.
@@ -106,12 +108,13 @@ public class BoardViewImpl implements BoardView, Observer {
 			g.setColor(s.getColor());
 			Shape shape = shapifier.shapify(s);
 			if (s instanceof Wall) {
+
 				g.draw(shape);
 			} else {
-				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				/*g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 						RenderingHints.VALUE_ANTIALIAS_ON);
 				g.setRenderingHint(RenderingHints.KEY_RENDERING,
-						RenderingHints.VALUE_RENDER_QUALITY);
+						RenderingHints.VALUE_RENDER_QUALITY);*/
 				g.fill(shape);
 			}
 		}

@@ -6,9 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import controller.BuildListener;
 import controller.KeyPressListener;
@@ -19,35 +17,37 @@ import view.buttongroups.BuildGUI;
 import view.buttongroups.RunGUI;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - GizmoBallView
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class GizmoBallView implements Observer {
 
 	private final MagicKeyListener keyPressListener;
 	private JFrame frame;
-	Container contentPane;
+	private Container contentPane;
 	private RunGUI runGUI;
 	private BuildGUI buildGUI;
-	private JPanel bottomButtons, topButtons, boardPanel;
+	private JPanel bottomButtons;
+	private JPanel topButtons;
 	private JMenuBar menu;
 	private BoardView boardView;
 	private ActionListener runListener;
 	private ActionListener buildListener;
 
 	public GizmoBallView(IBoard bm) {
-		IBoard board = bm;
 		frame = new JFrame("Gizmo Baw");
 		contentPane = frame.getContentPane();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		boardView = new BoardViewImpl(board);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		boardView = new BoardViewImpl(bm);
 		runListener = new RunListener(bm, this);
 		buildListener = new BuildListener(bm, this);
 		keyPressListener = new MagicKeyListener(new KeyPressListener(bm.getElements()));
 		makeFrame();
 	}
 
-	public void makeFrame() {
-		boardPanel = boardView.getPanel();
+	private void makeFrame() {
+		JPanel boardPanel = boardView.getPanel();
 		
 		if (boardView.getMode() == Mode.RUN) {
 			makeRunGUI();
@@ -121,5 +121,10 @@ public class GizmoBallView implements Observer {
 		} else {
 			System.out.println(message);
 		}
+	}
+
+	public int gizmoInfo(String gizmoInfo) {
+		Object[] options = {"Remove Gizmo Connect", "Remove Key Connect", "Cancel"};
+		return JOptionPane.showOptionDialog(frame, gizmoInfo, "Gizmo Information", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[2]);
 	}
 }

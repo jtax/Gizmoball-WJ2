@@ -2,11 +2,11 @@ package model;
 
 public interface Absorbable {
 
-	public boolean isAbsorbed();
+	boolean isAbsorbed();
 
-	public void setAbsorbed();
+	void setAbsorbed();
 
-	public void clearAbsorbed();
+	void clearAbsorbed();
 
-	public void release();
+	void release();
 }

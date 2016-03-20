@@ -3,7 +3,6 @@ package model;
 import model.gizmos.*;
 import physics.Vect;
 
-import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -97,8 +96,8 @@ public class GizmoParser {
 		Board board = new Board(friction, gravity, 20, 20);
 		board.setElements(loadedElements);
 		if (!balls.isEmpty()) {
-			for (int i = 0; i < balls.size(); i++) {
-				board.addBall(balls.get(i));
+			for (Ball ball : balls) {
+				board.addBall(ball);
 			}
 		}
 		if (!rotates.isEmpty()) {
@@ -153,7 +152,7 @@ public class GizmoParser {
 							secondElement = e2;
 						}
 					}
-					System.out.println(firstElement.getName() + " " + secondElement.getName());
+				//System.out.println(firstElement.getName() + " " + secondElement.getName());
 					firstElement.gizmoConnect(secondElement);
 				}
 		}
@@ -195,8 +194,7 @@ public class GizmoParser {
 			r.setDirection(Direction.RIGHT);
 			return r;
 		case ("LeftFlipper"):
-			Flipper l = new Flipper(origin, gizmoName);
-			return l;
+			return new Flipper(origin, gizmoName);
 		default:
 			return null;
 		}
@@ -249,8 +247,7 @@ public class GizmoParser {
 				gizmo + gizmoName + xAbsorberTopLeft + yAbsorberTopLeft + xAbsorberBotRight + yAbsorberBotRight);
 		origin = new Vect(xAbsorberTopLeft, yAbsorberTopLeft);
 		Vect bound = new Vect(xAbsorberBotRight, yAbsorberBotRight);
-		Absorber a = new Absorber(origin, bound, gizmoName);
-		return a;
+		return new Absorber(origin, bound, gizmoName);
 
 	}
 

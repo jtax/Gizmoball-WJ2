@@ -16,7 +16,9 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 /**
- * Created by baird on 15/03/2016.
+ * Gizmoball - Absorber Test
+ * Created by Group WJ2 on 15/03/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class AbsorberTest {
     Absorber absorber;
@@ -117,8 +119,8 @@ public class AbsorberTest {
         Vect expectedOrigin = new Vect(0, 9);
         Vect expectedBound = new Vect(10, 10);
 
-        absorber.getOrigin().equals(expectedOrigin);
-        absorber.getBound().equals(expectedBound);
+        assert absorber.getOrigin().equals(expectedOrigin);
+        assert absorber.getBound().equals(expectedBound);
     }
 
     @Test
@@ -243,7 +245,7 @@ public class AbsorberTest {
 
         absorber.absorb(b);
 
-        assertThat(b.getCenter(), is(new Vect(19.5, 19.5)));
+        assertThat(b.getCenter(), is(new Vect(19.75, 19.75)));
     }
 
     @Test
@@ -286,7 +288,7 @@ public class AbsorberTest {
         absorber.absorb(b);
         absorber.positionBall();
 
-        assertThat(b.getCenter(), is(new Vect(19.5, 19.5)));
+        assertThat(b.getCenter(), is(new Vect(19.75, 19.75)));
     }
 
     @Test
