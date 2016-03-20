@@ -269,4 +269,9 @@ public class Ball implements IElement, Absorbable {
 	public void clearKeyConnections() {
 
 	}
+
+	@Override
+	public void removeConnection(IElement element) {
+
+	}
 }

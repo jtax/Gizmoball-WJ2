@@ -128,4 +128,9 @@ public class Wall extends Gizmo {
 	@Override
 	public void clearKeyConnections() {
 	}
+
+	@Override
+	public void removeConnection(IElement element) {
+
+	}
 }

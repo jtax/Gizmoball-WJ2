@@ -226,4 +226,13 @@ public class Absorber extends Gizmo implements Triggerable {
 		keyConnects.clear();
 		this.clearKeyPressTrigger();
 	}
+
+	@Override
+	public void removeConnection(IElement element) {
+		for (String connect : connections) {
+			if (connect.contains(element.getName())) {
+				connections.remove(connect);
+			}
+		}
+	}
 }

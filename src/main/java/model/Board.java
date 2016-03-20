@@ -112,12 +112,19 @@ public class Board extends Observable implements IBoard {
 		if (element instanceof Ball) {
 			balls.remove(element);
 		} else {
+			removeGizmoConnections(element);
 			elements.remove(element);
 		}
 		setChanged();
 		notifyObservers();
 	}
 
+	private void removeGizmoConnections(IElement element) {
+		for (IElement elem : elements) {
+			((Gizmo) elem).getTriggerables().remove(element);
+			elem.removeConnection(element);
+		}
+	}
 	@Override
 	public double[] getFrictionConst() {
 		return frictionConst;

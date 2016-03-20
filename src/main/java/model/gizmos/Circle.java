@@ -131,4 +131,13 @@ public class Circle extends Gizmo {
 		keyConnects.clear();
 		this.clearKeyPressTrigger();
 	}
+
+	@Override
+	public void removeConnection(IElement element) {
+		for (int i = 0; i < connections.size(); i++) {
+			if (connections.get(i).contains(element.getName())) {
+				connections.remove(i);
+			}
+		}
+	}
 }
