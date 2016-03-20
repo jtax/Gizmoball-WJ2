@@ -104,13 +104,17 @@ public class BuildListener implements ActionListener {
 
 
     private Vect getPress() {
-        return board.getMousePress();
+        if(board.getMousePress()!=null){
+            System.out.println(board.getMousePress());
+            return board.getMousePress();
+        }
+        return null;
     }
 
     private Vect snapToGrid(Vect coord) {
-        double x = Math.floor(coord.x());
-        double y = Math.floor(coord.y());
-        return new Vect(x, y);
+            double x = Math.floor(coord.x());
+            double y = Math.floor(coord.y());
+            return new Vect(x, y);
     }
 
     private Vect getRelease() {
@@ -185,7 +189,7 @@ public class BuildListener implements ActionListener {
 
     private void addElement(){
         String option = gbv.getBuildGUI().dropboxValue();
-        if(!option.equals("Pick a gizmo")){
+        if(!option.equals("Pick Element") && getPress() !=null){
             System.out.println("Adding the element "+ option +"\n To the coords: " + getPress());
             ElementFactory ef = new ElementFactory();
             IElement e;
@@ -211,6 +215,7 @@ public class BuildListener implements ActionListener {
                 gbv.changeStatusMessage("Error: Add gizmo failed.");
             }
         }
+        else gbv.changeStatusMessage("Error: Add gizmo failed.");
     }
 
 
