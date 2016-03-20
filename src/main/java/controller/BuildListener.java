@@ -99,6 +99,10 @@ public class BuildListener implements ActionListener {
 
     private void showInfo() {
         IElement elem = getSelectedElement();
+        if (elem == null) {
+            gbv.changeStatusMessage("No Element was selected");
+            return;
+        }
         String name = elem.getName();
         double posx = elem.getOrigin().x();
         double posy = elem.getOrigin().y();
