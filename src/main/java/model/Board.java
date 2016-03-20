@@ -26,6 +26,7 @@ public class Board extends Observable implements IBoard {
 	private int height;
 	private Collision closestCollision;
 	public final static double moveTime = 0.005;
+	private boolean highlight = true;
 
 	private Vect mouseClick, mousePress, mouseRelease;
 	private IElement selectedElement;
@@ -241,6 +242,9 @@ public class Board extends Observable implements IBoard {
 	}
 
 	private void selectElement(double x, double y) {
+		if (!highlight) {
+			return;
+		}
 		if (selectedElement != null) {
 			selectedElement.highlight(false);
 		}
@@ -256,7 +260,17 @@ public class Board extends Observable implements IBoard {
 		}
 		selectedElement = null;
 	}
-	
+
+	@Override
+	public void stopHighlighting() {
+		highlight = false;
+	}
+
+	@Override
+	public void startHighlighting() {
+		highlight = true;
+	}
+
 	@Override
 	public IElement getElementAtLocation(double x, double y) {
 

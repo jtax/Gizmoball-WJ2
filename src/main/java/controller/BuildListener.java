@@ -36,6 +36,7 @@ public class BuildListener implements ActionListener {
             case "Run Mode":
                 gbv.changeStatusMessage("Ready");
                 board.clearSelection();
+                board.stopHighlighting();
                 gbv.switchMode();
                 break;
 

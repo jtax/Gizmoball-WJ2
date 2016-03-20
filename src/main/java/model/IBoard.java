@@ -70,4 +70,8 @@ public interface IBoard {
 	IElement getElementAtLocation(double x, double y);
 
 	void clearSelection();
+
+	void stopHighlighting();
+
+	void startHighlighting();
 }

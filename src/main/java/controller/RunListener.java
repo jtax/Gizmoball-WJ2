@@ -18,6 +18,7 @@ public class RunListener implements ActionListener {
 	private IBoard board;
 	private GizmoBallView gbv;
 
+
 	public RunListener(IBoard bm, GizmoBallView gbv) {
 		this.board = bm;
 		timer = new Timer(5, this);
@@ -45,6 +46,7 @@ public class RunListener implements ActionListener {
 				break;
 			case "Build Mode":
 				gbv.switchMode();
+				board.startHighlighting();
 				timer.stop();
 				break;
 			}

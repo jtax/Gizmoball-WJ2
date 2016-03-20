@@ -47,8 +47,9 @@ public class BoardViewImpl implements BoardView, Observer {
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 
-				//if (mode == Mode.BUILD)
+				if (mode == Mode.BUILD) {
 					drawGrid((Graphics2D) g);
+				}
 
 				drawElements((Graphics2D) g);
 			}
