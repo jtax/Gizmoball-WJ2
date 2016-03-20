@@ -313,4 +313,11 @@ public class Flipper extends Gizmo implements Triggerable {
 	public List<String> returnKeyConnects(){
 		return keyConnects;
 	}
+
+	public void removeKeyConnects(){
+
+		keyConnects.clear();
+		this.clearKeyTriggers();
+		System.out.println(this.getKeyPressTrigger());
+	}
 }

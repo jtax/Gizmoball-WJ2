@@ -104,9 +104,11 @@ public class BuildGUI {
 		saveModel.setAccelerator(KeyStroke.getKeyStroke(
 				KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		saveModel.addActionListener(listener);
-
 		file.add(saveModel);
 
+		JMenuItem remKeyConn = new JMenuItem("Remove Key Connection");
+		remKeyConn.addActionListener(listener);
+		file.add(remKeyConn);
 
 
 

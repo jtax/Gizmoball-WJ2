@@ -90,6 +90,11 @@ public class BuildListener implements ActionListener {
                 quit();
                 break;
 
+            case "Remove Key Connection":
+                System.out.println("here");
+                removeKeyConnect();
+                break;
+
         }
     }
 
@@ -238,6 +243,17 @@ public class BuildListener implements ActionListener {
         } else {
             gbv.changeStatusMessage("Error: Please select a Gizmo.");
         }
+    }
+
+    private void removeKeyConnect(){
+        IElement selectedElement;
+        System.out.println("here");
+        if ((selectedElement = getSelectedElement()) != null && selectedElement instanceof Gizmo && selectedElement.returnKeyConnects().isEmpty()) {
+            System.out.println("here");
+            selectedElement.removeKeyConnects();
+            gbv.changeStatusMessage("Success! " + selectedElement + " Key connects removed from gizmo");
+        }
+
     }
 
     private void setGizmoConnection() {

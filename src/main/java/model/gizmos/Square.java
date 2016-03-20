@@ -37,10 +37,7 @@ public class Square extends Gizmo {
 		saveInfo = "Square" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
 
-	@Override
-	public void trigger() {
 
-	}
 
 	public Square(int x, int y, String name) {
 		this(new Vect(x, y), name);
@@ -166,6 +163,11 @@ public class Square extends Gizmo {
 
 	public List<String> returnKeyConnects(){
 		return keyConnects;
+	}
+
+	public void removeKeyConnects(){
+		keyConnects.clear();
+		this.clearKeyTriggers();
 	}
 
 }

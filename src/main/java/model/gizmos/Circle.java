@@ -119,4 +119,9 @@ public class Circle extends Gizmo {
 	public List<String> returnKeyConnects(){
 		return keyConnects;
 	}
+
+	public void removeKeyConnects(){
+		keyConnects.clear();
+		this.clearKeyTriggers();
+	}
 }

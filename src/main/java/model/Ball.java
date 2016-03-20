@@ -259,4 +259,6 @@ public class Ball implements IElement, Absorbable {
 	public List<String> returnKeyConnects(){
 		return new ArrayList<>();
 	}
+
+	public void removeKeyConnects(){}
 }

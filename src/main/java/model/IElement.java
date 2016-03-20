@@ -46,4 +46,6 @@ public interface IElement extends CollisionHandler {
 
 	List returnKeyConnects();
 
+	void removeKeyConnects();
+
 }
