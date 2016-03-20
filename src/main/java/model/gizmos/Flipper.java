@@ -334,4 +334,13 @@ public class Flipper extends Gizmo implements Triggerable {
 			}
 		}
 	}
+	
+	public void printAllTheFlippingThings() {
+		Vect topLeft = coordinates.get(0), topRight = coordinates.get(1), bottomRight = coordinates.get(2),
+				bottomLeft = coordinates.get(3);
+
+		System.out.print("tlx " + topLeft.x() + " tly " + topLeft.y() + " trx " + topRight.x() + " try " + topRight.y()
+				+ " brx " + bottomRight.x() + " bry " + bottomRight.y() + " blx " + bottomLeft.x() + " bly "
+				+ bottomLeft.y() + "\n");
+	}
 }
