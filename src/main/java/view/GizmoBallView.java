@@ -122,4 +122,9 @@ public class GizmoBallView implements Observer {
 			System.out.println(message);
 		}
 	}
+
+	public int gizmoInfo(String gizmoInfo) {
+		Object[] options = {"Remove Gizmo Connect", "Remove Key Connect", "Cancel"};
+		return JOptionPane.showOptionDialog(frame, gizmoInfo, "Gizmo Information", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[2]);
+	}
 }

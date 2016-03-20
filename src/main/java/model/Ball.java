@@ -252,11 +252,21 @@ public class Ball implements IElement, Absorbable {
 		return new ArrayList<>();
 	}
 
+	@Override
+	public void clearConnections() {
+
+	}
+
 	public void addKeyConnect(int keycode){
 
 	}
 
 	public List<String> returnKeyConnects(){
 		return new ArrayList<>();
+	}
+
+	@Override
+	public void clearKeyConnections() {
+
 	}
 }

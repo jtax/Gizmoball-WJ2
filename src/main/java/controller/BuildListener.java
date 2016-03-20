@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Gizmoball - Build Listener
@@ -87,6 +88,37 @@ public class BuildListener implements ActionListener {
             case "Clear Board":
                 board.clear();
                 break;
+            case "Info":
+                showInfo();
+                break;
+        }
+    }
+
+    private void showInfo() {
+        IElement elem = getSelectedElement();
+        String name = elem.getName();
+        double posx = elem.getOrigin().x();
+        double posy = elem.getOrigin().y();
+        List<String> gizmos = elem.getConnections();
+        String gizmoString = "";
+        for (String gizmo : gizmos) {
+            String clean = gizmo.replace("Connect ", "");
+            gizmoString += "[" + clean + "] ";
+        }
+        List<String> keys = elem.returnKeyConnects();
+        String keyString = "";
+        for (String key : keys) {
+            String clean = key.replace("KeyConnect ", "");
+            keyString += "[" + clean + "] ";
+        }
+        String output = "Name: " + name + "\nPosition X:" + posx + " Y:" + posy + "\nGizmo Connections:" + gizmoString + "\nKey Connections:" + keyString;
+        int response = gbv.gizmoInfo(output); //0 = Remove Gizmos, 1 = Remove Keys, 2 = Cancel
+        if (response == 0) {
+            elem.clearConnections();
+            gbv.changeStatusMessage("Removed Gizmo Connections for " + elem.getName());
+        } else if (response == 1) {
+            elem.clearKeyConnections();
+            gbv.changeStatusMessage("Removed Key Connections for " + elem.getName());
         }
     }
 

@@ -83,12 +83,15 @@ public class BuildGUI {
 		move.addActionListener(listener);
 		JButton remove = new JButton("Remove");
 		remove.addActionListener(listener);
+		JButton info = new JButton("Info");
+		info.addActionListener(listener);
 
 
-		JPanel topButtons = new JPanel(new GridLayout(1, 6));
+		JPanel topButtons = new JPanel(new GridLayout(1, 5));
 		topButtons.add(add);
 		topButtons.add(remove);
 		topButtons.add(move);
+		topButtons.add(info);
 		topButtons.add(switchToRun);
 		return topButtons;
 	}

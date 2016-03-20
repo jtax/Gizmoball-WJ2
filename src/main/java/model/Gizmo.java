@@ -66,9 +66,16 @@ abstract public class Gizmo implements IElement, Triggerable {
 		triggerables.add(t);
 	}
 
-	protected void addKeyPressTrigger(int keyCode) {
+	protected void clearTriggerable() {
+		triggerables.clear();
+	}
 
+	protected void addKeyPressTrigger(int keyCode) {
 		keyPressTrigger = keyCode;
+	}
+
+	protected void clearKeyPressTrigger() {
+		keyPressTrigger = -1;
 	}
 
 	public int getKeyPressTrigger() {

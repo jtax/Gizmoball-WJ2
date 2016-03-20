@@ -42,8 +42,12 @@ public interface IElement extends CollisionHandler {
 
 	List<String> getConnections();
 
+	void clearConnections();
+
 	void addKeyConnect(int keyCode);
 
 	List<String> returnKeyConnects();
+
+	void clearKeyConnections();
 
 }

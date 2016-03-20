@@ -120,4 +120,12 @@ public class Wall extends Gizmo {
 	public List<String> returnKeyConnects(){
 		return new ArrayList<>();
 	}
+
+	@Override
+	public void clearConnections() {
+	}
+
+	@Override
+	public void clearKeyConnections() {
+	}
 }

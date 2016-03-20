@@ -161,4 +161,16 @@ public class Triangle extends Gizmo {
 	public List<String> returnKeyConnects(){
 		return keyConnects;
 	}
+
+	@Override
+	public void clearConnections() {
+		connections.clear();
+		this.clearTriggerable();
+	}
+
+	@Override
+	public void clearKeyConnections() {
+		keyConnects.clear();
+		this.clearKeyPressTrigger();
+	}
 }
