@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +11,9 @@ import physics.LineSegment;
 import physics.Vect;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - Ball
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Ball implements IElement, Absorbable {
 	private Circle point;
@@ -18,7 +21,7 @@ public class Ball implements IElement, Absorbable {
 	private Vect velocity;
 	private Vect center;
 	private Color color = new Color(0xecf0f1);
-	private String name;
+	private final String name;
 	private boolean absorbed;
 	private final float diameter = 0.5f;
 	private String saveInfo;
@@ -66,12 +69,12 @@ public class Ball implements IElement, Absorbable {
 
 	@Override
 	public List<Circle> getCircles() {
-		return Arrays.asList(point);
+		return Collections.singletonList(point);
 	}
 
 	@Override
 	public List<Vect> getCoordinates() {
-		return Arrays.asList(center);
+		return Collections.singletonList(center);
 	}
 
 	@Override
@@ -92,16 +95,11 @@ public class Ball implements IElement, Absorbable {
 	}
 
 	@Override
-	public void setColor(Color color) {
-		return;
-	}
-
-	@Override
 	public String getName() {
 		return name;
 	}
 
-	public void update() {
+	private void update() {
 		point = new Circle(center, 0.25);
 		origin = new Vect(center.x() - .25, center.y() - .25);
 	}
@@ -109,7 +107,7 @@ public class Ball implements IElement, Absorbable {
 	/**
 	 * Is the ball inside the other element?
 	 *
-	 * @param otherElement
+	 * @param otherElement element ball inside of
 	 * @return true if the other element is within the absorber's bounds,
 	 *         otherwise false
 	 */
@@ -117,10 +115,10 @@ public class Ball implements IElement, Absorbable {
 		Vect ourOrigin = origin, ourBound = getBound(), theirOrigin = otherElement.getOrigin(),
 				theirBound = otherElement.getBound();
 
-		boolean topIn = ourOrigin.y() < theirBound.y() && ourOrigin.y() > theirOrigin.y();
-		boolean bottomIn = ourBound.y() > theirOrigin.y() && ourBound.y() < theirBound.y();
-		boolean leftIn = ourOrigin.x() < theirBound.x() && ourOrigin.x() > theirOrigin.x();
-		boolean rightIn = ourBound.x() > theirOrigin.x() && ourBound.x() < theirBound.x();
+		boolean topIn = ourOrigin.y() <= theirBound.y() && ourOrigin.y() >= theirOrigin.y();
+		boolean bottomIn = ourBound.y() >= theirOrigin.y() && ourBound.y() <= theirBound.y();
+		boolean leftIn = ourOrigin.x() <= theirBound.x() && ourOrigin.x() >= theirOrigin.x();
+		boolean rightIn = ourBound.x() >= theirOrigin.x() && ourBound.x() <= theirBound.x();
 
 		// still with me?
 
@@ -243,10 +241,7 @@ public class Ball implements IElement, Absorbable {
 		if(!color.equals(otherBall.getColor())){
 			return false;
 		}
-		if(!getCoordinates().equals(otherBall.getCoordinates())){
-			return false;
-		}
-		return true;
+		return getCoordinates().equals(otherBall.getCoordinates());
 	}
 
 
@@ -254,7 +249,12 @@ public class Ball implements IElement, Absorbable {
 
 	}
 	public List<String> getConnections(){
-		return Collections.EMPTY_LIST;
+		return new ArrayList<>();
+	}
+
+	@Override
+	public void clearConnections() {
+
 	}
 
 	public void addKeyConnect(int keycode){
@@ -262,6 +262,16 @@ public class Ball implements IElement, Absorbable {
 	}
 
 	public List<String> returnKeyConnects(){
-		return Collections.EMPTY_LIST;
+		return new ArrayList<>();
+	}
+
+	@Override
+	public void clearKeyConnections() {
+
+	}
+
+	@Override
+	public void removeConnection(IElement element) {
+
 	}
 }

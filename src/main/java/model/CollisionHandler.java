@@ -2,5 +2,5 @@ package model;
 
 public interface CollisionHandler {
 
-	public void handle(Collision collision);
+	void handle(Collision collision);
 }

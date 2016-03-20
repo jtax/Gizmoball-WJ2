@@ -2,19 +2,22 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Timer;
+import javax.swing.*;
 
 import model.IBoard;
 import view.GizmoBallView;
 
 /**
- * Created by baird on 14/02/2016.
+ * Gizmoball - RunListener
+ * Created by Group WJ2 on 14/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class RunListener implements ActionListener {
 
 	private Timer timer;
 	private IBoard board;
 	private GizmoBallView gbv;
+
 
 	public RunListener(IBoard bm, GizmoBallView gbv) {
 		this.board = bm;
@@ -38,13 +41,26 @@ public class RunListener implements ActionListener {
 			case "Tick":
 				board.tick();
 				break;
-			case "Exit":
-				System.exit(0);
+			case "Quit":
+				quit();
 				break;
 			case "Build Mode":
 				gbv.switchMode();
+				board.startHighlighting();
+				timer.stop();
 				break;
 			}
 		}
+
+
+	}
+
+	private void quit(){
+		int dialogButton = JOptionPane.YES_NO_OPTION;
+		int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to quit","Warning",dialogButton);
+		if(dialogResult == JOptionPane.YES_OPTION){
+			System.exit(0);
+		}
+
 	}
 }

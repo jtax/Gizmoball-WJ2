@@ -50,6 +50,7 @@ import java.util.Set;
  * key events, or where multiple keys pressed generate a release event for only
  * one of them.
  */
+@SuppressWarnings("WeakerAccess")
 public class MagicKeyListener
 
 		implements KeyListener {
@@ -83,8 +84,8 @@ public class MagicKeyListener
 	}
 
 	private final KeyListener adaptee;
-	private final Set<Integer> real = new HashSet<Integer>();
-	private final Set<Integer> announced = new HashSet<Integer>();
+	private final Set<Integer> real = new HashSet<>();
+	private final Set<Integer> announced = new HashSet<>();
 	private final boolean assumeAllReleased;
 
 	//
@@ -105,7 +106,7 @@ public class MagicKeyListener
 	 *          associated with the given event
 	 */
 	private static Integer marker(KeyEvent e) {
-		return new Integer(e.getKeyCode());
+		return e.getKeyCode();
 	}
 
 	/**

@@ -3,18 +3,23 @@ package model;
 import model.gizmos.*;
 import physics.Vect;
 
-import javax.lang.model.element.Element;
-
 /**
- * Created by Umar on 10/03/2016.
+ * Gizmoball - ElementFactory
+ * Created by Group WJ2 on 10/03/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class ElementFactory {
-    int index;
+    private int index;
     public ElementFactory(){
         index = 0;
     }
 
+    public ElementFactory(int startingValue) {
+        index = startingValue;
+    }
+
     public IElement createElement(String type, Vect origin){
+        index++;
         switch(type){
             case "Circle":
                 return createCircle(origin);
@@ -31,6 +36,7 @@ public class ElementFactory {
     }
 
     public IElement createElement(String type, Vect origin, Vect bound) {
+        index++;
         switch (type) {
             case "Absorber":
                 return createAbsorber(origin, bound);
@@ -43,15 +49,13 @@ public class ElementFactory {
     private IElement createBall(Vect origin, Vect bound) {
         index++;
         String name = "B" + index;
-        Ball b = new Ball(name, origin, bound);
-        return b;
+        return new Ball(name, origin, bound);
     }
 
     private IElement createAbsorber(Vect origin, Vect bound) {
         index++;
         String name = "A" + index;
-        Absorber a = new Absorber(origin, bound, name);
-        return a;
+        return new Absorber(origin, bound, name);
     }
 
     private IElement createFlipper(Vect origin, Direction d) {
@@ -65,21 +69,18 @@ public class ElementFactory {
     private IElement createTriangle(Vect origin) {
         index ++;
         String name = "T" + index;
-        Triangle t = new Triangle(origin, name);
-        return t;
+        return new Triangle(origin, name);
     }
 
     private IElement createSquare(Vect origin) {
         index ++;
         String name = "S" + index;
-        Square s = new Square(origin, name);
-        return s;
+        return new Square(origin, name);
     }
 
     private IElement createCircle(Vect origin) {
         index ++;
         String name = "C" + index;
-        Circle c = new Circle(origin, name);
-        return c;
+        return new Circle(origin, name);
     }
 }

@@ -8,7 +8,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - RunGUI
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class RunGUI {
 
@@ -58,8 +60,10 @@ public class RunGUI {
 		JMenu file = new JMenu("File");
 		JMenuItem tick = new JMenuItem("Tick");
 		file.add(tick);
-		JMenuItem quit = new JMenuItem("Exit");
+		JMenuItem quit = new JMenuItem("Quit");
 		quit.addActionListener(listener);
+		quit.setAccelerator(KeyStroke.getKeyStroke(
+				KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
 		file.add(quit);
 		menus.add(file);
 

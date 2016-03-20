@@ -16,7 +16,7 @@ public class LoadBoard {
 		return openGizmoFromFile(filen);
 	}
 
-	public static File getFileToOpen() {
+	private static File getFileToOpen() {
 
 		JFileChooser openFile = new JFileChooser();
 		openFile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -33,11 +33,7 @@ public class LoadBoard {
 
 	}
 
-	public static Board openGizmoFromFile(File filen) {
-
-		double[] temp = new double[2];
-		temp[0] = 0;
-		temp[0] = 0;
+	private static Board openGizmoFromFile(File filen) {
 		Board board = null;
 		try {
 			GizmoParser g = new GizmoParser(filen);

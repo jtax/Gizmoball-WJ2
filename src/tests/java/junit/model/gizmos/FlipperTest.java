@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import model.Board;
 import model.Direction;
 import model.gizmos.Flipper;
 import physics.Circle;
@@ -38,8 +39,318 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testTrigger() {
-		fail("Not yet implemented");
+	public void testFlip() {
+		Flipper f = new Flipper(0, 0, "");
+		f.trigger();
+
+		List<Vect> expectedCoordinates, actualCoordinates;
+		Vect expectedTopLeft, expectedTopRight, expectedBottomRight, expectedBottomLeft;
+
+		expectedTopLeft = new Vect(-0.022419999999999995, 0.024639999999999995);
+		expectedTopRight = new Vect(0.47536, -0.022419999999999995);
+		expectedBottomRight = new Vect(0.6635800000000001, 1.96871);
+		expectedBottomLeft = new Vect(0.1658, 2.01576);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.04242000000000001, 0.05127999999999999);
+		expectedTopRight = new Vect(0.44872, -0.04242000000000001);
+		expectedBottomRight = new Vect(0.82349, 1.92216);
+		expectedBottomLeft = new Vect(0.33235000000000003, 2.01585);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.059819999999999984, 0.07968);
+		expectedTopRight = new Vect(0.42032, -0.059819999999999984);
+		expectedBottomRight = new Vect(0.97831, 1.86077);
+		expectedBottomLeft = new Vect(0.49817, 2.00026);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.07446999999999998, 0.10958999999999999);
+		expectedTopRight = new Vect(0.39041000000000003, -0.07446999999999998);
+		expectedBottomRight = new Vect(1.12666, 1.78508);
+		expectedBottomLeft = new Vect(0.66178, 1.96914);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.08623999999999998, 0.14075);
+		expectedTopRight = new Vect(0.35925, -0.08623999999999998);
+		expectedBottomRight = new Vect(1.26723, 1.69577);
+		expectedBottomLeft = new Vect(0.82174, 1.92276);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.09503, 0.17288);
+		expectedTopRight = new Vect(0.32711999999999997, -0.09503);
+		expectedBottomRight = new Vect(1.39877, 1.59362);
+		expectedBottomLeft = new Vect(0.97662, 1.86153);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.10076000000000002, 0.20568999999999998);
+		expectedTopRight = new Vect(0.29431, -0.10076000000000002);
+		expectedBottomRight = new Vect(1.52012, 1.47955);
+		expectedBottomLeft = new Vect(1.1250499999999999, 1.786);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.10337000000000002, 0.2389);
+		expectedTopRight = new Vect(0.2611, -0.10337000000000002);
+		expectedBottomRight = new Vect(1.63019, 1.35456);
+		expectedBottomLeft = new Vect(1.26572, 1.69683);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.10285, 0.2722);
+		expectedTopRight = new Vect(0.2278, -0.10285);
+		expectedBottomRight = new Vect(1.72801, 1.21977);
+		expectedBottomLeft = new Vect(1.39737, 1.59482);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.09919, 0.30530999999999997);
+		expectedTopRight = new Vect(0.19469, -0.09919);
+		expectedBottomRight = new Vect(1.81271, 1.07637);
+		expectedBottomLeft = new Vect(1.51884, 1.48087);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.09244000000000002, 0.33793);
+		expectedTopRight = new Vect(0.16207, -0.09244000000000002);
+		expectedBottomRight = new Vect(1.88354, 0.92564);
+		expectedBottomLeft = new Vect(1.62904, 1.356);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.08265, 0.36977);
+		expectedTopRight = new Vect(0.13023, -0.08265);
+		expectedBottomRight = new Vect(1.93987, 0.76891);
+		expectedBottomLeft = new Vect(1.727, 1.22131);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.06990000000000002, 0.40054);
+		expectedTopRight = new Vect(0.09945999999999999, -0.06990000000000002);
+		expectedBottomRight = new Vect(1.9812, 0.60758);
+		expectedBottomLeft = new Vect(1.81185, 1.0779999999999998);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.054310000000000025, 0.42998000000000003);
+		expectedTopRight = new Vect(0.07002, -0.054310000000000025);
+		expectedBottomRight = new Vect(2.00717, 0.44306999999999996);
+		expectedBottomLeft = new Vect(1.88284, 0.92734);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.036019999999999996, 0.45782);
+		expectedTopRight = new Vect(0.042179999999999995, -0.036019999999999996);
+		expectedBottomRight = new Vect(2.01754, 0.27685);
+		expectedBottomLeft = new Vect(1.93934, 0.77067);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(-0.015189999999999981, 0.48380999999999996);
+		expectedTopRight = new Vect(0.01619000000000001, -0.015189999999999981);
+		expectedBottomRight = new Vect(2.01222, 0.11038999999999999);
+		expectedBottomLeft = new Vect(1.98084, 0.60938);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(1.0000000000010001E-5, 0.5);
+		expectedTopRight = new Vect(0.0, 1.0000000000010001E-5);
+		expectedBottomRight = new Vect(1.99998, 1.0000000000010001E-5);
+		expectedBottomLeft = new Vect(1.99999, 0.49999);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
+
+		expectedTopLeft = new Vect(1.0000000000010001E-5, 0.5);
+		expectedTopRight = new Vect(0.0, 1.0000000000010001E-5);
+		expectedBottomRight = new Vect(1.99998, 1.0000000000010001E-5);
+		expectedBottomLeft = new Vect(1.99999, 0.49999);
+
+		expectedCoordinates = new ArrayList<>();
+		expectedCoordinates.add(expectedTopLeft);
+		expectedCoordinates.add(expectedTopRight);
+		expectedCoordinates.add(expectedBottomRight);
+		expectedCoordinates.add(expectedBottomLeft);
+
+		actualCoordinates = f.getCoordinates();
+
+		assertEquals(expectedCoordinates, actualCoordinates);
+
+		f.flip();
 	}
 
 	@Test
@@ -173,8 +484,10 @@ public class FlipperTest {
 
 	@Test
 	public void testGetAngularVelocity() {
-		// TODO what should the angular velocity be anyway?
-		fail("Not yet implemented");
+		double expectedAngularVelocity = Board.moveTime * 1080,
+				actualAngularVelocity = immutableFlipper.getAngularVelocity();
+
+		assertEquals(expectedAngularVelocity, actualAngularVelocity, 0);
 	}
 
 	@Test
@@ -191,16 +504,6 @@ public class FlipperTest {
 		assertEquals(expectedOriginY, actualOriginY);
 		assertEquals(expectedName, actualName);
 
-	}
-
-	@Test
-	public void testRotationMatrix() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFlip() {
-		fail("Not yet implemented");
 	}
 
 	@Test
@@ -237,8 +540,7 @@ public class FlipperTest {
 
 	@Test
 	public void testGetSaveInfoLeftFlipper() {
-		String expectedSaveInfo = String.format("\"LeftFlipper\" %s %d %d", expectedName, expectedOriginX,
-				expectedOriginY);
+		String expectedSaveInfo = String.format("LeftFlipper %s %d %d", expectedName, expectedOriginX, expectedOriginY);
 		String actualSaveInfo = immutableFlipper.getSaveInfo();
 
 		assertEquals(expectedSaveInfo, actualSaveInfo);
@@ -246,20 +548,34 @@ public class FlipperTest {
 
 	@Test
 	public void testGetSaveInfoRightFlipper() {
-		String expectedSaveInfo = String.format("\"RightFlipper\" %s %d %d", expectedName, expectedOriginX,
+		Flipper f = new Flipper(expectedOriginX, expectedOriginY, expectedName);
+		f.setDirection(Direction.RIGHT);
+
+		String expectedSaveInfo = String.format("RightFlipper %s %d %d", expectedName, expectedOriginX,
 				expectedOriginY);
-		String actualSaveInfo = immutableFlipper.getSaveInfo();
+		String actualSaveInfo = f.getSaveInfo();
 
 		assertEquals(expectedSaveInfo, actualSaveInfo);
 	}
 
 	@Test
 	public void testGetRotation() {
-		fail("Not yet implemented");
+		Flipper f = new Flipper(0, 0, "doesn't matter");
+
+		int expectedRotation, actualRotation, c = 0;
+		while (c < 5) {
+			expectedRotation = c % 4;
+			actualRotation = f.getRotation();
+
+			assertEquals(expectedRotation, actualRotation);
+
+			f.rotate();
+			++c;
+		}
 	}
 
 	@Test
-	public void testLeftFlipperCoordinatesRotate0() {
+	public void testCoordinatesLeftRotate0() {
 		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
 
 		List<Vect> expectedCoordinates = coordinateMapToList(expectedCoordinatesOfFlipperAtLeftOfBoundingBox());
@@ -269,7 +585,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testLeftFlipperCoordinatesRotate1() {
+	public void testCoordinatesLeftRotate1() {
 		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
 		f.rotate();
 
@@ -280,7 +596,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testLeftFlipperCoordinatesRotate2() {
+	public void testCoordinatesLeftRotate2() {
 		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
 		for (int c = 0; c < 2; ++c)
 			f.rotate();
@@ -292,7 +608,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testLeftFlipperCoordinatesRotate3() {
+	public void testCoordinatesLeftRotate3() {
 		Flipper f = new Flipper(expectedOrigin, "El Flipperino");
 		for (int c = 0; c < 3; ++c)
 			f.rotate();
@@ -304,7 +620,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testRightFlipperCoordinatesRotate0() {
+	public void testCoordinatesRightRotate0() {
 		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
 		f.setDirection(Direction.RIGHT);
 		for (int c = 0; c < 0; ++c)
@@ -317,7 +633,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testRightFlipperCoordinatesRotate1() {
+	public void testCoordinatesRightRotate1() {
 		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
 		f.setDirection(Direction.RIGHT);
 		for (int c = 0; c < 1; ++c)
@@ -330,7 +646,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testRightFlipperCoordinatesRotate2() {
+	public void testCoordinatesRightRotate2() {
 		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
 		f.setDirection(Direction.RIGHT);
 		for (int c = 0; c < 2; ++c)
@@ -343,7 +659,7 @@ public class FlipperTest {
 	}
 
 	@Test
-	public void testRightFlipperCoordinatesRotate3() {
+	public void testCoordinatesRightRotate3() {
 		Flipper f = new Flipper(expectedOrigin, "onireppilF lE");
 		f.setDirection(Direction.RIGHT);
 		for (int c = 0; c < 3; ++c)
@@ -503,7 +819,7 @@ public class FlipperTest {
 		for (int c = 0; c < 3; c++)
 			f.rotate();
 
-		List<Circle> expectedCircles = coordinateMapToCircles(expectedCoordinatesOfFlipperAtRightOfBoundingBox());
+		List<Circle> expectedCircles = coordinateMapToCircles(expectedCoordinatesOfFlipperAtBottomOfBoundingBox());
 		List<Circle> actualCircles = f.getCircles();
 
 		assertEquals(expectedCircles, actualCircles);
@@ -604,7 +920,7 @@ public class FlipperTest {
 		coords.put(CoordinateLocation.TOP_LEFT, expectedOrigin.plus(new Vect(0, 1.5)));
 		coords.put(CoordinateLocation.TOP_RIGHT, expectedOrigin.plus(new Vect(2, 1.5)));
 		coords.put(CoordinateLocation.BOTTOM_RIGHT, expectedOrigin.plus(new Vect(2, 2)));
-		coords.put(CoordinateLocation.BOTTOM_LEFT, expectedOrigin.plus(new Vect(0, 1.5)));
+		coords.put(CoordinateLocation.BOTTOM_LEFT, expectedOrigin.plus(new Vect(0, 2)));
 
 		return coords;
 	}
@@ -645,46 +961,4 @@ public class FlipperTest {
 
 		return circles;
 	}
-	
-	/*
-	// FIXME using getBound incorrectly.
-	@Test
-	public void testFlipLeftDirection() throws Exception {
-
-		Flipper test = new Flipper(new Vect(0, 0), "Test Left");
-
-		System.out.println("Before X:" + test.getBound().x() + ", Y:" + test.getBound().y());
-		test.flip();
-		System.out.println("After X:" + test.getBound().x() + ", Y:" + test.getBound().y());
-
-		assertTrue(test.getBound().equals(new Vect(-1, 1)));
-
-		test.flip();
-
-		System.out.println("Flip back X:" + test.getBound().x() + ", Y:" + test.getBound().y());
-
-		assertTrue(test.getBound().equals(new Vect(1, 1)));
-
-	}
-
-	// FIXME using getBound incorrectly.
-	@Test
-	public void testFlipRightDirection() throws Exception {
-
-		Flipper test = new Flipper(new Vect(0, 0), "Test Right");
-		test.setDirection(Direction.RIGHT);
-
-		System.out.println("Before X:" + test.getBound().x() + ", Y:" + test.getBound().y());
-		test.flip();
-		System.out.println("After X:" + test.getBound().x() + ", Y:" + test.getBound().y());
-
-		assertTrue(test.getBound().equals(new Vect(1, -1)));
-
-		test.flip();
-
-		System.out.println("Flip back X:" + test.getBound().x() + ", Y:" + test.getBound().y());
-		assertTrue(test.getBound().equals(new Vect(1, 1)));
-
-	}
-	*/
 }
