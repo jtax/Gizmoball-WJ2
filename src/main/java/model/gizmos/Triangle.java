@@ -6,18 +6,22 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.Gizmo;
+import model.IElement;
+import model.Triggerable;
 import physics.LineSegment;
 import physics.Vect;
 
 public class Triangle extends Gizmo {
 
 	private List<Vect> coordinates;
+	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
 	private int rotation;
 	private String saveInfo;
 
 	public Triangle(Vect origin, String name) {
 		super(origin, name);
-		rotation = 2;
+		rotation = 0;
 		coordinates = calculateCoordinates();
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
@@ -56,29 +60,27 @@ public class Triangle extends Gizmo {
 		return calcLines;
 	}
 
-	public void setSaveInfo() {
+	private void setSaveInfo() {
 		saveInfo = "Triangle" + " " + super.getName() + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
 
 	public void rotate() {
 		Vect centerPoint = getCenterPoint();
-		rotation = (rotation + 1) % 4;
+		rotation =( (rotation + 1) % 4);
 		setSaveInfo();
-		List<Vect> newCoords = new ArrayList<Vect>();
 		for (int i = 0; i < coordinates.size(); i++) {
-			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, 90));
+			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint));
 		}
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 	}
 
-	public Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
-		double angleR = Math.toRadians(angle);
+	private Vect rotationMatrix(Vect coordinate, Vect center) {
+		double angleR = Math.toRadians((double) 90);
 		Vect coord = coordinate.minus(center);
 		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
 		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
-		Vect rotatedCoord = new Vect(newX, newY).plus(center);
-		return rotatedCoord;
+		return new Vect(newX, newY).plus(center);
 	}
 
 	public Vect getCenterPoint() {
@@ -117,5 +119,67 @@ public class Triangle extends Gizmo {
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 		setSaveInfo();
+	}
+
+	public boolean equals(Object other) {
+		if (other.getClass() != Triangle.class) {
+			return false;
+		}
+		//We know that its a triangle
+		Triangle otherTriangle = (Triangle) other;
+
+		if (!origin.equals(otherTriangle.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherTriangle.getBound())) {
+			return false;
+		}
+		if (rotation != otherTriangle.rotation) {
+			return false;
+		}
+		if(!coordinates.equals(otherTriangle.getCoordinates())){
+			return false;
+		}
+		return getCenterPoint().equals(otherTriangle.getCenterPoint());
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	public List<String> getConnections() {
+		return connections;
+	}
+
+	public void addKeyConnect(int keycode){
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+	}
+
+	public List<String> returnKeyConnects(){
+		return keyConnects;
+	}
+
+	@Override
+	public void clearConnections() {
+		connections.clear();
+		this.clearTriggerable();
+	}
+
+	@Override
+	public void clearKeyConnections() {
+		keyConnects.clear();
+		this.clearKeyPressTrigger();
+	}
+
+	@Override
+	public void removeConnection(IElement element) {
+		for (String connect : connections) {
+			if (connect.contains(element.getName())) {
+				connections.remove(connect);
+			}
+		}
 	}
 }

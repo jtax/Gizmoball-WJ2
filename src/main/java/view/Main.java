@@ -5,7 +5,9 @@ import controller.BoardController;
 import javax.swing.*;
 
 /**
- * Created by Umar on 10/02/2016.
+ * Gizmoball - Main
+ * Created by Group WJ2 on 10/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Main {
 	public static void main(String[] args) {
@@ -19,12 +21,7 @@ public class Main {
 			}
 		}
 
-		SwingUtilities.invokeLater(new Runnable() {
-
-			public void run() {
-				new BoardController();
-			}
-		});
+		SwingUtilities.invokeLater(BoardController::new);
 
 	}
 }

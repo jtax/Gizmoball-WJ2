@@ -1,24 +1,25 @@
 package view.buttongroups;
 
 import model.IElement;
+import physics.Vect;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Arc2D;
+import java.util.DoubleSummaryStatistics;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - BuildGUI
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class BuildGUI {
 
-	private JButton add, move, remove, switchToRun;
 	private JComboBox<String> shape;
 	private JLabel statusBar;
-	private JButton absorber;
-	private JButton ball;
-	private JButton flipper;
 	private ActionListener listener;
 
 	public BuildGUI(ActionListener listener) {
@@ -26,7 +27,7 @@ public class BuildGUI {
 		makeFrame();
 	}
 
-	public void makeFrame() {
+	private void makeFrame() {
 		createTopButton();
 		createBottomButton();
 		createMenu();
@@ -35,7 +36,7 @@ public class BuildGUI {
 
 	public JPanel createBottomButton() {
 
-		shape = new JComboBox<String>();
+		shape = new JComboBox<>();
 		shape.addItem("Pick Element");
 		shape.addItem("Square");
 		shape.addItem("Circle");
@@ -74,20 +75,23 @@ public class BuildGUI {
 	}
 
 	public JPanel createTopButton() {
-		add = new JButton("Add");
+		JButton add = new JButton("Add");
 		add.addActionListener(listener);
-		switchToRun = new JButton("Run Mode");
+		JButton switchToRun = new JButton("Run Mode");
 		switchToRun.addActionListener(listener);
-		move = new JButton("Move");
+		JButton move = new JButton("Move");
 		move.addActionListener(listener);
-		remove = new JButton("Remove");
+		JButton remove = new JButton("Remove");
 		remove.addActionListener(listener);
+		JButton info = new JButton("Info");
+		info.addActionListener(listener);
 
 
-		JPanel topButtons = new JPanel(new GridLayout(1, 6));
+		JPanel topButtons = new JPanel(new GridLayout(1, 5));
 		topButtons.add(add);
 		topButtons.add(remove);
 		topButtons.add(move);
+		topButtons.add(info);
 		topButtons.add(switchToRun);
 		return topButtons;
 	}
@@ -106,9 +110,11 @@ public class BuildGUI {
 		saveModel.setAccelerator(KeyStroke.getKeyStroke(
 				KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		saveModel.addActionListener(listener);
-
 		file.add(saveModel);
 
+		JMenuItem remKeyConn = new JMenuItem("Remove Key Connection");
+		remKeyConn.addActionListener(listener);
+		file.add(remKeyConn);
 
 
 
@@ -125,7 +131,12 @@ public class BuildGUI {
 		file.add(clear);
 
 		JMenuItem quit = new JMenuItem("Quit");
+		quit.addActionListener(listener);
+		quit.setAccelerator(KeyStroke.getKeyStroke(
+				KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
 		file.add(quit);
+
+
 
 		menus.add(file);
 		return menus;
@@ -133,7 +144,7 @@ public class BuildGUI {
 
 	public double promptGravity(){
 		String gravVal = JOptionPane.showInputDialog("Please enter a value for gravity (numerical)");
-		double gravValDouble = 0.0;
+		double gravValDouble;
 
 		try {
 			gravValDouble = Double.parseDouble(gravVal);
@@ -149,7 +160,8 @@ public class BuildGUI {
 
 		JDialog dialog = new JDialog();
 		dialog.setTitle("Press a key to connect");
-		dialog.setSize(200, 0);
+		dialog.setSize(300, 0);
+		dialog.setLocation(300,300);
 		dialog.setVisible(true);
 		dialog.setFocusable(true);
 		dialog.requestFocus();
@@ -164,8 +176,8 @@ public class BuildGUI {
 		String frictVal1 = JOptionPane.showInputDialog("Please enter the 1st value for friction (numerical)");
 		String frictVal2 = JOptionPane.showInputDialog("Please enter the 2nd value for friction (numerical)");
 
-		double frictVal1Double = 0.0;
-		double frictVal2Double = 0.0;
+		double frictVal1Double;
+		double frictVal2Double;
 
 
 		try {
@@ -178,6 +190,18 @@ public class BuildGUI {
 		return new double[]{frictVal1Double, frictVal2Double};
 	}
 
+	public Vect promptVelocity() {
+		String xVel = JOptionPane.showInputDialog("Please enter the X Velocity for the Ball");
+		String yVel = JOptionPane.showInputDialog("Please enter the Y Velocity for the Ball");
+		try {
+			double xV = Double.parseDouble(xVel);
+			double yV = Double.parseDouble(yVel);
+			return new Vect(xV, yV);
+		} catch (Exception e) {
+			return new Vect(0.5, 0.5);
+		}
+	}
+
 	public String dropboxValue(){
 		return shape.getSelectedItem().toString();
 	}
@@ -185,5 +209,6 @@ public class BuildGUI {
 	public void updateStatusBar(String message) {
 		statusBar.setText(message);
 	}
+
 
 }

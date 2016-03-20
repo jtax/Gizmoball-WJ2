@@ -1,0 +1,110 @@
+LeftFlipper LF2 0 18
+KeyConnect Key 39 change LF2
+KeyConnect Key 39 change LF2
+LeftFlipper LF4 2 18
+KeyConnect Key 39 change LF4
+LeftFlipper LF6 4 18
+KeyConnect Key 39 change LF6
+LeftFlipper LF8 6 18
+KeyConnect Key 39 change LF8
+LeftFlipper LF10 8 18
+KeyConnect Key 39 change LF10
+LeftFlipper LF12 10 18
+KeyConnect Key 39 change LF12
+LeftFlipper LF14 12 18
+KeyConnect Key 39 change LF14
+LeftFlipper LF16 14 18
+KeyConnect Key 39 change LF16
+KeyConnect Key 39 change LF16
+LeftFlipper LF18 16 18
+KeyConnect Key 39 change LF18
+LeftFlipper LF20 18 18
+KeyConnect Key 39 change LF20
+LeftFlipper LF22 0 16
+KeyConnect Key 39 change LF22
+LeftFlipper LF24 2 16
+KeyConnect Key 39 change LF24
+LeftFlipper LF26 4 16
+KeyConnect Key 39 change LF26
+LeftFlipper LF28 6 16
+KeyConnect Key 39 change LF28
+LeftFlipper LF30 8 16
+KeyConnect Key 39 change LF30
+LeftFlipper LF32 10 16
+KeyConnect Key 39 change LF32
+LeftFlipper LF34 12 16
+KeyConnect Key 39 change LF34
+LeftFlipper LF36 14 16
+KeyConnect Key 39 change LF36
+KeyConnect Key 39 change LF36
+KeyConnect Key 39 change LF36
+LeftFlipper LF38 16 16
+KeyConnect Key 39 change LF38
+LeftFlipper LF40 18 16
+KeyConnect Key 39 change LF40
+LeftFlipper LF42 0 14
+KeyConnect Key 39 change LF42
+LeftFlipper LF44 2 14
+KeyConnect Key 39 change LF44
+LeftFlipper LF46 4 14
+KeyConnect Key 39 change LF46
+LeftFlipper LF48 6 14
+KeyConnect Key 39 change LF48
+LeftFlipper LF50 8 14
+KeyConnect Key 39 change LF50
+LeftFlipper LF52 10 14
+KeyConnect Key 39 change LF52
+LeftFlipper LF54 12 14
+KeyConnect Key 39 change LF54
+LeftFlipper LF56 14 14
+KeyConnect Key 39 change LF56
+KeyConnect Key 39 change LF56
+LeftFlipper LF58 16 14
+KeyConnect Key 39 change LF58
+LeftFlipper LF60 18 14
+KeyConnect Key 39 change LF60
+LeftFlipper LF62 0 12
+KeyConnect Key 39 change LF62
+LeftFlipper LF64 2 12
+KeyConnect Key 39 change LF64
+LeftFlipper LF66 4 12
+KeyConnect Key 39 change LF66
+LeftFlipper LF68 6 12
+KeyConnect Key 39 change LF68
+LeftFlipper LF70 8 12
+KeyConnect Key 39 change LF70
+LeftFlipper LF72 10 12
+KeyConnect Key 39 change LF72
+LeftFlipper LF74 12 12
+KeyConnect Key 39 change LF74
+LeftFlipper LF76 14 12
+KeyConnect Key 39 change LF76
+KeyConnect Key 39 change LF76
+LeftFlipper LF78 16 12
+KeyConnect Key 39 change LF78
+KeyConnect Key 39 change LF78
+LeftFlipper LF80 18 12
+KeyConnect Key 39 change LF80
+LeftFlipper LF82 0 10
+KeyConnect Key 39 change LF82
+LeftFlipper LF84 2 10
+KeyConnect Key 39 change LF84
+LeftFlipper LF86 4 10
+KeyConnect Key 39 change LF86
+LeftFlipper LF88 6 10
+KeyConnect Key 39 change LF88
+LeftFlipper LF90 8 10
+KeyConnect Key 39 change LF90
+LeftFlipper LF92 10 10
+KeyConnect Key 39 change LF92
+LeftFlipper LF94 12 10
+KeyConnect Key 39 change LF94
+LeftFlipper LF96 14 10
+KeyConnect Key 39 change LF96
+LeftFlipper LF98 16 10
+KeyConnect Key 39 change LF98
+KeyConnect Key 39 change LF98
+LeftFlipper LF100 18 10
+KeyConnect Key 39 change LF100
+Gravity 25
+Friction 0.025 0.025

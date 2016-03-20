@@ -1,32 +1,33 @@
 package model.gizmos;
 
-import java.awt.Color;
+import model.*;
+import physics.LineSegment;
+import physics.Vect;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import model.Ball;
-import model.Collision;
-import model.Gizmo;
-import model.Triggerable;
-import physics.LineSegment;
-import physics.Vect;
-
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - Absorber
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Absorber extends Gizmo implements Triggerable {
 
 	private Vect bound;
 	private List<Vect> coordinates;
+	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
 	private Ball ourBall;
 	private String saveInfo;
-	private String name;
-	int rotation;
+	private final String name;
+	private int rotation;
 
 	public Absorber(Vect origin, Vect bound, String name) {
 		super(origin, name);
-		rotation = 2;
+		rotation = 0;
 		this.bound = bound;
 		this.name = name;
 		setBound(bound);
@@ -79,7 +80,6 @@ public class Absorber extends Gizmo implements Triggerable {
 		Vect centerPoint = getCenterPoint();
 		rotation = (rotation + 1) % 4;
 		//setSaveInfo();
-		List<Vect> newCoords = new ArrayList<Vect>();
 		for (int i = 0; i < coordinates.size(); i++) {
 			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, 90));
 		}
@@ -92,8 +92,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		Vect coord = coordinate.minus(center);
 		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
 		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
-		Vect rotatedCoord = new Vect(newX, newY).plus(center);
-		return rotatedCoord;
+		return new Vect(newX, newY).plus(center);
 	}
 
 	public Vect getCenterPoint() {
@@ -113,7 +112,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		positionBall();
 	}
 
-	private void releaseOurBall() {
+	public void releaseOurBall() {
 		if (weHaveABall()) {
 			double xVelocity = 0, yVelocity = -50;
 			Vect velocity = new Vect(xVelocity, yVelocity);
@@ -124,13 +123,13 @@ public class Absorber extends Gizmo implements Triggerable {
 		}
 	}
 
-	private void positionBall() {
+	public void positionBall() {
 		if (weHaveABall()) {
 			Vect ourBound = getBound();
 			double ballRadius = ourBall.getRadius();
 
-			double ballX = ourBound.x() - ballRadius - .25;
-			double ballY = ourBound.y() - ballRadius - .25;
+			double ballX = ourBound.x() - ballRadius;
+			double ballY = ourBound.y() - ballRadius;
 
 			ourBall.setCenter(new Vect(ballX, ballY));
 		}
@@ -145,7 +144,7 @@ public class Absorber extends Gizmo implements Triggerable {
 		return rotation;
 	}
 
-	private boolean weHaveABall() {
+	public boolean weHaveABall() {
 		return ourBall != null;
 	}
 
@@ -169,5 +168,71 @@ public class Absorber extends Gizmo implements Triggerable {
 		super.setLines(calculateLines());
 		saveInfo = "Absorber" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord() + " "
 				+ (int) bound.getXCoord() + " " + (int) bound.getyCoord();
+		positionBall();
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != Absorber.class) {
+			return false;
+		}
+		//We know that its a absorber
+		Absorber otherAbsorber = (Absorber) other;
+
+		if (!origin.equals(otherAbsorber.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherAbsorber.getBound())) {
+			return false;
+		}
+		if (rotation != otherAbsorber.rotation) {
+			return false;
+		}
+		return coordinates.equals(otherAbsorber.coordinates);
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
+	}
+
+	@Override
+	public List<String> getConnections() {
+		return connections;
+	}
+
+
+	public void addKeyConnect(int keycode){
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
+	}
+
+	public List<String> returnKeyConnects(){return keyConnects;	}
+
+	public void removeKeyConnects(){
+		keyConnects.clear();
+		this.clearKeyTriggers();
+	}
+
+	@Override
+	public void clearConnections() {
+		connections.clear();
+		this.clearTriggerable();
+	}
+
+	@Override
+	public void clearKeyConnections() {
+		keyConnects.clear();
+		this.clearKeyPressTrigger();
+	}
+
+	@Override
+	public void removeConnection(IElement element) {
+		for (String connect : connections) {
+			if (connect.contains(element.getName())) {
+				connections.remove(connect);
+			}
+		}
 	}
 }

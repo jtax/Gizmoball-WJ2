@@ -6,16 +6,19 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.Gizmo;
+import model.IElement;
 import physics.LineSegment;
 import physics.Vect;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - Wall
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Wall extends Gizmo {
 
-	private Vect bound;
-	private java.util.List<Vect> coordinates;
+	private final Vect bound;
+	private final java.util.List<Vect> coordinates;
 
 	public Wall(Vect origin, Vect bnd, String name) {
 		super(origin, name);
@@ -83,5 +86,51 @@ public class Wall extends Gizmo {
 	@Override
 	public List<Vect> getCoordinates() {
 		return coordinates;
+	}
+
+	public boolean equals(Object other) {
+		if (other.getClass() != Wall.class) {
+			return false;
+		}
+		//We know that its a wall
+		Wall otherWall = (Wall) other;
+
+		if (!origin.equals(otherWall.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherWall.getBound())) {
+			return false;
+		}
+		return coordinates.equals(otherWall.getCoordinates());
+	}
+
+
+	public void gizmoConnect(IElement secondElement){
+
+	}
+
+	public List<String> getConnections(){
+		return new ArrayList<>();
+	}
+
+	public void addKeyConnect(int keycode){
+
+	}
+
+	public List<String> returnKeyConnects(){
+		return new ArrayList<>();
+	}
+
+	@Override
+	public void clearConnections() {
+	}
+
+	@Override
+	public void clearKeyConnections() {
+	}
+
+	@Override
+	public void removeConnection(IElement element) {
+
 	}
 }

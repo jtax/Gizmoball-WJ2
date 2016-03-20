@@ -9,9 +9,12 @@ import java.util.List;
 import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
+import java.util.Random;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - Gizmo
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 abstract public class Gizmo implements IElement, Triggerable {
 
@@ -22,7 +25,7 @@ abstract public class Gizmo implements IElement, Triggerable {
 	private List<LineSegment> lines;
 	private List<Circle> circles;
 	private int reflection;
-	private String name;
+	private final String name;
 	private int keyPressTrigger;
 
 	protected Gizmo(Vect origin, String name) {
@@ -60,13 +63,20 @@ abstract public class Gizmo implements IElement, Triggerable {
 		return name;
 	}
 
-	public void addTriggerable(Triggerable t) {
+	protected void addTriggerable(Triggerable t) {
 		triggerables.add(t);
 	}
 
-	public void addKeyPressTrigger(int keyCode) {
+	protected void clearTriggerable() {
+		triggerables.clear();
+	}
 
+	protected void addKeyPressTrigger(int keyCode) {
 		keyPressTrigger = keyCode;
+	}
+
+	protected void clearKeyPressTrigger() {
+		keyPressTrigger = -1;
 	}
 
 	public int getKeyPressTrigger() {
@@ -74,12 +84,17 @@ abstract public class Gizmo implements IElement, Triggerable {
 	}
 
 	public void trigger() {
+		Random rand = new Random();
+		float r = rand.nextFloat();
+		float g = rand.nextFloat();
+		float b = rand.nextFloat();
+		Color randomColor = new Color(r, g, b);
 
-		color = Color.red;
+		color = randomColor;
 	}
 
 	/** trigger the attached tirggerables */
-	protected void onCollision() {
+	private void onCollision() {
 		for (Triggerable t : triggerables)
 			t.trigger();
 	}
@@ -131,8 +146,8 @@ abstract public class Gizmo implements IElement, Triggerable {
 	 * This is to guarantee that onCollision() is called on every collision.
 	 */
 	public final void handle(Collision c) {
-		onCollision();
 		subHandle(c);
+		onCollision();
 	}
 	
 	protected void subHandle(Collision c) {
@@ -143,13 +158,20 @@ abstract public class Gizmo implements IElement, Triggerable {
 		setColor(Color.GREEN);
 	}
 
-	public void highlight() {
-		if (color != backupColor) {
-			color = backupColor;
+	@Override
+	public void highlight(boolean toggle) {
+		if (toggle) {
+			color = Color.cyan;
 		} else {
-			color = Color.CYAN;
+			color = backupColor;
 		}
 	}
+
+	public void clearKeyTriggers(){
+		System.out.println("here");
+		keyPressTrigger = 0;
+	}
+
 
 
 

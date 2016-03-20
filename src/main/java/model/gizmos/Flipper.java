@@ -1,9 +1,6 @@
 package model.gizmos;
 
-import model.Board;
-import model.Direction;
-import model.Gizmo;
-import model.Triggerable;
+import model.*;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -13,56 +10,52 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by baird on 06/02/2016.
+ * Gizmoball - Flipper Created by Group WJ2 on 06/02/2016. Authors: J Baird, C
+ * Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Flipper extends Gizmo implements Triggerable {
-	private List<Vect> coordinates;
+	private final static Vect FLIPPER_SIZE = new Vect(2, 2);
 
-	protected Boolean rotating = false;
-	protected Boolean rotatingUp = false;
-	protected Boolean finishedRotation = false;
+	private List<Vect> coordinates;
+	private List<String> connections = new ArrayList<>();
+	private List<String> keyConnects = new ArrayList<>();
+	private Boolean rotating = false;
+	private Boolean rotatingUp = false;
+	private Boolean finishedRotation = false;
 	private double movementRotation = 0;
 	private Direction direction = Direction.LEFT;
 	private int directionConst = 1;
-	private String saveInfo;
-	private String name;
-	private String saveDirection;
-	private Vect pivotPoint;
 	private double angularVelocity;
-    private int rotation;
+	private int rotation;
 
-    public Flipper(Vect origin, String name) {
+	public Flipper(Vect origin, String name) {
 
 		super(origin, name);
 		angularVelocity = Board.moveTime * 1080;
-		saveDirection = "Left";
-		rotation = 2;
+		rotation = 0;
 		movementRotation = 0;
-		coordinates = calculateCoordinates();
-		pivotPoint = coordinates.get(0).plus(new Vect(0.25,0.25));
+		coordinates = calculateCoordinates(origin, bound.minus(new Vect(1.5, 0)));
 
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 		super.setColor(new Color(0xf1c40f));
-		setSaveInfo();
-	}
-
-	public Vect getPivotPoint() {
-		return pivotPoint;
 	}
 
 	public double getAngularVelocity() {
 		return angularVelocity;
 	}
 
-
 	public void move(Vect distance) {
 		super.origin = super.origin.plus(distance);
 		super.bound = super.bound.plus(distance);
-		coordinates = calculateCoordinates();
+		if (direction == Direction.LEFT) {
+			coordinates = calculateCoordinates(origin, bound.minus(new Vect(1.5, 0)));
+		} else {
+			coordinates = calculateCoordinates(origin.plus(new Vect(1.5, 0)), bound);
+		}
+
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
-		saveInfo = "Circle" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
 
 	@Override
@@ -82,27 +75,21 @@ public class Flipper extends Gizmo implements Triggerable {
 
 		this.direction = direction;
 		if (direction == Direction.RIGHT) {
-			saveDirection = "Right";
 			directionConst = -1;
-			setSaveInfo();
-			origin = origin.plus(new Vect(1.5, 0));
+			// origin = origin.plus(new Vect(1.5, 0));
 			bound = calculateBound();
-			coordinates = calculateCoordinates();
-			pivotPoint = coordinates.get(0).plus(new Vect(0.25,0.25));
+			coordinates = calculateCoordinates(origin.plus(new Vect(1.5, 0)), bound);
 			super.setCircles(calculateCircles());
 			super.setLines(calculateLines());
 		}
 
 	}
 
-	private List<Vect> calculateCoordinates() {
+	private List<Vect> calculateCoordinates(Vect topLeft, Vect bottomRight) {
+		Vect topRight = new Vect(bottomRight.x(), topLeft.y());
+		Vect bottomLeft = new Vect(topLeft.x(), bottomRight.y());
 
-		Vect topLeft = origin;
-		Vect topRight = new Vect(bound.x(), origin.y());
-		Vect bottomRight = bound;
-		Vect bottomLeft = new Vect(origin.x(), bound.y());
-
-		return Arrays.asList(topLeft,topRight, bottomRight,  bottomLeft);
+		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
 	}
 
 	private List<physics.Circle> calculateCircles() {
@@ -127,60 +114,83 @@ public class Flipper extends Gizmo implements Triggerable {
 	}
 
 	public void rotate() {
-		Vect centerPoint = origin.plus(new Vect(directionConst,directionConst));
-
-		if (Direction.RIGHT == direction) {
-			centerPoint = origin.plus(new Vect(-0.5,1));
-
-		}
-
+		/*
+		 * Vect centerPoint = origin.plus(new
+		 * Vect(directionConst,directionConst));
+		 * 
+		 * if (Direction.RIGHT == direction) { centerPoint = origin.plus(new
+		 * Vect(-0.5,1));
+		 * 
+		 * }
+		 */
+		Vect centerPoint = origin.plus(new Vect(1, 1));
 		rotation = (rotation + 1) % 4;
-		List<Vect> newCoords = new ArrayList<Vect>();
+
 		for (int i = 0; i < coordinates.size(); i++) {
 			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, 90));
 		}
+
+		Vect last = coordinates.get(coordinates.size() - 1);
+		for (int i = coordinates.size() - 1; i > 0; i--) {
+			coordinates.set(i, coordinates.get(i - 1));
+		}
+		coordinates.set(0, last);
+
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
+	}
 
+	public Vect getPivotPoint() {
+		Vect topLeftPivotPoint = origin.plus(FLIPPER_SIZE.times(1 / 8.0)),
+				bottomRightPivotPoint = origin.plus(FLIPPER_SIZE.times(7 / 8.0)),
+				topRightPivotPoint = new Vect(bottomRightPivotPoint.x(), topLeftPivotPoint.y()),
+				bottomLeftPivotPoint = new Vect(topLeftPivotPoint.x(), bottomRightPivotPoint.y()); // :-)
+
+		int rotation = this.rotation;
+		if (direction == Direction.RIGHT)
+			rotation = (rotation + 1) % 4;
 
 		switch (rotation) {
-			case 3:
-				pivotPoint = coordinates.get(1).plus(new Vect(-0.25, -0.25));
-			break;
-			case 0:
-				pivotPoint = coordinates.get(1).plus(new Vect(0.25, -0.25));
-			break;
-			case 1:
-				pivotPoint = coordinates.get(0).plus(new Vect(0.25, -0.25));
-			break;
-
-			case 2:
-				pivotPoint = coordinates.get(1).plus(new Vect(-0.25, 0.25));
-			break;
+		case 0:
+			return topLeftPivotPoint;
+		case 1:
+			return topRightPivotPoint;
+		case 2:
+			return bottomRightPivotPoint;
+		case 3:
+			return bottomLeftPivotPoint;
+		default:
+			System.err.printf("Error: %s's rotation is <0 or >3.%n", toString());
+			return null;
 		}
 	}
 
-	public Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
+	private Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
 		double angleR = Math.toRadians(angle);
 		Vect coord = coordinate.minus(center);
 		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
 		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
-		Vect rotatedCoord = new Vect(newX, newY).plus(center);
-		return rotatedCoord;
+		Vect unTransposeCoord = roundRotationCoord(new Vect(newX, newY));
+		return unTransposeCoord.plus(center);
 	}
 
+	private Vect roundRotationCoord(Vect coord) {
+		double x = Math.round(coord.x() * 100000);
+		double y = Math.round(coord.y() * 100000);
+		x = x / 100000;
+		y = y / 100000;
+		return new Vect(x, y);
+	}
 
 	/**
 	 * Flips a Flipper based on its direction and weather we need to rotate back
 	 */
 	public void flip() {
 		double rotate = angularVelocity;
-
 		// Execute only if Flipper is in rotating stage
 		if (rotating) {
 
 			if (!finishedRotation && rotatingUp) {
-
 
 				// rotate up
 				if (angularVelocity + movementRotation > 90) {
@@ -200,20 +210,18 @@ public class Flipper extends Gizmo implements Triggerable {
 					rotating = false;
 					finishedRotation = false;
 				}
-
 				movementRotation -= rotate;
 			}
 
-
 			for (int i = 0; i < coordinates.size(); i++) {
-				coordinates.set(i, rotationMatrix(coordinates.get(i), pivotPoint, rotate * directionConst));
+				coordinates.set(i, rotationMatrix(coordinates.get(i), getPivotPoint(), rotate * directionConst));
 			}
 			super.setCircles(calculateCircles());
 			super.setLines(calculateLines());
 		}
 	}
 
-	/**	
+	/**
 	 * For tests
 	 */
 	public Direction getDirection() {
@@ -224,17 +232,19 @@ public class Flipper extends Gizmo implements Triggerable {
 	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();
-		Vect bound = new Vect(0.5, 2);
+		Vect bound = new Vect(2, 2);
 		return origin.plus(bound);
 	}
 
-	public void setSaveInfo() {
-		saveInfo = saveDirection + "Flipper" + " " + super.getName() + " " + (int) origin.getXCoord() + " "
-				+ (int) origin.getyCoord();
-	}
-
 	public String getSaveInfo() {
-		return saveInfo;
+		String saveDirection;
+		if (direction == Direction.LEFT)
+			saveDirection = "Left";
+		else
+			saveDirection = "Right";
+
+		return saveDirection + "Flipper" + " " + super.getName() + " " + (int) origin.getXCoord() + " "
+				+ (int) origin.getyCoord();
 	}
 
 	@Override
@@ -247,4 +257,83 @@ public class Flipper extends Gizmo implements Triggerable {
 		return coordinates;
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != Flipper.class) {
+			return false;
+		}
+		// We know that its a flipper
+		Flipper otherFlipper = (Flipper) other;
+
+		if (!origin.equals(otherFlipper.getOrigin())) {
+			return false;
+		}
+		if (!bound.equals(otherFlipper.getBound())) {
+			return false;
+		}
+		if (rotation != otherFlipper.getRotation()) {
+			return false;
+		}
+		if (!coordinates.equals(otherFlipper.getCoordinates())) {
+			return false;
+		}
+
+		if (!direction.equals(otherFlipper.getDirection())) {
+			return false;
+		}
+
+		if (!getPivotPoint().equals(otherFlipper.getPivotPoint())) {
+			return false;
+		}
+		return angularVelocity == otherFlipper.getAngularVelocity();
+
+	}
+
+	public void gizmoConnect(IElement secondElement) {
+		this.addTriggerable((Triggerable) secondElement);
+		connections.add("Connect " + this.getName() + " " + secondElement.getName());
+	}
+
+	public List<String> getConnections() {
+		return connections;
+	}
+
+	public void addKeyConnect(int keycode) {
+		this.addKeyPressTrigger(keycode);
+		keyConnects.add("KeyConnect Key " + keycode + " change " + this.getName());
+	}
+
+	public List<String> returnKeyConnects() {
+		return keyConnects;
+	}
+
+	@Override
+	public void clearConnections() {
+		connections.clear();
+		this.clearTriggerable();
+	}
+
+	@Override
+	public void clearKeyConnections() {
+		keyConnects.clear();
+		this.clearKeyPressTrigger();
+	}
+
+	@Override
+	public void removeConnection(IElement element) {
+		for (String connect : connections) {
+			if (connect.contains(element.getName())) {
+				connections.remove(connect);
+			}
+		}
+	}
+
+	public void printAllTheFlippingThings() {
+		Vect topLeft = coordinates.get(0), topRight = coordinates.get(1), bottomRight = coordinates.get(2),
+				bottomLeft = coordinates.get(3);
+
+		System.out.print("tlx " + topLeft.x() + " tly " + topLeft.y() + " trx " + topRight.x() + " try " + topRight.y()
+				+ " brx " + bottomRight.x() + " bry " + bottomRight.y() + " blx " + bottomLeft.x() + " bly "
+				+ bottomLeft.y() + "\n");
+	}
 }

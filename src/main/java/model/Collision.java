@@ -3,11 +3,13 @@ package model;
 import physics.Vect;
 
 /**
- * Created by baird on 14/02/2016.
+ * Gizmoball - Collision
+ * Created by Group WJ2 on 14/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Collision {
-	private double time;
-	private Vect velocity;
+	private final double time;
+	private final Vect velocity;
 	private CollisionHandler handler;
 	private Ball ball;
 
