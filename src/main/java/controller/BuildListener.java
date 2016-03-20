@@ -91,6 +91,9 @@ public class BuildListener implements ActionListener {
             case "Info":
                 showInfo();
                 break;
+            case "Quit" :
+                quit();
+                break;
         }
     }
 
@@ -209,7 +212,7 @@ public class BuildListener implements ActionListener {
 
     private void addElement(){
         String option = gbv.getBuildGUI().dropboxValue();
-        if(!option.equals("Pick a gizmo")){
+        if(!option.equals("Pick Element") && getPress() !=null){
             System.out.println("Adding the element "+ option +"\n To the coords: " + getPress());
             ElementFactory ef = new ElementFactory(board.getNextElementID());
             IElement e;
@@ -241,6 +244,7 @@ public class BuildListener implements ActionListener {
                 gbv.changeStatusMessage("Error: Add gizmo failed.");
             }
         }
+        else gbv.changeStatusMessage("Error: Add gizmo failed.");
     }
 
 
@@ -294,6 +298,15 @@ public class BuildListener implements ActionListener {
         } else {
             gbv.changeStatusMessage("Error: Please select an initial Gizmo.");
         }
+    }
+
+    private void quit(){
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to quit","Warning",dialogButton);
+        if(dialogResult == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+
     }
 }
 

@@ -208,8 +208,11 @@ public class Absorber extends Gizmo implements Triggerable {
 		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
 	}
 
-	public List<String> returnKeyConnects(){
-		return keyConnects;
+	public List<String> returnKeyConnects(){return keyConnects;	}
+
+	public void removeKeyConnects(){
+		keyConnects.clear();
+		this.clearKeyTriggers();
 	}
 
 	@Override

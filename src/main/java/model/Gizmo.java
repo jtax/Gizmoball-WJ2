@@ -9,6 +9,7 @@ import java.util.List;
 import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
+import java.util.Random;
 
 /**
  * Gizmoball - Gizmo
@@ -83,8 +84,13 @@ abstract public class Gizmo implements IElement, Triggerable {
 	}
 
 	public void trigger() {
+		Random rand = new Random();
+		float r = rand.nextFloat();
+		float g = rand.nextFloat();
+		float b = rand.nextFloat();
+		Color randomColor = new Color(r, g, b);
 
-		color = Color.red;
+		color = randomColor;
 	}
 
 	/** trigger the attached tirggerables */
@@ -159,6 +165,11 @@ abstract public class Gizmo implements IElement, Triggerable {
 		} else {
 			color = backupColor;
 		}
+	}
+
+	public void clearKeyTriggers(){
+		System.out.println("here");
+		keyPressTrigger = 0;
 	}
 
 

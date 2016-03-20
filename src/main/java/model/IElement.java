@@ -50,4 +50,6 @@ public interface IElement extends CollisionHandler {
 
 	void clearKeyConnections();
 
+	void removeKeyConnects();
+
 }
