@@ -185,8 +185,13 @@ public class BuildListener implements ActionListener {
                     e = ef.createElement(option, snapToGrid(getPress()), snapToGrid(getRelease()));
                     break;
                 case "Ball":
-                    Vect userVectVal = gbv.getBuildGUI().promptVelocity();
-                    e = ef.createElement(option, getPress(), userVectVal);
+                    if (board.getBalls().size() > 0) {
+                        gbv.changeStatusMessage("Only One Ball at a time please.");
+                        return;
+                    } else {
+                        Vect userVectVal = gbv.getBuildGUI().promptVelocity();
+                        e = ef.createElement(option, getPress(), userVectVal);
+                    }
                     break;
                 default:
                     e = ef.createElement(option, snapToGrid(getPress()));
