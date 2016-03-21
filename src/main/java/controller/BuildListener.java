@@ -37,10 +37,6 @@ public class BuildListener implements ActionListener {
         this.gbv = gbv;
     }
 
-    /**
-     * Listens to Actions and does appropriate actions
-     * @param e
-     */
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {

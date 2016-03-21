@@ -6,9 +6,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Collection;
 
-/**
- * Package: controller Created by Laurynas Sakalauskas on 17/02/16 13:39.
- * Project: Gizmoball-WJ2
+
+ /**
+ * Gizmoball - BoardMouseListener
+ *
+ * Description: KeyPressListener deals with key presses.
+ *
+ * Created by Group WJ2 on 08/03/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class KeyPressListener implements KeyListener {
 
