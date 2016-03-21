@@ -1,11 +1,14 @@
 package model;
 
 /**
- * Package: model Created by Laurynas Sakalauskas on 17/02/16 13:56. Project:
- * Gizmoball-WJ2
+ * An interface for elements that can be triggered.
+ * 
+ * @author Team WJ2
  */
 public interface Triggerable {
 
+	/**
+	 * Trigger the element.
+	 */
 	void trigger();
-
 }

@@ -128,17 +128,13 @@ public class Absorber extends Gizmo implements Triggerable {
 
 	public void absorb(Ball ball) {
 		ourBall = ball;
-		ourBall.setAbsorbed();
+		ourBall.absorb();
 		positionBall();
 	}
 
 	public void releaseOurBall() {
 		if (weHaveABall()) {
-			double xVelocity = 0, yVelocity = -50;
-			Vect velocity = new Vect(xVelocity, yVelocity);
-			ourBall.setVelocity(velocity);
-			ourBall.clearAbsorbed();
-
+			ourBall.release();
 			ourBall = null;
 		}
 	}
