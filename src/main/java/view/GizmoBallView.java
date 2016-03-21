@@ -18,6 +18,10 @@ import view.buttongroups.RunGUI;
 
 /**
  * Gizmoball - GizmoBallView
+ *
+ * Description: This class represents the GizmoBallView,
+ * it's the whole GUI that is seen by the user.
+ *
  * Created by Group WJ2 on 06/02/2016.
  * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
@@ -35,6 +39,10 @@ public class GizmoBallView implements Observer {
 	private ActionListener runListener;
 	private ActionListener buildListener;
 
+	/**
+	 * Constructor for GizmoBallView, where listeners are created.
+	 * @param bm
+     */
 	public GizmoBallView(IBoard bm) {
 		frame = new JFrame("Gizmo Baw");
 		contentPane = frame.getContentPane();
@@ -46,6 +54,9 @@ public class GizmoBallView implements Observer {
 		makeFrame();
 	}
 
+	/**
+	 * Creates the frame
+	 */
 	private void makeFrame() {
 		JPanel boardPanel = boardView.getPanel();
 		
@@ -67,16 +78,21 @@ public class GizmoBallView implements Observer {
 		frame.setFocusable(true);
 		frame.requestFocus();
 		frame.pack();
-
-		// frame.setResizable(false);
+		frame.setResizable(false);
 	}
 
+	/**
+	 * Creates the run gui
+	 */
 	private void makeRunGUI() {
 		runGUI = new RunGUI(runListener);
 		bottomButtons = runGUI.createButton();
 		menu = runGUI.createMenu();
 	}
 
+	/**
+	 * Creates the build gui
+	 */
 	private void makeBuildGUI() {
 		buildGUI = new BuildGUI(buildListener);
 		bottomButtons = buildGUI.createBottomButton();
@@ -91,28 +107,50 @@ public class GizmoBallView implements Observer {
 
 	}
 
+	/**
+	 * Returns the frame
+	 * @return frame
+     */
 	public JFrame getFrame(){
 		return frame;
 	}
 
+	/**
+	 * Switches mode
+	 */
 	public void switchMode(){
 		boardView.toggleMode();
 		contentPane.removeAll();
 		makeFrame();
 	}
 
+	/**
+	 * Returns the build gui
+	 * @return buildGUI
+     */
 	public BuildGUI getBuildGUI(){
 		return buildGUI;
 	}
 
+	/**
+	 * Returns the run gui
+	 * @return runGUI
+	 */
 	public RunGUI getRunGUI(){
 		return runGUI;
 	}
 
+	/**
+	 * Updates the board view
+	 */
 	public void updateBoardView() {
 		boardView.getPanel().repaint();
 	}
 
+	/**
+	 * Changes the status bar message depending on the string.
+	 * @param message
+     */
 	public void changeStatusMessage(String message) {
 		if (boardView.getMode() == Mode.BUILD) {
 			buildGUI.updateStatusBar("Build Mode: " + message);
@@ -123,6 +161,11 @@ public class GizmoBallView implements Observer {
 		}
 	}
 
+	/**
+	 * Returns the gizmo information for the gizmo.
+	 * @param gizmoInfo
+	 * @return
+     */
 	public int gizmoInfo(String gizmoInfo) {
 		Object[] options = {"Remove Gizmo Connect", "Remove Key Connect", "Cancel"};
 		return JOptionPane.showOptionDialog(frame, gizmoInfo, "Gizmo Information", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[2]);

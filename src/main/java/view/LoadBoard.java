@@ -8,14 +8,30 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.Board;
 import model.GizmoParser;
+/**
+ * Gizmoball - LoadBoard
+ *
+ * Description: This class loads the board from a file.
+ *
+ * Created by Group WJ2 on 06/02/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
+ */
 
 public class LoadBoard {
 
+	/**
+	 * load the file
+	 * @return board
+     */
 	public Board loadFile() {
 		File filen = getFileToOpen();
 		return openGizmoFromFile(filen);
 	}
 
+	/**
+	 * Returns the file to be opened
+	 * @return file to be opened
+     */
 	private static File getFileToOpen() {
 
 		JFileChooser openFile = new JFileChooser();
@@ -33,6 +49,11 @@ public class LoadBoard {
 
 	}
 
+	/**
+	 * Opens gizmo from the file
+	 * @param filen
+	 * @return board
+     */
 	private static Board openGizmoFromFile(File filen) {
 		Board board = null;
 		try {
