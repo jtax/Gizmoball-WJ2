@@ -5,8 +5,7 @@ import physics.LineSegment;
 import physics.Vect;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -80,18 +79,39 @@ public class Absorber extends Gizmo implements Triggerable {
 		Vect centerPoint = getCenterPoint();
 		rotation = (rotation + 1) % 4;
 		//setSaveInfo();
+		List<Vect> oldCoordinates = new LinkedList<>();
+
 		for (int i = 0; i < coordinates.size(); i++) {
+			oldCoordinates.add(coordinates.get(i));
 			coordinates.set(i, rotationMatrix(coordinates.get(i), centerPoint, 90));
 		}
+
+		if(outOfBoard()){
+			coordinates = oldCoordinates;
+		}
+
 		super.setCircles(calculateCircles());
 		super.setLines(calculateLines());
 	}
 
+	private boolean outOfBoard(){
+
+		for(int i = 0; i < coordinates.size(); i++){
+			double x = coordinates.get(i).x();
+			double y = coordinates.get(i).y();
+
+			if((x < 0 || x >= 20) || (y < 0 || y >= 20)){
+				return true;
+			}
+		}
+		return false;
+	}
 	public Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
 		double angleR = Math.toRadians(angle);
 		Vect coord = coordinate.minus(center);
 		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
 		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
+
 		return new Vect(newX, newY).plus(center);
 	}
 
