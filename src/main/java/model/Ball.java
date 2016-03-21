@@ -16,7 +16,7 @@ import physics.Vect;
  * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Ball implements IElement, Absorbable {
-	private Circle point;
+	private Circle physicsCircle;
 	private Vect origin;
 	private Vect velocity;
 	private Vect center;
@@ -26,10 +26,18 @@ public class Ball implements IElement, Absorbable {
 	private final float diameter = 0.5f;
 	private String saveInfo;
 
-	// TODO do balls need names?
+	/**
+	 * Make a new ball.
+	 * 
+	 * @param name
+	 * @param x
+	 * @param y
+	 * @param velocityX
+	 * @param velocityY
+	 */
 	public Ball(String name, double x, double y, double velocityX, double velocityY) {
 		center = new Vect(x, y);
-		point = new Circle(center, 0.25);
+		physicsCircle = new Circle(center, 0.25);
 		origin = new Vect(x - .25, y - .25);
 		velocity = new Vect(velocityX, velocityY);
 		this.name = name;
@@ -37,29 +45,57 @@ public class Ball implements IElement, Absorbable {
 		saveInfo = "Ball" + " " + name + " " + x + " " + y + " " + velocityX + " " + velocityY;
 	}
 
+	/**
+	 * Make a new ball.
+	 * 
+	 * @param name
+	 * @param center
+	 * @param velocity
+	 */
 	public Ball(String name, Vect center, Vect velocity) {
 		this(name, center.x(), center.y(), velocity.x(), velocity.y());
 	}
 
+	/**
+	 * @return the ball's center
+	 */
 	public Vect getCenter() {
 		return center;
 	}
 
+	/**
+	 * Set the ball's center.
+	 * 
+	 * @param center
+	 */
 	public void setCenter(Vect center) {
 		this.center = center;
 		update();
 	}
 
+	/**
+	 * 
+	 * @return the ball's velocity
+	 */
 	public Vect getVelocity() {
 		return velocity;
 	}
-
+	
+	/**
+	 * set the ball's velocity
+	 * 
+	 * @param velocity
+	 */
 	public void setVelocity(Vect velocity) {
 		this.velocity = velocity;
 	}
 
+	/**
+	 * Get this ball's physics circle.
+	 * @return
+	 */
 	public Circle getCircle() {
-		return point;
+		return physicsCircle;
 	}
 
 	@Override
@@ -69,7 +105,7 @@ public class Ball implements IElement, Absorbable {
 
 	@Override
 	public List<Circle> getCircles() {
-		return Collections.singletonList(point);
+		return Collections.singletonList(physicsCircle);
 	}
 
 	@Override
@@ -99,8 +135,11 @@ public class Ball implements IElement, Absorbable {
 		return name;
 	}
 
+	/**
+	 * Update the ball's point and origin.
+	 */
 	private void update() {
-		point = new Circle(center, 0.25);
+		physicsCircle = new Circle(center, 0.25);
 		origin = new Vect(center.x() - .25, center.y() - .25);
 	}
 
@@ -128,10 +167,15 @@ public class Ball implements IElement, Absorbable {
 		return (verticallyIn && (topIn || bottomIn)) || (horizontallyIn && (leftIn || rightIn));
 	}
 
+	@Override
 	public String getSaveInfo() {
 		return saveInfo;
 	}
 
+	/**
+	 * Move the ball for the time time
+	 * @param time the length of time to move the ball
+	 */
 	public void moveForTime(double time) {
 		if (!absorbed) {
 			Vect changeAmount = velocity.times(time);
@@ -144,6 +188,7 @@ public class Ball implements IElement, Absorbable {
 		return 0;
 	}
 
+	@Override
 	public void rotate() {
 
 	}
@@ -171,6 +216,13 @@ public class Ball implements IElement, Absorbable {
 		ball.setVelocity(collision.getVelocity());
 	}
 
+	/**
+	 * Apply gravity and friction to the ball.
+	 * 
+	 * @param moveTime
+	 * @param gravity
+	 * @param friction
+	 */
 	public void applyForces(double moveTime, double gravity, double[] friction) {
 		if (!absorbed) {
 			applyGravity(moveTime, gravity);
@@ -178,12 +230,24 @@ public class Ball implements IElement, Absorbable {
 		}
 	}
 
+	/**
+	 * Apply gravity to the ball.
+	 * 
+	 * @param moveTime
+	 * @param gravity
+	 */
 	private void applyGravity(double moveTime, double gravity) {
 		double changeAmount = gravity * moveTime;
 		Vect change = new Vect(0, changeAmount);
 		setVelocity(velocity.plus(change));
 	}
 
+	/**
+	 * Apply friction to the ball.
+	 * 
+	 * @param moveTime
+	 * @param friction
+	 */
 	private void applyFriction(double moveTime, double[] friction) {
 		double mu = friction[0];
 		double mu2 = friction[1];
@@ -201,6 +265,9 @@ public class Ball implements IElement, Absorbable {
 		absorbed = true;
 	}
 
+	/**
+	 * unabsorb this ball
+	 */
 	private void clearAbsorbed() {
 		absorbed = false;
 	}
@@ -214,10 +281,18 @@ public class Ball implements IElement, Absorbable {
 		}
 	}
 
+	/**
+	 * Get the ball's radius.
+	 * 
+	 * @return
+	 */
 	public double getRadius() {
 		return diameter / 2;
 	}
 
+	/**
+	 * Check if this Ball equals other ball.
+	 */
 	public boolean equals(Object other) {
 		if (other.getClass() != Ball.class) {
 			return false;
@@ -231,7 +306,7 @@ public class Ball implements IElement, Absorbable {
 		if (!velocity.equals(otherBall.getVelocity())) {
 			return false;
 		}
-		if (point != otherBall.getCircle()) {
+		if (physicsCircle != otherBall.getCircle()) {
 			return false;
 		}
 		if(!center.equals(otherBall.getCenter())){
@@ -243,10 +318,12 @@ public class Ball implements IElement, Absorbable {
 		return getCoordinates().equals(otherBall.getCoordinates());
 	}
 
-
+	@Override
 	public void gizmoConnect(IElement secondElement){
 
 	}
+	
+	@Override
 	public List<String> getConnections(){
 		return new ArrayList<>();
 	}
@@ -256,10 +333,12 @@ public class Ball implements IElement, Absorbable {
 
 	}
 
+	@Override
 	public void addKeyConnect(int keycode){
 
 	}
 
+	@Override
 	public List<String> returnKeyConnects(){
 		return new ArrayList<>();
 	}
