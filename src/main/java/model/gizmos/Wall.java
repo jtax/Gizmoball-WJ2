@@ -20,6 +20,13 @@ public class Wall extends Gizmo {
 	private final Vect bound;
 	private final java.util.List<Vect> coordinates;
 
+	/**
+	 * Construct a new Wall.
+	 * 
+	 * @param origin
+	 * @param bnd
+	 * @param name
+	 */
 	public Wall(Vect origin, Vect bnd, String name) {
 		super(origin, name);
 		this.bound = bnd;
@@ -30,6 +37,11 @@ public class Wall extends Gizmo {
 		super.setColor(Color.BLACK);
 	}
 
+	/**
+	 * Calculate this Element's coordinates.
+	 * 
+	 * @return this Element's coordinates.
+	 */
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
 		Vect topRight = new Vect(bound.x(), origin.y());
@@ -38,6 +50,11 @@ public class Wall extends Gizmo {
 		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
 	}
 
+	/**
+	 * Calculate this Element's circles.
+	 * 
+	 * @return this Element's circles.
+	 */
 	private List<physics.Circle> calculateCircles() {
 		List<physics.Circle> calcCircles = new ArrayList<>();
 		for (Vect coord : coordinates) {
@@ -47,6 +64,11 @@ public class Wall extends Gizmo {
 		return calcCircles;
 	}
 
+	/**
+	 * Calculate this Element's lines.
+	 * 
+	 * @return this Element's lines.
+	 */
 	private List<LineSegment> calculateLines() {
 		List<LineSegment> calcLines = new ArrayList<>();
 		for (int i = 0; i < coordinates.size(); i++) {
@@ -58,11 +80,17 @@ public class Wall extends Gizmo {
 		return calcLines;
 	}
 
+	/**
+	 * Move this Wall (does nothing)
+	 */
 	@Override
 	public void move(Vect distance) {
 
 	}
 
+	/**
+	 * rotate this Wall (does nothing)
+	 */
 	@Override
 	public void rotate() {
 		// TODO Auto-generated method stub
@@ -74,6 +102,7 @@ public class Wall extends Gizmo {
 		return bound;
 	}
 
+	@Override
 	public String getSaveInfo() {
 		return "Wall";
 	}
@@ -88,6 +117,7 @@ public class Wall extends Gizmo {
 		return coordinates;
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if (other.getClass() != Wall.class) {
 			return false;
@@ -104,19 +134,22 @@ public class Wall extends Gizmo {
 		return coordinates.equals(otherWall.getCoordinates());
 	}
 
-
+	@Override
 	public void gizmoConnect(IElement secondElement){
 
 	}
 
+	@Override
 	public List<String> getConnections(){
 		return new ArrayList<>();
 	}
 
+	@Override
 	public void addKeyConnect(int keycode){
 
 	}
 
+	@Override
 	public List<String> returnKeyConnects(){
 		return new ArrayList<>();
 	}

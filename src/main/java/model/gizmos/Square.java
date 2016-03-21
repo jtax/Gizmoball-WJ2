@@ -17,8 +17,6 @@ import physics.Vect;
  * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Square extends Gizmo {
-
-	private int reflectionCoefficient = 1;
 	private List<Vect> coordinates;
 	private List<String> connections = new ArrayList<>();
 	private List<String> keyConnects = new ArrayList<>();
@@ -26,6 +24,12 @@ public class Square extends Gizmo {
 	private final String name;
 	private int rotation;
 
+	/**
+	 * Contruct a new Square.
+	 * 
+	 * @param origin
+	 * @param name
+	 */
 	public Square(Vect origin, String name) {
 		super(origin, name);
 		this.name = name;
@@ -42,10 +46,22 @@ public class Square extends Gizmo {
 
 	}
 
+	/**
+	 * Construct a new Square.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param name
+	 */
 	public Square(int x, int y, String name) {
 		this(new Vect(x, y), name);
 	}
 
+	/**
+	 * Calculate this Element's coordinates.
+	 * 
+	 * @return this Element's coordinates.
+	 */
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
 		Vect topRight = new Vect(bound.x(), origin.y());
@@ -54,6 +70,11 @@ public class Square extends Gizmo {
 		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
 	}
 
+	/**
+	 * Calculate this Element's circles.
+	 * 
+	 * @return this Element's circles.
+	 */
 	private List<physics.Circle> calculateCircles() {
 		List<physics.Circle> calcCircles = new ArrayList<>();
 		for (Vect coord : coordinates) {
@@ -63,6 +84,11 @@ public class Square extends Gizmo {
 		return calcCircles;
 	}
 
+	/**
+	 * Calculate this Element's lines.
+	 * 
+	 * @return this Element's lines.
+	 */
 	private List<LineSegment> calculateLines() {
 		List<LineSegment> calcLines = new ArrayList<>();
 		for (int i = 0; i < coordinates.size(); i++) {
@@ -74,6 +100,7 @@ public class Square extends Gizmo {
 		return calcLines;
 	}
 
+	@Override
 	public void rotate() {
 		Vect centerPoint = getCenterPoint();
 		rotation = (rotation + 1) % 4;
@@ -85,20 +112,16 @@ public class Square extends Gizmo {
 		super.setLines(calculateLines());
 	}
 
-	private Vect rotationMatrix(Vect coordinate, Vect center) {
-		double angleR = Math.toRadians((double) 90);
-		Vect coord = coordinate.minus(center);
-		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
-		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
-		return new Vect(newX, newY).plus(center);
-	}
-
+	/**
+	 * @return the square's center point
+	 */
 	public Vect getCenterPoint() {
 		double width = bound.x() - origin.x();
 		double height = bound.y() - origin.y();
 		return origin.plus(new Vect(width / 2, height / 2));
 	}
 
+	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();
 		Vect bound = new Vect(1, 1);
@@ -120,6 +143,7 @@ public class Square extends Gizmo {
 		return rotation;
 	}
 
+	@Override
 	public void move(Vect distance) {
 		super.origin = super.origin.plus(distance);
 		super.bound = super.bound.plus(distance);
@@ -128,7 +152,6 @@ public class Square extends Gizmo {
 		super.setLines(calculateLines());
 		saveInfo = "Square" + " " + name + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
-
 
 	@Override
 	public boolean equals(Object other) {
@@ -150,20 +173,24 @@ public class Square extends Gizmo {
 		return coordinates.equals(otherSquare.getCoordinates());
 	}
 
+	@Override
 	public void gizmoConnect(IElement secondElement){
 		this.addTriggerable((Triggerable) secondElement);
 		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
 	}
 
+	@Override
 	public List<String> getConnections() {
 		return connections;
 	}
 
+	@Override
 	public void addKeyConnect(int keycode){
 		this.addKeyPressTrigger(keycode);
 		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
 	}
 
+	@Override
 	public List<String> returnKeyConnects(){
 		return keyConnects;
 	}

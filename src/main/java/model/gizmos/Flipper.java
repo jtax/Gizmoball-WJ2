@@ -28,6 +28,12 @@ public class Flipper extends Gizmo implements Triggerable {
 	private double angularVelocity;
 	private int rotation;
 
+	/**
+	 * Make a new flipper with the given origin and name 
+	 * 
+	 * @param origin
+	 * @param name
+	 */
 	public Flipper(Vect origin, String name) {
 
 		super(origin, name);
@@ -41,10 +47,15 @@ public class Flipper extends Gizmo implements Triggerable {
 		super.setColor(new Color(0xf1c40f));
 	}
 
+	/**
+	 * 
+	 * @return the flipper's angular velocity
+	 */
 	public double getAngularVelocity() {
 		return angularVelocity;
 	}
 
+	@Override
 	public void move(Vect distance) {
 		super.origin = super.origin.plus(distance);
 		super.bound = super.bound.plus(distance);
@@ -67,10 +78,22 @@ public class Flipper extends Gizmo implements Triggerable {
 		super.trigger();
 	}
 
+	/**
+	 * Construct a new Flipper.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param name
+	 */
 	public Flipper(int x, int y, String name) {
 		this(new Vect(x, y), name);
 	}
 
+	/**
+	 * Set flipper's direction (left or right)
+	 * 
+	 * @param direction
+	 */
 	public void setDirection(Direction direction) {
 
 		this.direction = direction;
@@ -85,6 +108,11 @@ public class Flipper extends Gizmo implements Triggerable {
 
 	}
 
+	/**
+	 * Calculate this Element's coordinates.
+	 * 
+	 * @return this Element's coordinates.
+	 */
 	private List<Vect> calculateCoordinates(Vect topLeft, Vect bottomRight) {
 		Vect topRight = new Vect(bottomRight.x(), topLeft.y());
 		Vect bottomLeft = new Vect(topLeft.x(), bottomRight.y());
@@ -92,6 +120,11 @@ public class Flipper extends Gizmo implements Triggerable {
 		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
 	}
 
+	/**
+	 * Calculate this Element's circles.
+	 * 
+	 * @return this Element's circles.
+	 */
 	private List<physics.Circle> calculateCircles() {
 		List<physics.Circle> calcCircles = new ArrayList<>();
 
@@ -102,6 +135,11 @@ public class Flipper extends Gizmo implements Triggerable {
 		return calcCircles;
 	}
 
+	/**
+	 * Calculate this Element's lines.
+	 * 
+	 * @return this Element's lines.
+	 */
 	private List<LineSegment> calculateLines() {
 		List<LineSegment> calcLines = new ArrayList<>();
 		for (int i = 0; i < coordinates.size(); i++) {
@@ -113,6 +151,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		return calcLines;
 	}
 
+	@Override
 	public void rotate() {
 		/*
 		 * Vect centerPoint = origin.plus(new
@@ -140,6 +179,11 @@ public class Flipper extends Gizmo implements Triggerable {
 		super.setLines(calculateLines());
 	}
 
+	/**
+	 * Get the flipper's pivot point.
+	 * 
+	 * @return
+	 */
 	public Vect getPivotPoint() {
 		Vect topLeftPivotPoint = origin.plus(FLIPPER_SIZE.times(1 / 8.0)),
 				bottomRightPivotPoint = origin.plus(FLIPPER_SIZE.times(7 / 8.0)),
@@ -165,7 +209,8 @@ public class Flipper extends Gizmo implements Triggerable {
 		}
 	}
 
-	private Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
+	@Override
+	public Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
 		double angleR = Math.toRadians(angle);
 		Vect coord = coordinate.minus(center);
 		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
@@ -174,6 +219,12 @@ public class Flipper extends Gizmo implements Triggerable {
 		return unTransposeCoord.plus(center);
 	}
 
+	/**
+	 * Round the coordinate to 5 decimal places.
+	 * 
+	 * @param coord
+	 * @return
+	 */
 	private Vect roundRotationCoord(Vect coord) {
 		double x = Math.round(coord.x() * 100000);
 		double y = Math.round(coord.y() * 100000);
@@ -236,6 +287,7 @@ public class Flipper extends Gizmo implements Triggerable {
 		return origin.plus(bound);
 	}
 
+	@Override
 	public String getSaveInfo() {
 		String saveDirection;
 		if (direction == Direction.LEFT)
@@ -289,20 +341,24 @@ public class Flipper extends Gizmo implements Triggerable {
 
 	}
 
+	@Override
 	public void gizmoConnect(IElement secondElement) {
 		this.addTriggerable((Triggerable) secondElement);
 		connections.add("Connect " + this.getName() + " " + secondElement.getName());
 	}
 
+	@Override
 	public List<String> getConnections() {
 		return connections;
 	}
 
+	@Override
 	public void addKeyConnect(int keycode) {
 		this.addKeyPressTrigger(keycode);
 		keyConnects.add("KeyConnect Key " + keycode + " change " + this.getName());
 	}
 
+	@Override
 	public List<String> returnKeyConnects() {
 		return keyConnects;
 	}
@@ -328,7 +384,10 @@ public class Flipper extends Gizmo implements Triggerable {
 		}
 	}
 
-	public void printAllTheFlippingThings() {
+	/**
+	 * Print some information about the flipper's coordinates.
+	 */
+	protected void printAllTheFlippingThings() {
 		Vect topLeft = coordinates.get(0), topRight = coordinates.get(1), bottomRight = coordinates.get(2),
 				bottomLeft = coordinates.get(3);
 

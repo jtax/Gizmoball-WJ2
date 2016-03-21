@@ -19,6 +19,12 @@ public class Triangle extends Gizmo {
 	private int rotation;
 	private String saveInfo;
 
+	/**
+	 * Construct a new Triangle.
+	 * 
+	 * @param origin
+	 * @param name
+	 */
 	public Triangle(Vect origin, String name) {
 		super(origin, name);
 		rotation = 0;
@@ -29,10 +35,22 @@ public class Triangle extends Gizmo {
 		setSaveInfo();
 	}
 
+	/**
+	 * Construct a new Triangle.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param name
+	 */
 	public Triangle(double x, double y, String name) {
 		this(new Vect(x, y), name);
 	}
 
+	/**
+	 * Calculate this Element's coordinates.
+	 * 
+	 * @return this Element's coordinates.
+	 */
 	private List<Vect> calculateCoordinates() {
 		Vect topLeft = origin;
 		Vect topRight = new Vect(bound.x(), origin.y());
@@ -40,6 +58,11 @@ public class Triangle extends Gizmo {
 		return Arrays.asList(topLeft, topRight, bottomLeft);
 	}
 
+	/**
+	 * Calculate this Element's circles.
+	 * 
+	 * @return this Element's circles.
+	 */
 	private List<physics.Circle> calculateCircles() {
 		List<physics.Circle> calcCircles = new ArrayList<>();
 		for (Vect coord : coordinates) {
@@ -49,6 +72,11 @@ public class Triangle extends Gizmo {
 		return calcCircles;
 	}
 
+	/**
+	 * Calculate this Element's lines.
+	 * 
+	 * @return this Element's lines.
+	 */
 	private List<LineSegment> calculateLines() {
 		List<LineSegment> calcLines = new ArrayList<>();
 		for (int i = 0; i < coordinates.size(); i++) {
@@ -60,10 +88,15 @@ public class Triangle extends Gizmo {
 		return calcLines;
 	}
 
+	/**
+	 * Set this triangle's save info.
+	 * 
+	 */
 	private void setSaveInfo() {
 		saveInfo = "Triangle" + " " + super.getName() + " " + (int) origin.getXCoord() + " " + (int) origin.getyCoord();
 	}
 
+	@Override
 	public void rotate() {
 		Vect centerPoint = getCenterPoint();
 		rotation =( (rotation + 1) % 4);
@@ -75,20 +108,15 @@ public class Triangle extends Gizmo {
 		super.setLines(calculateLines());
 	}
 
-	private Vect rotationMatrix(Vect coordinate, Vect center) {
-		double angleR = Math.toRadians((double) 90);
-		Vect coord = coordinate.minus(center);
-		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
-		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
-		return new Vect(newX, newY).plus(center);
-	}
-
+	/**
+	 * Get this Triangle's center point.
+	 * @return
+	 */
 	public Vect getCenterPoint() {
 		double width = bound.x() - origin.x();
 		double height = bound.y() - origin.y();
 		return origin.plus(new Vect(width / 2, height / 2));
 	}
-
 
 
 	@Override
@@ -98,10 +126,12 @@ public class Triangle extends Gizmo {
 		return origin.plus(bound);
 	}
 
+	@Override
 	public String getSaveInfo() {
 		return saveInfo;
 	}
 
+	@Override
 	public int getRotation() {
 		return rotation;
 	}
@@ -111,7 +141,7 @@ public class Triangle extends Gizmo {
 		return coordinates;
 	}
 
-
+	@Override
 	public void move(Vect distance) {
 		super.origin = super.origin.plus(distance);
 		super.bound = super.bound.plus(distance);
@@ -121,6 +151,7 @@ public class Triangle extends Gizmo {
 		setSaveInfo();
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if (other.getClass() != Triangle.class) {
 			return false;
@@ -143,21 +174,24 @@ public class Triangle extends Gizmo {
 		return getCenterPoint().equals(otherTriangle.getCenterPoint());
 	}
 
-
+	@Override
 	public void gizmoConnect(IElement secondElement){
 		this.addTriggerable((Triggerable) secondElement);
 		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
 	}
 
+	@Override
 	public List<String> getConnections() {
 		return connections;
 	}
 
+	@Override
 	public void addKeyConnect(int keycode){
 		this.addKeyPressTrigger(keycode);
 		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
 	}
 
+	@Override
 	public List<String> returnKeyConnects(){
 		return keyConnects;
 	}

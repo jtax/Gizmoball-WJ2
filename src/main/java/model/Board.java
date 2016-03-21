@@ -135,9 +135,8 @@ public class Board extends Observable implements IBoard {
 
 	private void removeGizmoConnections(IElement element) {
 		for (IElement elem : elements) {
-			if (elem instanceof Absorber && ((Absorber) elem).weHaveABall())
-				for (Ball ball : balls)
-					ball.release();
+			if (elem instanceof Absorber)
+				((Absorber) elem).releaseOurBall();
 			
 			((Gizmo) elem).getTriggerables().remove(element);
 			elem.removeConnection(element);

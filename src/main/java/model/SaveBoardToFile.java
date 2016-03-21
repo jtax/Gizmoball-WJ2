@@ -1,15 +1,14 @@
 package model;
 
-import view.Save;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import view.Save;
 
 /**
  * Gizmoball - SaveBoardToFile
@@ -52,7 +51,6 @@ public class SaveBoardToFile {
 					bufferedWriter.write(element.getSaveInfo());
 					bufferedWriter.newLine();
 					StringTokenizer st = new StringTokenizer(element.getSaveInfo(), " ");
-						String type  =st.nextToken();
 						String name = st.nextToken();
 						switch (element.getRotation()) {
 							case 0:
@@ -87,8 +85,8 @@ public class SaveBoardToFile {
 					}
 
 					if(!element.returnKeyConnects().isEmpty()){
-						List<String> connections = new ArrayList<>();
-						for (String connection : element.returnKeyConnects()) {
+						List<String> connections = element.returnKeyConnects();
+						for (String connection : connections) {
 							bufferedWriter.write(connection);
 							bufferedWriter.newLine();
 						}

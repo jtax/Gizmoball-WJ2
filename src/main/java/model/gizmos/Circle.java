@@ -2,7 +2,6 @@ package model.gizmos;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,8 +62,6 @@ public class Circle extends Gizmo {
 	@Override
 	public void rotate() {
 		rotation = (rotation + 1) % 4;
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -82,6 +79,7 @@ public class Circle extends Gizmo {
 	 * Gets the string representation of the object
 	 * @return saveinfo string
 	 */
+	@Override
 	public String getSaveInfo() {
 		return saveInfo;
 	}
@@ -108,6 +106,7 @@ public class Circle extends Gizmo {
 	 * Moves a gizmo by a distance, updating origin bound and circles
 	 * @param distance distance the gizmo should move
 	 */
+	@Override
 	public void move(Vect distance) {
 		super.origin = super.origin.plus(distance);
 		super.bound = super.bound.plus(distance);
@@ -136,21 +135,24 @@ public class Circle extends Gizmo {
 
 	}
 
-
+	@Override
 	public void gizmoConnect(IElement secondElement){
 		this.addTriggerable((Triggerable) secondElement);
 		connections.add("Connect " +this.getName()+ " "+ secondElement.getName());
 	}
 
+	@Override
 	public List<String> getConnections() {
 		return connections;
 	}
 
+	@Override
 	public void addKeyConnect(int keycode){
 		this.addKeyPressTrigger(keycode);
 		keyConnects.add("KeyConnect Key "+ keycode+ " change "+ this.getName());
 	}
 
+	@Override
 	public List<String> returnKeyConnects(){
 		return keyConnects;
 	}

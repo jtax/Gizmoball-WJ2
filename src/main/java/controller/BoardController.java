@@ -2,7 +2,6 @@ package controller;
 
 import model.Board;
 import view.GizmoBallView;
-import view.LoadBoard;
 
 /**
  * Gizmoball - BoardController

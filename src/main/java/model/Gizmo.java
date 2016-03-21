@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
-import java.util.Random;
 
 /**
  * Gizmoball - Gizmo
@@ -24,7 +24,6 @@ abstract public class Gizmo implements IElement, Triggerable {
 	private Color backupColor;
 	private List<LineSegment> lines;
 	private List<Circle> circles;
-	private int reflection;
 	private final String name;
 	private int keyPressTrigger;
 
@@ -240,8 +239,36 @@ abstract public class Gizmo implements IElement, Triggerable {
 	public void clearKeyTriggers(){
 		keyPressTrigger = 0;
 	}
+	
+	/**
+	 * Rotate a coordinate around the center point by angle.
+	 * 
+	 * @param coordinate
+	 * @param center
+	 * @param angle
+	 * @return
+	 */
+	public Vect rotationMatrix(Vect coordinate, Vect center, double angle) {
+		double angleR = Math.toRadians(angle);
+		Vect coord = coordinate.minus(center);
+		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
+		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
 
-
-
-
+		return new Vect(newX, newY).plus(center);
+	}
+	
+	/**
+	 * Rotate a coordinate around the center point by 90°.
+	 * 
+	 * @param coordinate
+	 * @param center
+	 * @return
+	 */
+	protected Vect rotationMatrix(Vect coordinate, Vect center) {
+		double angleR = Math.toRadians((double) 90);
+		Vect coord = coordinate.minus(center);
+		double newX = coord.x() * Math.cos(angleR) - coord.y() * Math.sin(angleR);
+		double newY = coord.x() * Math.sin(angleR) + coord.y() * Math.cos(angleR);
+		return new Vect(newX, newY).plus(center);
+	}
 }
