@@ -9,6 +9,10 @@ import view.GizmoBallView;
 
 /**
  * Gizmoball - RunListener
+ *
+ * Description: This class implements Action Listener, it listens to run mode
+ * actions (buttons) and deals with these appropriately
+ *
  * Created by Group WJ2 on 14/02/2016.
  * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
@@ -18,7 +22,11 @@ public class RunListener implements ActionListener {
 	private IBoard board;
 	private GizmoBallView gbv;
 
-
+	/**
+	 * Constructor for the RunListener
+	 * @param bm
+	 * @param gbv
+     */
 	public RunListener(IBoard bm, GizmoBallView gbv) {
 		this.board = bm;
 		timer = new Timer(5, this);
@@ -55,6 +63,9 @@ public class RunListener implements ActionListener {
 
 	}
 
+	/**
+	 * Prompts the user on quit.
+	 */
 	private void quit(){
 		int dialogButton = JOptionPane.YES_NO_OPTION;
 		int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to quit","Warning",dialogButton);
