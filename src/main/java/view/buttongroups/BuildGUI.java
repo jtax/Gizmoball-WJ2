@@ -13,6 +13,10 @@ import java.util.DoubleSummaryStatistics;
 
 /**
  * Gizmoball - BuildGUI
+ *
+ * Description: This class represents the elements of the
+ * GUI that are specific to "build mode" only.
+ *
  * Created by Group WJ2 on 06/02/2016.
  * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
@@ -22,11 +26,18 @@ public class BuildGUI {
 	private JLabel statusBar;
 	private ActionListener listener;
 
+	/**
+	 * Constructor for BuildGUI
+	 * @param listener
+     */
 	public BuildGUI(ActionListener listener) {
 		this.listener = listener;
 		makeFrame();
 	}
 
+	/**
+	 * Creates the frame
+	 */
 	private void makeFrame() {
 		createTopButton();
 		createBottomButton();
@@ -34,6 +45,11 @@ public class BuildGUI {
 
 	}
 
+	/**
+	 * Creates the buttons the appear at the bottom
+	 * of the GUI.
+	 * @return bottomPanel
+     */
 	public JPanel createBottomButton() {
 
 		shape = new JComboBox<>();
@@ -74,6 +90,11 @@ public class BuildGUI {
 		return bottomPanel;
 	}
 
+	/**
+	 * Creates the buttons the appear at the top
+	 * of the GUI.
+	 * @return topPanel
+	 */
 	public JPanel createTopButton() {
 		JButton add = new JButton("Add");
 		add.addActionListener(listener);
@@ -81,21 +102,22 @@ public class BuildGUI {
 		switchToRun.addActionListener(listener);
 		JButton move = new JButton("Move");
 		move.addActionListener(listener);
-		JButton remove = new JButton("Remove");
-		remove.addActionListener(listener);
 		JButton info = new JButton("Info");
 		info.addActionListener(listener);
 
 
-		JPanel topButtons = new JPanel(new GridLayout(1, 5));
+		JPanel topButtons = new JPanel(new GridLayout(1, 4));
 		topButtons.add(add);
-		topButtons.add(remove);
 		topButtons.add(move);
 		topButtons.add(info);
 		topButtons.add(switchToRun);
 		return topButtons;
 	}
 
+	/**
+	 * Creates the menu for the frame.
+	 * @return menu bar
+     */
 	public JMenuBar createMenu() {
 		JMenuBar menus = new JMenuBar();
 
@@ -116,14 +138,6 @@ public class BuildGUI {
 		remKeyConn.addActionListener(listener);
 		file.add(remKeyConn);
 
-
-
-		JMenuItem undo = new JMenuItem("Undo build");
-		file.add(undo);
-
-		JMenuItem redo = new JMenuItem("Redo build");
-		file.add(redo);
-
 		JMenuItem clear = new JMenuItem("Clear Board");
 		clear.setAccelerator(KeyStroke.getKeyStroke(
 				KeyEvent.VK_C, ActionEvent.CTRL_MASK));
@@ -142,6 +156,9 @@ public class BuildGUI {
 		return menus;
 	}
 
+	/**
+	 * Prompts the user to enter a gravity value.
+	 */
 	public double promptGravity(){
 		String gravVal = JOptionPane.showInputDialog("Please enter a value for gravity (numerical)");
 		double gravValDouble;
@@ -155,6 +172,9 @@ public class BuildGUI {
 		return gravValDouble;
 	}
 
+	/**
+	 * Prompts the user to enter a key value, for a selected element.
+	 */
 	public JDialog promptSetKeyListener(IElement element){
 
 
@@ -172,6 +192,9 @@ public class BuildGUI {
 		return dialog;
 	}
 
+	/**
+	 * Prompts the user to enter a friction value.
+	 */
 	public double[] promptFriction() {
 		String frictVal1 = JOptionPane.showInputDialog("Please enter the 1st value for friction (numerical)");
 		String frictVal2 = JOptionPane.showInputDialog("Please enter the 2nd value for friction (numerical)");
@@ -190,6 +213,9 @@ public class BuildGUI {
 		return new double[]{frictVal1Double, frictVal2Double};
 	}
 
+	/**
+	 * Prompts the user to enter a velocity value.
+	 */
 	public Vect promptVelocity() {
 		String xVel = JOptionPane.showInputDialog("Please enter the X Velocity for the Ball");
 		String yVel = JOptionPane.showInputDialog("Please enter the Y Velocity for the Ball");
@@ -202,10 +228,19 @@ public class BuildGUI {
 		}
 	}
 
+	/**
+	 * Returns the selected element in the drop down menu
+	 *
+	 * @return drop down value in element list
+     */
 	public String dropboxValue(){
 		return shape.getSelectedItem().toString();
 	}
 
+	/**
+	 * Updates the status bar with a given message.
+	 * @param message
+     */
 	public void updateStatusBar(String message) {
 		statusBar.setText(message);
 	}
