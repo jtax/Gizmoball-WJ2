@@ -6,6 +6,9 @@ import view.LoadBoard;
 
 /**
  * Gizmoball - BoardController
+ *
+ * Description: Sets up to board on initial start up.
+ *
  * Created by Group WJ2 on 11/02/2016.
  * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
@@ -13,12 +16,8 @@ public class BoardController {
 
 	public BoardController() {
 
-		LoadBoard l = new LoadBoard();
-        Board board = l.loadFile();
-		if (board == null) {
-			board = new Board();
-			System.out.println("File reader closed");
-		}
+        Board board = new Board();
+
 		GizmoBallView view = new GizmoBallView(board);
 		board.addObserver(view);
 		board.tick();
