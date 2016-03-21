@@ -42,7 +42,7 @@ public class GizmoBallView implements Observer {
 		boardView = new BoardViewImpl(bm);
 		runListener = new RunListener(bm, this);
 		buildListener = new BuildListener(bm, this);
-		keyPressListener = new MagicKeyListener(new KeyPressListener(bm.getElements()));
+		keyPressListener = new MagicKeyListener(new KeyPressListener(bm));
 		makeFrame();
 	}
 
