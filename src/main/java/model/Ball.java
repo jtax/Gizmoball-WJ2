@@ -197,12 +197,11 @@ public class Ball implements IElement, Absorbable {
 	}
 
 	@Override
-	public void setAbsorbed() {
+	public void absorb() {
 		absorbed = true;
 	}
 
-	@Override
-	public void clearAbsorbed() {
+	private void clearAbsorbed() {
 		absorbed = false;
 	}
 

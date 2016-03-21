@@ -1,12 +1,25 @@
 package model;
 
+/**
+ * An interface for elements that can be absorbed by absorbers.
+ * 
+ * @author Team WJ2
+ */
 public interface Absorbable {
 
+	/**
+	 * 
+	 * @return true if the element is absorbed, otherwise false
+	 */
 	boolean isAbsorbed();
 
-	void setAbsorbed();
+	/**
+	 * Absorb the element
+	 */
+	void absorb();
 
-	void clearAbsorbed();
-
+	/**
+	 * Release the ball
+	 */
 	void release();
 }
