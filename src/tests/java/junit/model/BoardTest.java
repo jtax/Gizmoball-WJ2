@@ -722,6 +722,28 @@ public class BoardTest {
     }
 
     @Test
+    public void testTimeUntilCollisionInMove() {
+        //See spreadsheet Test 52
+
+        Ball ball = new Ball("", 5.5, 4.746, 0, 1);
+        Flipper s = new Flipper(new Vect(5,5),"t");
+        board.addBall(ball);
+        board.addElement(s);
+
+        // rotate 90 degreees
+        int times = (int) (90 / s.getAngularVelocity());
+        s.trigger();
+        for (int i = 0; i < times; i++) {
+            s.flip();
+        }
+        // collision move time must be < board.moveTime
+        for (Ball b : board.getBalls()) {
+            System.out.println(board.getTimeTillCollision(b).getTime());
+            assertTrue(board.getTimeTillCollision(b).getTime() < Board.moveTime);
+        }
+    }
+
+    @Test
     public void testSimpleMoveGizmo() throws Exception {
         IElement originalSquare = new Square(5, 5, "TestSquare");
         board.addElement(originalSquare);
