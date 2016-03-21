@@ -18,6 +18,9 @@ import view.buttongroups.RunGUI;
 
 /**
  * Gizmoball - GizmoBallView
+ *
+ * Description:
+ *
  * Created by Group WJ2 on 06/02/2016.
  * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */

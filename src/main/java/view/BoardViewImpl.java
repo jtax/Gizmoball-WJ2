@@ -11,7 +11,11 @@ import java.util.*;
 import java.util.List;
 
 /**
- * Gizmoball - ${NAME}
+ * Gizmoball - BoardViewImpl
+ *
+ * Description: This implements the board view and observer. This is the view
+ * of the board in run time.
+ *
  * Created by Group WJ2 on 06/02/2016.
  * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
@@ -24,7 +28,10 @@ public class BoardViewImpl implements BoardView, Observer {
 	private List<IElement> shapes;
 	private final Shapifier shapifier;
 
-
+	/**
+	 * Constructor for class
+	 * @param board
+     */
 	public BoardViewImpl(IBoard board) {
 		setBoard(board);
 
@@ -39,6 +46,10 @@ public class BoardViewImpl implements BoardView, Observer {
 		shapifier = new Shapifier(this);
 	}
 
+	/**
+	 * Gets the default layout for the JPanel
+	 * @return
+     */
 	private JPanel getDefaultLayout() {
 		return new JPanel() {
 			private static final long serialVersionUID = 1L;
@@ -120,17 +131,32 @@ public class BoardViewImpl implements BoardView, Observer {
 		}
 	}
 
+	/**
+	 * Draws the grid
+	 * @param g
+     */
 	private void drawGrid(Graphics2D g) {
 		for (int x = 0; x < board.getWidth(); x++)
 			drawColumn(g, x);
 		g.setColor(Color.green);
 	}
 
+	/**
+	 * draws the columns on the grid
+	 * @param g
+	 * @param x
+     */
 	private void drawColumn(Graphics2D g, int x) {
 		for (int y = 0; y < board.getHeight(); y++)
 			drawGridSquare(g, x, y);
 	}
 
+	/**
+	 * Draws the grid square
+	 * @param g
+	 * @param x
+     * @param y
+     */
 	private void drawGridSquare(Graphics2D g, int x, int y) {
 		int width = getHorizontalScalingFactor(), height = getVerticalScalingFactor();
 
