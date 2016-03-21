@@ -62,7 +62,7 @@ public class LoadBoard {
 
 		} catch (IOException | model.CorruptSaveFileException | NullPointerException e) {
 			//
-			System.out.println("IOException");
+
 		}
 
 		return board;

@@ -40,7 +40,6 @@ public class SaveBoardToFile {
 				FileWriter fileWriter = new FileWriter(file + ".txt");
 
 				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-				System.out.println("here");
 				for (IElement element : elements) {
 
 					if (element.getSaveInfo().equals("Wall")) {

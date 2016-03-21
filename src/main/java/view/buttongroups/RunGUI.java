@@ -64,7 +64,7 @@ public class RunGUI {
 
 		bottomButtons.add(start);
 		bottomButtons.add(stop);
-		bottomButtons.add(tick);
+		//bottomButtons.add(tick);
 		bottomButtons.add(switchMode);
 
 		return bottomButtons;
@@ -78,7 +78,7 @@ public class RunGUI {
 		JMenuBar menus = new JMenuBar();
 		JMenu file = new JMenu("File");
 		JMenuItem tick = new JMenuItem("Tick");
-		file.add(tick);
+		//file.add(tick);
 		JMenuItem quit = new JMenuItem("Quit");
 		quit.addActionListener(listener);
 		quit.setAccelerator(KeyStroke.getKeyStroke(

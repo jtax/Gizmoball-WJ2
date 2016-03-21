@@ -28,7 +28,6 @@ public class Save {
         if (retrieval == JFileChooser.APPROVE_OPTION) {
             file = saveFile.getSelectedFile();
         } else {
-            System.out.println("save file not selected");
             return null;
         }
         return file;

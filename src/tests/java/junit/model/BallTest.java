@@ -81,7 +81,6 @@ public class BallTest {
 	@Test
 	public void testHandle() throws Exception {
 		//See spreadsheet test 132
-		System.out.println(ball.getCenter());
 
 		ball.handle(new Collision(new Vect(1,0), 0.05, new Square(new Vect(5,6), "Test"), ball));
 

@@ -738,7 +738,6 @@ public class BoardTest {
         }
         // collision move time must be < board.moveTime
         for (Ball b : board.getBalls()) {
-            System.out.println(board.getTimeTillCollision(b).getTime());
             assertTrue(board.getTimeTillCollision(b).getTime() < Board.moveTime);
         }
     }

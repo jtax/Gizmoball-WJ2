@@ -262,7 +262,6 @@ public class BuildListener implements ActionListener {
     private void addElement(){
         String option = gbv.getBuildGUI().dropboxValue();
         if(!option.equals("Pick Element") && getPress() !=null){
-            System.out.println("Adding the element "+ option +"\n To the coords: " + getPress());
             ElementFactory ef = new ElementFactory(board.getNextElementID());
             IElement e;
             switch (option) {

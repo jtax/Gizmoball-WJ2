@@ -104,11 +104,14 @@ public class BuildGUI {
 		move.addActionListener(listener);
 		JButton info = new JButton("Info");
 		info.addActionListener(listener);
+		JButton remove = new JButton("Remove");
+		remove.addActionListener(listener);
 
 
 		JPanel topButtons = new JPanel(new GridLayout(1, 4));
 		topButtons.add(add);
 		topButtons.add(move);
+		topButtons.add(remove);
 		topButtons.add(info);
 		topButtons.add(switchToRun);
 		return topButtons;
@@ -133,10 +136,6 @@ public class BuildGUI {
 				KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		saveModel.addActionListener(listener);
 		file.add(saveModel);
-
-		JMenuItem remKeyConn = new JMenuItem("Remove Key Connection");
-		remKeyConn.addActionListener(listener);
-		file.add(remKeyConn);
 
 		JMenuItem clear = new JMenuItem("Clear Board");
 		clear.setAccelerator(KeyStroke.getKeyStroke(
