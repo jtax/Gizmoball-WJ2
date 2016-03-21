@@ -97,14 +97,4 @@ public class RunGUI {
 		statusBar.setText(message);
 	}
 
-	/**
-	 * retruns the status bar in the GUI
-	 * @return
-     */
-	public JPanel getStatusBar() {
-		JPanel status = new JPanel(new GridLayout(1, 1));
-		statusBar = new JLabel("Run Mode");
-		status.add(statusBar);
-		return status;
-	}
 }
