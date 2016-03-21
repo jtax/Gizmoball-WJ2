@@ -284,7 +284,7 @@ public class BuildListener implements ActionListener {
 
     private void setGizmoConnection() {
         IElement firstElement;
-        // FIXME: nasty casty
+
         if ((firstElement = getSelectedElement()) != null && firstElement instanceof Gizmo) {
             Vect secondElementLocation = board.getMouseRelease();
             IElement secondElement;
