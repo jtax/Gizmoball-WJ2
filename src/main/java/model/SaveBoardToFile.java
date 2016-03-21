@@ -13,11 +13,19 @@ import java.util.StringTokenizer;
 
 /**
  * Gizmoball - SaveBoardToFile
+ *
+ * Description: This will save the board to a file.
+ *
  * Created by Group WJ2 on 01/03/2016.
  * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class SaveBoardToFile {
 
+	/**
+	 * This will save the board to a file.
+	 * @param board
+	 * @return true if save was successful
+     */
 	public boolean saveBoard(Board board) {
 
 		if (board != null) {
