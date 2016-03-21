@@ -1,5 +1,9 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Observable;
+
 import model.gizmos.Absorber;
 import model.gizmos.Flipper;
 import model.gizmos.Wall;
@@ -8,14 +12,10 @@ import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Observable;
-
 /**
  * Gizmoball - Board
  * Created by Group WJ2 on 06/02/2016.
- * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
+ * Authors: J Baird, Mr Bean, N Stannage, U Akhtar, L Sakalauskas
  */
 public class Board extends Observable implements IBoard {
 	private Collection<IElement> elements;
@@ -31,6 +31,14 @@ public class Board extends Observable implements IBoard {
 	private Vect mouseClick, mousePress, mouseRelease;
 	private IElement selectedElement;
 
+	/**
+	 * Make a new boad with the given friction, gravity, width and height.
+	 * 
+	 * @param frictionConst
+	 * @param gravityConst
+	 * @param width
+	 * @param height
+	 */
 	public Board(double[] frictionConst, double gravityConst, int width, int height) {
 		this.frictionConst = frictionConst;
 		this.gravityConst = gravityConst;
@@ -41,10 +49,16 @@ public class Board extends Observable implements IBoard {
 		addWalls();
 	}
 
+	/**
+	 * Make a new board with default gravity, friction, width and height.
+	 */
 	public Board() {
 		this(new double[]{0.025, 0.025}, 25, 20, 20);
 	}
 
+	/**
+	 * Add all the walls to the perimeter.
+	 */
 	private void addWalls() {
 		Vect topLeft = new Vect(0, 0);
 		Vect bottomRight = new Vect(20, 20);
@@ -121,6 +135,10 @@ public class Board extends Observable implements IBoard {
 
 	private void removeGizmoConnections(IElement element) {
 		for (IElement elem : elements) {
+			if (elem instanceof Absorber && ((Absorber) elem).weHaveABall())
+				for (Ball ball : balls)
+					ball.release();
+			
 			((Gizmo) elem).getTriggerables().remove(element);
 			elem.removeConnection(element);
 		}
@@ -223,6 +241,13 @@ public class Board extends Observable implements IBoard {
 		return false;
 	}
 
+	/**
+	 * Check if the area between origin and bound. 
+	 * 
+	 * @param origin
+	 * @param bound
+	 * @return
+	 */
 	public boolean detectEmptyArea(Vect origin, Vect bound) {
 		for (double x = origin.x(); x < bound.x(); x += 1) {
 			for (double y = origin.y(); y < bound.y(); y += 1) {
@@ -233,6 +258,13 @@ public class Board extends Observable implements IBoard {
 		}
 		return true;
 	}
+	
+	/**
+	 * Check if area at position is empty.
+	 * 
+	 * @param position
+	 * @return
+	 */
 	public boolean detectEmptyLocation(Vect position) {
 		if (position.x() >= 20 || position.x() < 0) {
 			return false;
@@ -248,6 +280,12 @@ public class Board extends Observable implements IBoard {
 		return true;
 	}
 
+	/**
+	 * Select the element at coordinate (x,y)
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	private void selectElement(double x, double y) {
 		if (!highlight) {
 			return;
@@ -344,6 +382,12 @@ public class Board extends Observable implements IBoard {
 		setBalls(newBalls);
 	}
 
+	/**
+	 * move the ball ball for one tick
+	 * 
+	 * @param ball
+	 * @return
+	 */
 	private Ball moveBall(Ball ball) {
 		ball.applyForces(moveTime, getGravityConst(), getFrictionConst());
 		Collision collision = getTimeTillCollision(ball);
@@ -355,8 +399,9 @@ public class Board extends Observable implements IBoard {
 			collision.getHandler().handle(collision);
 		}
 		return ball;
-
 	}
+	
+	@Override
 	public void clear(){
 		elements.clear();
 		balls.clear();
@@ -365,6 +410,12 @@ public class Board extends Observable implements IBoard {
 		notifyObservers();
 	}
 
+	/**
+	 * Get the time until this ball will have its next collision.
+	 * 
+	 * @param ball
+	 * @return
+	 */
 	public Collision getTimeTillCollision(Ball ball) {
 		closestCollision = new Collision(0, 0, Double.MAX_VALUE);
 		for (IElement element : getElements()) {
@@ -396,6 +447,13 @@ public class Board extends Observable implements IBoard {
 		return closestCollision;
 	}
 
+	/**
+	 * Detect the time until the next collision between the circle and ball.
+	 * 
+	 * @param circle
+	 * @param ball
+	 * @param element
+	 */
 	private void detectCircleCollision(Circle circle, Ball ball, IElement element) {
 		double time = Geometry.timeUntilCircleCollision(circle, ball.getCircle(), ball.getVelocity());
 		if (time < closestCollision.getTime()) {
@@ -404,6 +462,13 @@ public class Board extends Observable implements IBoard {
 		}
 	}
 
+	/**
+	 * Detect the time until the next collision between the line and ball.
+	 * 
+	 * @param line
+	 * @param ball
+	 * @param element
+	 */
 	private void detectLineCollision(LineSegment line, Ball ball, IElement element) {
 		double time = Geometry.timeUntilWallCollision(line, ball.getCircle(), ball.getVelocity());
 		if (time < closestCollision.getTime()) {
@@ -412,6 +477,13 @@ public class Board extends Observable implements IBoard {
 		}
 	}
 
+	/**
+	 * Detect the time until the next collision between the flipper line and ball.
+	 * 
+	 * @param line
+	 * @param ball
+	 * @param element
+	 */
 	private void detectFlipperCollision(LineSegment line, Ball ball, IElement element) {
 		double time = Geometry.timeUntilRotatingWallCollision(line, ((Flipper) element).getPivotPoint(), ((Flipper) element).getAngularVelocity(),  ball.getCircle(), ball.getVelocity());
 		if (time < closestCollision.getTime()) {
@@ -420,6 +492,12 @@ public class Board extends Observable implements IBoard {
 		}
 	}
 
+	/**
+	 * Detect the time until the next collision between the ball and otherBall.
+	 * 
+	 * @param otherBall
+	 * @param ball
+	 */
 	private void detectBallCollision(Ball otherBall, Ball ball) {
 		Circle ballC = ball.getCircle(), oBallC = otherBall.getCircle();
 		Vect ballV = ball.getVelocity(), oBallV = otherBall.getVelocity();
@@ -430,6 +508,7 @@ public class Board extends Observable implements IBoard {
 		}
 	}
 
+	@Override
 	public int getNextElementID() {
 		int i = 0;
 		for (IElement elem : elements) {

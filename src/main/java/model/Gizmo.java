@@ -82,8 +82,12 @@ abstract public class Gizmo implements IElement, Triggerable {
 	public int getKeyPressTrigger() {
 		return keyPressTrigger;
 	}
-
+	
 	public void trigger() {
+		colourChange();
+	}
+
+	public void colourChange() {
 		Random rand = new Random();
 		float r = rand.nextFloat();
 		float g = rand.nextFloat();
@@ -154,7 +158,7 @@ abstract public class Gizmo implements IElement, Triggerable {
 		Ball ball = c.getBall();
 		ball.moveForTime(c.getTime());
 		ball.setVelocity(c.getVelocity());
-
+		
 		setColor(Color.GREEN);
 	}
 

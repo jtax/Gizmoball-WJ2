@@ -39,7 +39,7 @@ public class LoadBoard {
 			GizmoParser g = new GizmoParser(filen);
 			board = g.getGizmosFromFile();
 
-		} catch (IOException | model.BadFileException | NullPointerException e) {
+		} catch (IOException | model.CorruptSaveFileException | NullPointerException e) {
 			//
 			System.out.println("IOException");
 		}

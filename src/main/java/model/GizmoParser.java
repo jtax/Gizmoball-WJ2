@@ -38,9 +38,9 @@ public class GizmoParser {
 	 * gizmos.
 	 * @return
 	 * @throws IOException
-	 * @throws BadFileException
+	 * @throws CorruptSaveFileException
      */
-	public Board getGizmosFromFile() throws IOException, BadFileException {
+	public Board getGizmosFromFile() throws IOException, CorruptSaveFileException {
 
 		String line = fileInput.readLine();
 		StringTokenizer st;
@@ -62,7 +62,7 @@ public class GizmoParser {
 
 			gizmoType = st.nextToken();
 			if (!st.hasMoreTokens()) {
-				throw new BadFileException("Incorrect file format");
+				throw new CorruptSaveFileException("Incorrect file format");
 			}
 
 			if (gizmoType.equals("Circle") || gizmoType.equals("Triangle") || gizmoType.equals("Square")
@@ -184,9 +184,9 @@ public class GizmoParser {
 	 * @param gizmo
 	 * @param st
 	 * @return a gizmo
-	 * @throws BadFileException
+	 * @throws CorruptSaveFileException
      */
-	public Gizmo shapeParser(String gizmo, StringTokenizer st) throws BadFileException {
+	public Gizmo shapeParser(String gizmo, StringTokenizer st) throws CorruptSaveFileException {
 		String gizmoName;
 		int xCoord;
 		int yCoord;
@@ -194,12 +194,12 @@ public class GizmoParser {
 
 		gizmoName = st.nextToken();
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No xCoord");
+			throw new CorruptSaveFileException("No xCoord");
 		}
 
 		xCoord = Integer.valueOf(st.nextToken());
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No yCoord");
+			throw new CorruptSaveFileException("No yCoord");
 		}
 
 		yCoord = Integer.valueOf(st.nextToken());
@@ -230,14 +230,14 @@ public class GizmoParser {
 	 * @param gizmo
 	 * @param st
 	 * @return
-	 * @throws BadFileException
+	 * @throws CorruptSaveFileException
      */
-	private double[] parseFriction(String gizmo, StringTokenizer st) throws BadFileException {
+	private double[] parseFriction(String gizmo, StringTokenizer st) throws CorruptSaveFileException {
 		double[] friction = new double[2];
 
 		friction[0] = Double.valueOf(st.nextToken());
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No action");
+			throw new CorruptSaveFileException("No action");
 		}
 
 		friction[1] = Double.valueOf(st.nextToken());
@@ -251,9 +251,9 @@ public class GizmoParser {
 	 * @param gizmo
 	 * @param st
 	 * @return
-	 * @throws BadFileException
+	 * @throws CorruptSaveFileException
      */
-	private Absorber parseAbsorber(String gizmo, StringTokenizer st) throws BadFileException {
+	private Absorber parseAbsorber(String gizmo, StringTokenizer st) throws CorruptSaveFileException {
 		String gizmoName;
 		int xAbsorberTopLeft;
 		int yAbsorberTopLeft;
@@ -262,22 +262,22 @@ public class GizmoParser {
 		gizmoName = st.nextToken();
 		Vect origin;
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No key linked");
+			throw new CorruptSaveFileException("No key linked");
 		}
 
 		xAbsorberTopLeft = Integer.valueOf(st.nextToken());
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No action");
+			throw new CorruptSaveFileException("No action");
 		}
 
 		yAbsorberTopLeft = Integer.valueOf(st.nextToken());
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No action");
+			throw new CorruptSaveFileException("No action");
 		}
 
 		xAbsorberBotRight = Integer.valueOf(st.nextToken());
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No action");
+			throw new CorruptSaveFileException("No action");
 		}
 
 		yAbsorberBotRight = Integer.valueOf(st.nextToken());
@@ -292,9 +292,9 @@ public class GizmoParser {
 	 * @param gizmo
 	 * @param st
 	 * @return
-	 * @throws BadFileException
+	 * @throws CorruptSaveFileException
      */
-	private Ball parseBall(String gizmo, StringTokenizer st) throws BadFileException {
+	private Ball parseBall(String gizmo, StringTokenizer st) throws CorruptSaveFileException {
 		String gizmoName;
 		double ballXCoord;
 		double ballYCoord;
@@ -303,22 +303,22 @@ public class GizmoParser {
 
 		gizmoName = st.nextToken();
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No ball xCoords");
+			throw new CorruptSaveFileException("No ball xCoords");
 		}
 
 		ballXCoord = Double.valueOf(st.nextToken());
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No ball yCoords");
+			throw new CorruptSaveFileException("No ball yCoords");
 		}
 
 		ballYCoord = Double.valueOf(st.nextToken());
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No ball xVelocity");
+			throw new CorruptSaveFileException("No ball xVelocity");
 		}
 
 		ballXVelocity = Double.valueOf(st.nextToken());
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No ball yVelocity");
+			throw new CorruptSaveFileException("No ball yVelocity");
 		}
 
 		ballYVelocity = Double.valueOf(st.nextToken());
@@ -331,27 +331,27 @@ public class GizmoParser {
 	 * @param gizmo
 	 * @param st
 	 * @param keyConnects
-	 * @throws BadFileException
+	 * @throws CorruptSaveFileException
      */
-	private void parseKey(String gizmo, StringTokenizer st, List<String> keyConnects) throws BadFileException {
+	private void parseKey(String gizmo, StringTokenizer st, List<String> keyConnects) throws CorruptSaveFileException {
 		String action;
 		String linkedGizmo;
 		String gizmoName;
 		int keycode;
 		gizmoName = st.nextToken();
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No key linked");
+			throw new CorruptSaveFileException("No key linked");
 		}
 
 		keycode = Integer.valueOf(st.nextToken());
 
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No action");
+			throw new CorruptSaveFileException("No action");
 		}
 
 		action = st.nextToken();
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No Linked Gizmo");
+			throw new CorruptSaveFileException("No Linked Gizmo");
 		}
 
 		linkedGizmo = st.nextToken();
@@ -363,15 +363,15 @@ public class GizmoParser {
 	 * @param gizmo
 	 * @param st
 	 * @param gizmoConnects
-	 * @throws BadFileException
+	 * @throws CorruptSaveFileException
      */
-	private void parseConnect(String gizmo, StringTokenizer st,List<String> gizmoConnects) throws BadFileException {
+	private void parseConnect(String gizmo, StringTokenizer st,List<String> gizmoConnects) throws CorruptSaveFileException {
 		String gizmoName;
 		String linkedGizmo;
 		String action = "";
 		gizmoName = st.nextToken();
 		if (!st.hasMoreTokens()) {
-			throw new BadFileException("No linked Gizmo");
+			throw new CorruptSaveFileException("No linked Gizmo");
 		}
 
 		linkedGizmo = st.nextToken();
