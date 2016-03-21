@@ -1,8 +1,6 @@
 package controller;
 
-import model.Gizmo;
-import model.IElement;
-import model.Triggerable;
+import model.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -14,11 +12,12 @@ import java.util.Collection;
  */
 public class KeyPressListener implements KeyListener {
 
-	private final Collection<IElement> elements;
+	private Collection<IElement> elements;
+	private IBoard board;
 
-	public KeyPressListener(Collection<IElement> elements) {
-
-		this.elements = elements;
+	public KeyPressListener(IBoard board) {
+		this.board = board;
+		this.elements = board.getElements();
 	}
 
 	/**
@@ -65,6 +64,7 @@ public class KeyPressListener implements KeyListener {
 	 * @param e
 	 */
 	private void handleTrigger(KeyEvent e) {
+		elements = board.getElements();
 		for (IElement element : elements) {
 
 			if (e.getKeyCode() == ((Gizmo) element).getKeyPressTrigger()) {

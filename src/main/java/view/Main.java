@@ -21,7 +21,13 @@ public class Main {
 			}
 		}
 
-		SwingUtilities.invokeLater(BoardController::new);
+		SwingUtilities.invokeLater(new Runnable() {
+
+			public void run() {
+				new BoardController();
+			}
+		});
+
 
 	}
 }

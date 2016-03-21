@@ -24,6 +24,12 @@ public class Circle extends Gizmo {
 	private String saveInfo;
 	private int rotation;
 
+	/**
+	 * Circle Constructor, initialises the origin, name, rotation, circles color save info
+	 *
+	 * @param origin Coordinates of top left most position of the bounding box
+	 * @param name   the unique name of the gizmo
+	 */
 	public Circle(Vect origin, String name) {
 		super(origin, name);
 		rotation = 0;
@@ -33,18 +39,27 @@ public class Circle extends Gizmo {
 		this.name = name;
 	}
 
+	/**
+	 * Same a circle but takes in origin by x y rather than coord
+	 * @param x left most position
+	 * @param y top most position
+	 * @param name the unqiue names of the gizmo
+	 */
 	public Circle(int x, int y, String name) {
 		this(new Vect(x, y), name);
 	}
 
+	/**
+	 * Intialises the circle creating a circle for every coordinate
+	 * @return List of Circle
+	 */
 	private physics.Circle calculateCircle() {
 		return new physics.Circle(super.getOrigin().plus(new Vect(0.5, 0.5)), 0.5);
 	}
 
-	private void setCenter() {
-		center = super.getOrigin().plus(new Vect(0.5, 0.5));
-	}
-
+	/**
+	 * Increment Rotation but does nothing (Circle has rotational symmetry)
+	 */
 	@Override
 	public void rotate() {
 		rotation = (rotation + 1) % 4;
@@ -52,6 +67,10 @@ public class Circle extends Gizmo {
 
 	}
 
+	/**
+	 * Calculates the bottom left most coordinates of the bounding box
+	 * @return bound
+	 */
 	@Override
 	public Vect calculateBound() {
 		Vect origin = super.getOrigin();
@@ -59,20 +78,36 @@ public class Circle extends Gizmo {
 		return origin.plus(bound);
 	}
 
+	/**
+	 * Gets the string representation of the object
+	 * @return saveinfo string
+	 */
 	public String getSaveInfo() {
 		return saveInfo;
 	}
 
+	/**
+	 * Gets the rotation value
+	 * @return rotation
+	 */
 	@Override
 	public int getRotation() {
 		return rotation;
 	}
 
+	/**
+	 * Gets the coordinates of the shape (In this case just the center)
+	 * @return List of Coords
+	 */
 	@Override
 	public List<Vect> getCoordinates() {
 		return Collections.singletonList(center);
 	}
 
+	/**
+	 * Moves a gizmo by a distance, updating origin bound and circles
+	 * @param distance distance the gizmo should move
+	 */
 	public void move(Vect distance) {
 		super.origin = super.origin.plus(distance);
 		super.bound = super.bound.plus(distance);
