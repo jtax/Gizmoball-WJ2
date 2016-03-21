@@ -120,7 +120,12 @@ abstract public class Gizmo implements IElement, Triggerable {
 	}
 
 
+
 	public void trigger() {
+		colourChange();
+	}
+
+	public void colourChange() {
 		Random rand = new Random();
 		float r = rand.nextFloat();
 		float g = rand.nextFloat();

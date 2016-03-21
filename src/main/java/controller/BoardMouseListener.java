@@ -9,6 +9,9 @@ import java.awt.event.MouseListener;
 
 /**
  * Gizmoball - BoardMouseListener
+ *
+ * Description: This class implements MouseListener, it listens to mouse clicks.
+ *
  * Created by Group WJ2 on 08/03/2016.
  * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
@@ -16,10 +19,16 @@ public class BoardMouseListener implements MouseListener {
     private final BoardViewImpl bView;
     private final IBoard board;
 
+    /**
+     * Constructor for board listener.
+     * @param bView
+     * @param board
+     */
     public BoardMouseListener(BoardViewImpl bView, IBoard board) {
         this.bView = bView;
         this.board = board;
     }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
