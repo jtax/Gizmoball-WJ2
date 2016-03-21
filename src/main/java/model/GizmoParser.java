@@ -10,10 +10,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
+/**
+ * Gizmoball - GizmoParser
+ * Description: This class will parse a file and return a board with
+ * the required gizmos and elements.
+ *
+ * Created by Group WJ2 on 10/03/2016.
+ * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
+ */
 public class GizmoParser {
 	private BufferedReader fileInput;
 
+	/**
+	 * Constructor takes in a file and creates a buffer.
+	 * @param filename
+	 * @throws IOException
+     */
 	public GizmoParser(File filename) throws IOException {
 		// a buffered reader reads line by line, returning null when file is
 		// done
@@ -21,7 +33,13 @@ public class GizmoParser {
 	}
 
 
-
+	/**
+	 * Iterates through all the gizmos and creates a board with those
+	 * gizmos.
+	 * @return
+	 * @throws IOException
+	 * @throws BadFileException
+     */
 	public Board getGizmosFromFile() throws IOException, BadFileException {
 
 		String line = fileInput.readLine();
@@ -85,7 +103,6 @@ public class GizmoParser {
 
 			if (gizmoType.equals("Gravity")) {
 				gravity = Double.valueOf(st.nextToken());
-				System.out.println(gizmoType + gravity);
 			}
 
 			if (gizmoType.equals("Friction")) {
@@ -118,7 +135,6 @@ public class GizmoParser {
 					int keyCode = Integer.valueOf(keytoken.nextToken());
 
 					if (e.getName().equals(name)) {
-						System.out.println(name +" "+ keyCode);
 						e.addKeyConnect(keyCode);
 						//((Gizmo) e).addKeyPressTrigger(keycode);
 					}
@@ -152,7 +168,6 @@ public class GizmoParser {
 							secondElement = e2;
 						}
 					}
-				//System.out.println(firstElement.getName() + " " + secondElement.getName());
 					firstElement.gizmoConnect(secondElement);
 				}
 		}
@@ -163,6 +178,14 @@ public class GizmoParser {
 		return board;
 	}
 
+	/**
+	 * Will take a gizmo string and parse it to create the
+	 * required gizmo.
+	 * @param gizmo
+	 * @param st
+	 * @return a gizmo
+	 * @throws BadFileException
+     */
 	public Gizmo shapeParser(String gizmo, StringTokenizer st) throws BadFileException {
 		String gizmoName;
 		int xCoord;
@@ -201,6 +224,14 @@ public class GizmoParser {
 
 	}
 
+	/**
+	 * Will take a gizmo string and parse it to create the
+	 * friction values.
+	 * @param gizmo
+	 * @param st
+	 * @return
+	 * @throws BadFileException
+     */
 	private double[] parseFriction(String gizmo, StringTokenizer st) throws BadFileException {
 		double[] friction = new double[2];
 
@@ -211,10 +242,17 @@ public class GizmoParser {
 
 		friction[1] = Double.valueOf(st.nextToken());
 
-		System.out.println(gizmo + friction[0] + friction[1]);
+
 		return friction;
 	}
 
+	/**
+	 * Will take a gizmo string and create an absorber.
+	 * @param gizmo
+	 * @param st
+	 * @return
+	 * @throws BadFileException
+     */
 	private Absorber parseAbsorber(String gizmo, StringTokenizer st) throws BadFileException {
 		String gizmoName;
 		int xAbsorberTopLeft;
@@ -243,14 +281,19 @@ public class GizmoParser {
 		}
 
 		yAbsorberBotRight = Integer.valueOf(st.nextToken());
-		System.out.println(
-				gizmo + gizmoName + xAbsorberTopLeft + yAbsorberTopLeft + xAbsorberBotRight + yAbsorberBotRight);
 		origin = new Vect(xAbsorberTopLeft, yAbsorberTopLeft);
 		Vect bound = new Vect(xAbsorberBotRight, yAbsorberBotRight);
 		return new Absorber(origin, bound, gizmoName);
 
 	}
 
+	/**
+	 * Will take in a gizmo string and create a ball.
+	 * @param gizmo
+	 * @param st
+	 * @return
+	 * @throws BadFileException
+     */
 	private Ball parseBall(String gizmo, StringTokenizer st) throws BadFileException {
 		String gizmoName;
 		double ballXCoord;
@@ -280,10 +323,16 @@ public class GizmoParser {
 
 		ballYVelocity = Double.valueOf(st.nextToken());
 		Ball b = new Ball(gizmoName, ballXCoord, ballYCoord, ballXVelocity, ballYVelocity);
-		System.out.println(gizmo + gizmoName + ballXCoord + ballYCoord + ballXVelocity + ballYVelocity);
 		return b;
 	}
 
+	/**
+	 * Will take in a string and create the key connections.
+	 * @param gizmo
+	 * @param st
+	 * @param keyConnects
+	 * @throws BadFileException
+     */
 	private void parseKey(String gizmo, StringTokenizer st, List<String> keyConnects) throws BadFileException {
 		String action;
 		String linkedGizmo;
@@ -306,10 +355,16 @@ public class GizmoParser {
 		}
 
 		linkedGizmo = st.nextToken();
-		System.out.println(gizmo + gizmoName + keycode + action + linkedGizmo);
 		keyConnects.add(linkedGizmo + " " + keycode);
 	}
 
+	/**
+	 * will take in a string and create a gizmo connection.
+	 * @param gizmo
+	 * @param st
+	 * @param gizmoConnects
+	 * @throws BadFileException
+     */
 	private void parseConnect(String gizmo, StringTokenizer st,List<String> gizmoConnects) throws BadFileException {
 		String gizmoName;
 		String linkedGizmo;
@@ -320,7 +375,6 @@ public class GizmoParser {
 		}
 
 		linkedGizmo = st.nextToken();
-		System.out.println(gizmo + gizmoName  + action + linkedGizmo);
 		gizmoConnects.add(gizmoName +" " + linkedGizmo);
 	}
 
