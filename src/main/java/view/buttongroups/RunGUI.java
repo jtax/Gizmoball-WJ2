@@ -9,6 +9,10 @@ import javax.swing.*;
 
 /**
  * Gizmoball - RunGUI
+ *
+ * Description: This class represents the elements of the
+ * GUI that are specific to "run mode" only.
+ *
  * Created by Group WJ2 on 06/02/2016.
  * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
@@ -17,16 +21,27 @@ public class RunGUI {
 	private ActionListener listener;
 	private JLabel statusBar;
 
+	/**
+	 * Constructor for BuildGUI
+	 * @param listener
+	 */
 	public RunGUI(ActionListener listener) {
 		makeFrame();
 		this.listener = listener;
 	}
 
+	/**
+	 * Creates the frame
+	 */
 	private void makeFrame() {
 		createButton();
 		createMenu();
 	}
 
+	/**
+	 * Creates the buttons the appear on the GUI.
+	 * @return panel
+	 */
 	public JPanel createButton() {
 		JButton start = new JButton("Start");
 		start.addActionListener(listener);
@@ -55,6 +70,10 @@ public class RunGUI {
 		return bottomButtons;
 	}
 
+	/**
+	 * Creates the menu for the frame.
+	 * @return menu bar
+	 */
 	public JMenuBar createMenu() {
 		JMenuBar menus = new JMenuBar();
 		JMenu file = new JMenu("File");
@@ -70,14 +89,12 @@ public class RunGUI {
 		return menus;
 	}
 
+	/**
+	 * Updates the status bar with a given message.
+	 * @param message
+	 */
 	public void updateStatusBar(String message) {
 		statusBar.setText(message);
 	}
 
-	public JPanel getStatusBar() {
-		JPanel status = new JPanel(new GridLayout(1, 1));
-		statusBar = new JLabel("Run Mode");
-		status.add(statusBar);
-		return status;
-	}
 }
