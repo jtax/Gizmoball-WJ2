@@ -109,7 +109,6 @@ public class SaveBoardToFile {
 				bufferedWriter.close();
 				return true;
 			} catch (IOException ex) {
-				System.out.println("Error writing to file");
 				return false;
 			}
 		} else {

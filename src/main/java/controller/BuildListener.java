@@ -11,11 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Gizmoball - Build Listener
+ *
+ * Description: This class implements Action Listener, it listens to build mode
+ * actions (buttons) and deals with these appropriately
+ *
  * Created by Group WJ2 on 07/03/2016.
  * Authors: J Baird, C Bean, N Stannage, U Akhtar, L Sakalauskas
  */
@@ -24,11 +27,20 @@ public class BuildListener implements ActionListener {
     private final IBoard board;
     private final GizmoBallView gbv;
 
+    /**
+     * Constructor for the BuildListener
+     * @param b
+     * @param gbv
+     */
     public BuildListener(IBoard b, GizmoBallView gbv) {
         this.board = b;
         this.gbv = gbv;
     }
 
+    /**
+     * Listens to Actions and does appropriate actions
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
@@ -46,13 +58,11 @@ public class BuildListener implements ActionListener {
 
             case "Gravity":
                 double userGravityValue = gbv.getBuildGUI().promptGravity();
-                System.out.println("gravity: " + userGravityValue);
                 board.setGravityConst(userGravityValue);
                 break;
 
             case "Friction":
                 double[] userFrictionValue = gbv.getBuildGUI().promptFriction();
-                System.out.println("friction: " + Arrays.toString(userFrictionValue));
                 board.setFrictionConst(userFrictionValue);
                 break;
 
@@ -96,6 +106,10 @@ public class BuildListener implements ActionListener {
         }
     }
 
+    /**
+     * This method will show info about the selected element on the
+     * build board.
+     */
     private void showInfo() {
         IElement elem = getSelectedElement();
         if (elem == null) {
@@ -128,25 +142,45 @@ public class BuildListener implements ActionListener {
         }
     }
 
+    /**
+     * Returns the selected element (element been clicked)
+     * @return selected element
+     */
     private IElement getSelectedElement() {
         return board.getSelectedElement();
     }
 
-
+    /**
+     * Gets the mouse press location from the board.
+     * @return mouse press location
+     */
     private Vect getPress() {
         return board.getMousePress();
     }
 
+    /**
+     * Puts a gizmo to the closest grid position
+     * that was selected.
+     * @param coord
+     * @return
+     */
     private Vect snapToGrid(Vect coord) {
         double x = Math.floor(coord.x());
         double y = Math.floor(coord.y());
         return new Vect(x, y);
     }
 
+    /**
+     * Returns the release location of the mouse
+     * @return release location of mouse
+     */
     private Vect getRelease() {
         return board.getMouseRelease();
     }
 
+    /**
+     * Rotates element and updates user status bar on the status of it.
+     */
     private void rotateElement(){
         if (getSelectedElement() != null) {
             getSelectedElement().rotate();
@@ -158,6 +192,9 @@ public class BuildListener implements ActionListener {
         }
     }
 
+    /**
+     * Removes and element from the board and then updates the status bar
+     */
     private void removeElement(){
         if (getSelectedElement() != null){
             gbv.changeStatusMessage("Removed " + getSelectedElement().getName());
@@ -169,6 +206,9 @@ public class BuildListener implements ActionListener {
         }
     }
 
+    /**
+     * moves and element on the board and then updates the status bar
+     */
     private void moveElement(){
         if (getSelectedElement() != null) {
             Vect distance = getRelease().minus(getPress());
@@ -185,6 +225,9 @@ public class BuildListener implements ActionListener {
         }
     }
 
+    /**
+     * Deals with the loading of a board and the related board elements.
+     */
     private void loadBoard(){
         LoadBoard l = new LoadBoard();
         Board lboard = l.loadFile();
@@ -198,21 +241,28 @@ public class BuildListener implements ActionListener {
             board.setBalls(lboard.getBalls());
         }
         else{
-            System.out.println("failed");
             gbv.changeStatusMessage("File Could Not Be Loaded");
         }
     }
 
+
+    /**
+     * Saves the board and updates the user status bar on the save status.
+     */
     private void saveBoard(){
         SaveBoardToFile s = new SaveBoardToFile();
         if (s.saveBoard((Board) board)) {
-            System.out.println("successful save");
+            gbv.changeStatusMessage("Successful Save");
         }
         else{
-            System.out.println("unsuccessful save");
+            gbv.changeStatusMessage("Unsuccessful Save");
         }
     }
 
+    /**
+     * Adds an element to the board, depending on it's type.
+     * and updates the status bar to reflect changes.
+     */
     private void addElement(){
         String option = gbv.getBuildGUI().dropboxValue();
         if(!option.equals("Pick Element") && getPress() !=null){
@@ -251,6 +301,9 @@ public class BuildListener implements ActionListener {
     }
 
 
+    /**
+     * Sets the user key connection to  work on a gizmo.
+     */
     private void setKeyConnection() {
         IElement selectedElement;
 
@@ -282,6 +335,9 @@ public class BuildListener implements ActionListener {
         }
     }
 
+    /**
+     * Sets the user gizmo connection to  work on a gizmo to another gizmo.
+     */
     private void setGizmoConnection() {
         IElement firstElement;
 
@@ -303,6 +359,9 @@ public class BuildListener implements ActionListener {
         }
     }
 
+    /**
+     * Prompts the user on quit.
+     */
     private void quit(){
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to quit","Warning",dialogButton);
