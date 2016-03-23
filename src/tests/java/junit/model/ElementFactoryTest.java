@@ -82,14 +82,4 @@ public class ElementFactoryTest {
         assert test.getName().startsWith("A");
         assert test.getBound().equals(new Vect(6, 6));
     }
-
-    @Test
-    public void testNames() {
-        boolean pass = true;
-        for (int i = 1; i < 5; i++) {
-            IElement elem = ef.createElement("Square", new Vect(i, 5));
-            pass = pass && elem.getName().endsWith(i + "");
-        }
-        assert pass;
-    }
 }
